@@ -6,6 +6,7 @@
 <body>
 <h1>Home page</h1>
 
-<a href = "/UserPage">User</a>
+<a href = "/UserPage">Toàn - User</a> <br>
+<a href = "/category">Nam - Category</a>
 </body>
 </html>
