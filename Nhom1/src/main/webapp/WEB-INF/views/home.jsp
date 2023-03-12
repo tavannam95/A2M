@@ -6,6 +6,6 @@
 <body>
 <h1>Home page</h1>
 
-<a href = "/UserPage">User</a>
+<a href = "User/UserPage">User</a>
 </body>
 </html>

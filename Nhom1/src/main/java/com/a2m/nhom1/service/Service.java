@@ -1,8 +1,8 @@
-package Service;
+package com.a2m.nhom1.service;
 
-import Person.Person;
+import com.a2m.nhom1.entity.*;
 
-public interface UserService{
+public interface Service{
 	public Person CreateUser(Person person);
 	public Person UpdatePerson(Person person, int id);
 	public void DeletePerson(int id);

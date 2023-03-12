@@ -1,4 +1,4 @@
-package Person;
+package com.a2m.nhom1.entity;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
@@ -19,14 +19,16 @@ public class Person{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     public String name;
+    public Integer age;
     
     public Person() {
     	
     }
     
-	public Person(int id, String name) {
+	public Person(int id, String name, int age) {
 		this.id = id;
 		this.name = name;
+		this.age = this.age;
 	}
 
 	public int getId() {
@@ -43,6 +45,14 @@ public class Person{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
     

@@ -7,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action = "/UserPage" modelAttribute="person" method="post">
-		<input type = "text" name = "Name"></input>
-		<input type = "text" name = "Age"></input>
+	<form action = "/person/save" method = "post">
+		<input type="hidden" name="id" value="${person.id}" />
+		<input type = "text" name = "Name" value = "${person.name}"></input>
+		<input type = "text" name = "Age" value = "${person.age}"></input>
 		<input type = "submit" value = "Create"></input>
 	</form>
 </body>
