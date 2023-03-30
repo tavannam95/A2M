@@ -8,7 +8,7 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import { MovieListComponent } from 'app/share/movie/movie-list/movie-list.component';
+import { MovieListComponent } from 'app/page/movie/movie-list/movie-list.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
