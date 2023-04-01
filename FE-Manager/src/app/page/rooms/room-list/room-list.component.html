@@ -1,0 +1,37 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+
+            <!-- code here -->
+            <div class="row">
+              <div class="col-2">
+                <div class="mx-2">
+                  <a class="btn btn-danger d-flex align-items-center justify-content-center" style="height: 50px"
+                    routerLink="create" st mat-button (click)="onSubmit()">Thêm mới
+                  </a>
+                </div>
+              </div>
+              <div class="col-10">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <i class="fas fa-search"></i>
+                    Tìm Kiếm
+                  </mat-label>
+                  <!-- (keyup)="applyFilter($event)" cái này trong input tìm kiếm-->
+                  <input matInput placeholder="" #input />
+                </mat-form-field>
+              </div>
+            </div>
+
+
+            <!-- end -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
