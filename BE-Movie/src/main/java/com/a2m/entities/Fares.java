@@ -1,7 +1,18 @@
 package com.a2m.entities;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "fares")
 public class Fares {
@@ -19,45 +30,8 @@ public class Fares {
     @Column(name = "price")
     private Integer price;
 
-    public Integer getId() {
-        return id;
-    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "fare")
+    private List<Tickets> listTickets;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getSeatType() {
-        return seatType;
-    }
-
-    public void setSeatType(Integer seatType) {
-        this.seatType = seatType;
-    }
-
-    public Boolean getHoliday() {
-        return isHoliday;
-    }
-
-    public void setHoliday(Boolean holiday) {
-        isHoliday = holiday;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Fares(Integer id, Integer seatType, Boolean isHoliday, Integer price) {
-        this.id = id;
-        this.seatType = seatType;
-        this.isHoliday = isHoliday;
-        this.price = price;
-    }
-
-    public Fares() {
-    }
 }
