@@ -40,11 +40,12 @@ public class SecutiryConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-////		.authorizeRequests().antMatchers("/login","/hello").permitAll()
-////		.antMatchers("/authoEm").hasRole("EMPLOYEE")
-////		.antMatchers("/authoCu").hasRole("CUSTOMER")
-////		.antMatchers("/authoAd").hasRole("ADMIN")
+//		.authorizeRequests().antMatchers("/login","/hello").permitAll()
+//		.antMatchers("/authoEm").hasRole("EMPLOYEE")
+//		.antMatchers("/authoCu").hasRole("CUSTOMER")
+//		.antMatchers("/authoAd").hasRole("ADMINSTRATOR")
 //		.anyRequest().authenticated()
+
 		.authorizeRequests()
 		.anyRequest().permitAll()
 		.and()
