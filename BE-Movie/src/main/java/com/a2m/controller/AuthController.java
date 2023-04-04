@@ -1,5 +1,8 @@
 package com.a2m.controller;
 
+import com.a2m.entities.Menus;
+import com.a2m.entities.Roles;
+import com.a2m.model.response.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,23 +42,18 @@ public class AuthController {
 		return "Hello";
 	}
 
-	@GetMapping("/authen")
-	public String get2() {
-		return "Authen";
+	@GetMapping("/demo")
+	public DataResponse<Menus> get2() {
+		DataResponse response = new DataResponse();
+		Menus menus = new Menus();
+		menus.setId(1);
+		menus.setName("Demo");
+		menus.setLink("Link");
+		response.setData(menus);
+		response.setStatus(true);
+		response.setMessage("Success");
+		return response;
 	}
-	@GetMapping("/authoEm")
-	public String get3() {
-		return "authoEm";
-	}
-	@GetMapping("/authoCu")
-	public String get4() {
-		return "authoCu";
-	}
-	@GetMapping("/authoAd")
-	public String get5() {
-		return "authoAd";
-	}
-	
 
 	@PostMapping("/login")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest jwtRequest) throws Exception {
