@@ -1,10 +1,18 @@
 package com.a2m.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "roles")
 public class Roles {
@@ -20,36 +28,8 @@ public class Roles {
     @OneToMany(mappedBy = "role")
     private List<Accounts> listAccounts;
 
-    public Integer getId() {
-        return id;
-    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "role")
+    private List<Menus> listMEnus;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Accounts> getListAccounts() {
-        return listAccounts;
-    }
-
-    public void setListAccounts(List<Accounts> listAccounts) {
-        this.listAccounts = listAccounts;
-    }
-
-    public Roles(Integer id, String name, List<Accounts> listAccounts) {
-        this.id = id;
-        this.name = name;
-        this.listAccounts = listAccounts;
-    }
-
-    public Roles() {
-    }
 }

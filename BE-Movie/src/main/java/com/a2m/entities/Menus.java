@@ -1,7 +1,16 @@
 package com.a2m.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "menus")
 public class Menus {
@@ -10,8 +19,9 @@ public class Menus {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "role_id")
-    private Integer roleId;
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Roles role;
 
     @Column(name = "name")
     private String name;
@@ -19,45 +29,4 @@ public class Menus {
     @Column(name = "link")
     private String link;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public Menus() {
-    }
-
-    public Menus(Integer id, Integer roleId, String name, String link) {
-        this.id = id;
-        this.roleId = roleId;
-        this.name = name;
-        this.link = link;
-    }
 }
