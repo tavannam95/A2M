@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Constant } from 'app/constants/Constant';
 import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
+import { NotificationService } from 'app/services/notification-service/notification.service';
 import { Regex } from 'app/services/regex/regex';
 
 @Component({
@@ -24,7 +25,8 @@ export class RoomDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dataDialog: any,
     private fb: FormBuilder,
     private matDialogRef: MatDialogRef<RoomDialogComponent>,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -48,6 +50,7 @@ export class RoomDialogComponent implements OnInit {
       }).afterClosed().subscribe(result => {
           if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
               console.log(this.formGroup.value);
+              this.notificationService.showNotification('success', 'Thêm thành công!');
           }
       })
   
