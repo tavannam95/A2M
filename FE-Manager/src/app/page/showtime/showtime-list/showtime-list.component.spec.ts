@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ConfirmDialogComponent } from './confirm-dialog.component';
+import { ShowtimeListComponent } from './showtime-list.component';
 
-describe('ConfirmDialogComponent', () => {
-  let component: ConfirmDialogComponent;
-  let fixture: ComponentFixture<ConfirmDialogComponent>;
+describe('ShowtimeListComponent', () => {
+  let component: ShowtimeListComponent;
+  let fixture: ComponentFixture<ShowtimeListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConfirmDialogComponent ]
+      declarations: [ ShowtimeListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConfirmDialogComponent);
+    fixture = TestBed.createComponent(ShowtimeListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

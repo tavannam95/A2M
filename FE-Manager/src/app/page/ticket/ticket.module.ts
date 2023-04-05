@@ -1,27 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RoomsRoutingModule } from './rooms-routing.module';
-import { RoomListComponent } from './room-list/room-list.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TicketRoutingModule } from './ticket-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import { RoomDialogComponent } from './dialog/room-dialog/room-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 @NgModule({
-  declarations: [
-    RoomListComponent,
-    RoomDialogComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
-    RoomsRoutingModule,
+    TicketRoutingModule,
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
@@ -34,4 +30,4 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatMenuModule
   ]
 })
-export class RoomsModule { }
+export class TicketModule { }

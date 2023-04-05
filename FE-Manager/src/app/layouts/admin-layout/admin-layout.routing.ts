@@ -10,6 +10,10 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { MovieListComponent } from 'app/page/movie/movie-list/movie-list.component';
 import { RoomListComponent } from 'app/page/rooms/room-list/room-list.component';
+import { AccountListComponent } from 'app/page/account/account-list/account-list.component';
+import { BillListComponent } from 'app/page/bill/bill-list/bill-list.component';
+import { ShowtimeListComponent } from 'app/page/showtime/showtime-list/showtime-list.component';
+import { TicketListComponent } from 'app/page/ticket/ticket-list/ticket-list.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -64,4 +68,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade', component: UpgradeComponent },
     { path: 'movie', component: MovieListComponent },
     { path: 'room', component: RoomListComponent },
+    { path: 'account', component: AccountListComponent },
+    { path: 'bill', component: BillListComponent },
+    { path: 'showtime', component: ShowtimeListComponent },
+    { path: 'ticket', component: TicketListComponent },
 ];
