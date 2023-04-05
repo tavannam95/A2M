@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -14,29 +15,28 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "seats")
-public class Seats {
+@Table(name = "bills")
+public class Bills {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
-    @Column(name = "number")
-    private Integer number;
+    @Column(name = "bill_code")
+    private String billCode;
 
-    @ManyToOne
-    @JoinColumn(name = "seat_type_id", referencedColumnName = "id")
-    private SeatTypes seatType;
-
-    @ManyToOne
-    @JoinColumn(name = "room_id", referencedColumnName = "id")
-    private Rooms room;
+    @Column(name = "bar_code")
+    private String barCode;
 
     @Column(name = "status")
     private Integer status;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private Accounts customer;
+
     @JsonIgnore
-    @OneToMany(mappedBy = "seat")
+    @OneToMany(mappedBy = "bill")
     private List<Tickets> listTickets;
 
 }

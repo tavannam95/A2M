@@ -1,10 +1,18 @@
 package com.a2m.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "rooms")
 public class Rooms {
@@ -19,49 +27,11 @@ public class Rooms {
     @Column(name = "quantity_seat")
     private Integer quantitySeat;
 
+    @Column(name = "quantity_row")
+    private Integer quantityRow;
+
     @JsonIgnore
     @OneToMany(mappedBy = "room")
     private List<Seats> listSeats;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getQuantitySeat() {
-        return quantitySeat;
-    }
-
-    public void setQuantitySeat(Integer quantitySeat) {
-        this.quantitySeat = quantitySeat;
-    }
-
-    public List<Seats> getListSeats() {
-        return listSeats;
-    }
-
-    public void setListSeats(List<Seats> listSeats) {
-        this.listSeats = listSeats;
-    }
-
-    public Rooms(Integer id, String name, Integer quantitySeat, List<Seats> listSeats) {
-        this.id = id;
-        this.name = name;
-        this.quantitySeat = quantitySeat;
-        this.listSeats = listSeats;
-    }
-
-    public Rooms() {
-    }
 }

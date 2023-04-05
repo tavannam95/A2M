@@ -24,8 +24,8 @@ public class Tickets {
     private String ticketId;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private Accounts customer;
+    @JoinColumn(name = "bill_id", referencedColumnName = "id")
+    private Bills bill;
 
     @ManyToOne
     @JoinColumn(name = "showtime_id", referencedColumnName = "id")
