@@ -12,8 +12,17 @@ constructor(private apiService: RoomApiService) { }
     return this.apiService.getAll();
   }
 
-  save(data: any){
-    return this.apiService.save(data);
+  createRoom(data: any){
+    return this.apiService.createRoom(data);
   }
+
+  updateRoom(data:any){
+    return this.apiService.updateRoom(data);
+  }
+
+  activeOrInactive(data: any){
+    return this.apiService.activeOrInactive(data);
+  }
+
 
 }

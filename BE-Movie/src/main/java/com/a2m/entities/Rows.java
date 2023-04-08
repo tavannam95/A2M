@@ -14,33 +14,24 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "seats")
-public class Seats {
+@Table(name = "rows")
+public class Rows {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "number")
-    private Integer number;
-
-    @ManyToOne
-    @JoinColumn(name = "seat_type_id", referencedColumnName = "id")
-    private SeatTypes seatType;
-
-    @ManyToOne
-    @JoinColumn(name = "row_id", referencedColumnName = "id")
-    private Rows row;
-
-    @Column(name = "status")
-    private Integer status;
-
+    @Column(name = "name")
+    private String name;
     @Column(name = "is_delete")
     private Boolean isDelete;
 
+    @ManyToOne
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    private Rooms room;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "seat")
-    private List<Tickets> listTickets;
+    @OneToMany(mappedBy = "row")
+    private List<Seats> listSeats;
 
 }

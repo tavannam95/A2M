@@ -13,11 +13,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { SeeRoomDialogComponent } from './dialog/see-room-dialog/see-room-dialog.component';
 
 @NgModule({
   declarations: [
     RoomListComponent,
-    RoomDialogComponent
+    RoomDialogComponent,
+    SeeRoomDialogComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +35,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatButtonModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class RoomsModule { }

@@ -14,8 +14,16 @@ constructor(private readonly http: HttpClient) { }
     return this.http.get(ApiConstant.room);
   }
 
-  save(data: any): Observable<any>{
+  createRoom(data: any): Observable<any>{
     return this.http.post(ApiConstant.room,data);
+  }
+
+ updateRoom(data: any): Observable<any>{
+    return this.http.put(ApiConstant.room,data);
+  }
+
+  activeOrInactive(data: any): Observable<any>{
+    return this.http.put(`${ApiConstant.room}/active-or-inactive`,data);
   }
 
 }

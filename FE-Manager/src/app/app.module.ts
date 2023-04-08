@@ -10,6 +10,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RoomsModule } from './page/rooms/rooms.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -22,6 +23,14 @@ import { RoomsModule } from './page/rooms/rooms.module';
     AppRoutingModule,
     MatDialogModule,
     RoomsModule,
+    ToastrModule.forRoot({
+      maxOpened: 1,
+      preventDuplicates: true,
+      autoDismiss: true,
+      progressBar: true,
+      timeOut: 2500,
+      resetTimeoutOnDuplicate: true
+    }),
     MatAutocompleteModule
   ],
   declarations: [
