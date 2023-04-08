@@ -29,6 +29,6 @@ public class Rooms {
 
     @JsonIgnore
     @OneToMany(mappedBy = "room")
-    private List<Rows> listRows;
+    private List<SeatRows> listRows;
 
 }

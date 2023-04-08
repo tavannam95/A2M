@@ -30,7 +30,7 @@ public class Seats {
 
     @ManyToOne
     @JoinColumn(name = "row_id", referencedColumnName = "id")
-    private Rows row;
+    private SeatRows row;
 
     @Column(name = "status")
     private Integer status;

@@ -14,8 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "rows")
-public class Rows {
+@Table(name = "seat_rows")
+public class SeatRows {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")

@@ -23,7 +23,7 @@ export class RoomDialogComponent implements OnInit {
   formGroup = this.fb.group({
     id: [''],
     name: ['', [Validators.required, Validators.pattern(Regex.unicodeAndNumber)]],
-})
+  })
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dataDialog: any,

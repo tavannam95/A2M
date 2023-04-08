@@ -16,12 +16,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SeeRoomDialogComponent } from './dialog/see-room-dialog/see-room-dialog.component';
+import { RowFormDialogComponent } from './dialog/row-form-dialog/row-form-dialog.component';
 
 @NgModule({
   declarations: [
     RoomListComponent,
     RoomDialogComponent,
-    SeeRoomDialogComponent
+    SeeRoomDialogComponent,
+    RowFormDialogComponent
   ],
   imports: [
     CommonModule,

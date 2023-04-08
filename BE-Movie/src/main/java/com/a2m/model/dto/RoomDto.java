@@ -1,4 +1,4 @@
-package com.a2m.model.request;
+package com.a2m.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RowRequest {
-    private String name;
-    private int quantitySeat;
-    private int roomId;
+public class RoomDto {
+    private Integer id;
 }
