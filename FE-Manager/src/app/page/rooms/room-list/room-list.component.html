@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
@@ -39,16 +42,10 @@
                   <td mat-cell *matCellDef="let row"> {{row.name}} </td>
                 </ng-container>
 
-                <!-- Quantity Seat Column -->
-                <ng-container matColumnDef="quantitySeat">
-                  <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header> Số lượng ghế </th>
-                  <td mat-cell *matCellDef="let row"> {{row.quantitySeat}} </td>
-                </ng-container>
-
-                <!-- Quantity Row Column -->
-                <ng-container matColumnDef="quantityRow">
-                  <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header> Số lượng hàng </th>
-                  <td mat-cell *matCellDef="let row"> {{row.quantityRow}} </td>
+                <!-- isDelete Column -->
+                <ng-container matColumnDef="isDelete">
+                  <th class="text-center"  mat-header-cell *matHeaderCellDef mat-sort-header> Trạng thái </th>
+                  <td mat-cell *matCellDef="let row" [ngClass]="row.isDelete ? 'text-danger' : 'text-success'"> {{row.isDelete?'Dừng hoạt động':'Đang hoạt động'}} </td>
                 </ng-container>
 
                 <!-- Func Column -->
@@ -60,11 +57,17 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <mat-menu #menu="matMenu">
-                      <button mat-menu-item>
+                      <button mat-menu-item (click)="seenRoom(row)">
+                        <span>Xem phòng</span>
+                      </button>
+                      <button mat-menu-item (click)="openDialogForm('update',row)">
                         <span>Sửa thông tin</span>
                       </button>
-                      <button mat-menu-item (click)="openDialogProductView(row)">
-                        <span>Xem chi tiết</span>
+                      <button *ngIf="!row.isDelete" (click)="activeOrInactiveRoom(row, 'hủy phòng?')" mat-menu-item>
+                        <span>Hủy phòng</span>
+                      </button>
+                      <button *ngIf="row.isDelete" (click)="activeOrInactiveRoom(row, 'kích hoạt phòng?')" mat-menu-item>
+                        <span>Kích hoạt</span>
                       </button>
                     </mat-menu>
                     <!-- End -->

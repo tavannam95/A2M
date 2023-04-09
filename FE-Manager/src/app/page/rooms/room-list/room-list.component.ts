@@ -8,6 +8,8 @@ import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dial
 import { RoomDialogComponent } from '../dialog/room-dialog/room-dialog.component';
 import { RoomService } from 'app/services/room/room.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
+import { SeeRoomDialogComponent } from '../dialog/see-room-dialog/see-room-dialog.component';
 
 @Component({
   selector: 'app-room-list',
@@ -16,15 +18,17 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class RoomListComponent implements OnInit {
   allRoom: any;
+  isLoading = false;
   
-  displayedColumns: string[] = ['id', 'name', 'quantitySeat', 'quantityRow', 'func'];
+  displayedColumns: string[] = ['id', 'name', 'isDelete', 'func'];
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private matDialog: MatDialog,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -32,16 +36,19 @@ export class RoomListComponent implements OnInit {
   }
 
   getAllRoom(){
+    this.isLoading = true;
     this.roomService.getAll().subscribe({
       next: res =>{
         this.dataSource = new MatTableDataSource<any>(res);
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        console.log(res);
+        this.isLoading = false;
       },
       error: e =>{
         console.log(e);
-        
+        this.isLoading = false;
       }
     })
   }
@@ -57,31 +64,56 @@ export class RoomListComponent implements OnInit {
 
   openDialogForm(type: string, row?: any){
     this.matDialog.open(RoomDialogComponent,{
-      disableClose: true,
-      data:{
-        type,
-        row
-      } ,
-      width: '700px'
-    }).afterClosed().subscribe(result => {
-      if (result === Constant.RESULT_CLOSE_DIALOG.SUCCESS) {
-        // ----------------------After close----------------------
-      }
-  })
+        disableClose: true,
+        data:{
+          type,
+          row
+        } ,
+        width: '700px'
+      }).afterClosed().subscribe(result => {
+        if (result === Constant.RESULT_CLOSE_DIALOG.SUCCESS) {
+          // ----------------------After close----------------------
+          this.getAllRoom();
+        }
+    })
   }
 
-  onSubmit(){
+  activeOrInactiveRoom(row: any, title: any){
+
     this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       hasBackdrop: true,
       data: {
-          message: 'Bạn có muốn thay đổi trạng thái người dùng?'
+          message: 'Bạn có muốn ' + title
       }
-  }).afterClosed().subscribe(result => {
-      if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
-          
-      }
-  })
+    }).afterClosed().subscribe(result => {
+        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+          console.log(row);
+          this.isLoading = true;
+          this.roomService.activeOrInactive(row).subscribe({
+            next: res =>{
+              this.toastrService.success(res.message);
+              this.isLoading = false;
+              this.getAllRoom();
+            },
+            error: e =>{
+              this.toastrService.error('Server đang quá tải vui lòng thử lại sau');
+              console.log(e);
+              this.isLoading = false;
+            }
+          });
+        }
+    })
   }
 
+  seenRoom(row:any){
+    this.matDialog.open(SeeRoomDialogComponent,{
+      width: '900px',
+      disableClose: true,
+      autoFocus: false,
+      data: {
+        room: row
+      }
+    })
+  }
 }

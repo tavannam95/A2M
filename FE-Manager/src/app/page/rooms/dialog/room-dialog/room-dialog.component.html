@@ -1,6 +1,9 @@
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
 <h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
 <div mat-dialog-content>
-  
+
   <form class="mb-0">
     <div class="row" [formGroup]="formGroup">
       <div class="col-12">
@@ -11,32 +14,13 @@
           <input type="text" formControlName="name" matInput>
           <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
                                       formGroup.get('name')?.touched">
-                      Tên phòng không được để trống
-                    </mat-error>
+            Tên phòng không được để trống
+          </mat-error>
         </mat-form-field>
 
-        <!-- Số lượng ghế -->
-        <mat-form-field appearance="outline">
-          <mat-label>Số lượng ghế</mat-label>
-          <input type="text" formControlName="quantitySeat" matInput>
-          <mat-error class="text-danger" *ngIf="formGroup.get('quantitySeat')?.hasError('required') &&
-                                      formGroup.get('quantitySeat')?.touched">
-                      Số lượng ghế không được để trống
-                    </mat-error>
-        </mat-form-field>
-
-        <!-- Số lượng hàng -->
-        <mat-form-field appearance="outline">
-          <mat-label>Số lượng hàng</mat-label>
-          <input type="text" formControlName="quantityRow" matInput>
-          <mat-error class="text-danger" *ngIf="formGroup.get('quantityRow')?.hasError('required') &&
-                                      formGroup.get('quantityRow')?.touched">
-                      Số lượng hàng không được để trống
-                    </mat-error>
-        </mat-form-field>
       </div>
     </div>
-</form>
+  </form>
 
 
 </div>
