@@ -14,4 +14,8 @@ createRow(data: any): Observable<any>{
   return this.http.post(ApiConstant.row,data);
 }
 
+getByRoom(data: any): Observable<any>{
+  return this.http.post(`${ApiConstant.row}/row-of-room`,data);
+}
+
 }

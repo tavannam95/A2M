@@ -26,6 +26,12 @@ public class RoomController {
         return new DataResponse<>(true,"Thành công",roomsList);
     }
 
+    @GetMapping("/{id}")
+    public DataResponse<Rooms> findById(@PathVariable("id") Integer id){
+        Rooms rooms = this.roomsRepository.findById(id).get();
+        return new DataResponse<>(true,"Success",rooms);
+    }
+
     @PostMapping("")
     public DataResponse<Rooms> create(@RequestBody Rooms rooms){
         return new DataResponse<>(true,"Thêm mới phòng thành công",roomService.createRoom(rooms));

@@ -14,6 +14,10 @@ constructor(private readonly http: HttpClient) { }
     return this.http.get(ApiConstant.room);
   }
 
+  getOne(id: any): Observable<any>{
+    return this.http.get(`${ApiConstant.room}/${id}`);
+  }
+
   createRoom(data: any): Observable<any>{
     return this.http.post(ApiConstant.room,data);
   }

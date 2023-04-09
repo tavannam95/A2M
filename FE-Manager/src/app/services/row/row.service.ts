@@ -12,4 +12,8 @@ createRow(data:any){
   return this.apiService.createRow(data);
 }
 
+getByRoom(data:any){
+  return this.apiService.getByRoom(data);
+}
+
 }

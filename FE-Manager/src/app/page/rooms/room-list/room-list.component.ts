@@ -36,6 +36,7 @@ export class RoomListComponent implements OnInit {
   }
 
   getAllRoom(){
+    this.isLoading = true;
     this.roomService.getAll().subscribe({
       next: res =>{
         this.dataSource = new MatTableDataSource<any>(res);
@@ -43,11 +44,11 @@ export class RoomListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         console.log(res);
-        
+        this.isLoading = false;
       },
       error: e =>{
         console.log(e);
-        
+        this.isLoading = false;
       }
     })
   }

@@ -12,6 +12,10 @@ constructor(private apiService: RoomApiService) { }
     return this.apiService.getAll();
   }
 
+  getOne(id: any){
+    return this.apiService.getOne(id);
+  }
+
   createRoom(data: any){
     return this.apiService.createRoom(data);
   }

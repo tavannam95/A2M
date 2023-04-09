@@ -5,6 +5,7 @@ import com.a2m.entities.SeatRows;
 import com.a2m.entities.SeatTypes;
 import com.a2m.entities.Seats;
 import com.a2m.model.request.RowRequest;
+import com.a2m.model.response.RowResponse;
 import com.a2m.repository.RoomsRepository;
 import com.a2m.repository.RowsRepository;
 import com.a2m.repository.SeatTypesRepository;
@@ -13,6 +14,9 @@ import com.a2m.service.RowService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -46,7 +50,24 @@ public class RowServiceImpl implements RowService {
             seats.setStatus(0);
             this.seatsRepository.save(seats);
         }
-        
+
         return rowResponse;
+    }
+
+    @Override
+    public List<RowResponse> findAllRowByRoom(Rooms rooms) {
+        List<SeatRows> listSeatRows = this.rowsRepository.findByRoomOrderByNameAsc(rooms);
+        List<RowResponse> listSeatRowResponse = new ArrayList<>();
+        for (SeatRows seatRow: listSeatRows
+             ) {
+            List<Seats> seatsList = this.seatsRepository.findByRow(seatRow);
+            RowResponse rowResponse = new RowResponse();
+            rowResponse.setId(seatRow.getId());
+            rowResponse.setName(seatRow.getName());
+            rowResponse.setIsDelete(seatRow.getIsDelete());
+            rowResponse.setListSeats(seatsList);
+            listSeatRowResponse.add(rowResponse);
+        }
+        return listSeatRowResponse;
     }
 }
