@@ -18,4 +18,20 @@ export class RoomApiService {
     return this.http.post(ApiConstant.room, data);
   }
 
+  getOne(id: any): Observable<any>{
+    return this.http.get(`${ApiConstant.room}/${id}`);
+  }
+
+  createRoom(data: any): Observable<any>{
+    return this.http.post(ApiConstant.room,data);
+  }
+
+ updateRoom(data: any): Observable<any>{
+    return this.http.put(ApiConstant.room,data);
+  }
+
+  activeOrInactive(data: any): Observable<any>{
+    return this.http.put(`${ApiConstant.room}/active-or-inactive`,data);
+  }
+
 }

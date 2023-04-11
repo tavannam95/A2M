@@ -12,7 +12,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RoomsModule } from './page/rooms/rooms.module';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AccountModule } from './page/account/account.module';
-
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -27,7 +27,16 @@ import { AccountModule } from './page/account/account.module';
     RoomsModule,
     MatAutocompleteModule,
     NgxDropzoneModule,
-    AccountModule
+    AccountModule,
+    ToastrModule.forRoot({
+      maxOpened: 1,
+      preventDuplicates: true,
+      autoDismiss: true,
+      progressBar: true,
+      timeOut: 2500,
+      resetTimeoutOnDuplicate: true
+    }),
+    MatAutocompleteModule
   ],
   declarations: [
     AppComponent,

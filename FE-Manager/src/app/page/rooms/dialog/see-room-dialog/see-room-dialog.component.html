@@ -1,0 +1,18 @@
+<!-- <div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div> -->
+<h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+  
+  <div class="row">
+    <div class="col-12 d-flex justify-content-end">
+      <button class="btn btn-info" (click)="openAddRow()" mat-button>Thêm hàng ghế</button>
+    </div>
+  </div>
+
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <!-- <button class="btn btn-success" mat-button>Đồng ý</button> -->
+  <button class="btn btn-dark" mat-button mat-dialog-close>Đóng</button>
+</div>

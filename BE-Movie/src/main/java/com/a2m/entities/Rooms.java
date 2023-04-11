@@ -24,14 +24,11 @@ public class Rooms {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "quantity_seat")
-    private Integer quantitySeat;
-
-    @Column(name = "quantity_row")
-    private Integer quantityRow;
+    @Column(name = "is_delete")
+    private Boolean isDelete;
 
     @JsonIgnore
     @OneToMany(mappedBy = "room")
-    private List<Seats> listSeats;
+    private List<SeatRows> listRows;
 
 }
