@@ -53,7 +53,7 @@ export class RoomListComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
 
-  }x
+  }
 
   openDialogForm(type: string, row?: any){
     this.matDialog.open(RoomDialogComponent,{

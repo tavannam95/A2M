@@ -1,22 +1,109 @@
 <div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <!-- <div class="card-header card-header-danger">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <!-- <div class="card-header card-header-danger">
                       <h4 class="card-title ">Simple Table</h4>
                       <p class="card-category"> Here is a subtitle for this table</p>
                   </div> -->
-                  <div class="card-body">
-                    <h3 class="m-0 font-weight-bold">Account</h3>
-                      <h4>Code here</h4>
-                      <!-- code here -->
+                    <div class="card-body">
+                        <!-- code here -->
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="mx-2">
+                                    <a class="btn btn-danger d-flex align-items-center justify-content-center"
+                                        style="height: 50px" (click)="openDialogForm('create')" mat-button>Thêm mới
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>
+                                        <i class="fas fa-search"></i>
+                                        Tìm Kiếm
+                                    </mat-label>
+                                    <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="font-weight-bold row">
+
+                            <table mat-table [dataSource]="dataSource" matSort>
+
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="id">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> ID </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="fullname">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> FullName </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.fullname}} </td>
+                                </ng-container>
 
 
-                      <!-- end -->
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                                <!-- username Column -->
+                                <ng-container matColumnDef="username">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> UserName </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.username}} </td>
+                                </ng-container>
+
+                                <!-- Email Column -->
+                                <ng-container matColumnDef="email">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Email </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+                                </ng-container>
+
+                                <!-- Birthday Column -->
+                                <ng-container matColumnDef="birth_date">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Birthday </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.birth_date}} </td>
+                                </ng-container>
+
+                                <!-- Gender Column -->
+                                <ng-container matColumnDef="gender">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Gender </th>
+                                    <td mat-cell *matCellDef="let row" > {{row.gender}} </td>
+                                </ng-container>
+
+                                <!-- Role Column -->
+                                <ng-container matColumnDef="role">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Role </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.roles}} </td>
+                                </ng-container>
+
+                                <!-- Func Column -->
+                                <ng-container matColumnDef="func">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header> Thao tác
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <!-- Menu thao tác -->
+                                        <button mat-icon-button [matMenuTriggerFor]="menu"
+                                            aria-label="Example icon-button with a menu">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="openUpdateDialogProduct('update', row)">
+                                                <span>Sửa thông tin</span>
+                                            </button>
+                                            <button mat-menu-item (click)="openDialogProductView(row)">
+                                                <span>Xem chi tiết</span>
+                                            </button>
+                                        </mat-menu>
+                                        <!-- End -->
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+                        <!-- end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

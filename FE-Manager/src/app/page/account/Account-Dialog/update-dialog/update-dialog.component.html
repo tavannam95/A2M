@@ -1,0 +1,85 @@
+<h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+    <form class="mb-0">
+        <div class="row" [formGroup]="formGroupUpdate">
+            <div class="col-12">
+
+                <!-- Hình ảnh -->
+                <!-- <mat-form-field appearance="outline">
+                    <mat-label>Fullname</mat-label>
+                    <input type="text" formControlName="name" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroupUpdate.get('name')?.hasError('required') &&
+                                        formGroupUpdate.get('name')?.touched">
+                        Fullname can't be empty
+                    </mat-error>
+                </mat-form-field> -->
+
+                <!-- Tên -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Fullname</mat-label>
+                    <input type="text" formControlName="fullname" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroupUpdate.get('fullname')?.hasError('required') &&
+                                        formGroupUpdate.get('fullname')?.touched">
+                        Họ tên không được để trống
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Username -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input type="text" formControlName="username" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroupUpdate.get('username')?.hasError('required') &&
+                                        formGroupUpdate.get('username')?.touched">
+                        {{messengerName}}
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Password -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input type="text" formControlName="username" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroupUpdate.get('password')?.hasError('required') &&
+                                        formGroupUpdate.get('password')?.touched">
+                        Mật khẩu không được để trống
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input type="text" formControlName="email" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroupUpdate.get('email')?.hasError('required') &&
+                                        formGroupUpdate.get('email')?.touched">
+                        {{MessengerEmail}}
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Birthday -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose a Birthday</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="birthday" matInput>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <!-- Gender -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Gender</mat-label>
+                    <mat-select [(value)]="selected">
+                        <mat-option value="Female">Female</mat-option>
+                        <mat-option value="Male">Male</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <p>You selected: {{selected}}</p>
+                
+            </div>
+        </div>
+    </form>
+
+
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button class="btn btn-success" mat-button (click)="onSubmited()">Đồng ý</button>
+    <button class="btn btn-dark" mat-button mat-dialog-close>Hủy</button>
+</div>

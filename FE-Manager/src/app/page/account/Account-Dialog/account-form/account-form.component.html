@@ -1,0 +1,85 @@
+<h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+    <form class="mb-0">
+        <div class="row" [formGroup]="formGroup">
+            <div class="col-12">
+
+                <!-- Tên -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Fullname</mat-label>
+                    <input type="text" formControlName="fullname" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('fullname')?.hasError('required') &&
+                                        formGroup.get('fullname')?.touched">
+                        Fullname can't be empty
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Username -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input type="text" formControlName="username" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('username')?.hasError('required') &&
+                                        formGroup.get('username')?.touched">
+                        Username can't be empty
+                    </mat-error>
+                    
+                </mat-form-field>
+
+                <!-- Password -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input type="text" formControlName="password" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('password')?.hasError('required') &&
+                                        formGroup.get('password')?.touched">
+                        Password can't be empty
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input type="text" formControlName="email" matInput (focusout)="focusOutFunction($event)">
+                    <mat-error class="text-danger" *ngIf="formGroup.get('email')?.hasError('required') &&
+                                        formGroup.get('email')?.touched">
+                        Email can't be empty
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Birthday -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Choose a Birthday</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="birth_date" matInput>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <!-- Gender -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender">
+                        <mat-option value=true>Female</mat-option>
+                        <mat-option value=false>Male</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <p>You selected: {{selected}}</p>
+
+                <!-- Roles -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Role</mat-label>
+                    <mat-select [(value)]="selected_id">
+                        <mat-option value="ADMINSTATOR">ADMINSTATOR</mat-option>
+                        <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <p>You selected: {{selected_id}}</p>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button class="btn btn-success" mat-button (click)="onSubmit()">Đồng ý</button>
+    <button class="btn btn-dark" mat-button mat-dialog-close >Hủy</button>
+</div>

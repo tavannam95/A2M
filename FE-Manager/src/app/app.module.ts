@@ -10,6 +10,9 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RoomsModule } from './page/rooms/rooms.module';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { AccountModule } from './page/account/account.module';
+
 
 @NgModule({
   imports: [
@@ -22,7 +25,9 @@ import { RoomsModule } from './page/rooms/rooms.module';
     AppRoutingModule,
     MatDialogModule,
     RoomsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NgxDropzoneModule,
+    AccountModule
   ],
   declarations: [
     AppComponent,

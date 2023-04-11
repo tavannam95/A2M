@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-routing.module';
-import { AccountFormComponent } from './account-form/account-form.component';
+import { AccountFormComponent } from './Account-Dialog/account-form/account-form.component';
 import { AccountListComponent } from './account-list/account-list.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
@@ -13,12 +13,19 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { UpdateDialogComponent } from './Account-Dialog/update-dialog/update-dialog.component';
+
+
 
 
 @NgModule({
   declarations: [
     AccountFormComponent,
-    AccountListComponent
+    AccountListComponent,
+    UpdateDialogComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +39,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
+    NgxDropzoneModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class AccountModule { }
