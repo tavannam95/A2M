@@ -1,9 +1,11 @@
 package com.a2m.controller;
 
 import com.a2m.entities.Rooms;
+import com.a2m.entities.Seats;
 import com.a2m.model.response.DataResponse;
 import com.a2m.repository.RoomsRepository;
 import com.a2m.service.RoomService;
+import com.a2m.service.SeatService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,8 @@ public class RoomController {
     private RoomsRepository roomsRepository;
 
     private RoomService roomService;
+
+    private SeatService seatService;
 
 
     @GetMapping("")
@@ -45,5 +49,10 @@ public class RoomController {
     @PutMapping("active-or-inactive")
     public DataResponse<Rooms> activeOrInactive(@RequestBody Rooms rooms){
         return new DataResponse<>(true, "Thay đổi trạng thái thành công", this.roomService.activeOrInactive(rooms));
+    }
+
+    @PutMapping("/change-seat-type")
+    public DataResponse<Seats> changeSeatType(@RequestBody Seats seats){
+        return new DataResponse<>(true,"Đổi loại ghế thành công",this.seatService.changeSeatType(seats));
     }
 }

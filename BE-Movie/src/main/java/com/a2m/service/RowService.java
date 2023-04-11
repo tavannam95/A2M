@@ -11,4 +11,6 @@ public interface RowService {
     SeatRows createRow(RowRequest rowRequest);
 
     List<RowResponse> findAllRowByRoom(Rooms rooms);
+
+    SeatRows activeOrInactive(SeatRows seatRows);
 }

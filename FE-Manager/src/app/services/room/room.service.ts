@@ -28,5 +28,9 @@ constructor(private apiService: RoomApiService) { }
     return this.apiService.activeOrInactive(data);
   }
 
+  changeSeatType(data:any){
+    return this.apiService.changeSeatType(data);
+  }
+
 
 }

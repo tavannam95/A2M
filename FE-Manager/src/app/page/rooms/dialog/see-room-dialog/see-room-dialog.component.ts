@@ -3,6 +3,9 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { RowFormDialogComponent } from '../row-form-dialog/row-form-dialog.component';
 import { RoomService } from 'app/services/room/room.service';
 import { RowService } from 'app/services/row/row.service';
+import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
+import { Constant } from 'app/constants/Constant';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-see-room-dialog',
@@ -10,12 +13,14 @@ import { RowService } from 'app/services/row/row.service';
   styleUrls: ['./see-room-dialog.component.scss']
 })
 export class SeeRoomDialogComponent implements OnInit {
-  title: string = ''; 
+  title: string = '';
+  listRows: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public dataDialog: any,
     private matDialog: MatDialog,
     private roomService: RoomService,
-    private rowService: RowService
+    private rowService: RowService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -25,17 +30,80 @@ export class SeeRoomDialogComponent implements OnInit {
     this.getRow();
   }
 
-  getRow(){
-    this.rowService.getByRoom(this.dataDialog.room).subscribe({
+  changeSeatType(seat: any){
+    console.log(seat);
+    this.roomService.changeSeatType(seat).subscribe({
       next: res=>{
         console.log(res);
-        
+        this.toastrService.success(res.message);
+        this.getRow();
       },
       error: e=>{
         console.log(e);
         
       }
     })
+    // this.matDialog.open(ConfirmDialogComponent, {
+    //   disableClose: true,
+    //   hasBackdrop: true,
+    //   data: {
+    //       message: 'Bạn có muốn thay đổi loại ghế?'
+    //   }
+    // }).afterClosed().subscribe(result => {
+    //     if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+    //       this.roomService.changeSeatType(seat).subscribe({
+    //         next: res=>{
+    //           console.log(res);
+    //           this.toastrService.success(res.message);
+    //           this.getRow();
+    //         },
+    //         error: e=>{
+    //           console.log(e);
+              
+    //         }
+    //       })
+    //     }
+    // })
+    
+  }
+
+  getRow(){
+    this.rowService.getByRoom(this.dataDialog.room).subscribe({
+      next: res=>{
+        this.listRows = res.data;
+        console.log(this.listRows);
+      },
+      error: e=>{
+        console.log(e);
+        
+      }
+    })
+  }
+
+  activeOrInactive(data: any){
+    console.log(data);
+    this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+          message: 'Bạn có muốn xóa hàng ghế?'
+      }
+    }).afterClosed().subscribe(result => {
+        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+          this.rowService.activeOrInactive(data).subscribe({
+            next: res=>{
+              console.log(res);
+              this.getRow();
+              this.toastrService.success(res.message);
+            },
+            error: e=>{
+              console.log(e);
+              this.toastrService.error('Lỗi xóa hàng ghế');
+            }
+          })
+        }
+    })
+    
   }
 
   openAddRow(){
@@ -45,6 +113,10 @@ export class SeeRoomDialogComponent implements OnInit {
       autoFocus: false,
       data: {
         room: this.dataDialog.room
+      }
+    }).afterClosed().subscribe(result=>{
+      if (result=='success') {
+        this.getRow();
       }
     })
   }

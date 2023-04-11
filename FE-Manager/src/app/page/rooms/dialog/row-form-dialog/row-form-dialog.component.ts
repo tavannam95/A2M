@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Constant } from 'app/constants/Constant';
+import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
 import { Regex } from 'app/services/regex/regex';
 import { RowService } from 'app/services/row/row.service';
 import { ToastrService } from 'ngx-toastr';
@@ -24,7 +26,8 @@ export class RowFormDialogComponent implements OnInit {
     private fb: FormBuilder,
     private rowService: RowService,
     private toastrService: ToastrService,
-    private matDialogRef: MatDialogRef<RowFormDialogComponent>
+    private matDialogRef: MatDialogRef<RowFormDialogComponent>,
+    private matDialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -34,19 +37,35 @@ export class RowFormDialogComponent implements OnInit {
 
   createRow(){
     console.log(this.formGroup.value);
-    this.isLoading = true;
-    this.rowService.createRow(this.formGroup.value).subscribe({
-      next: res =>{
-        this.isLoading = false;
-        this.toastrService.success(res.message);
-        this.matDialogRef.close();
-      },
-      error: e =>{
-        this.isLoading = false;
-        console.log(e);
-        this.toastrService.error('Lỗi thêm hàng ghế');
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.invalid) {
+      return;
+    }
+    this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+          message: 'Bạn có muốn thêm hàng ghế?'
       }
+    }).afterClosed().subscribe(result => {
+        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+          this.isLoading = true;
+          this.rowService.createRow(this.formGroup.value).subscribe({
+            next: res =>{
+              this.isLoading = false;
+              this.toastrService.success(res.message);
+              this.matDialogRef.close('success');
+            },
+            error: e =>{
+              this.isLoading = false;
+              console.log(e);
+              this.toastrService.error('Lỗi thêm hàng ghế');
+            }
+          })
+        }
     })
+    
+    
     
   }
 
