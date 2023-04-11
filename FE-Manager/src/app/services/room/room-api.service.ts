@@ -30,4 +30,8 @@ constructor(private readonly http: HttpClient) { }
     return this.http.put(`${ApiConstant.room}/active-or-inactive`,data);
   }
 
+  changeSeatType(data:any):Observable<any>{
+    return this.http.put(`${ApiConstant.room}/change-seat-type`,data);
+  }
+
 }

@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RowsRepository extends JpaRepository<SeatRows, Integer> {
-    List<SeatRows> findByRoomOrderByNameAsc(Rooms rooms);
+    List<SeatRows> findByRoomAndIsDeleteOrderByNameAsc(Rooms rooms,Boolean isDelete);
 }

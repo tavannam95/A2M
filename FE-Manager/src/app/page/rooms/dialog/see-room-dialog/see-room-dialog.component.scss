@@ -13,3 +13,19 @@
     left: 50%;
     position: absolute;
   }
+  .link_seat{
+    position: relative;
+  }
+  .number_seat {
+    width: 25px;
+    height: 22px;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    text-align: center;
+    line-height: 17px;
+    color: #000;
+    cursor: pointer;
+    /* margin: 4px; */
+    /* color: white; */
+  }

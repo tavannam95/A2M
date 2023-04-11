@@ -60,7 +60,7 @@ export class RoomListComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
 
-  }x
+  }
 
   openDialogForm(type: string, row?: any){
     this.matDialog.open(RoomDialogComponent,{
@@ -108,7 +108,7 @@ export class RoomListComponent implements OnInit {
 
   seenRoom(row:any){
     this.matDialog.open(SeeRoomDialogComponent,{
-      width: '900px',
+      width: '1000px',
       disableClose: true,
       autoFocus: false,
       data: {

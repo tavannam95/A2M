@@ -56,7 +56,7 @@ public class RowServiceImpl implements RowService {
 
     @Override
     public List<RowResponse> findAllRowByRoom(Rooms rooms) {
-        List<SeatRows> listSeatRows = this.rowsRepository.findByRoomOrderByNameAsc(rooms);
+        List<SeatRows> listSeatRows = this.rowsRepository.findByRoomAndIsDeleteOrderByNameAsc(rooms,false);
         List<RowResponse> listSeatRowResponse = new ArrayList<>();
         for (SeatRows seatRow: listSeatRows
              ) {
@@ -69,5 +69,12 @@ public class RowServiceImpl implements RowService {
             listSeatRowResponse.add(rowResponse);
         }
         return listSeatRowResponse;
+    }
+
+    @Override
+    public SeatRows activeOrInactive(SeatRows seatRows) {
+        SeatRows seatRow = this.rowsRepository.findById(seatRows.getId()).get();
+        seatRow.setIsDelete(!seatRow.getIsDelete());
+        return this.rowsRepository.save(seatRow);
     }
 }
