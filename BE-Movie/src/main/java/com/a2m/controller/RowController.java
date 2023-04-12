@@ -28,4 +28,10 @@ public class RowController {
     public DataResponse<List<RowResponse>> getByRoom(@RequestBody Rooms rooms){
         return new DataResponse<>(true,"Thành công",this.rowService.findAllRowByRoom(rooms));
     }
+
+    @PutMapping("active-or-inactive")
+    public DataResponse<SeatRows> activeOrInactive(@RequestBody SeatRows rows){
+        return new DataResponse<>(true, "Thay đổi trạng thái thành công", this.rowService.activeOrInactive(rows));
+    }
+
 }

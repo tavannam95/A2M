@@ -16,4 +16,8 @@ getByRoom(data:any){
   return this.apiService.getByRoom(data);
 }
 
+activeOrInactive(data: any){
+  return this.apiService.activeOrInactive(data);
+}
+
 }

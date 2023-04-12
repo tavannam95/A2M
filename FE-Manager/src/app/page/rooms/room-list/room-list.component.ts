@@ -108,7 +108,7 @@ export class RoomListComponent implements OnInit {
 
   seenRoom(row:any){
     this.matDialog.open(SeeRoomDialogComponent,{
-      width: '900px',
+      width: '1000px',
       disableClose: true,
       autoFocus: false,
       data: {

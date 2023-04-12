@@ -18,4 +18,8 @@ getByRoom(data: any): Observable<any>{
   return this.http.post(`${ApiConstant.row}/row-of-room`,data);
 }
 
+activeOrInactive(data: any): Observable<any>{
+  return this.http.put(`${ApiConstant.row}/active-or-inactive`,data);
+}
+
 }
