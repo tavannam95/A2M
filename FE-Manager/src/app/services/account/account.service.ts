@@ -19,4 +19,8 @@ export class AccountService {
   getEmails() {
     return this.apiService.getEmails();
   }
+
+  updateAccount(data: any){
+    return this.apiService.updateAccount(data);
+  }
 }

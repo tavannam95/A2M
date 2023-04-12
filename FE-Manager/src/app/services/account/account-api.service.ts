@@ -21,4 +21,8 @@ export class AccountApiService {
   getEmails(): Observable<any> {
     return this.http.get(ApiConstant.account+"/getEmail");
   }
+
+  updateAccount(data: any): Observable<any> {
+    return this.http.put(ApiConstant.account+"/updateAccount", data);
+  }
 }

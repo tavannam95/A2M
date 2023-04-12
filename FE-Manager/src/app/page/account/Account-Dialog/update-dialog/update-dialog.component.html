@@ -31,17 +31,7 @@
                     <input type="text" formControlName="username" matInput>
                     <mat-error class="text-danger" *ngIf="formGroupUpdate.get('username')?.hasError('required') &&
                                         formGroupUpdate.get('username')?.touched">
-                        {{messengerName}}
-                    </mat-error>
-                </mat-form-field>
-
-                <!-- Password -->
-                <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input type="text" formControlName="username" matInput>
-                    <mat-error class="text-danger" *ngIf="formGroupUpdate.get('password')?.hasError('required') &&
-                                        formGroupUpdate.get('password')?.touched">
-                        Mật khẩu không được để trống
+                        Tên đăng nhập không đúng
                     </mat-error>
                 </mat-form-field>
 
@@ -51,14 +41,14 @@
                     <input type="text" formControlName="email" matInput>
                     <mat-error class="text-danger" *ngIf="formGroupUpdate.get('email')?.hasError('required') &&
                                         formGroupUpdate.get('email')?.touched">
-                        {{MessengerEmail}}
+                        Email không đúng
                     </mat-error>
                 </mat-form-field>
 
                 <!-- Birthday -->
                 <mat-form-field appearance="fill">
                     <mat-label>Choose a Birthday</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="birthday" matInput>
+                    <input matInput [matDatepicker]="picker" formControlName="birth_date" matInput>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>

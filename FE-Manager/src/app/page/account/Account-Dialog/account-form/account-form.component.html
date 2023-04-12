@@ -18,7 +18,7 @@
                 <!-- Username -->
                 <mat-form-field appearance="outline">
                     <mat-label>Username</mat-label>
-                    <input type="text" formControlName="username" matInput>
+                    <input type="text" formControlName="username" matInput >
                     <mat-error class="text-danger" *ngIf="formGroup.get('username')?.hasError('required') &&
                                         formGroup.get('username')?.touched">
                         Username can't be empty
@@ -34,15 +34,16 @@
                                         formGroup.get('password')?.touched">
                         Password can't be empty
                     </mat-error>
+                   
                 </mat-form-field>
 
                 <!-- Email -->
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input type="text" formControlName="email" matInput (focusout)="focusOutFunction($event)">
+                    <input type="text" formControlName="email" matInput>
                     <mat-error class="text-danger" *ngIf="formGroup.get('email')?.hasError('required') &&
                                         formGroup.get('email')?.touched">
-                        Email can't be empty
+                        {{messengerUsername}}
                     </mat-error>
                 </mat-form-field>
 

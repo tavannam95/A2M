@@ -17,6 +17,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UpdateDialogComponent } from './Account-Dialog/update-dialog/update-dialog.component';
+import { SuccessDialogComponent } from './Account-Dialog/success-dialog/success-dialog.component';
+import { ErrorDialogComponent } from './Account-Dialog/error-dialog/error-dialog.component';
 
 
 
@@ -25,7 +27,9 @@ import { UpdateDialogComponent } from './Account-Dialog/update-dialog/update-dia
   declarations: [
     AccountFormComponent,
     AccountListComponent,
-    UpdateDialogComponent
+    UpdateDialogComponent,
+    SuccessDialogComponent,
+    ErrorDialogComponent
   ],
   imports: [
     CommonModule,
