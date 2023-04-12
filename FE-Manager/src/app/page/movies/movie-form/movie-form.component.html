@@ -1,0 +1,95 @@
+<div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
+<h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+    <form class="mb-0">
+        <div class="row" [formGroup]="formGroup">
+            <div class="col-4">
+                <!-- Poster -->
+                <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
+                    <ngx-dropzone-label>
+                        <span class="material-symbols-outlined">upload</span>
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [value]="poster">
+                    </ngx-dropzone-preview>
+                </ngx-dropzone>
+                <!-- /Poster -->
+            </div>
+            <div class="col-8">
+
+                <!-- Tên phim -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Tên phim</mat-label>
+                    <input type="text" formControlName="name" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
+                                        formGroup.get('name')?.touched">
+                        Tên phim không được để trống
+                    </mat-error>
+                </mat-form-field>
+                <!-- /Tên phim -->
+
+                <!-- Thể loại -->
+                <mat-form-field appearance="outline" id="nations">
+                    <mat-label>Thể loại</mat-label>
+                    <mat-select formControlName="category">
+                        <mat-option *ngFor="let category of categories"
+                            [value]="category">{{category.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- /Thể loại -->
+
+                <!-- Quốc gia -->
+                <mat-form-field appearance="outline" id="nations">
+                    <mat-label>Quốc gia</mat-label>
+                    <mat-select formControlName="national">
+                        <mat-option *ngFor="let nation of nations" [value]="nation">{{nation.nameVi}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- /Quốc gia -->
+
+                <!-- Thời lượng -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Thời lượng</mat-label>
+                    <input type="number" formControlName="time" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('time')?.hasError('required') &&
+                                        formGroup.get('time')?.touched">
+                        Thời lượng không được để trống
+                    </mat-error>
+                </mat-form-field>
+                <!-- /Thời lượng -->
+
+                <!-- Ngày chiếu -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Ngày chiếu</mat-label>
+                    <input type="date" formControlName="premiereDate" matInput>
+                    <!-- <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
+                                        formGroup.get('name')?.touched">
+                        Tên phim không được để trống
+                    </mat-error> -->
+                </mat-form-field>
+                <!-- /Ngày chiếu -->
+
+                <!-- Mô tả -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Mô tả</mat-label>
+                    <textarea type="text" formControlName="summary" cols="40" rows="5" matInput>
+                    <!-- <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
+                                        formGroup.get('name')?.touched">
+                        Tên phim không được để trống
+                    </mat-error> -->
+                    </textarea>
+                </mat-form-field>
+                <!-- /Mô tả -->
+
+            </div>
+        </div>
+    </form>
+
+
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button class="btn btn-success" mat-button (click)="onSubmit()">Đồng ý</button>
+    <button class="btn btn-dark" mat-button mat-dialog-close>Hủy</button>
+</div>

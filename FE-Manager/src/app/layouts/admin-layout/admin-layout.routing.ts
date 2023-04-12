@@ -8,7 +8,7 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import { MovieListComponent } from 'app/page/movie/movie-list/movie-list.component';
+import { MovieListComponent } from 'app/page/movies/movie-list/movie-list.component';
 import { RoomListComponent } from 'app/page/rooms/room-list/room-list.component';
 import { AccountListComponent } from 'app/page/account/account-list/account-list.component';
 import { BillListComponent } from 'app/page/bill/bill-list/bill-list.component';
