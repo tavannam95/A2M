@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RoomsModule } from './page/rooms/rooms.module';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     MatDialogModule,
     RoomsModule,
+    NgxDropzoneModule,
     ToastrModule.forRoot({
       maxOpened: 1,
       preventDuplicates: true,
