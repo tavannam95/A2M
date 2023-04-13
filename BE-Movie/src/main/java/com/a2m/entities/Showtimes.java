@@ -18,6 +18,9 @@ public class Showtimes {
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movies movie;
 
+    @ManyToOne
+    @JoinColumn(name = "room_id", referencedColumnName = "id" )
+    private Rooms rooms;
     @Column(name = "date")
     private Date date;
 
@@ -145,9 +148,18 @@ public class Showtimes {
         this.listTickets = listTickets;
     }
 
-    public Showtimes(Long id, Movies movie, Date date, Date timeStart, Date timeEnd, Date createDate, Date updateDate, String createBy, String updateBy, Integer status, Boolean isDelete, List<Tickets> listTickets) {
+    public Rooms getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Rooms rooms) {
+        this.rooms = rooms;
+    }
+
+    public Showtimes(Long id, Movies movie, Rooms rooms, Date date, Date timeStart, Date timeEnd, Date createDate, Date updateDate, String createBy, String updateBy, Integer status, Boolean isDelete, List<Tickets> listTickets) {
         this.id = id;
         this.movie = movie;
+        this.rooms = rooms;
         this.date = date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;

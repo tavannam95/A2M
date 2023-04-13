@@ -1,22 +1,115 @@
 <div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <!-- <div class="card-header card-header-danger">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <!-- <div class="card-header card-header-danger">
                       <h4 class="card-title ">Simple Table</h4>
                       <p class="card-category"> Here is a subtitle for this table</p>
                   </div> -->
-                  <div class="card-body">
-                    <h3 class="m-0 font-weight-bold">Showtime</h3>
-                      <h4>Code here</h4>
-                      <!-- code here -->
+                    <div class="card-body">
+                        <h3 class="m-0 font-weight-bold">Showtime</h3>
+                        <!-- code here -->
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="mx-2">
+                                    <a class="btn btn-danger d-flex align-items-center justify-content-center"
+                                        style="height: 50px" (click)="openDialogForm('create')" mat-button>Thêm mới
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>
+                                        <i class="fas fa-search"></i>
+                                        Tìm Kiếm
+                                    </mat-label>
+                                    <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="font-weight-bold row">
+
+                            <table mat-table [dataSource]="dataSource" matSort>
+
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="id">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> ID </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="nameMovie">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Movie name </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.nameMovie}} </td>
+                                </ng-container>
 
 
-                      <!-- end -->
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                                <!-- username Column -->
+                                <ng-container matColumnDef="room_id">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Room ID </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.room_id}} </td>
+                                </ng-container>
+
+                                <!-- Email Column -->
+                                <ng-container matColumnDef="date">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Date </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.date}} </td>
+                                </ng-container>
+
+                                <!-- Birthday Column -->
+                                <ng-container matColumnDef="timeStart">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Time start </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.timeStart}} </td>
+                                </ng-container>
+
+                                <!-- Gender Column -->
+                                <ng-container matColumnDef="timeEnd">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Time End </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.timeEnd}} </td>
+                                </ng-container>
+
+                                <!-- Role Column -->
+                                <ng-container matColumnDef="createDate">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Create date </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.createDate}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="delete">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Is delete </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.delete}} </td>
+                                </ng-container>
+
+                                <!-- Func Column -->
+                                <ng-container matColumnDef="func">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header> Thao tác </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <!-- Menu thao tác -->
+                                        <button mat-icon-button [matMenuTriggerFor]="menu"
+                                            aria-label="Example icon-button with a menu">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="openUpdateDialogProduct('update', row)">
+                                                <span>Sửa thông tin</span>
+                                            </button>
+                                            <button mat-menu-item (click)="openDialogProductView(row)">
+                                                <span>Xem chi tiết</span>
+                                            </button>
+                                        </mat-menu>
+                                        <!-- End -->
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+
+                        <!-- end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

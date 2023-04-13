@@ -1,5 +1,6 @@
 package com.a2m.service.impl;
 
+import com.a2m.entities.Movies;
 import com.a2m.entities.Showtimes;
 import com.a2m.repository.ShowtimesRepository;
 import com.a2m.service.ShowtimeService;
@@ -23,4 +24,11 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         Date today = new Date();
         return this.showtimesRepository.today(today);
     }
+
+    @Override
+    public List<Showtimes> getAllShowtime() {
+        return this.showtimesRepository.findAll();
+    }
+
+
 }

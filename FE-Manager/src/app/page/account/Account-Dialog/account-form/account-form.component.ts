@@ -22,10 +22,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AccountFormComponent implements OnInit {
   isLoading = false;
+  
   messengerUsername: string = 'Không được để trống ô này';
-
-  @ViewChild(AccountListComponent) accountList: AccountListComponent
-
   
 
   title: string = 'Account'

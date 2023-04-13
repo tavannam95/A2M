@@ -15,4 +15,7 @@ constructor(private http: HttpClient) { }
     return this.http.get(`${ApiConstant.showtime}/today`);
   }
 
+  getAllShowtimes(): Observable<any> {
+    return this.http.get(`${ApiConstant.showtime}/getAllShowtimes`);
+  }
 }

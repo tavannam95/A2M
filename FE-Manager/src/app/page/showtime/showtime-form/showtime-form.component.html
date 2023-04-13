@@ -1,3 +1,78 @@
-<p>
-  showtime-form works!
-</p>
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
+<h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+  <form class="mb-0">
+    <div class="row" [formGroup]="formGroup">
+      <div class="col-12">
+
+        <!-- Chọn ngày -->
+        <mat-form-field appearance="fill">
+          <mat-label>Date time</mat-label>
+          <mat-select [(value)]="select_day">
+            <mat-option *ngFor="let days of dayArray" value = "{{days}}">{{days}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p>You selected: {{select_day}}</p>
+        
+        <!-- Tên -->
+        <mat-form-field appearance="fill">
+          <mat-label>Date time</mat-label>
+          <mat-select [(value)]="select_day" (click)="getMovie()">
+            <mat-option *ngFor="let days of dayArray" value = "{{days}}" (click)="getDate()">{{days}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Username -->
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input type="text" formControlName="username" matInput>
+          <mat-error class="text-danger" *ngIf="formGroup.get('username')?.hasError('required') &&
+                                        formGroup.get('username')?.touched">
+            Username can't be empty
+        </mat-error>
+
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input type="text" formControlName="password" matInput>
+          <mat-error class="text-danger" *ngIf="formGroup.get('password')?.hasError('required') &&
+                                        formGroup.get('password')?.touched">
+            Password can't be empty
+          </mat-error>
+
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="text" formControlName="email" matInput>
+          <mat-error class="text-danger" *ngIf="formGroup.get('email')?.hasError('required') &&
+                                        formGroup.get('email')?.touched">
+            {{messengerUsername}}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Roles -->
+        <mat-form-field appearance="fill">
+          <mat-label>Role</mat-label>
+          <mat-select [(value)]="selected_id">
+            <mat-option value="ADMINSTATOR">ADMINSTATOR</mat-option>
+            <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p>You selected: {{selected_id}}</p>
+      </div>
+    </div>
+  </form>
+
+
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <button class="btn btn-success" mat-button (click)="onSubmit()">Đồng ý</button>
+  <button class="btn btn-dark" mat-button mat-dialog-close>Hủy</button>
+</div>
