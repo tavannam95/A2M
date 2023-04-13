@@ -10,7 +10,7 @@
                 <!-- Poster -->
                 <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
                     <ngx-dropzone-label>
-                        <span class="material-symbols-outlined">upload</span>
+                        <span class="material-symbols-outlined">tải ảnh lên</span>
                     </ngx-dropzone-label>
                     <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [value]="poster">
                     </ngx-dropzone-preview>
