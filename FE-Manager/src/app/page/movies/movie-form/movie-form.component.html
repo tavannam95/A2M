@@ -55,7 +55,7 @@
                     <input type="number" formControlName="time" matInput>
                     <mat-error class="text-danger" *ngIf="formGroup.get('time')?.hasError('required') &&
                                         formGroup.get('time')?.touched">
-                        Thời lượng không được để trống
+                        Có ký tự không hợp lệ
                     </mat-error>
                 </mat-form-field>
                 <!-- /Thời lượng -->
@@ -82,7 +82,6 @@
                     </textarea>
                 </mat-form-field>
                 <!-- /Mô tả -->
-
             </div>
         </div>
     </form>
