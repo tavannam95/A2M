@@ -4,20 +4,31 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
 
 const routes: Routes =[
   {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
-  }, {
+  }, 
+  {
     path: '',
     component: AdminLayoutComponent,
     children: [{
       path: '',
       loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
     }]
-  }
+  },
+  {
+    path: '',
+    component: CustomerLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: () => import('./layouts/customer/customer.module').then(m => m.CustomerModule)
+    }]
+  },
+  
 ];
 
 @NgModule({

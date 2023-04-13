@@ -12,6 +12,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RoomsModule } from './page/rooms/rooms.module';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-
+    CustomerLayoutComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

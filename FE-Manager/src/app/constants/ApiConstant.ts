@@ -6,4 +6,5 @@ export const ApiConstant = {
     movie: "http://localhost:8080/api/v1/movie",
     nation: "http://localhost:8080/api/v1/national",
     categories: "http://localhost:8080/api/v1/categories",
+    showtime: "http://localhost:8080/api/v1/showtime",
 };
