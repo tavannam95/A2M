@@ -10,6 +10,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RoomsModule } from './page/rooms/rooms.module';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { AccountModule } from './page/account/account.module';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
@@ -24,7 +26,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     AppRoutingModule,
     MatDialogModule,
     RoomsModule,
+    MatAutocompleteModule,
     NgxDropzoneModule,
+    AccountModule,
     ToastrModule.forRoot({
       maxOpened: 1,
       preventDuplicates: true,

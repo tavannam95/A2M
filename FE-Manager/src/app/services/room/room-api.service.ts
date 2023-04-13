@@ -8,10 +8,14 @@ import { ApiConstant } from 'app/constants/ApiConstant';
 })
 export class RoomApiService {
 
-constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
-  getAll(): Observable<any>{
+  getAll(): Observable<any> {
     return this.http.get(ApiConstant.room);
+  }
+
+  save(data: any): Observable<any> {
+    return this.http.post(ApiConstant.room, data);
   }
 
   getOne(id: any): Observable<any>{
