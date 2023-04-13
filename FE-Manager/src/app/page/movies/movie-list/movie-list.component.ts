@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MovieFormComponent } from '../movie-form/movie-form.component';
 import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
 import { MovieService } from 'app/services/movie/movie.service';
+import { MovieDetailComponent } from '../movie-detail/movie-detail.component';
 
 @Component({
   selector: 'app-movie-list',
@@ -26,7 +27,8 @@ export class MovieListComponent implements OnInit {
   constructor(
     private matDialog: MatDialog,
     private movieService: MovieService,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService,
+    ) { }
 
   ngOnInit(): void {
     this.getAllMovie();
@@ -73,6 +75,16 @@ export class MovieListComponent implements OnInit {
           // ----------------------After close----------------------
           this.getAllMovie();
         }
+    })
+  }
+  seenMovie(row:any){
+    this.matDialog.open(MovieDetailComponent,{
+      width: '700px',
+      disableClose: true,
+      autoFocus: false,
+      data: {
+        movies: row
+      }
     })
   }
 
