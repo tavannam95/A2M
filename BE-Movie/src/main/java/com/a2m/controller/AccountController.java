@@ -37,7 +37,8 @@ public class AccountController {
 
 	private AccountServiceImpl accountServiceImpl;
 
-	private BCryptPasswordEncoder passwordEncoder;
+//	@Autowired
+//	private BCryptPasswordEncoder passwordEncoder;
 
 	@GetMapping("/getAll")
 	public DataResponse<List<AccountInfor>> findAll() {

@@ -1,9 +1,21 @@
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
 <h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
 <div mat-dialog-content>
 
     <form class="mb-0">
         <div class="row" [formGroup]="formGroup">
-            <div class="col-12">
+            <div class="col-4">
+                <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
+                    <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"  [removable]="true" (removed)="onRemove(f)">
+                        <!-- <ngx-dropzone-label></ngx-dropzone-label> -->
+                      </ngx-dropzone-image-preview>
+                </ngx-dropzone>
+                
+            </div>
+            <div class="col-8">
 
                 <!-- Tên -->
                 <mat-form-field appearance="outline">
@@ -50,7 +62,7 @@
                 <!-- Birthday -->
                 <mat-form-field appearance="outline">
                     <mat-label>Choose a Birthday</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="birth_date" matInput>
+                    <input matInput [matDatepicker]="picker" formControlName="birthDate" matInput>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>

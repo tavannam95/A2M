@@ -11,6 +11,8 @@ import { take } from 'rxjs';
 import { Observable } from 'rxjs';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { CloudinaryService } from 'app/services/cloudinary/cloudinary.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -19,14 +21,12 @@ import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
   styleUrls: ['./account-form.component.scss']
 })
 export class AccountFormComponent implements OnInit {
+  isLoading = false;
+  messengerUsername: string = 'Không được để trống ô này';
 
   @ViewChild(AccountListComponent) accountList: AccountListComponent
 
-  constructor(@Inject(MAT_DIALOG_DATA) public dataDialog: any,
-    private fb: FormBuilder,
-    private matDialogRef: MatDialogRef<AccountFormComponent>,
-    private matDialog: MatDialog,
-    private accountService: AccountService) { }
+  
 
   title: string = 'Account'
 
@@ -34,9 +34,10 @@ export class AccountFormComponent implements OnInit {
     // id: [''],
     fullname: ['', [Validators.required, Validators.pattern(Regex.unicode)]],
     username: ['', [Validators.required]],
+    photo: [''],
     password: ['', [Validators.required, Validators.minLength(8)]],
     email: ['', [Validators.required, Validators.email]],
-    birth_date: ['', Validators.required],
+    birthDate: ['', Validators.required],
     gender: [null, Validators.required],
     role: { id: null }
   })
@@ -44,6 +45,19 @@ export class AccountFormComponent implements OnInit {
   selected: string = 'Female'
 
   selected_id: string;
+
+  files: File[] = [];
+  imgUrl: any;
+
+
+  constructor(@Inject(MAT_DIALOG_DATA) public dataDialog: any,
+      private fb: FormBuilder,
+      private matDialogRef: MatDialogRef<AccountFormComponent>,
+      private matDialog: MatDialog,
+      private accountService: AccountService,
+      private uploadImageService: CloudinaryService,
+      private toastrService: ToastrService
+    ) { }
 
   ngOnInit(): void {
     console.log(this.dataDialog);
@@ -55,11 +69,46 @@ export class AccountFormComponent implements OnInit {
     }
   }
 
-  messengerUsername: string = 'Không được để trống ô này';
+  onSelect(event) {
+    console.log(event);
+    if (this.files.length>0) {
+      this.files.splice(0,1);
+    }
+    this.files.push(...event.addedFiles);
+  }
+  
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+  
 
-  onSubmit() {
+  async uploadImg(){
+    const formData = new FormData();
+    if (this.files.length>0) {
+      formData.append('files',this.files[0])
+    }
+    try {
+      this.imgUrl = await this.uploadImageService.upload(formData).toPromise();
+      console.log(this.imgUrl.data[0]);
+      
+      this.formGroup.patchValue({photo: this.imgUrl.data[0]});
+      console.log(this.imgUrl);
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
+  async onSubmit() {
+    this.isLoading = true;
+    if (this.files.length>0) {
+      await this.uploadImg();
+    }
     const id = (this.selected_id === "ADMINSTATOR") ? 3 : 2
-
+    console.log(this.imgUrl);
+    
     this.formGroup.patchValue({ role: { id: id } });
     // console.log(this.formGroup.value);
 
@@ -68,25 +117,17 @@ export class AccountFormComponent implements OnInit {
         console.log(this.formGroup.value);
         this.matDialogRef.close()
         if(res.status===true){
-          this.matDialog.open(SuccessDialogComponent, {
-            disableClose: true,
-            data: {},
-            width: '700px'
-          })
+          this.toastrService.success(res.message);
+          this.isLoading = false;
         }
         else{
-          this.matDialog.open(ErrorDialogComponent, {
-            disableClose: true,
-            data: {
-              res
-            },
-            width: '700px'
-          })
+          this.isLoading = false;
+          this.toastrService.warning(res.message);
         }
       },
       error: e=>{
         console.log(e);
-        
+        this.toastrService.error('lỗi tạo tài khoản')
       }
     }
     )
