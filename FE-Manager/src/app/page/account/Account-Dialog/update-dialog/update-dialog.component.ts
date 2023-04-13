@@ -6,7 +6,6 @@ import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dial
 import { Regex } from 'app/services/regex/regex';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AccountListComponent } from '../../account-list/account-list.component';
-import { log } from 'console';
 import { AccountService } from 'app/services/account/account.service';
 
 

@@ -18,6 +18,10 @@ public class Showtimes {
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movies movie;
 
+    @ManyToOne
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    private Rooms room;
+
     @Column(name = "date")
     private Date date;
 

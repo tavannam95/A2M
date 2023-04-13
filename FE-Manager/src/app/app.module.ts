@@ -13,7 +13,6 @@ import { RoomsModule } from './page/rooms/rooms.module';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AccountModule } from './page/account/account.module';
 import { ToastrModule } from 'ngx-toastr';
-import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
 
 @NgModule({
