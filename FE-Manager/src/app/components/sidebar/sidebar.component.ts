@@ -22,6 +22,9 @@ export const ROUTES: RouteInfo[] = [
     { path: '/bill', title: 'Hóa đơn',  icon:'receipt_long', class: '' },
     { path: '/showtime', title: 'Xuất chiếu',  icon:'theaters', class: '' },
     { path: '/ticket', title: 'Vé',  icon:'local_activity', class: '' },
+    //Customer
+    { path: '/home', title: 'Amenic',  icon:'', class: '' },
+
 ];
 
 @Component({
