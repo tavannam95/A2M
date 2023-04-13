@@ -11,12 +11,14 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-room-dialog',
   templateUrl: './room-dialog.component.html',
-  styleUrls: ['./room-dialog.component.scss']
+  styleUrls: ['./room-dialog.component.scss'],
+  
 })
 export class RoomDialogComponent implements OnInit {
   isLoading: boolean = false;
 
-  title: string = 'Phòng chiếu';
+  selected_id: string = '1';
+  title: string = 'Add Film';
 
   dataRoom: any;
 

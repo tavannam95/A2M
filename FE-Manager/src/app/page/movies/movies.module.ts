@@ -1,33 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RoomsRoutingModule } from './rooms-routing.module';
-import { RoomListComponent } from './room-list/room-list.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MoviesRoutingModule } from './movies-routing.module';
+import { MovieListComponent } from './movie-list/movie-list.component';
+import { MovieFormComponent } from './movie-form/movie-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import { RoomDialogComponent } from './dialog/room-dialog/room-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { SeeRoomDialogComponent } from './dialog/see-room-dialog/see-room-dialog.component';
-import { RowFormDialogComponent } from './dialog/row-form-dialog/row-form-dialog.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+
 
 @NgModule({
   declarations: [
-    RoomListComponent,
-    RoomDialogComponent,
-    SeeRoomDialogComponent,
-    RowFormDialogComponent
+    MovieListComponent,
+    MovieFormComponent
   ],
   imports: [
     CommonModule,
-    RoomsRoutingModule,
+    MoviesRoutingModule,
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
@@ -40,6 +38,7 @@ import { RowFormDialogComponent } from './dialog/row-form-dialog/row-form-dialog
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgxDropzoneModule
   ]
 })
-export class RoomsModule { }
+export class MoviesModule { }
