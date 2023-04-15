@@ -34,11 +34,11 @@ public class Movies {
     @Column(name = "summary")
     private String summary;
 
-    @Column(name = "premiere_date")
-    private Date premiereDate;
-
-    @Column(name = "status")
-    private Integer status;
+    @Column(name = "start_date")
+    private Date startDate;
+    
+    @Column(name = "end_date")
+    private Date endDate;
 
     @Column(name = "create_date")
     private Date createDate;
@@ -85,14 +85,6 @@ public class Movies {
 
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-    public void setPremiereDate(Date premiereDate) {
-        this.premiereDate = premiereDate;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public void setCreateDate(Date createDate) {
@@ -147,14 +139,6 @@ public class Movies {
         return summary;
     }
 
-    public Date getPremiereDate() {
-        return premiereDate;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
@@ -182,7 +166,23 @@ public class Movies {
     public Movies() {
     }
 
-    public Movies(Long id, Nationals national, Categories category, String name, Integer time, String poster, String summary, Date premiereDate, Integer status, Date createDate, Date updateDate, String createBy, String updateBy, Boolean isDelete, List<Showtimes> listShowtimes) {
+    public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Movies(Long id, Nationals national, Categories category, String name, Integer time, String poster, String summary, Date startDate, Date endDate, Date createDate, Date updateDate, String createBy, String updateBy, Boolean isDelete, List<Showtimes> listShowtimes) {
         this.id = id;
         this.national = national;
         this.category = category;
@@ -190,8 +190,8 @@ public class Movies {
         this.time = time;
         this.poster = poster;
         this.summary = summary;
-        this.premiereDate = premiereDate;
-        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.createDate = createDate;
         this.updateDate = updateDate;
         this.createBy = createBy;

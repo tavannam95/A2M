@@ -11,10 +11,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
+import { TicketListComponent } from './ticket-list/ticket-list.component';
+import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    TicketListComponent,
+    TicketDetailComponent
+  ],
   imports: [
     CommonModule,
     TicketRoutingModule,

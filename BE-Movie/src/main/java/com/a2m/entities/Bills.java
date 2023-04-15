@@ -30,12 +30,14 @@ public class Bills {
 
     @Column(name = "status")
     private Integer status;
+    
+    @Column(name = "total_price")
+    private Integer totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Accounts customer;
-
-    @JsonIgnore
+    
     @OneToMany(mappedBy = "bill")
     private List<Tickets> listTickets;
 

@@ -8,4 +8,7 @@ export const ApiConstant = {
     nation: "http://localhost:8080/api/v1/national",
     categories: "http://localhost:8080/api/v1/categories",
     showtime: "http://localhost:8080/api/v1/showtime",
+    bill: "http://localhost:8080/api/v1/bill",
+    ticket: "http://localhost:8080/api/v1/ticket",
+    fare: "http://localhost:8080/api/v1/fare",
 };
