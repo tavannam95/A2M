@@ -53,23 +53,25 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Thời lượng</mat-label>
                     <input type="number" formControlName="time" matInput>
-                    <mat-error class="text-danger" *ngIf="formGroup.get('time')?.hasError('required') &&
-                                        formGroup.get('time')?.touched">
+                    <mat-error class="text-danger" *ngIf="formGroup.get('time')?.touched">
                         Có ký tự không hợp lệ
                     </mat-error>
                 </mat-form-field>
                 <!-- /Thời lượng -->
 
-                <!-- Ngày chiếu -->
+                <!-- Ngày bắt đầu -->
                 <mat-form-field appearance="outline">
-                    <mat-label>Ngày chiếu</mat-label>
-                    <input type="date" formControlName="premiereDate" matInput>
-                    <!-- <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
-                                        formGroup.get('name')?.touched">
-                        Tên phim không được để trống
-                    </mat-error> -->
+                    <mat-label>Ngày bắt đầu</mat-label>
+                    <input type="date" formControlName="startDate" matInput>
                 </mat-form-field>
-                <!-- /Ngày chiếu -->
+                <!-- /Ngày bắt đầu -->
+
+                <!-- Ngày kết thúc -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Ngày kết thúc</mat-label>
+                    <input type="date" formControlName="endDate" matInput>
+                </mat-form-field>
+                <!-- /Ngày kết thúc -->
 
                 <!-- Mô tả -->
                 <mat-form-field appearance="outline">

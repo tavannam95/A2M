@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 @Getter
@@ -23,8 +26,9 @@ public class Tickets {
     @Column(name = "ticket_id")
     private String ticketId;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "bill_id", referencedColumnName = "id")
+    @JoinColumn(name = "bill_id")
     private Bills bill;
 
     @ManyToOne
@@ -38,9 +42,6 @@ public class Tickets {
     @ManyToOne
     @JoinColumn(name = "fare_id", referencedColumnName = "id")
     private Fares fare;
-
-    @Column(name = "bar_code")
-    private String barCode;
 
     @Column(name = "create_date")
     private Date createDate;

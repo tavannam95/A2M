@@ -19,6 +19,8 @@ export class MovieListComponent implements OnInit {
   allMovie: any;
   isLoading = true;
 
+  currentDate = new Date();
+
   displayedColumns: string[] = ['id', 'name', 'poster', 'category', 'nation', 'status', 'func'];
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -44,6 +46,15 @@ export class MovieListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         console.log(this.dataSource.data);
+        this.dataSource.data.forEach((element)=>{
+          if (new Date(element.endDate) < this.currentDate) {
+            element.status = 0;
+          } else if (new Date(element.startDate) > this.currentDate) {
+            element.status = 2;
+          } else {
+            element.status = 1;
+          }
+        })
         this.isLoading = false;
       },
       error: e =>{
@@ -89,7 +100,7 @@ export class MovieListComponent implements OnInit {
   }
 
   activeOrInactiveMovie(row: any, title: any){
-    debugger
+    // debugger
     this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       hasBackdrop: true,

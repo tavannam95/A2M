@@ -21,7 +21,6 @@ import { CloudinaryService } from 'app/services/cloudinary/cloudinary.service';
 })
 export class MovieFormComponent implements OnInit {
   isLoading: boolean = false;
-  // allMovie: any;
 
   title: string = 'Phim';
   categories = [];
@@ -41,7 +40,8 @@ export class MovieFormComponent implements OnInit {
     national: [null],
     time: ['', [Validators.required, Validators.pattern(Regex.number)]],
     poster: [''],
-    premiereDate: [''],
+    startDate: [''],
+    endDate: [''],
     summary: ['']
   })
   constructor(
@@ -119,7 +119,8 @@ export class MovieFormComponent implements OnInit {
             national: this.dataMovie.nation,
             time: this.dataMovie.time,
             poster: this.dataMovie.poster,
-            premiereDate: this.dataMovie.premiereDate,
+            startDate: this.dataMovie.startDate,
+            endDate: this.dataMovie.endDate,
             summary: this.dataMovie.summary,
           }
         );
