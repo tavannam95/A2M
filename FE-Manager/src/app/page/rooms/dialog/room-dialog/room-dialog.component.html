@@ -18,6 +18,52 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- Số lượng hàng -->
+        <mat-form-field appearance="outline">
+          <mat-label>Số lượng hàng</mat-label>
+          <input type="text" formControlName="quantityRow" matInput>
+          <mat-error class="text-danger" *ngIf="formGroup.get('quantityRow')?.hasError('required') &&
+                                      formGroup.get('quantityRow')?.touched">
+              Số lượng hàng không được để trống
+          </mat-error>
+          <mat-error class="text-danger" *ngIf="formGroup.get('quantityRow')?.hasError('min') &&
+                                      formGroup.get('quantityRow')?.touched">
+            Số lượng hàng ghế phải lớn hơn 0
+          </mat-error>
+          <mat-error class="text-danger" *ngIf="formGroup.get('quantityRow')?.hasError('max') &&
+                                      formGroup.get('quantityRow')?.touched">
+            Số lượng hàng ghế tối đa là 20
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Số lượng ghế trên 1 hàng -->
+        <mat-form-field appearance="outline">
+          <mat-label>Số lượng ghế trên 1 hàng</mat-label>
+          <input type="text" formControlName="quantitySeat" matInput>
+          <mat-error class="text-danger" *ngIf="formGroup.get('quantitySeat')?.hasError('required') &&
+                                      formGroup.get('quantitySeat')?.touched">
+              Số lượng ghế trên 1 hàng không được để trống
+          </mat-error>
+          <mat-error class="text-danger" *ngIf="formGroup.get('quantitySeat')?.hasError('min') &&
+                                      formGroup.get('quantitySeat')?.touched">
+            Số lượng ghế trên 1 hàng phải lớn hơn 0
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Vị trí lối đi -->
+        <mat-form-field appearance="outline">
+          <mat-label>Vị trí lối đi</mat-label>
+          <input type="text" formControlName="way" matInput>
+          <mat-error class="text-danger" *ngIf="formGroup.get('way')?.hasError('required') &&
+                                      formGroup.get('way')?.touched">
+              Vị trí lối đi không được để trống
+          </mat-error>
+          <mat-error class="text-danger" *ngIf="formGroup.get('way')?.hasError('min') &&
+                                      formGroup.get('way')?.touched">
+            Vị trí lối đi phải lớn hơn 0
+          </mat-error>
+        </mat-form-field>
+
       </div>
     </div>
   </form>

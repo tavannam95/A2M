@@ -24,6 +24,9 @@ public class Seats {
     @Column(name = "number")
     private Integer number;
 
+    @Column(name = "location")
+    private Integer location;
+
     @ManyToOne
     @JoinColumn(name = "seat_type_id", referencedColumnName = "id")
     private SeatTypes seatType;

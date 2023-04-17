@@ -18,16 +18,9 @@ public class SeatServiceImpl implements SeatService {
     private SeatTypesRepository seatTypesRepository;
 
     @Override
-    public Seats changeSeatType(Seats seats) {
-//        Seats seat = this.seatsRepository.findById(seats.getId()).get();
-        SeatTypes seatNormal = this.seatTypesRepository.findById(1).get();
-        SeatTypes seatVip = this.seatTypesRepository.findById(2).get();
-
-        if (seats.getSeatType().getId()==seatNormal.getId()){
-            seats.setSeatType(seatVip);
-        }else {
-            seats.setSeatType(seatNormal);
-        }
-        return this.seatsRepository.save(seats);
+    public Seats changeSeatType(Integer seatId, SeatTypes seatTypes) {
+        Seats seat = this.seatsRepository.findById(seatId).get();
+        seat.setSeatType(seatTypes);
+        return this.seatsRepository.save(seat);
     }
 }

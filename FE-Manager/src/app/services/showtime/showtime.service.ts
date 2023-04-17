@@ -15,4 +15,12 @@ constructor(private http: HttpClient) { }
     return this.http.get(`${ApiConstant.showtime}/today`);
   }
 
+  getAllShowtimeActive():Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/all-active`);
+  }
+
+  findByMovie(idMovie: number):Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/${idMovie}`);
+  }
+
 }

@@ -18,13 +18,16 @@ export class RoomDialogComponent implements OnInit {
   isLoading: boolean = false;
 
   selected_id: string = '1';
-  title: string = 'Add Film';
+  title: string = '';
 
   dataRoom: any;
 
   formGroup = this.fb.group({
     id: [''],
     name: ['', [Validators.required, Validators.pattern(Regex.unicodeAndNumber)]],
+    quantityRow:['',[Validators.required, Validators.min(1),Validators.max(20)]],
+    quantitySeat:['',[Validators.required, Validators.min(1)]],
+    way:['',[Validators.required, Validators.min(1)]]
   })
 
   constructor(
@@ -63,6 +66,8 @@ export class RoomDialogComponent implements OnInit {
 
     if (this.dataDialog.type=='create') {
 
+      console.log(this.formGroup.value);
+      
       this.createRoom();
 
     }
