@@ -1,0 +1,50 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-12 mt-5"></div>
+    <div class="col-12 text-center">
+      <span style="font-weight: 500; font-size: 30px;">1. Chọn phim</span>
+    </div>
+    <div class="col-12 text-center mt-3">
+      <img src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/content.v2/images/img48.png" alt="">
+    </div>
+    <div class="col-12 mt-5">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col-6 card m-0 p-0" style="overflow: hidden;">
+              <div class="row">
+                <div class="col-12 mt-2 text-center">
+                  <h3 class="m-0 font-weight-bold">Chọn phim</h3>
+                </div>
+              </div>
+              <div class="scroll-container p-3">
+                <!-- <div class="scroll-page" id="page-1">1</div>
+                <div class="scroll-page" id="page-2">2</div>
+                <div class="scroll-page" id="page-3">3</div> -->
+
+                  <!-- <p *ngFor="let m of movies" class="col-12"><mat-checkbox>
+                    {{m.movieName}}
+                  </mat-checkbox></p> -->
+
+                  <mat-radio-group
+                      aria-labelledby="example-radio-group-label"
+                      class="example-radio-group"
+                      [(ngModel)]="idMovie">
+                      <mat-radio-button class="example-radio-button" *ngFor="let m of movies" [value]="m.idMovie" (change)="showid($event)">
+                        {{m.movieName}}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

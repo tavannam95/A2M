@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class SeeRoomDialogComponent implements OnInit {
   title: string = '';
   listRows: any;
+  seatType: any[];
   constructor(
     @Inject(MAT_DIALOG_DATA) public dataDialog: any,
     private matDialog: MatDialog,
@@ -28,11 +29,30 @@ export class SeeRoomDialogComponent implements OnInit {
     this.title = this.dataDialog.room.name;
     this.getOneRoom();
     this.getRow();
+    this.getAllSeatType();
   }
 
-  changeSeatType(seat: any){
-    console.log(seat);
-    this.roomService.changeSeatType(seat).subscribe({
+  getAllSeatType(){
+    this.roomService.getAllSeatType().subscribe({
+      next: res=>{
+        this.seatType = res.data;
+        console.log(this.seatType);
+      },
+      error: e=>{
+        console.log(e);
+        
+      }
+    })
+  }
+
+  change(seat: any,seatType: any){
+    console.log(seat.id);
+    console.log(seatType);
+    // if (seat.seatType.id==4) {
+    //   this.toastrService.warning('Không thay đổi thông tin lối đi');
+    //   return;
+    // }
+    this.roomService.changeSeatType(seat.id,seatType).subscribe({
       next: res=>{
         console.log(res);
         this.toastrService.success(res.message);
@@ -43,27 +63,6 @@ export class SeeRoomDialogComponent implements OnInit {
         
       }
     })
-    // this.matDialog.open(ConfirmDialogComponent, {
-    //   disableClose: true,
-    //   hasBackdrop: true,
-    //   data: {
-    //       message: 'Bạn có muốn thay đổi loại ghế?'
-    //   }
-    // }).afterClosed().subscribe(result => {
-    //     if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
-    //       this.roomService.changeSeatType(seat).subscribe({
-    //         next: res=>{
-    //           console.log(res);
-    //           this.toastrService.success(res.message);
-    //           this.getRow();
-    //         },
-    //         error: e=>{
-    //           console.log(e);
-              
-    //         }
-    //       })
-    //     }
-    // })
     
   }
 

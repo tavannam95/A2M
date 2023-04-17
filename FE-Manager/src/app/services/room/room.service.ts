@@ -28,9 +28,12 @@ constructor(private apiService: RoomApiService) { }
     return this.apiService.activeOrInactive(data);
   }
 
-  changeSeatType(data:any){
-    return this.apiService.changeSeatType(data);
+  changeSeatType(seatId:any, seatType:any){
+    return this.apiService.changeSeatType(seatId,seatType);
   }
 
+  getAllSeatType(){
+    return this.apiService.getAllSeatType();
+  }
 
 }
