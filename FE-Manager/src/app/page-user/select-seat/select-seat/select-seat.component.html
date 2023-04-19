@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 mt-5"></div>
+    <div class="col-12 text-center">
+      <span style="font-weight: 500; font-size: 30px;">2. Chọn ghế</span>
+    </div>
+    <div class="col-12 text-center mt-3">
+      <img src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/content.v2/images/img48.png" alt="">
+    </div>
+    <div class="col-12 text-center mt-3 font-weight-bold" style="font-size: 20px;">
+      TÊN PHIM: <span class="text-danger">{{showtime.movie.name|uppercase}}</span>
+    </div>
+    <div class="col-12 text-center mt-3 font-weight-bold"  style="font-size: 18px;">
+      Phòng chiếu: {{showtime.room.name}}
+      <br>
+      Suất chiếu: {{showtime.timeStart|date: 'HH:mm'}}
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-9">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row">
+            <!-- Thông tin ghế -->
+            <div class="col-12" style="font-size: 16px;">
+              Để chọn ghế vui lòng chọn ghế ưa thích theo icon
+              <br>
+              Click tiếp vào ghế đã chọn để xoá lựa chọn
+            </div>
+            <div class="col-12 text-center mt-3" style="font-size: 16px;">
+              <img src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/content.v2/images/0000193_ghe-vip.jpg" alt=""> Ghế vip &nbsp;
+              <img src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/content.v2/images/0000194_Gh%e1%ba%bf%20th%C6%B0%E1%BB%9Dng.jpg" alt=""> Ghế thường &nbsp;
+              <img src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/images/seat_active.png" alt=""> Ghế đã chọn &nbsp;
+              <img src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/images/seat_lock.png" alt=""> Ghế đã bán
+            </div>
+          </div>
+          <!-- Màn chiếu -->
+          <div class="row mb-5 mt-3">
+            <div class="col-1 text-center">
+            </div>
+            <div class="col-11 text-center">
+              <img class="img-cinema" src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/content.v2/images/img49.png" alt="">
+            </div>
+          </div>
+          <div class="mt-5 mb-5"></div>
+          <div class="row" *ngFor="let row of seatRow;">
+            <!-- Row -->
+            <div class="col-1 text-center">
+                <h3 class="m-0">{{row.name | uppercase }}</h3>
+            </div>
+
+            <!-- Seat -->
+            <div class="col p-0 text-center" *ngFor="let seat of row.listSeats">
+              <section class="example-section">
+                <label class="link_seat">
+                  <input *ngIf="seat.seatType.id!==3 && seat.seatType.id!==4 && !checkSelled(seat.id)" class="number_seat input-seat" (change)="selectSeat(seat,row.name,seat.number);" type="checkbox"/>
+                  <img *ngIf="seat.seatType.id==1 && !isSelected(seat.id) && !checkSelled(seat.id)" class="img_seat" src="https://chieuphimquocgia.com.vn/content/images/thumbs/0000194_Gh%E1%BA%BF%20th%C6%B0%E1%BB%9Dng.jpg" alt="">
+                  <img *ngIf="seat.seatType.id==2 && !isSelected(seat.id) && !checkSelled(seat.id)" class="img_seat" src="https://chieuphimquocgia.com.vn/content/images/thumbs/0000193_ghe-vip.jpg" alt="">
+                  <img *ngIf="seat.seatType.id==4 && !isSelected(seat.id) && !checkSelled(seat.id)" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1681704963/dpkabbnff3e3wqdyx6hs.png" alt="">
+                  <img *ngIf="seat.seatType.id==3 && !isSelected(seat.id) && !checkSelled(seat.id)" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1681705286/a8iz6k8tcjzftml2swzh.png" alt="">
+                  <img *ngIf="isSelected(seat.id) && !checkSelled(seat.id)" class="img_seat" src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/images/seat_active.png" alt="">
+                  <img *ngIf="checkSelled(seat.id)" class="img_seat" src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/images/seat_lock.png" alt="">
+                  
+                  <span *ngIf="seat.seatType.id==1 || seat.seatType.id==2" class="number_seat">
+                    {{seat.number}}
+                  </span>
+                </label>
+              </section>
+
+            </div>
+
+           
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3 right-checkmovie">
+      <div class="row">
+        <div class="col-12 mt-3 text-center">
+          <img class="img-poster" [src]="showtime.movie.poster" alt="">
+        </div>
+        <div *ngIf="showSelectedSeat.length>0" class="col-12 mt-3 text-light">
+          Ghế chọn mua: <span>{{show}}</span>
+        </div>
+        <div *ngIf="showSelectedSeat.length>0" class="col-12 mt-3 text-light">
+          Số lượng: <span>{{showSelectedSeat.length}}</span>
+        </div>
+        <div *ngIf="showSelectedSeat.length>0" class="col-12 mt-3 text-light">
+          Tổng giá: <span>{{total|currency:' ':'symbol':'1.0-0'}}₫</span>
+        </div>
+        <div *ngIf="showSelectedSeat.length>0" class="col-12 mt-3 text-light">
+          <button class="btn btn-rounded btn-danger">
+            Thanh toán
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>
