@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BillApiService } from 'app/services/bill/bill-api.service';
 import { RoomService } from 'app/services/room/room.service';
 import { RowService } from 'app/services/row/row.service';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
@@ -34,7 +35,8 @@ export class SelectSeatComponent implements OnInit {
     private showtimeService: ShowtimeService,
     private roomService: RoomService,
     private rowService: RowService,
-    private ticketApiService: TicketApiService
+    private ticketApiService: TicketApiService,
+    private billService: BillApiService
   ) { }
 
   ngOnInit() {
@@ -156,6 +158,25 @@ export class SelectSeatComponent implements OnInit {
         
       }
     })
+  }
+
+  createBill(){
+    let billRequest = {
+      idAccount: 1,
+      totalPrice: this.total
+    }
+    console.log(billRequest);
+    this.billService.createBill(billRequest).subscribe({
+      next: res =>{
+        console.log(res);
+        
+      },
+      error: e =>{
+        console.log(e);
+        
+      }
+    })
+    
   }
 
 }

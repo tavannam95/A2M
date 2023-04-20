@@ -90,7 +90,7 @@
           Tổng giá: <span>{{total|currency:' ':'symbol':'1.0-0'}}₫</span>
         </div>
         <div *ngIf="showSelectedSeat.length>0" class="col-12 mt-3 text-light">
-          <button class="btn btn-rounded btn-danger">
+          <button class="btn btn-rounded btn-danger" (click)="createBill()">
             Thanh toán
           </button>
         </div>
