@@ -3,6 +3,9 @@ package com.a2m.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -80,16 +83,18 @@ public class Showtimes {
         return timeStart;
     }
 
-    public void setTimeStart(Date timeStart) {
-        this.timeStart = timeStart;
+    public void setTimeStart(String timeStart) throws ParseException {
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.timeStart = format.parse(timeStart);
     }
 
-    public Date getTimeEnd() {
+	public Date getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(Date timeEnd) {
-        this.timeEnd = timeEnd;
+    public void setTimeEnd(String timeEnd) throws ParseException {
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.timeEnd = format.parse(timeEnd);
     }
 
     public Date getCreateDate() {

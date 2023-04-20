@@ -46,7 +46,8 @@ import { ErrorDialogComponent } from './Account-Dialog/error-dialog/error-dialog
     MatMenuModule,
     NgxDropzoneModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
   ]
 })
 export class AccountModule { }

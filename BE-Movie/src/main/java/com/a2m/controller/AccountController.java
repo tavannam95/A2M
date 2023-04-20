@@ -83,4 +83,6 @@ public class AccountController {
 	public DataResponse<Accounts> updateaccount(@RequestBody Accounts accounts) {
 		return new DataResponse<>(true, "Sửa thông tin thành công", accountService.updateAccount(accounts));
 	}
+
+
 }

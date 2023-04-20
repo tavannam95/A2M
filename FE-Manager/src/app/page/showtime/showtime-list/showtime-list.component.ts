@@ -32,6 +32,7 @@ export class ShowtimeListComponent implements OnInit {
   getAllShowtimes() {
     this.showtimesService.getAllShowtimes().subscribe({
       next: res => {
+        console.log(res);
         this.dataSource = new MatTableDataSource<any>(res);
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;

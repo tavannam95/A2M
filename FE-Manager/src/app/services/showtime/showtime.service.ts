@@ -18,4 +18,20 @@ constructor(private http: HttpClient) { }
   getAllShowtimes(): Observable<any> {
     return this.http.get(`${ApiConstant.showtime}/getAllShowtimes`);
   }
+
+  getMoviesByDate(date: string): Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/getMoviesByDate?date=`+date);
+  }
+
+  getAllRooms(): Observable<any> {
+    return this.http.get(`${ApiConstant.showtime}/getAllRooms`);
+  }
+
+  getShowTimeByDate(date: string, id: number): Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/getShowTimeByDate?date=`+date+`&&id=`+id);
+  }
+
+  saveShowtime(data: any): Observable<any>{
+    return this.http.post(`${ApiConstant.showtime}/saveShowtimes`, data);
+  }
 }

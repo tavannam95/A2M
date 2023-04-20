@@ -14,12 +14,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { MatCardModule } from '@angular/material/card';
+import { TableShowtimesDialogComponent } from './showtime-dialog/table-showtimes-dialog/table-showtimes-dialog.component';
 
 
 @NgModule({
   declarations: [
     ShowtimeFormComponent,
-    ShowtimeListComponent
+    ShowtimeListComponent,
+    TableShowtimesDialogComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     ReactiveFormsModule,
     MatSelectModule,
     MatMenuModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    MatCardModule
   ]
 })
 export class ShowtimeModule { }

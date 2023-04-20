@@ -1,0 +1,56 @@
+<div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-danger spinner-center" role="status"></div>
+  </div>
+<h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="movie">
+      <th mat-header-cell *matHeaderCellDef> Tên phim </th>
+      <td mat-cell *matCellDef="let element"> {{element.movie.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rooms">
+      <th mat-header-cell *matHeaderCellDef> Số phòng  </th>
+      <td mat-cell *matCellDef="let element"> {{element.rooms.id}} </td>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="nameMovie">
+        <th mat-header-cell *matHeaderCellDef> Tên phim  </th>
+        <td mat-cell *matCellDef="let element"> {{element.nameMovie}} </td>
+      </ng-container> -->
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Ngày chiếu </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="timeStart">
+      <th mat-header-cell *matHeaderCellDef> Thời gian chiếu </th>
+      <td mat-cell *matCellDef="let element"> {{element.timeStart}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="timeEnd">
+        <th mat-header-cell *matHeaderCellDef> Thời gian kết thúc </th>
+        <td mat-cell *matCellDef="let element"> {{element.timeEnd}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createDate">
+        <th mat-header-cell *matHeaderCellDef> Ngày tạo </th>
+        <td mat-cell *matCellDef="let element"> {{element.createDate}} </td>
+      </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div mat-dialog-actions class="d-flex justify-content-end">
+    <button class="btn btn-success" mat-button (click)="onSubmit()">Đồng ý</button>
+    <button class="btn btn-dark" mat-button mat-dialog-close>Hủy</button>
+  </div>
+
+
+  

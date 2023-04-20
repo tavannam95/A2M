@@ -65,6 +65,7 @@ export class AccountFormComponent implements OnInit {
     if (this.dataDialog.type == 'update') {
       this.title = 'Update Account';
     }
+    console.log(this.dataDialog.row)
   }
 
   onSelect(event) {

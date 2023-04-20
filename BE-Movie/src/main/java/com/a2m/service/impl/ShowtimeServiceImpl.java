@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,5 +28,14 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         return this.showtimesRepository.findAll();
     }
 
+    @Override
+    public List<Movies> getMovieByDate(Date date) {
+        return this.showtimesRepository.getMoviesByDate(date);
+    }
+
+    @Override
+    public List<Showtimes> getShowTimeByDate(Date date, int id) {
+        return this.showtimesRepository.getShowTimeByDate(date, id);
+    }
 
 }

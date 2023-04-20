@@ -41,38 +41,38 @@
                                 <!-- Name Column -->
                                 <ng-container matColumnDef="nameMovie">
                                     <th class="text-center" mat-header-cell *matHeaderCellDef> Movie name </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.nameMovie}} </td>
+                                    <td mat-cell *matCellDef="let row"> {{row.movie.name}} </td>
                                 </ng-container>
 
 
                                 <!-- username Column -->
                                 <ng-container matColumnDef="room_id">
                                     <th class="text-center" mat-header-cell *matHeaderCellDef> Room ID </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.room_id}} </td>
+                                    <td mat-cell *matCellDef="let row"> {{row.rooms.id}} </td>
                                 </ng-container>
 
                                 <!-- Email Column -->
                                 <ng-container matColumnDef="date">
                                     <th class="text-center" mat-header-cell *matHeaderCellDef> Date </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.date}} </td>
+                                    <td mat-cell *matCellDef="let row"> {{row.date.slice(0,10)}} </td>
                                 </ng-container>
 
                                 <!-- Birthday Column -->
                                 <ng-container matColumnDef="timeStart">
                                     <th class="text-center" mat-header-cell *matHeaderCellDef> Time start </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.timeStart}} </td>
+                                    <td mat-cell *matCellDef="let row"> {{row.timeStart.slice(11,19)}} </td>
                                 </ng-container>
 
                                 <!-- Gender Column -->
                                 <ng-container matColumnDef="timeEnd">
                                     <th class="text-center" mat-header-cell *matHeaderCellDef> Time End </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.timeEnd}} </td>
+                                    <td mat-cell *matCellDef="let row"> {{row.timeEnd.slice(11,19)}} </td>
                                 </ng-container>
 
                                 <!-- Role Column -->
                                 <ng-container matColumnDef="createDate">
                                     <th class="text-center" mat-header-cell *matHeaderCellDef> Create date </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.createDate}} </td>
+                                    <td mat-cell *matCellDef="let row"> {{row.createDate.slice(0,10)}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="delete">
