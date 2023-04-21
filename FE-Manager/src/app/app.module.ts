@@ -15,6 +15,7 @@ import { AccountModule } from './page/account/account.module';
 import { ToastrModule } from 'ngx-toastr';
 import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -37,7 +38,7 @@ import { CustomerLayoutComponent } from './layouts/customer/customer-layout/cust
       timeOut: 2500,
       resetTimeoutOnDuplicate: true
     }),
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
   declarations: [
     AppComponent,
