@@ -46,6 +46,11 @@ public class RoomController {
         return new DataResponse<>(true,"Thêm mới phòng thành công",roomsRepository.save(rooms));
     }
 
+    @PostMapping("/create")
+    public DataResponse<Rooms> createRowSeat(@RequestBody RoomRequest roomRequest){
+        return new DataResponse<>(true,"Thêm mới phòng thành công",roomService.createRoom(roomRequest));
+    }
+
     @PutMapping("")
     public DataResponse<Rooms> update(@RequestBody Rooms rooms){
         return new DataResponse<>(true,"Cập nhật thông tin phòng thành công",roomService.updateRoom(rooms));

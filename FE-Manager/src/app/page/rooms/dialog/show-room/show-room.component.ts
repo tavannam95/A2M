@@ -160,7 +160,22 @@ export class ShowRoomComponent implements OnInit {
       }
     }
 
-    console.log(this.listNewRows);
+    let roomData = {
+      roomId: this.dataDialog.room.id,
+      data: this.listNewRows
+    }
+
+    console.log(roomData);
+    this.roomService.create(roomData).subscribe({
+      next: res =>{
+        console.log(res);
+        
+      },
+      error: e =>{
+        console.log(e);
+        
+      }
+    })
     this.checkAdd = false;
   }
 }

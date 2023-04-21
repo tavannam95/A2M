@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,26 +32,12 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Rooms createRoom(RoomRequest roomRequest) {
-        Rooms room = new Rooms();
-        room.setName(roomRequest.getName());
-        room.setIsDelete(false);
-        Rooms roomResponse = this.roomsRepository.save(room);
-        for (int i = 0; i < roomRequest.getQuantityRow(); i++) {
-            SeatRows seatRows = this.createSeatRow(roomResponse,listNameRow.get(i));
-            boolean checkWay = false;
-            for (int j = 0; j < roomRequest.getQuantitySeat()+1; j++) {
-                if ((j+1)==roomRequest.getWay()){
-                    this.createWay(seatRows,j+1);
-                    checkWay = true;
-                }else if (checkWay){
-                    this.createSeat(seatRows,j,j+2);
-                }else {
-                    this.createSeat(seatRows,j+1,j+1);
-                }
-
-            }
+        log.info("Room ID: {}", roomRequest.getRoomId());
+        for (int i = 0; i < roomRequest.getData().get(0).getListSeats().size(); i++) {
+            log.info("Data: ====== {}", roomRequest.getData().get(0).getListSeats().get(i).getLocation());
+            log.info("Data: ====== {}", roomRequest.getData().get(0).getListSeats().get(i).getNumber());
         }
-        return room;
+        return null;
     }
 
     private SeatRows createSeatRow(Rooms rooms, String nameRow){
