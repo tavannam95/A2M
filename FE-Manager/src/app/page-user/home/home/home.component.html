@@ -50,9 +50,9 @@
                         <span class="text-dark info-movie m-0 font-weight-bold">Thể loại: {{m.category}}</span>
                       </div>
                       <div class="col-12 text-center">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Khởi chiếu: {{m.premiereDate}}</span>
+                        <span class="text-dark info-movie m-0 font-weight-bold">Khởi chiếu: {{m.premiereDate | date: 'dd/MM/yyyy'}}</span>
                       </div>
-                      <div class="col-12 text-center mt-3">
+                      <div class="col-12 text-center mt-2">
                         <button class="btn btn-outline-danger btn-round font-weight-bold">
                           <h4 class="m-0 font-weight-bold" (click)="book(m.idMovie)">Đặt vé</h4>
                         </button>

@@ -18,4 +18,8 @@ constructor(private readonly http: HttpClient) { }
   getOne(id: any): Observable<any>{
     return this.http.get(`${ApiConstant.bill}/${id}`);
   }
+
+  createBill(data: any):Observable<any>{
+    return this.http.post(`${ApiConstant.bill}/create`,data);
+  }
 }

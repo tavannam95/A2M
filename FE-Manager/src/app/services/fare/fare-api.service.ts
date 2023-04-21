@@ -14,5 +14,4 @@ constructor(private readonly http: HttpClient) { }
   getAll(): Observable<any>{
     return this.http.get(`${ApiConstant.fare}/listFare`);
   }
-
 }

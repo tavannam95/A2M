@@ -18,4 +18,12 @@ constructor(private readonly http: HttpClient) { }
   getOne(id: any): Observable<any>{
     return this.http.get(`${ApiConstant.ticket}/${id}`);
   }
+
+  findByShowtime(showtimeId: any):Observable<any>{
+    return this.http.get(`${ApiConstant.ticket}/showtime/${showtimeId}`);
+  }
+
+  findByIsHoliday(isHoliday: any): Observable<any>{
+    return this.http.get(`${ApiConstant.ticket}/fare/${isHoliday}`);
+  }
 }

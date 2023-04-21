@@ -2,6 +2,11 @@ package com.a2m.controller;
 
 import java.util.List;
 
+import com.a2m.entities.Fares;
+import com.a2m.entities.Showtimes;
+import com.a2m.model.response.DataResponse;
+import com.a2m.repository.FareRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +21,7 @@ import com.a2m.service.TickeService;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/ticket")
+@AllArgsConstructor
 public class TicketController {
 	
 	@Autowired
@@ -23,6 +29,8 @@ public class TicketController {
 	
 	@Autowired
 	TicketsRepository ticketsRepository;
+
+	FareRepository fareRepository;
 	
 	@GetMapping(value = "/listTicket")
 	List<Tickets> getListTickets(){
@@ -33,5 +41,15 @@ public class TicketController {
 	Tickets getBill(@PathVariable("id") Long id) {
 		return ticketsRepository.findById(id).get();
 		
+	}
+
+	@GetMapping("/showtime/{showtimeId}")
+	public DataResponse<List<Tickets>> findByShowtime(@PathVariable("showtimeId") Long showtimeId){
+		return new DataResponse<>(true,"Thành công",this.tickeService.findByShowtime(showtimeId));
+	}
+
+	@GetMapping("/fare/{isHoliday}")
+	public DataResponse<List<Fares>> findByIsHoliday(@PathVariable("isHoliday") Boolean isHoliday){
+		return new DataResponse<>(true,"Thành công", this.fareRepository.findByIsHoliday(isHoliday));
 	}
 }

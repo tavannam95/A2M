@@ -32,7 +32,7 @@
                       aria-labelledby="example-radio-group-label"
                       class="example-radio-group"
                       [(ngModel)]="idMovie">
-                      <mat-radio-button class="example-radio-button" *ngFor="let m of movies" [value]="m.idMovie" (change)="showid($event)">
+                      <mat-radio-button class="example-radio-button" *ngFor="let m of movies" [value]="m.idMovie" (change)="selectMovie($event)">
                         {{m.movieName}}
                       </mat-radio-button>
                     </mat-radio-group>
@@ -40,6 +40,37 @@
               </div>
             </div>
 
+            <div class="col-6 card m-0 p-0" style="overflow: hidden;">
+              <div class="row">
+                <div class="col-12 mt-2 text-center">
+                  <h3 class="m-0 font-weight-bold">Chọn ngày</h3>
+                </div>
+              </div>
+              <div class="row p-2">
+
+                <div class="col-12">
+   
+                  <form>
+    
+                    <mat-form-field appearance="outline">
+                      <mat-select [(ngModel)]="selectDate" (selectionChange)="changeDate($event)" name="food">
+                        <mat-option *ngFor="let showtime of listShowtime" [value]="showtime.date">
+                          {{showtime.date|date:'dd/MM/yyyy'}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+    
+                  </form>
+                </div>
+                <div class="col-12">
+                   <button class="btn btn-danger btn-round" *ngFor="let time of timeShowtime" (click)="selectShowtime(time.id)">
+                      {{time.timeStart|date: 'HH:mm'}}
+                   </button>
+                </div>
+              </div>
+
+
+            </div>
 
           </div>
         </div>
