@@ -42,11 +42,9 @@ export class SelectSeatComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
       this.showtimeId = Number(params.get('id'));
-      console.log(this.showtimeId);
       this.findById();
       this.findByShowtime();
     });
-    console.log(this.today);
     if (this.today==0||this.today==6) {
       this.isHoliday = true;
     }else{
@@ -55,8 +53,6 @@ export class SelectSeatComponent implements OnInit {
     this.ticketApiService.findByIsHoliday(this.isHoliday).subscribe({
       next: res=>{
         this.fare = res.data;
-        console.log(this.fare);
-        
       },
       error: e=>{
         console.log(e);
@@ -68,7 +64,6 @@ export class SelectSeatComponent implements OnInit {
   findByShowtime(){
     this.ticketApiService.findByShowtime(this.showtimeId).subscribe({
       next: res=>{
-        console.log('======ticket');
         this.tickets = res.data;
         for (let i = 0; i < this.tickets.length; i++) {
           this.selled.push(this.tickets[i].seat.id);
@@ -119,10 +114,6 @@ export class SelectSeatComponent implements OnInit {
       }
       this.show = this.show.substring(0,this.show.length-2);
     }
-    console.log('====total====');
-    console.log(this.total);
-    
-    
   }
 
   isSelected(seatId:any){
@@ -138,14 +129,9 @@ export class SelectSeatComponent implements OnInit {
     this.showtimeService.findById(this.showtimeId).subscribe({
       next: res =>{
         this.showtime= res.data;
-        console.log('=====showtime=======');
-        console.log(this.showtime);
         this.rowService.getByRoom(this.showtime.room).subscribe({
           next: res=>{
             this.seatRow = res.data;
-            console.log('=====row=====');
-            console.log(this.seatRow);
-            
           },
           error: e=>{
             console.log(e);
@@ -165,7 +151,6 @@ export class SelectSeatComponent implements OnInit {
       idAccount: 1,
       totalPrice: this.total
     }
-    console.log(billRequest);
     this.billService.createBill(billRequest).subscribe({
       next: res =>{
         console.log(res);

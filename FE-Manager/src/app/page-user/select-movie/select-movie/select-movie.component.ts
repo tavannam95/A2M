@@ -28,7 +28,6 @@ export class SelectMovieComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
       this.idMovie = Number(params.get('id'));
-      console.log(this.idMovie);
     });
     this.getAllShowtimeActive();
   }
@@ -44,18 +43,14 @@ export class SelectMovieComponent implements OnInit {
   getAllShowtimeActive(){
     this.showtimeService.getAllShowtimeActive().subscribe({
       next: res=>{
-        console.log(res);
         this.movies = res.data;
         this.showtimeService.findByMovie(this.idMovie).subscribe({
           next: res =>{
-            console.log(res);
             this.listShowtime = res.data;
             this.selectDate = this.listShowtime[0].date;
             this.showtimeService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
               next: res =>{
                 this.timeShowtime = res.data;
-                console.log('=====time showtime====');
-                console.log(this.timeShowtime);
                 
               },
               error: e =>{
@@ -78,14 +73,11 @@ export class SelectMovieComponent implements OnInit {
     let idMovie = event.value;
     this.showtimeService.findByMovie(idMovie).subscribe({
       next: res =>{
-        console.log(res);
         this.listShowtime = res.data;
         this.selectDate = this.listShowtime[0].date;
         this.showtimeService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
           next: res =>{
-            console.log('=====showtime====');
-            console.log(res);
-            
+            this.timeShowtime = res.data;
           },
           error: e =>{
             console.log(e);
@@ -101,10 +93,11 @@ export class SelectMovieComponent implements OnInit {
   }
 
   changeDate(event: any){
-    console.log(this.selectDate);
+    
     this.showtimeService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
       next: res =>{
-        console.log(res);
+        this.timeShowtime = res.data;
+        console.log(this.timeShowtime);
         
       },
       error: e =>{
