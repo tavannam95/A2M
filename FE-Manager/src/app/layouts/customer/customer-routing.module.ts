@@ -8,7 +8,7 @@ import { SelectSeatComponent } from 'app/page-user/select-seat/select-seat/selec
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'select-movie', component: SelectMovieComponent},
-  {path: 'fare', component: FareComponent}
+  {path: 'fare', component: FareComponent},
   {path: 'select-seat', component: SelectSeatComponent},
 ];
 
