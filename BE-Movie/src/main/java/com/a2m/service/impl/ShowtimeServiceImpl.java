@@ -33,7 +33,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     @Override
     public List<ShowtimeDateResponse> findByMovie(Long idMovie) {
         Date today = new Date();
-        return this.showtimesRepository.findByMovie(idMovie, today);
+        return this.showtimesRepository.findByMovie(idMovie);
     }
 
     @Override
