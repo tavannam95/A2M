@@ -10,6 +10,7 @@ import { RoomService } from 'app/services/room/room.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { SeeRoomDialogComponent } from '../dialog/see-room-dialog/see-room-dialog.component';
+import { ShowRoomComponent } from '../dialog/show-room/show-room.component';
 
 @Component({
   selector: 'app-room-list',
@@ -107,7 +108,7 @@ export class RoomListComponent implements OnInit {
   }
 
   seenRoom(row:any){
-    this.matDialog.open(SeeRoomDialogComponent,{
+    this.matDialog.open(ShowRoomComponent,{
       width: '1000px',
       disableClose: true,
       autoFocus: false,
