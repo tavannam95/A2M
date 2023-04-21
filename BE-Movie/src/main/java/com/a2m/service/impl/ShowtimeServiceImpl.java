@@ -2,6 +2,7 @@ package com.a2m.service.impl;
 
 import com.a2m.entities.Movies;
 import com.a2m.entities.Showtimes;
+import com.a2m.model.response.ShowtimeDateResponse;
 import com.a2m.model.response.ShowtimeResponse;
 import com.a2m.repository.ShowtimesRepository;
 import com.a2m.service.ShowtimeService;
@@ -30,7 +31,13 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     }
 
     @Override
-    public List<Showtimes> findByMovie(Long idMovie) {
-        return this.showtimesRepository.findByMovie(idMovie);
+    public List<ShowtimeDateResponse> findByMovie(Long idMovie) {
+        Date today = new Date();
+        return this.showtimesRepository.findByMovie(idMovie, today);
+    }
+
+    @Override
+    public List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date) {
+        return this.showtimesRepository.getShowtimeByMovieAndDate(idMovie,date);
     }
 }

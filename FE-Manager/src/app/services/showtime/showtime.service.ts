@@ -23,4 +23,12 @@ constructor(private http: HttpClient) { }
     return this.http.get(`${ApiConstant.showtime}/${idMovie}`);
   }
 
+  getShowtimeByMovieAndDate(idMovie: number, date: any):Observable<any>{
+    return this.http.post(`${ApiConstant.showtime}/time/${idMovie}`,date);
+  }
+
+  findById(showtimeId: any):Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/id/${showtimeId}`);
+  }
+
 }
