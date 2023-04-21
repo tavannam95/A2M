@@ -40,6 +40,10 @@ export class SelectSeatComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.showtime = {
+      movie: {poster: ''},
+      room: {name: ''}
+    }
     this.route.queryParamMap.subscribe(params => {
       this.showtimeId = Number(params.get('id'));
       this.findById();
@@ -129,6 +133,8 @@ export class SelectSeatComponent implements OnInit {
     this.showtimeService.findById(this.showtimeId).subscribe({
       next: res =>{
         this.showtime= res.data;
+        console.log(this.showtime);
+        
         this.rowService.getByRoom(this.showtime.room).subscribe({
           next: res=>{
             this.seatRow = res.data;
