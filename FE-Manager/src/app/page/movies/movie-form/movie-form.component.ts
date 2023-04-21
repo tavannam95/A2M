@@ -115,7 +115,7 @@ export class MovieFormComponent implements OnInit {
           {
             id:this.dataMovie.id,
             name: this.dataMovie.name, 
-            category: this.dataMovie.category,
+            category: this.dataMovie.category.name,
             national: this.dataMovie.nation,
             time: this.dataMovie.time,
             poster: this.dataMovie.poster,
