@@ -12,8 +12,8 @@
                     <ngx-dropzone-label>
                         <span class="material-symbols-outlined">tải ảnh lên</span>
                     </ngx-dropzone-label>
-                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [value]="poster">
-                    </ngx-dropzone-preview>
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)" [value]="f">
+                    </ngx-dropzone-image-preview>
                 </ngx-dropzone>
                 <!-- /Poster -->
             </div>
@@ -31,7 +31,7 @@
                 <!-- /Tên phim -->
 
                 <!-- Thể loại -->
-                <mat-form-field appearance="outline" id="nations">
+                <mat-form-field appearance="outline" id="category">
                     <mat-label>Thể loại</mat-label>
                     <mat-select formControlName="category">
                         <mat-option *ngFor="let category of categories"
@@ -60,16 +60,29 @@
                 <!-- /Thời lượng -->
 
                 <!-- Ngày bắt đầu -->
-                <mat-form-field appearance="outline">
+                <!-- <mat-form-field appearance="outline">
                     <mat-label>Ngày bắt đầu</mat-label>
                     <input type="date" formControlName="startDate" matInput>
-                </mat-form-field>
+                </mat-form-field> -->
                 <!-- /Ngày bắt đầu -->
 
+                <mat-form-field appearance="outline">
+                    <mat-label>Ngày bắt đầu</mat-label>
+                    <input matInput [matDatepicker]="startDate" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+
                 <!-- Ngày kết thúc -->
+                <!-- <mat-form-field appearance="outline">
+                    <mat-label>Ngày kết thúc</mat-label>
+                    <input type="date" formControlName="endDate"  matInput>
+                </mat-form-field> -->
                 <mat-form-field appearance="outline">
                     <mat-label>Ngày kết thúc</mat-label>
-                    <input type="date" formControlName="endDate" matInput>
+                    <input matInput [matDatepicker]="endDate" formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker #endDate></mat-datepicker>
                 </mat-form-field>
                 <!-- /Ngày kết thúc -->
 

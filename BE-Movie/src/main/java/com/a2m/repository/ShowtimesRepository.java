@@ -21,6 +21,6 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Long> {
     List<Showtimes> findByMovie(Long idMovie);
     
 //  1 đã chiếu, 0 là chưa chiếu
-    @Query(value = "UPDATE showtimes SET status = 0, is_delete = 0  WHERE time_start > CURRENT_TIMESTAMP", nativeQuery = true)
+    @Query(value = "UPDATE showtimes SET status = 1, is_delete = 1  WHERE time_start < CURRENT_TIMESTAMP", nativeQuery = true)
     void updateStatusShowtimes();
 }
