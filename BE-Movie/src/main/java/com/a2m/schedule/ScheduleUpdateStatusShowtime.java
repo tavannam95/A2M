@@ -16,7 +16,7 @@ private Logger LOG = LoggerFactory.getLogger(ScheduleUpdateStatusShowtime.class)
 	@Autowired
 	ShowtimesRepository showtimesRepository;
 	
-	@Scheduled(cron = "1 5 * * * *")
+	@Scheduled(cron = "0 0/5 * * * *")
     public void scheduleTaskWithCron() {
         // call send email method here
 		LOG.info("Schedule update showtime");
