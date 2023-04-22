@@ -11,4 +11,5 @@ public interface SeatsRepository extends JpaRepository<Seats,Integer> {
     List<Seats> findByRow(SeatRows seatRows);
     @Query("SELECT s FROM Seats s WHERE s.row.id = :id")
     List<Seats> findByRow(int id);
+
 }

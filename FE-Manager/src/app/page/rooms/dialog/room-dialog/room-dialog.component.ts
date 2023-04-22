@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'app-room-dialog',
   templateUrl: './room-dialog.component.html',
   styleUrls: ['./room-dialog.component.scss'],
-  
+
 })
 export class RoomDialogComponent implements OnInit {
   isLoading: boolean = false;
@@ -24,10 +24,7 @@ export class RoomDialogComponent implements OnInit {
 
   formGroup = this.fb.group({
     id: [''],
-    name: ['', [Validators.required, Validators.pattern(Regex.unicodeAndNumber)]],
-    quantityRow:['',[Validators.required, Validators.min(1),Validators.max(20)]],
-    quantitySeat:['',[Validators.required, Validators.min(1)]],
-    way:['',[Validators.required, Validators.min(1)]]
+    name: ['', [Validators.required, Validators.pattern(Regex.unicodeAndNumber)]]
   })
 
   constructor(
@@ -44,97 +41,96 @@ export class RoomDialogComponent implements OnInit {
     this.onInit();
   }
 
-  onInit(){
+  onInit() {
     // console.log(this.dataDialog);
-    if (this.dataDialog.type=='create') {
+    if (this.dataDialog.type == 'create') {
       this.title = 'Thêm phòng chiếu';
     }
-    if (this.dataDialog.type=='update') {
+    if (this.dataDialog.type == 'update') {
       this.title = 'Sửa phòng chiếu';
       this.dataRoom = this.dataDialog.row;
       console.log(this.dataRoom);
       this.formGroup.patchValue(
-          {
-            id:this.dataRoom.id,
-            name: this.dataRoom.name, 
-          }
-        );
+        {
+          id: this.dataRoom.id,
+          name: this.dataRoom.name,
+        }
+      );
     }
   }
 
-  onSubmit(){
+  onSubmit() {
 
-    if (this.dataDialog.type=='create') {
+    if (this.dataDialog.type == 'create') {
 
       console.log(this.formGroup.value);
-      
+
       this.createRoom();
 
     }
 
-    if (this.dataDialog.type=='update') {
-      
+    if (this.dataDialog.type == 'update') {
+
       this.updateRoom();
 
     }
 
-      
-  
+
+
   }
 
-  createRoom(){
+  createRoom() {
     this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       hasBackdrop: true,
       data: {
-          message: 'Bạn có muốn thêm mới phòng?'
+        message: 'Bạn có muốn thêm mới phòng?'
       }
     }).afterClosed().subscribe(result => {
-        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
-          this.isLoading = true;
-            console.log(this.formGroup.value);
-            // this.notificationService.showNotification('success', 'Thêm thành công !');
-            this.roomService.createRoom(this.formGroup.value).subscribe({
-              next: res =>{
-                console.log(res);
-                this.toastrService.success(res.message);
-                this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
-                this.isLoading = false;
-              },
-              error: e =>{
-                console.log(e);
-                
-              }
-            })
-        }
+      if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+        this.isLoading = true;
+        console.log(this.formGroup.value);
+        this.roomService.createRoom(this.formGroup.value).subscribe({
+          next: res => {
+            console.log(res);
+            this.toastrService.success(res.message);
+            this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
+            this.isLoading = false;
+          },
+          error: e => {
+            console.log(e);
+
+          }
+        })
+      }
     })
   }
 
-  updateRoom(){
+  updateRoom() {
     this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       hasBackdrop: true,
       data: {
-          message: 'Bạn có muốn cập nhật thông tin phòng?'
+        message: 'Bạn có muốn cập nhật thông tin phòng?'
       }
     }).afterClosed().subscribe(result => {
-        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
-          this.isLoading = true;
-            console.log(this.formGroup.value);
-            // this.notificationService.showNotification('success', 'Thêm thành công !');
-            this.roomService.updateRoom(this.formGroup.value).subscribe({
-              next: res =>{
-                console.log(res);
-                this.toastrService.success(res.message);
-                this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
-                this.isLoading = false;
-              },
-              error: e =>{
-                console.log(e);
-                
-              }
-            })
-        }
+      if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+        this.isLoading = true;
+        console.log(this.formGroup.value);
+        // this.notificationService.showNotification('success', 'Thêm thành công !');
+        this.roomService.updateRoom(this.formGroup.value).subscribe({
+          next: res => {
+            console.log(res);
+            this.toastrService.success(res.message);
+            this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
+            this.isLoading = false;
+          },
+          error: e => {
+            console.log(e);
+
+          }
+        })
+      }
     })
   }
 

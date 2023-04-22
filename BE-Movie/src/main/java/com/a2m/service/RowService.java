@@ -12,5 +12,7 @@ public interface RowService {
 
     List<RowResponse> findAllRowByRoom(Rooms rooms);
 
+    List<SeatRows> removeRowByRoom(Integer roomId);
+
     SeatRows activeOrInactive(SeatRows seatRows);
 }

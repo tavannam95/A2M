@@ -14,6 +14,10 @@ export class RoomApiService {
     return this.http.get(ApiConstant.room);
   }
 
+  create(data: any): Observable<any>{
+    return this.http.post(`${ApiConstant.room}/create`,data);
+  }
+
   save(data: any): Observable<any> {
     return this.http.post(ApiConstant.room, data);
   }
@@ -40,6 +44,10 @@ export class RoomApiService {
 
   getAllSeatType():Observable<any>{
     return this.http.get(`${ApiConstant.room}/seat-type`);
+  }
+
+  removeAll(roomId: any): Observable<any>{
+    return this.http.get(`${ApiConstant.room}/remove-all/${roomId}`);
   }
 
 }

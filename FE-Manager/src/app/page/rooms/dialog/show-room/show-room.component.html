@@ -1,0 +1,111 @@
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
+<h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+    <!-- Màn chiếu -->
+    <div class="row mb-5">
+      <div class="col-1 text-center">
+      </div>
+      <div class="col-11 text-center">
+        <img src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/content.v2/images/img49.png" alt="">
+      </div>
+    </div>
+
+    <div class="mt-5 mb-5"></div>
+
+    <div class="row" *ngFor="let row of listRows;">
+      <!-- Row -->
+      <div class="col-1 text-center">
+          <h3 class="m-0">{{row.name | uppercase }}</h3>
+        <!-- <div class="col-1 text-center">
+          <button mat-button [matMenuTriggerFor]="menu">
+            <h3 class="m-0">{{row.name | uppercase }}</h3>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="activeOrInactive(row)" mat-menu-item>Xóa hàng ghế</button>
+          </mat-menu> -->
+      </div>
+      <!-- Seat -->
+      <div class="col p-0 text-center" *ngFor="let seat of row.listSeats">
+        <a class="link_seat" *ngIf="checkAdd">
+          <img class="img_seat" src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/images/seat_lock.png" alt="">
+          <!-- <span *ngIf="seat.seatType.id==1 || seat.seatType.id==2" class="number_seat">
+            {{seat.number}}
+          </span> -->
+      </a>
+        <a class="link_seat"  *ngIf="!checkAdd" [matMenuTriggerFor]="menu">
+            <img *ngIf="seat.seatType.id==1" class="img_seat" src="https://chieuphimquocgia.com.vn/content/images/thumbs/0000194_Gh%E1%BA%BF%20th%C6%B0%E1%BB%9Dng.jpg" alt="">
+            <img *ngIf="seat.seatType.id==2" class="img_seat" src="https://chieuphimquocgia.com.vn/content/images/thumbs/0000193_ghe-vip.jpg" alt="">
+            <img *ngIf="seat.seatType.id==4" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1681704963/dpkabbnff3e3wqdyx6hs.png" alt="">
+            <img *ngIf="seat.seatType.id==3" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1681705286/a8iz6k8tcjzftml2swzh.png" alt="">
+            <span *ngIf="seat.seatType.id==1 || seat.seatType.id==2" class="number_seat">
+              {{seat.number}}
+            </span>
+        </a>
+        <mat-menu #menu="matMenu">
+          <button [matMenuTriggerFor]="menu2" mat-menu-item>Đổi loại</button>
+          <mat-menu #menu2="matMenu">
+            <div  *ngFor="let type of seatType">
+              <button mat-menu-item *ngIf="seat.seatType.id!=type.id" (click)="change(seat,type)">
+                  {{type.nameVi}}
+              </button>
+            </div>
+            
+          </mat-menu>
+        </mat-menu>
+      </div>
+
+    </div>
+
+    <div class="row" *ngFor="let row of listNewRows; let indexOfRow = index">
+      <!-- Row -->
+      <div class="col-1 text-center">
+          <h3 class="m-0">{{row.name | uppercase }}</h3>
+        <!-- <a class="text-primary" href="">
+          <h3 class="m-0">{{row.name | uppercase }}</h3>
+        </a> -->
+      </div>
+      <!-- Seat -->
+      <div class="col p-0 text-center" *ngFor="let seat of row.listSeats; let indexOfSeat = index">
+        <a class="link_seat" [matMenuTriggerFor]="menu">
+            <img *ngIf="seat.seatType.id==1" class="img_seat" src="https://chieuphimquocgia.com.vn/content/images/thumbs/0000194_Gh%E1%BA%BF%20th%C6%B0%E1%BB%9Dng.jpg" alt="">
+            <img *ngIf="seat.seatType.id==2" class="img_seat" src="https://chieuphimquocgia.com.vn/content/images/thumbs/0000193_ghe-vip.jpg" alt="">
+            <img *ngIf="seat.seatType.id==4" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1681704963/dpkabbnff3e3wqdyx6hs.png" alt="">
+            <img *ngIf="seat.seatType.id==3" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1681705286/a8iz6k8tcjzftml2swzh.png" alt="">
+            <span *ngIf="seat.seatType.id==1 || seat.seatType.id==2" class="number_seat">
+              {{seat.number}}
+            </span>
+        </a>
+        <mat-menu #menu="matMenu">
+          <button [matMenuTriggerFor]="menu2" mat-menu-item>Đổi loại</button>
+          <mat-menu #menu2="matMenu">
+            <div  *ngFor="let type of seatType;">
+              <button mat-menu-item *ngIf="seat.seatType.id!=type.id" (click)="changeNew(indexOfRow,indexOfSeat,type)">
+                  {{type.nameVi}}
+              </button>
+            </div>
+            
+          </mat-menu>
+        </mat-menu>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-12 d-flex justify-content-end">
+        <button class="btn btn-info" (click)="addRow()">Thêm hàng ghế</button>
+      </div>
+    </div>
+    
+  </div>
+  <div mat-dialog-actions class="row">
+    <div class="col-6">
+      <button *ngIf="listRows.length>0 && !checkAdd" (click)="removeAllSeat()" mat-button class="btn btn-danger">Xóa tất cả ghế</button>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+      <button *ngIf="checkAdd" class="btn btn-danger" mat-button (click)="cancelAddRow()">Hủy thao tác</button>
+      <button *ngIf="checkAdd" class="btn btn-success" mat-button (click)="onSave()" >Lưu thay đổi</button>
+      <button class="btn btn-dark" mat-button (click)="close()">Đóng</button>
+    </div>
+</div>

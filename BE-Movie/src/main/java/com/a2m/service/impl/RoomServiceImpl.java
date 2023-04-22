@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,26 +32,20 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Rooms createRoom(RoomRequest roomRequest) {
-        Rooms room = new Rooms();
-        room.setName(roomRequest.getName());
-        room.setIsDelete(false);
-        Rooms roomResponse = this.roomsRepository.save(room);
-        for (int i = 0; i < roomRequest.getQuantityRow(); i++) {
-            SeatRows seatRows = this.createSeatRow(roomResponse,listNameRow.get(i));
-            boolean checkWay = false;
-            for (int j = 0; j < roomRequest.getQuantitySeat()+1; j++) {
-                if ((j+1)==roomRequest.getWay()){
-                    this.createWay(seatRows,j+1);
-                    checkWay = true;
-                }else if (checkWay){
-                    this.createSeat(seatRows,j,j+2);
-                }else {
-                    this.createSeat(seatRows,j+1,j+1);
-                }
-
+        Rooms rooms = this.roomsRepository.findById(roomRequest.getRoomId()).get();
+        log.info("Room ID: {}", roomRequest.getRoomId());
+        for (int i = 0; i < roomRequest.getData().size(); i++) {
+            SeatRows s = new SeatRows();
+            s.setName(roomRequest.getData().get(i).getName());
+            s.setRoom(rooms);
+            s.setIsDelete(false);
+            SeatRows seatRows = this.rowsRepository.save(s);
+            for (int j = 0; j < roomRequest.getData().get(i).getListSeats().size(); j++) {
+                roomRequest.getData().get(i).getListSeats().get(j).setRow(seatRows);
+                this.seatsRepository.save(roomRequest.getData().get(i).getListSeats().get(j));
             }
         }
-        return room;
+        return rooms;
     }
 
     private SeatRows createSeatRow(Rooms rooms, String nameRow){
