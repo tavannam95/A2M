@@ -31,7 +31,7 @@ public class RowController {
 
     @PutMapping("active-or-inactive")
     public DataResponse<SeatRows> activeOrInactive(@RequestBody SeatRows rows){
-        return new DataResponse<>(true, "Thay đổi trạng thái thành công", this.rowService.activeOrInactive(rows));
+        return new DataResponse<>(true, "Xóa hàng ghế thành công", this.rowService.activeOrInactive(rows));
     }
 
 }

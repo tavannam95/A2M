@@ -72,9 +72,22 @@ public class RowServiceImpl implements RowService {
     }
 
     @Override
+    public List<SeatRows> removeRowByRoom(Integer roomId) {
+        Rooms rooms = this.roomsRepository.findById(roomId).get();
+        List<SeatRows> listSeatRow = this.rowsRepository.findByRoomAndIsDeleteOrderByNameAsc(rooms,false);
+        for (int i = 0; i < listSeatRow.size(); i++) {
+            SeatRows seatRows = listSeatRow.get(i);
+            seatRows.setIsDelete(true);
+            this.rowsRepository.save(seatRows);
+        }
+        return listSeatRow;
+    }
+
+    @Override
     public SeatRows activeOrInactive(SeatRows seatRows) {
         SeatRows seatRow = this.rowsRepository.findById(seatRows.getId()).get();
         seatRow.setIsDelete(!seatRow.getIsDelete());
         return this.rowsRepository.save(seatRow);
     }
+
 }

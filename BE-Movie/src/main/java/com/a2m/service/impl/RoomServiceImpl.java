@@ -32,12 +32,20 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Rooms createRoom(RoomRequest roomRequest) {
+        Rooms rooms = this.roomsRepository.findById(roomRequest.getRoomId()).get();
         log.info("Room ID: {}", roomRequest.getRoomId());
-        for (int i = 0; i < roomRequest.getData().get(0).getListSeats().size(); i++) {
-            log.info("Data: ====== {}", roomRequest.getData().get(0).getListSeats().get(i).getLocation());
-            log.info("Data: ====== {}", roomRequest.getData().get(0).getListSeats().get(i).getNumber());
+        for (int i = 0; i < roomRequest.getData().size(); i++) {
+            SeatRows s = new SeatRows();
+            s.setName(roomRequest.getData().get(i).getName());
+            s.setRoom(rooms);
+            s.setIsDelete(false);
+            SeatRows seatRows = this.rowsRepository.save(s);
+            for (int j = 0; j < roomRequest.getData().get(i).getListSeats().size(); j++) {
+                roomRequest.getData().get(i).getListSeats().get(j).setRow(seatRows);
+                this.seatsRepository.save(roomRequest.getData().get(i).getListSeats().get(j));
+            }
         }
-        return null;
+        return rooms;
     }
 
     private SeatRows createSeatRow(Rooms rooms, String nameRow){

@@ -39,4 +39,8 @@ constructor(private apiService: RoomApiService) { }
     return this.apiService.getAllSeatType();
   }
 
+  removeAll(roomId: any){
+    return this.apiService.removeAll(roomId);
+  }
+
 }

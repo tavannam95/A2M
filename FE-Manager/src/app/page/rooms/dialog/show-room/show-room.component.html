@@ -1,6 +1,6 @@
-<!-- <div *ngIf="isLoading" class="loading">
+<div *ngIf="isLoading" class="loading">
   <div class="spinner-border text-danger spinner-center" role="status"></div>
-</div> -->
+</div>
 <h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
 <div mat-dialog-content>
 
@@ -18,15 +18,14 @@
     <div class="row" *ngFor="let row of listRows;">
       <!-- Row -->
       <div class="col-1 text-center">
-        <button mat-button [matMenuTriggerFor]="menu">
           <h3 class="m-0">{{row.name | uppercase }}</h3>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button (click)="activeOrInactive(row)" mat-menu-item>Xóa hàng ghế</button>
-        </mat-menu>
-        <!-- <a class="text-primary" href="">
-          <h3 class="m-0">{{row.name | uppercase }}</h3>
-        </a> -->
+        <!-- <div class="col-1 text-center">
+          <button mat-button [matMenuTriggerFor]="menu">
+            <h3 class="m-0">{{row.name | uppercase }}</h3>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="activeOrInactive(row)" mat-menu-item>Xóa hàng ghế</button>
+          </mat-menu> -->
       </div>
       <!-- Seat -->
       <div class="col p-0 text-center" *ngFor="let seat of row.listSeats">
@@ -63,12 +62,7 @@
     <div class="row" *ngFor="let row of listNewRows; let indexOfRow = index">
       <!-- Row -->
       <div class="col-1 text-center">
-        <button mat-button [matMenuTriggerFor]="menu">
           <h3 class="m-0">{{row.name | uppercase }}</h3>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button (click)="activeOrInactive(row)" mat-menu-item>Xóa hàng ghế</button>
-        </mat-menu>
         <!-- <a class="text-primary" href="">
           <h3 class="m-0">{{row.name | uppercase }}</h3>
         </a> -->
@@ -103,9 +97,15 @@
         <button class="btn btn-info" (click)="addRow()">Thêm hàng ghế</button>
       </div>
     </div>
-
-</div>
-<div mat-dialog-actions class="d-flex justify-content-end">
-  <button class="btn btn-success" mat-button (click)="onSave()" >Lưu thay đổi</button>
-  <button class="btn btn-dark" mat-button mat-dialog-close>Đóng</button>
+    
+  </div>
+  <div mat-dialog-actions class="row">
+    <div class="col-6">
+      <button *ngIf="listRows.length>0 && !checkAdd" (click)="removeAllSeat()" mat-button class="btn btn-danger">Xóa tất cả ghế</button>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+      <button *ngIf="checkAdd" class="btn btn-danger" mat-button (click)="cancelAddRow()">Hủy thao tác</button>
+      <button *ngIf="checkAdd" class="btn btn-success" mat-button (click)="onSave()" >Lưu thay đổi</button>
+      <button class="btn btn-dark" mat-button (click)="close()">Đóng</button>
+    </div>
 </div>

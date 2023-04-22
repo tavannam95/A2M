@@ -46,4 +46,8 @@ export class RoomApiService {
     return this.http.get(`${ApiConstant.room}/seat-type`);
   }
 
+  removeAll(roomId: any): Observable<any>{
+    return this.http.get(`${ApiConstant.room}/remove-all/${roomId}`);
+  }
+
 }
