@@ -23,6 +23,7 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Long> {
 
     @Query("SELECT st FROM Showtimes st WHERE st.movie.id = :idMovie AND date(st.date) = :date")
     List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date);
+
     
 //  1 đã chiếu, 0 là chưa chiếu
     @Query(value = "UPDATE showtimes SET status = 1, is_delete = 1  WHERE time_start < CURRENT_TIMESTAMP", nativeQuery = true)
