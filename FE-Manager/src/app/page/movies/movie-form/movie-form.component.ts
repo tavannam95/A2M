@@ -6,12 +6,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Constant } from 'app/constants/Constant';
 import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
-import { NationService } from 'app/services/nation/nation.service';
 import { NotificationService } from 'app/services/notification-service/notification.service';
 import { Regex } from 'app/services/regex/regex';
 import { MovieService } from 'app/services/movie/movie.service';
 import { ToastrService } from 'ngx-toastr';
-import { CategoriesService } from 'app/services/categories/categories.service';
 import { CloudinaryService } from 'app/services/cloudinary/cloudinary.service';
 
 @Component({
@@ -26,7 +24,7 @@ export class MovieFormComponent implements OnInit {
   categories = [];
   nations = [];
   files: File[] = [];
-  imgUrl: any;
+  imgUrl: any; 
 
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -40,8 +38,8 @@ export class MovieFormComponent implements OnInit {
     national: [null],
     time: ['', [Validators.required, Validators.pattern(Regex.number)]],
     poster: [''],
-    startDate: [''],
-    endDate: [''],
+    startDate: [null],
+    endDate: [null],
     summary: ['']
   })
   constructor(
@@ -51,76 +49,35 @@ export class MovieFormComponent implements OnInit {
     private matDialog: MatDialog,
     private notificationService: NotificationService,
     private toastrService: ToastrService,
-    private nationService: NationService,
     private movieService: MovieService,
-    private categoriesService: CategoriesService,
     private uploadImageService: CloudinaryService,
   ) { }
 
   ngOnInit(): void {
     this.onInit();
-    this.getAllNation();
-    this.getAllCategories();
   }
 
-  getAllNation(){
-    
-    this.isLoading = true;
-    this.nationService.getAll().subscribe({
-      next: res =>{
-        this.dataSource = new MatTableDataSource<any>(res);
-        this.nations = this.dataSource.data;
-        this.dataSource.data = res;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data);
-        this.isLoading = false;
-      },
-      error: e =>{
-        console.log(e);
-        this.isLoading = false;
-      }
-    })
-  } 
-  getAllCategories(){
-    
-    this.isLoading = true;
-    this.categoriesService.getAll().subscribe({
-      next: res =>{
-        this.dataSource = new MatTableDataSource<any>(res);
-        this.categories = this.dataSource.data;
-        this.dataSource.data = res;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data);
-        this.isLoading = false;
-      },
-      error: e =>{
-        console.log(e);
-        this.isLoading = false;
-      }
-    })
-  } 
-
   onInit(){
-    // console.log(this.dataDialog);
     if (this.dataDialog.type=='create') {
       this.title = 'Thêm phim';
+      this.categories = this.dataDialog.categories;
+      this.nations = this.dataDialog.nations;
     }
     if (this.dataDialog.type=='update') {
       this.title = 'Sửa phim';
       this.dataMovie = this.dataDialog.row;
-      console.log(this.dataMovie);
+      this.categories = this.dataDialog.categories;
+      this.nations = this.dataDialog.nations;
       this.formGroup.patchValue(
           {
             id:this.dataMovie.id,
             name: this.dataMovie.name, 
-            category: this.dataMovie.category.name,
-            national: this.dataMovie.nation,
+            category: this.categories.find(c => c.id == this.dataMovie.category.id),
+            national: this.nations.find(c => c.id == this.dataMovie.national.id),
             time: this.dataMovie.time,
             poster: this.dataMovie.poster,
-            startDate: this.dataMovie.startDate,
-            endDate: this.dataMovie.endDate,
+            startDate: new Date(this.dataMovie.startDate),
+            endDate: new Date(this.dataMovie.endDate),
             summary: this.dataMovie.summary,
           }
         );
@@ -159,7 +116,6 @@ export class MovieFormComponent implements OnInit {
             // this.notificationService.showNotification('success', 'Thêm thành công !');
             this.movieService.createMovie(this.formGroup.value).subscribe({
               next: res =>{
-                console.log(res);
                 this.toastrService.success(res.message);
                 this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
                 this.isLoading = false;
@@ -183,14 +139,13 @@ export class MovieFormComponent implements OnInit {
     }).afterClosed().subscribe(result => {
         if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
           this.isLoading = true;
-            console.log(this.formGroup.value);
-            // this.notificationService.showNotification('success', 'Thêm thành công !');
+            // this.notificationService.showNotification('success', 'Sửa thành công !');
             this.movieService.updateMovie(this.formGroup.value).subscribe({
               next: res =>{
-                console.log(res);
                 this.toastrService.success(res.message);
                 this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
                 this.isLoading = false;
+                
               },
               error: e =>{
                 console.log(e);
@@ -202,7 +157,6 @@ export class MovieFormComponent implements OnInit {
   }
 
   onSelect(event) {
-		console.log(event);
     if (this.files.length > 0) {
       this.files.splice(0,1);
     }
@@ -210,7 +164,6 @@ export class MovieFormComponent implements OnInit {
 	}
 
 	onRemove(event) {
-		console.log(event);
 		this.files.splice(this.files.indexOf(event), 1);
 	}
 
@@ -221,10 +174,8 @@ export class MovieFormComponent implements OnInit {
     }
     try {
       this.imgUrl = await this.uploadImageService.upload(formData).toPromise();
-      console.log(this.imgUrl.data[0]);
       
       this.formGroup.patchValue({poster: this.imgUrl.data[0]});
-      console.log(this.imgUrl);
       
     } catch (error) {
       console.log(error);

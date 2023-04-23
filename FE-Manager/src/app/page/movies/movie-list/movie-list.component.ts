@@ -9,6 +9,9 @@ import { MovieFormComponent } from '../movie-form/movie-form.component';
 import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
 import { MovieService } from 'app/services/movie/movie.service';
 import { MovieDetailComponent } from '../movie-detail/movie-detail.component';
+import { forkJoin } from 'rxjs';
+import { CategoriesService } from 'app/services/categories/categories.service';
+import { NationService } from 'app/services/nation/nation.service';
 
 @Component({
   selector: 'app-movie-list',
@@ -18,7 +21,8 @@ import { MovieDetailComponent } from '../movie-detail/movie-detail.component';
 export class MovieListComponent implements OnInit {
   allMovie: any;
   isLoading = true;
-
+  nations: any[];
+  categories: any[];
   currentDate = new Date();
 
   displayedColumns: string[] = ['id', 'name', 'poster', 'category', 'nation', 'status', 'func'];
@@ -26,26 +30,42 @@ export class MovieListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   
+  
   constructor(
     private matDialog: MatDialog,
     private movieService: MovieService,
     private toastrService: ToastrService,
+    private categoriesService: CategoriesService,
+    private nationService: NationService,
     ) { }
 
   ngOnInit(): void {
-    this.getAllMovie();
+    this.isLoading = true;
+    forkJoin([
+      this.categoriesService.getAll(),
+      this.movieService.getAll(),
+      this.nationService.getAll()
+    ]).subscribe( {
+      next: res => {
+        this.categories = res[0];
+        this.handleMovies(res[1]);
+        this.nations = res[2];
+        this.isLoading = false;
+    }, 
+    error: (error) => {
+      this.isLoading = false;
+    }, 
+    complete:() => {
+      console.log("complete")
+    }
+    })
   }
 
-  getAllMovie(){
-    
-    this.isLoading = true;
-    this.movieService.getAll().subscribe({
-      next: res =>{
-        this.dataSource = new MatTableDataSource<any>(res);
-        this.dataSource.data = res;
+  handleMovies(movieData){
+    this.dataSource = new MatTableDataSource<any>(movieData);
+        this.dataSource.data = movieData;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data);
         this.dataSource.data.forEach((element)=>{
           if (new Date(element.endDate) < this.currentDate) {
             element.status = 0;
@@ -55,9 +75,15 @@ export class MovieListComponent implements OnInit {
             element.status = 1;
           }
         })
-        this.isLoading = false;
+  } 
+
+  getAllMovies() {
+    this.isLoading = true;
+    this.movieService.getAll().subscribe({
+      next: res => {
+        this.handleMovies(res);
       },
-      error: e =>{
+      error: e => {
         console.log(e);
         this.isLoading = false;
       }
@@ -78,13 +104,16 @@ export class MovieListComponent implements OnInit {
         disableClose: true,
         data:{
           type,
-          row
+          row,
+          categories: this.categories,
+          nations: this.nations
         } ,
         width: '700px'
       }).afterClosed().subscribe(result => {
         if (result === Constant.RESULT_CLOSE_DIALOG.SUCCESS) {
           // ----------------------After close----------------------
-          this.getAllMovie();
+          this.getAllMovies();
+          this.isLoading = false;
         }
     })
   }
@@ -109,13 +138,12 @@ export class MovieListComponent implements OnInit {
       }
     }).afterClosed().subscribe(result => {
         if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
-          console.log(row);
           this.isLoading = true;
           this.movieService.activeOrInactive(row).subscribe({
             next: res =>{
               this.toastrService.success(res.message);
+              this.getAllMovies();
               this.isLoading = false;
-              this.getAllMovie();
             },
             error: e =>{
               this.toastrService.error('Server đang quá tải vui lòng thử lại sau');
