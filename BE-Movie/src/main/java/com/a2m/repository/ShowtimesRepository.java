@@ -1,5 +1,6 @@
 package com.a2m.repository;
 
+import com.a2m.entities.Movies;
 import com.a2m.entities.Showtimes;
 import com.a2m.model.response.ShowtimeDateResponse;
 import com.a2m.model.response.ShowtimeResponse;
@@ -24,8 +25,25 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Long> {
     @Query("SELECT st FROM Showtimes st WHERE st.movie.id = :idMovie AND date(st.date) = :date")
     List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date);
 
+    @Query("SELECT st FROM Showtimes st WHERE date(st.date) = :today")
+    List<Showtimes> today(Date today);
+
+    @Query("select st from Movies st  where date(st.endDate) >= :date")
+    List<Movies> getMoviesByDate(Date date);
+
+    @Query("select st from Showtimes  st where date(st.date) = :date and st.rooms.id = :id")
+    List<Showtimes> getShowTimeByDate(Date date, int id);
+    
+    @Query("select st from Showtimes  st where date(st.date) = :date")
+    List<Showtimes> getShowTimesByDate(Date date);
+    
+    @Query("select st from Showtimes  st where st.rooms.id = :id")
+    List<Showtimes> getShowTimesByID(int id);
+
+//	List<Showtimes> getShowTimesByDate(String date);
     
 //  1 đã chiếu, 0 là chưa chiếu
     @Query(value = "UPDATE showtimes SET status = 1, is_delete = 1  WHERE time_start < CURRENT_TIMESTAMP", nativeQuery = true)
     void updateStatusShowtimes();
+
 }

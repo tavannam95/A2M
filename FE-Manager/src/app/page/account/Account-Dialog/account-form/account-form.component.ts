@@ -22,10 +22,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AccountFormComponent implements OnInit {
   isLoading = false;
+  
   messengerUsername: string = 'Không được để trống ô này';
-
-  @ViewChild(AccountListComponent) accountList: AccountListComponent
-
   
 
   title: string = 'Account'
@@ -67,6 +65,7 @@ export class AccountFormComponent implements OnInit {
     if (this.dataDialog.type == 'update') {
       this.title = 'Update Account';
     }
+    console.log(this.dataDialog.row)
   }
 
   onSelect(event) {

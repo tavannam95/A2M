@@ -40,6 +40,8 @@ public class Movies {
     @Column(name = "end_date")
     private Date endDate;
 
+    @Column(name = "end_date")
+    private Date endDate;
     @Column(name = "create_date")
     private Date createDate;
 
@@ -163,7 +165,12 @@ public class Movies {
         return listShowtimes;
     }
 
-    public Movies() {
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Movies(){
+
     }
 
     public Date getEndDate() {
