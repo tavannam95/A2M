@@ -11,8 +11,6 @@ import { Observable } from 'rxjs';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
 // import { TableShowtimesDialogComponent } from '../showtime-dialog/table-showtimes-dialog/table-showtimes-dialog.component';
 import { event } from 'jquery';
-import { error } from 'console';
-
 @Component({
   selector: 'app-showtime-form',
   templateUrl: './showtime-form.component.html',

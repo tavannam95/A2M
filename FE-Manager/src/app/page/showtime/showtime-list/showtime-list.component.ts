@@ -6,8 +6,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Constant } from 'app/constants/Constant';
 import { ShowtimeFormComponent } from '../showtime-form/showtime-form.component';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
-import { time } from 'console';
-import * as moment from 'moment-timezone';
 
 
 @Component({

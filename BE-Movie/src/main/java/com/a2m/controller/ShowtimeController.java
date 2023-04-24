@@ -12,8 +12,6 @@ import lombok.AllArgsConstructor;
 import org.hibernate.annotations.Parameter;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +53,7 @@ public class ShowtimeController {
         List<Showtimes> showtime = this.showtimesRepository.findAll();
         List<Showtimes> showtimes = new ArrayList<>();
         for(Showtimes s: showtime) {
-        	if(s.getDelete() == false) {
+        	if(s.getIsDelete() == false) {
         		showtimes.add(s);
         	}
         }
@@ -77,7 +75,7 @@ public class ShowtimeController {
     	List<Showtimes> showtime = this.showtimesRepository.getShowTimeByDate(date, id);
         List<Showtimes> showtimes = new ArrayList<>();
         for(Showtimes s: showtime) {
-        	if(s.getDelete() == false) {
+        	if(s.getIsDelete() == false) {
         		showtimes.add(s);
         	}
         }
@@ -88,18 +86,18 @@ public class ShowtimeController {
     public DataResponse<Showtimes> saveShowtimes(@RequestBody Showtimes listShowtimes){
     	System.out.println(listShowtimes.getTimeStart());
     	System.out.println(listShowtimes.getTimeEnd());
-    	listShowtimes.setDelete(false);
+    	listShowtimes.setIsDelete(false);
         return new DataResponse<>(true,"Thành công",this.showtimesRepository.save(listShowtimes));
     }
     
     @PutMapping("/updateData")
     public DataResponse<Showtimes> updateData(@RequestBody Showtimes listShowtimes){
     	if(listShowtimes.getId() == null) {
-    		listShowtimes.setDelete(false);
+    		listShowtimes.setIsDelete(false);
     		return new DataResponse<>(true,"Thành công",this.showtimesRepository.save(listShowtimes));
     	}
         Showtimes newShowtime = this.showtimesRepository.findById(listShowtimes.getId()).orElse(null);
-        newShowtime.setDelete(listShowtimes.getDelete());
+        newShowtime.setIsDelete(listShowtimes.getIsDelete());
         return new DataResponse<>(true,"Thành công",this.showtimesRepository.save(newShowtime));
     }
     
@@ -117,12 +115,12 @@ public class ShowtimeController {
     }
     
     @GetMapping("/getShowtimeByDateAndID")
-    public DataResponse<List<Showtimes>> getShowtimeByDateAndID(@RequestParam String date, @RequestParam int id) throws ParseException{
-    	 SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-    	    java.util.Date parsedDate = format.parse(date);
-    	    Date dateInput = new Date(parsedDate.getTime());
-        return new DataResponse<>(true,"Thành công",this.showtimesRepository.getShowTimeByDate(dateInput, id));
-
+    public DataResponse<List<Showtimes>> getShowtimeByDateAndID(@RequestParam String date, @RequestParam int id) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        java.util.Date parsedDate = format.parse(date);
+        Date dateInput = new Date(parsedDate.getTime());
+        return new DataResponse<>(true, "Thành công", this.showtimesRepository.getShowTimeByDate(dateInput, id));
+    }
     @GetMapping("/all-active")
     public DataResponse<List<ShowtimeResponse>> getAllShowtimeActive(){
         return new DataResponse<>(true, "Thành công", this.showtimeService.getAllShowtimeActive());

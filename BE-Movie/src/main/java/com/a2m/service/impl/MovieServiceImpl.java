@@ -28,7 +28,7 @@ public class MovieServiceImpl implements MovieService{
 
 	@Override
 	public Movies deleteMovie(Movies movies) {
-		movies.setDelete(!movies.getDelete());
+		movies.setIsDelete(!movies.getIsDelete());
 		return moviesRepository.save(movies);
 	}
 
