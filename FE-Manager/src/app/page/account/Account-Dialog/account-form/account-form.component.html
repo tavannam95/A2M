@@ -8,7 +8,7 @@
         <div class="row" [formGroup]="formGroup">
             <div class="col-4">
                 <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
-                    <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+                    <ngx-dropzone-label>Thêm ảnh vào đây</ngx-dropzone-label>
                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"  [removable]="true" (removed)="onRemove(f)">
                         <!-- <ngx-dropzone-label></ngx-dropzone-label> -->
                       </ngx-dropzone-image-preview>

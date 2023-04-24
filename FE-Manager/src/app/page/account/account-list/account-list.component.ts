@@ -37,7 +37,7 @@ export class AccountListComponent implements OnInit {
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data.filter((data) => data.roles === "EMPLOYEE"));
+        // console.log(this.dataSource.data.filter((data) => data.roles === "EMPLOYEE"));
       },
       error: e => {
         console.log(e);
