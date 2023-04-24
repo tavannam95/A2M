@@ -37,8 +37,6 @@ public class BillController {
 
 	@PostMapping("/create")
 	DataResponse<Bills> create(@RequestBody BillRequest billRequest){
-		log.warn("{}", billRequest.getListSeatFare().get(0).getFareId());
-		log.warn("{}",billRequest.getShowtimeId());
 		return new DataResponse<>(true,"Đặt vé thành công",this.billService.createBill(billRequest));
 	}
 }
