@@ -38,4 +38,10 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         return this.showtimesRepository.getShowTimeByDate(date, id);
     }
 
+//	@Override
+//	public List<Showtimes> getShowtimesByDate(String date) {
+//		// TODO Auto-generated method stub
+//		return this.showtimesRepository.getShowTimesByDate(date);
+//	}
+
 }

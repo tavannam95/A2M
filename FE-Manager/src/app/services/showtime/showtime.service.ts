@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiConstant } from 'app/constants/ApiConstant';
+import { PeriodicElement } from 'app/page/showtime/showtime-form/showtime-form.component';
 import { Observable } from 'rxjs';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +31,26 @@ constructor(private http: HttpClient) { }
   }
 
   getShowTimeByDate(date: string, id: number): Observable<any>{
-    return this.http.get(`${ApiConstant.showtime}/getShowTimeByDate?date=`+date+`&&id=`+id);
+    return this.http.get(`${ApiConstant.showtime}/getShowTimeByDate?date=`+date+`&id=`+id);
   }
 
   saveShowtime(data: any): Observable<any>{
     return this.http.post(`${ApiConstant.showtime}/saveShowtimes`, data);
+  }
+
+  updateData(data: any): Observable<any>{
+    return this.http.put(`${ApiConstant.showtime}/updateData`, data);
+  }
+
+  getShowtimesByDate(date: string): Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/getShowtimesByDate?date=`+date);
+  }
+
+  getShowtimesByIDRoom(id: number): Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/getShowtimesByID?id=`+id);
+  }
+
+  getShowTimeByDateAndID(date: string, id: number): Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/getShowTimeByDateAndID?date=`+date+`&id=`+id);
   }
 }
