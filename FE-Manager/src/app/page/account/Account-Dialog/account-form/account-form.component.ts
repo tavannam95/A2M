@@ -58,26 +58,27 @@ export class AccountFormComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log(this.dataDialog);
+    // console.log(this.dataDialog);
     if (this.dataDialog.type == 'create') {
       this.title = 'Add Account';
     }
     if (this.dataDialog.type == 'update') {
       this.title = 'Update Account';
     }
-    console.log(this.dataDialog.row)
+    // console.log(this.dataDialog.row)
   }
 
   onSelect(event) {
-    console.log(event);
+    // console.log(event);
     if (this.files.length>0) {
       this.files.splice(0,1);
     }
     this.files.push(...event.addedFiles);
+    // console.log(this.files);
   }
   
   onRemove(event) {
-    console.log(event);
+    // console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
   
@@ -88,14 +89,14 @@ export class AccountFormComponent implements OnInit {
       formData.append('files',this.files[0])
     }
     try {
-      this.imgUrl = await this.uploadImageService.upload(formData).toPromise();
-      console.log(this.imgUrl.data[0]);
+      this.imgUrl = await this.uploadImageService.upload(formData)
+      // console.log('URL: '+this.imgUrl.data[0]);
       
       this.formGroup.patchValue({photo: this.imgUrl.data[0]});
-      console.log(this.imgUrl);
+      // console.log(this.imgUrl);
       
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       
     }
   }
@@ -106,14 +107,14 @@ export class AccountFormComponent implements OnInit {
       await this.uploadImg();
     }
     const id = (this.selected_id === "ADMINSTATOR") ? 3 : 2
-    console.log(this.imgUrl);
+    // console.log(this.imgUrl);
     
     this.formGroup.patchValue({ role: { id: id } });
     // console.log(this.formGroup.value);
 
     this.accountService.save(this.formGroup.value).subscribe({
       next: res => {
-        console.log(this.formGroup.value);
+        // console.log(this.formGroup.value);
         this.matDialogRef.close()
         if(res.status===true){
           this.toastrService.success(res.message);
@@ -125,7 +126,7 @@ export class AccountFormComponent implements OnInit {
         }
       },
       error: e=>{
-        console.log(e);
+        // console.log(e);
         this.toastrService.error('lỗi tạo tài khoản')
       }
     }

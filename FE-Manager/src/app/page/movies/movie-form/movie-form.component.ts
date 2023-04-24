@@ -20,11 +20,12 @@ import { CloudinaryService } from 'app/services/cloudinary/cloudinary.service';
 export class MovieFormComponent implements OnInit {
   isLoading: boolean = false;
 
+  titleMess = '';
   title: string = 'Phim';
   categories = [];
   nations = [];
   files: File[] = [];
-  imgUrl: any; 
+  imgUrl: any;
 
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -57,129 +58,167 @@ export class MovieFormComponent implements OnInit {
     this.onInit();
   }
 
-  onInit(){
-    if (this.dataDialog.type=='create') {
+  onInit() {
+    if (this.dataDialog.type == 'create') {
       this.title = 'Thêm phim';
       this.categories = this.dataDialog.categories;
+      this.titleMess = 'Bạn có muốn thêm mới phim?'
       this.nations = this.dataDialog.nations;
     }
-    if (this.dataDialog.type=='update') {
+    if (this.dataDialog.type == 'update') {
       this.title = 'Sửa phim';
+      this.titleMess = 'Bạn có muốn cập nhật thông tin phim?'
       this.dataMovie = this.dataDialog.row;
       this.categories = this.dataDialog.categories;
       this.nations = this.dataDialog.nations;
       this.formGroup.patchValue(
-          {
-            id:this.dataMovie.id,
-            name: this.dataMovie.name, 
-            category: this.categories.find(c => c.id == this.dataMovie.category.id),
-            national: this.nations.find(c => c.id == this.dataMovie.national.id),
-            time: this.dataMovie.time,
-            poster: this.dataMovie.poster,
-            startDate: new Date(this.dataMovie.startDate),
-            endDate: new Date(this.dataMovie.endDate),
-            summary: this.dataMovie.summary,
-          }
-        );
+        {
+          id: this.dataMovie.id,
+          name: this.dataMovie.name,
+          category: this.categories.find(c => c.id == this.dataMovie.category.id),
+          national: this.nations.find(c => c.id == this.dataMovie.national.id),
+          time: this.dataMovie.time,
+          poster: this.dataMovie.poster,
+          startDate: new Date(this.dataMovie.startDate),
+          endDate: new Date(this.dataMovie.endDate),
+          summary: this.dataMovie.summary,
+        }
+      );
     }
   }
-
-  async onSubmit(){
-    this.isLoading = true;
+  async uploadImage() {
     if (this.files.length > 0) {
       await this.uploadImg();
     }
-    if (this.dataDialog.type=='create') {
+    if (this.dataDialog.type == 'create') {
 
-      this.createMovie();
+      // this.createMovie();
 
     }
 
-    if (this.dataDialog.type=='update') {
-      
+    if (this.dataDialog.type == 'update') {
+
       this.updateMovie();
 
     }
-  
   }
 
-  createMovie(){
+  async onSubmit() {
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.invalid) {
+      return;
+    }
     this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       hasBackdrop: true,
       data: {
-          message: 'Bạn có muốn thêm mới phim?'
+        message: this.titleMess
       }
     }).afterClosed().subscribe(result => {
-        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
-          this.isLoading = true;
-            // this.notificationService.showNotification('success', 'Thêm thành công !');
-            this.movieService.createMovie(this.formGroup.value).subscribe({
-              next: res =>{
-                this.toastrService.success(res.message);
-                this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
-                this.isLoading = false;
-              },
-              error: e =>{
-                console.log(e);
-                
-              }
-            })
+      if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+        this.isLoading = true;
+        this.uploadImage();
+        // this.notificationService.showNotification('success', 'Thêm thành công !');
+        if (this.dataDialog.type === "create") {
+          this.movieService.createMovie(this.formGroup.value).subscribe({
+            next: res => {
+              this.toastrService.success(res.message);
+              this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
+              this.isLoading = false;
+              console.log(res);
+            },
+            error: e => {
+              console.log(e);
+
+            }
+          })
         }
+        if (this.dataDialog.type == 'update') {
+
+          this.movieService.updateMovie(this.formGroup.value).subscribe({
+            next: res => {
+              this.toastrService.success(res.message);
+              this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
+              this.isLoading = false;
+
+            },
+            error: e => {
+              console.log(e);
+
+            }
+          })
+
+        }
+      }
     })
   }
 
-  updateMovie(){
+  // createMovie(){
+  //   this.matDialog.open(ConfirmDialogComponent, {
+  //     disableClose: true,
+  //     hasBackdrop: true,
+  //     data: {
+  //         message: 'Bạn có muốn thêm mới phim?'
+  //     }
+  //   }).afterClosed().subscribe(result => {
+  //       if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+  //         this.isLoading = true;
+  //           // this.notificationService.showNotification('success', 'Thêm thành công !');
+  //           this.movieService.createMovie(this.formGroup.value).subscribe({
+  //             next: res =>{
+  //               this.toastrService.success(res.message);
+  //               this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
+  //               this.isLoading = false;
+  //             },
+  //             error: e =>{
+  //               console.log(e);
+
+  //             }
+  //           })
+  //       }
+  //   })
+  // }
+
+  updateMovie() {
     this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       hasBackdrop: true,
       data: {
-          message: 'Bạn có muốn cập nhật thông tin phim?'
+        message: 'Bạn có muốn cập nhật thông tin phim?'
       }
     }).afterClosed().subscribe(result => {
-        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
-          this.isLoading = true;
-            // this.notificationService.showNotification('success', 'Sửa thành công !');
-            this.movieService.updateMovie(this.formGroup.value).subscribe({
-              next: res =>{
-                this.toastrService.success(res.message);
-                this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
-                this.isLoading = false;
-                
-              },
-              error: e =>{
-                console.log(e);
-                
-              }
-            })
-        }
+      if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+        this.isLoading = true;
+        // this.notificationService.showNotification('success', 'Sửa thành công !');
+
+      }
     })
   }
 
   onSelect(event) {
     if (this.files.length > 0) {
-      this.files.splice(0,1);
+      this.files.splice(0, 1);
     }
-		this.files.push(...event.addedFiles);
-	}
+    this.files.push(...event.addedFiles);
+  }
 
-	onRemove(event) {
-		this.files.splice(this.files.indexOf(event), 1);
-	}
+  onRemove(event) {
+    this.files.splice(this.files.indexOf(event), 1);
+  }
 
-  async uploadImg(){
+  async uploadImg() {
     const formData = new FormData();
-    if (this.files.length>0) {
-      formData.append('files',this.files[0])
+    if (this.files.length > 0) {
+      formData.append('files', this.files[0])
     }
     try {
       this.imgUrl = await this.uploadImageService.upload(formData).toPromise();
-      
-      this.formGroup.patchValue({poster: this.imgUrl.data[0]});
-      
+
+      this.formGroup.patchValue({ poster: this.imgUrl.data[0] });
+
     } catch (error) {
       console.log(error);
-      
+
     }
   }
 }

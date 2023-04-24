@@ -51,12 +51,13 @@ export class ShowtimeListComponent implements OnInit {
   getAllShowtimes() {
     this.showtimesService.getAllShowtimes().subscribe({
       next: res => {
+        console.log(res.data)
         res.data.forEach((data) => {
           data.date = new Date(data.date).toLocaleDateString()
           data.timeStart = new Date(data.timeStart).toLocaleDateString() + ' ' + new Date(data.timeStart).toLocaleTimeString('en-US', { hour12: false })
           data.timeEnd = new Date(data.timeEnd).toLocaleDateString() + ' ' + new Date(data.timeEnd).toLocaleTimeString('en-US', { hour12: false })
           this.dayArray.push(data.date);
-          this.roomArray.push(''+data.rooms.id);
+          this.roomArray.push(''+data.room.id);
         })
         this.dayArray = this.filterDuplicates(this.dayArray);
         this.roomArray = this.filterDuplicates(this.roomArray);
@@ -90,12 +91,12 @@ export class ShowtimeListComponent implements OnInit {
       console.log(2);
       if (this.select_day === '') {
         this.dataSource.data = this.dataArray.filter((data) => {
-          return (''+data.rooms.id === event);
+          return (''+data.room.id === event);
         })
       }
       else {
         this.dataSource.data = this.dataArray.filter((data) => {
-          return (''+data.rooms.id === event && data.date === this.select_day);
+          return (''+data.room.id === event && data.date === this.select_day);
         })
       }
     }
@@ -108,7 +109,7 @@ export class ShowtimeListComponent implements OnInit {
       }
       else {
         this.dataSource.data = this.dataArray.filter((data) => {
-          return (''+data.rooms.id === ''+this.select_room && data.date === event);
+          return (''+data.room.id === ''+this.select_room && data.date === event);
         })
       }
     }
