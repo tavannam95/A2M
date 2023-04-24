@@ -93,16 +93,13 @@ export class SelectMovieComponent implements OnInit {
   }
 
   changeDate(event: any){
-    
     this.showtimeService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
       next: res =>{
         this.timeShowtime = res.data;
         console.log(this.timeShowtime);
-        
       },
       error: e =>{
         console.log(e);
-        
       }
     })
   }
