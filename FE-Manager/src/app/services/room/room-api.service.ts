@@ -14,6 +14,10 @@ export class RoomApiService {
     return this.http.get(ApiConstant.room);
   }
 
+  create(data: any): Observable<any>{
+    return this.http.post(`${ApiConstant.room}/create`,data);
+  }
+
   save(data: any): Observable<any> {
     return this.http.post(ApiConstant.room, data);
   }
@@ -34,8 +38,16 @@ export class RoomApiService {
     return this.http.put(`${ApiConstant.room}/active-or-inactive`,data);
   }
 
-  changeSeatType(data:any):Observable<any>{
-    return this.http.put(`${ApiConstant.room}/change-seat-type`,data);
+  changeSeatType(seatId: any,seatType:any):Observable<any>{
+    return this.http.put(`${ApiConstant.room}/change-seat-type/${seatId}`,seatType);
+  }
+
+  getAllSeatType():Observable<any>{
+    return this.http.get(`${ApiConstant.room}/seat-type`);
+  }
+
+  removeAll(roomId: any): Observable<any>{
+    return this.http.get(`${ApiConstant.room}/remove-all/${roomId}`);
   }
 
 }

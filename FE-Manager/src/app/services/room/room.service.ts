@@ -15,6 +15,9 @@ constructor(private apiService: RoomApiService) { }
   getOne(id: any){
     return this.apiService.getOne(id);
   }
+  create(data: any){
+    return this.apiService.create(data);
+  }
 
   createRoom(data: any){
     return this.apiService.createRoom(data);
@@ -28,9 +31,16 @@ constructor(private apiService: RoomApiService) { }
     return this.apiService.activeOrInactive(data);
   }
 
-  changeSeatType(data:any){
-    return this.apiService.changeSeatType(data);
+  changeSeatType(seatId:any, seatType:any){
+    return this.apiService.changeSeatType(seatId,seatType);
   }
 
+  getAllSeatType(){
+    return this.apiService.getAllSeatType();
+  }
+
+  removeAll(roomId: any){
+    return this.apiService.removeAll(roomId);
+  }
 
 }

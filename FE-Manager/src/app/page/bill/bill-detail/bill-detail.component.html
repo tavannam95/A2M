@@ -1,0 +1,116 @@
+<h2 class="text-center h2 font-weight-bold" mat-dialog-title>Rạp Amenic</h2>
+<div mat-dialog-content>
+    <form class="mb-0">
+        <div class="row">
+            <div class="title">
+                <!-- Title1 -->
+                <h3> Thông tin khách hàng</h3>
+            </div>
+            <div class="info">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Mã hoá đơn</th>
+                            <td>{{bill.billCode}}</td>
+                        </tr>
+                        <tr>
+                            <th>Họ tên</th>
+                            <td>{{bill.customer.fullname}}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{bill.customer.email}}</td>
+                        </tr>
+                        <tr>
+                            <th>Số điện thoại</th>
+                            <td>{{bill.customer.phone}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="title">
+                <!-- Tên phim -->
+                <h3>Thông tin vé</h3>
+            </div>
+            <div class="info">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Tên phim</th>
+                            <td>{{bill.movieName}}</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày chiếu</th>
+                            <td>{{bill.showDate | date:'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Giờ chiếu</th>
+                            <td>{{bill.showDate | date:'hh:mm:ss'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Thời lượng</th>
+                            <td>{{bill.movieTime}} phút</td>
+                        </tr>
+                        <tr>
+                            <th>Phòng chiếu</th>
+                            <td>{{bill.room}}</td>
+                        </tr>
+                        <tr>
+                            <th>Vị trí ghế</th>
+                            <td>
+                                <span *ngFor="let ticket of bill.listTickets">
+                                    {{ticket.seat.row.name}}{{ticket.seat.number}}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Loại ghế</th>
+                            <td>{{bill.seatType}}</td>
+                        </tr>
+                        <tr>
+                            <th>Trạng thái</th>
+                            <td>
+                                <div *ngIf="bill.status == 0">
+                                    <span [style.color]="'red'">Quá hạn</span>
+                                </div>
+                                <div *ngIf="bill.status == 1">
+                                    <span [style.color]="'green'">Còn hiệu lực</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="info">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Tổng tiền</th>
+                            <td>{{bill.totalPrice}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="info">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Mã barcode</th>
+                            <td>{{bill.barCode}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <!-- <button class="btn btn-success" (click)="openDialogForm('update',movie)" mat-button>Sửa thông tin</button> -->
+    <button class="btn btn-dark" mat-button mat-dialog-close>Thoát</button>
+</div>

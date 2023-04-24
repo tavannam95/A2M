@@ -30,7 +30,7 @@
     
     <mat-tab>
       <ng-template mat-tab-label>
-        <span class="label_tab">
+        <span class="label_tab text-uppercase">
           Phim đang chiếu
         </span>
       </ng-template>
@@ -40,148 +40,27 @@
           <div class="row">
               <div class="col-3 mt-3 p-2" *ngFor="let m of movies">
                 <div class="img-poster h-100 w-100">
-                  <img style="width: 100%; height: 100%;" [src]="m.movie.poster" alt="">
+                  <img style="width: 100%; height: 100%;" [src]="m.moviePoster" alt="">
                   <div class="poster-hover">
                     <div class="row">
                       <div class="col-12 text-center mt-2">
-                        <span class="text-dark title-movie mt-2 font-weight-bold">{{m.movie.name}}</span>
+                        <span class="text-dark title-movie mt-2 font-weight-bold">{{m.movieName}}</span>
                       </div>
                       <div class="col-12 text-center mt-2">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Thể loại: {{m.movie.category.name}}</span>
+                        <span class="text-dark info-movie m-0 font-weight-bold">Thể loại: {{m.category}}</span>
                       </div>
                       <div class="col-12 text-center">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Khởi chiếu: {{m.movie.premiereDate}}</span>
+                        <span class="text-dark info-movie m-0 font-weight-bold">Khởi chiếu: {{m.premiereDate | date: 'dd/MM/yyyy'}}</span>
                       </div>
-                      <div class="col-12 text-center mt-3">
+                      <div class="col-12 text-center mt-2">
                         <button class="btn btn-outline-danger btn-round font-weight-bold">
-                          <h4 class="m-0 font-weight-bold">Đặt vé</h4>
+                          <h4 class="m-0 font-weight-bold" (click)="book(m.idMovie)">Đặt vé</h4>
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <!-- <div class="col-3 mt-3 p-2">
-                <div class="img-poster h-100 w-100">
-                  <img style="width: 100%; height: 100%;" src="https://chieuphimquocgia.com.vn/Content/Images/0016829_0.jpeg" alt="">
-                  <div class="poster-hover p-1">
-                    <div class="row">
-                      <div class="col-12 text-center mt-2">
-                        <span class="text-dark title-movie mt-2 font-weight-bold">Super mario</span>
-                      </div>
-                      <div class="col-12 text-center mt-2">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Thể loại: Hành động</span>
-                      </div>
-                      <div class="col-12 text-center">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Khởi chiếu: 12/04/2023</span>
-                      </div>
-                      <div class="col-12 text-center mt-3">
-                        <button class="btn btn-outline-danger btn-round font-weight-bold">
-                          <h4 class="m-0 font-weight-bold">Đặt vé</h4>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-3 mt-3 p-2">
-                <div class="img-poster h-100 w-100">
-                  <img style="width: 100%; height: 100%;" src="https://chieuphimquocgia.com.vn/Content/Images/0016785_0.jpeg" alt="">
-                  <div class="poster-hover">
-                    <div class="row">
-                      <div class="col-12 text-center mt-2">
-                        <span class="text-dark title-movie mt-2 font-weight-bold">Super mario</span>
-                      </div>
-                      <div class="col-12 text-center mt-2">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Thể loại: Hành động</span>
-                      </div>
-                      <div class="col-12 text-center">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Khởi chiếu: 12/04/2023</span>
-                      </div>
-                      <div class="col-12 text-center mt-3">
-                        <button class="btn btn-outline-danger btn-round font-weight-bold">
-                          <h4 class="m-0 font-weight-bold">Đặt vé</h4>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-3 mt-3 p-2">
-                <div class="img-poster h-100 w-100">
-                  <img style="width: 100%; height: 100%;" src="https://chieuphimquocgia.com.vn/Content/Images/0016817_0.jpeg" alt="">
-                  <div class="poster-hover">
-                    <div class="row">
-                      <div class="col-12 text-center mt-2">
-                        <span class="text-dark title-movie mt-2 font-weight-bold">Super mario</span>
-                      </div>
-                      <div class="col-12 text-center mt-2">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Thể loại: Hành động</span>
-                      </div>
-                      <div class="col-12 text-center">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Khởi chiếu: 12/04/2023</span>
-                      </div>
-                      <div class="col-12 text-center mt-3">
-                        <button class="btn btn-outline-danger btn-round font-weight-bold">
-                          <h4 class="m-0 font-weight-bold">Đặt vé</h4>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-3 mt-3 p-2">
-                <div class="img-poster h-100 w-100">
-                  <img style="width: 100%; height: 100%;" src="https://chieuphimquocgia.com.vn/Content/Images/0016720_0.jpeg" alt="">
-                  <div class="poster-hover">
-                    <div class="row">
-                      <div class="col-12 text-center mt-2">
-                        <span class="text-dark title-movie mt-2 font-weight-bold">Super mario</span>
-                      </div>
-                      <div class="col-12 text-center mt-2">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Thể loại: Hành động</span>
-                      </div>
-                      <div class="col-12 text-center">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Khởi chiếu: 12/04/2023</span>
-                      </div>
-                      <div class="col-12 text-center mt-3">
-                        <button class="btn btn-outline-danger btn-round font-weight-bold">
-                          <h4 class="m-0 font-weight-bold">Đặt vé</h4>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-3 mt-3 p-2">
-                <div class="img-poster h-100 w-100">
-                  <img style="width: 100%; height: 100%;" src="https://chieuphimquocgia.com.vn/Content/Images/0016817_0.jpeg" alt="">
-                  <div class="poster-hover">
-                    <div class="row">
-                      <div class="col-12 text-center mt-2">
-                        <span class="text-dark title-movie mt-2 font-weight-bold">Super mario</span>
-                      </div>
-                      <div class="col-12 text-center mt-2">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Thể loại: Hành động</span>
-                      </div>
-                      <div class="col-12 text-center">
-                        <span class="text-dark info-movie m-0 font-weight-bold">Khởi chiếu: 12/04/2023</span>
-                      </div>
-                      <div class="col-12 text-center mt-3">
-                        <button class="btn btn-outline-danger btn-round font-weight-bold">
-                          <h4 class="m-0 font-weight-bold">Đặt vé</h4>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-
               
           </div>
 
@@ -191,7 +70,7 @@
 
     <mat-tab>
       <ng-template mat-tab-label>
-        <span class="label_tab">
+        <span class="label_tab text-uppercase">
           Phim sắp chiếu
         </span>
       </ng-template>

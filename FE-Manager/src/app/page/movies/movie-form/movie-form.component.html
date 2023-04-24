@@ -10,10 +10,10 @@
                 <!-- Poster -->
                 <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
                     <ngx-dropzone-label>
-                        <span class="material-symbols-outlined">upload</span>
+                        <span class="material-symbols-outlined">tải ảnh lên</span>
                     </ngx-dropzone-label>
-                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [value]="poster">
-                    </ngx-dropzone-preview>
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)" [value]="f">
+                    </ngx-dropzone-image-preview>
                 </ngx-dropzone>
                 <!-- /Poster -->
             </div>
@@ -31,7 +31,7 @@
                 <!-- /Tên phim -->
 
                 <!-- Thể loại -->
-                <mat-form-field appearance="outline" id="nations">
+                <mat-form-field appearance="outline" id="category">
                     <mat-label>Thể loại</mat-label>
                     <mat-select formControlName="category">
                         <mat-option *ngFor="let category of categories"
@@ -53,23 +53,38 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Thời lượng</mat-label>
                     <input type="number" formControlName="time" matInput>
-                    <mat-error class="text-danger" *ngIf="formGroup.get('time')?.hasError('required') &&
-                                        formGroup.get('time')?.touched">
+                    <mat-error class="text-danger" *ngIf="formGroup.get('time')?.touched">
                         Có ký tự không hợp lệ
                     </mat-error>
                 </mat-form-field>
                 <!-- /Thời lượng -->
 
-                <!-- Ngày chiếu -->
+                <!-- Ngày bắt đầu -->
+                <!-- <mat-form-field appearance="outline">
+                    <mat-label>Ngày bắt đầu</mat-label>
+                    <input type="date" formControlName="startDate" matInput>
+                </mat-form-field> -->
+                <!-- /Ngày bắt đầu -->
+
                 <mat-form-field appearance="outline">
-                    <mat-label>Ngày chiếu</mat-label>
-                    <input type="date" formControlName="premiereDate" matInput>
-                    <!-- <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
-                                        formGroup.get('name')?.touched">
-                        Tên phim không được để trống
-                    </mat-error> -->
+                    <mat-label>Ngày bắt đầu</mat-label>
+                    <input matInput [matDatepicker]="startDate" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
                 </mat-form-field>
-                <!-- /Ngày chiếu -->
+
+                <!-- Ngày kết thúc -->
+                <!-- <mat-form-field appearance="outline">
+                    <mat-label>Ngày kết thúc</mat-label>
+                    <input type="date" formControlName="endDate"  matInput>
+                </mat-form-field> -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Ngày kết thúc</mat-label>
+                    <input matInput [matDatepicker]="endDate" formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+                <!-- /Ngày kết thúc -->
 
                 <!-- Mô tả -->
                 <mat-form-field appearance="outline">

@@ -16,12 +16,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 
 
 @NgModule({
   declarations: [
     MovieListComponent,
-    MovieFormComponent
+    MovieFormComponent,
+    MovieDetailComponent
   ],
   imports: [
     CommonModule,

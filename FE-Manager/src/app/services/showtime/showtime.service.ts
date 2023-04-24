@@ -17,7 +17,6 @@ constructor(private http: HttpClient) { }
   today():Observable<any>{
     return this.http.get(`${ApiConstant.showtime}/today`);
   }
-
   getAllShowtimes(): Observable<any> {
     return this.http.get(`${ApiConstant.showtime}/getAllShowtimes`);
   }
@@ -52,5 +51,20 @@ constructor(private http: HttpClient) { }
 
   getShowTimeByDateAndID(date: string, id: number): Observable<any>{
     return this.http.get(`${ApiConstant.showtime}/getShowTimeByDateAndID?date=`+date+`&id=`+id);
+  }
+  getAllShowtimeActive():Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/all-active`);
+  }
+
+  findByMovie(idMovie: number):Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/${idMovie}`);
+  }
+
+  getShowtimeByMovieAndDate(idMovie: number, date: any):Observable<any>{
+    return this.http.post(`${ApiConstant.showtime}/time/${idMovie}`,date);
+  }
+
+  findById(showtimeId: any):Observable<any>{
+    return this.http.get(`${ApiConstant.showtime}/id/${showtimeId}`);
   }
 }

@@ -36,6 +36,9 @@ public class Movies {
 
     @Column(name = "start_date")
     private Date startDate;
+    
+    @Column(name = "end_date")
+    private Date endDate;
 
     @Column(name = "end_date")
     private Date endDate;
@@ -166,22 +169,27 @@ public class Movies {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
     public Movies(){
 
     }
-    public Movies(Long id, Nationals national, Categories category, String name, Integer time, String poster, String summary, Date startDate, Date endDate, Date createDate, Date updateDate, String createBy, String updateBy, Boolean isDelete, List<Showtimes> listShowtimes) {
+
+    public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Movies(Long id, Nationals national, Categories category, String name, Integer time, String poster, String summary, Date startDate, Date endDate, Date createDate, Date updateDate, String createBy, String updateBy, Boolean isDelete, List<Showtimes> listShowtimes) {
         this.id = id;
         this.national = national;
         this.category = category;

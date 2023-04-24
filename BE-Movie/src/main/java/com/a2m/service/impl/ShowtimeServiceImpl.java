@@ -2,6 +2,8 @@ package com.a2m.service.impl;
 
 import com.a2m.entities.Movies;
 import com.a2m.entities.Showtimes;
+import com.a2m.model.response.ShowtimeDateResponse;
+import com.a2m.model.response.ShowtimeResponse;
 import com.a2m.repository.ShowtimesRepository;
 import com.a2m.service.ShowtimeService;
 import lombok.AllArgsConstructor;
@@ -18,7 +20,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     private ShowtimesRepository showtimesRepository;
 
     @Override
-    public List<Showtimes> today() {
+    public List<ShowtimeResponse> today() {
         Date today = new Date();
         return this.showtimesRepository.today(today);
     }
@@ -43,5 +45,18 @@ public class ShowtimeServiceImpl implements ShowtimeService {
 //		// TODO Auto-generated method stub
 //		return this.showtimesRepository.getShowTimesByDate(date);
 //	}
+    public List<ShowtimeResponse> getAllShowtimeActive() {
+        return this.showtimesRepository.getAllShowtimeActive();
+    }
 
+    @Override
+    public List<ShowtimeDateResponse> findByMovie(Long idMovie) {
+        Date today = new Date();
+        return this.showtimesRepository.findByMovie(idMovie, today);
+    }
+
+    @Override
+    public List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date) {
+        return this.showtimesRepository.getShowtimeByMovieAndDate(idMovie,date);
+    }
 }

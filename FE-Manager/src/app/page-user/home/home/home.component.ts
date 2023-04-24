@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class HomeComponent implements OnInit {
   movies: any;
 
   constructor(
-    private showtimeService: ShowtimeService
+    private showtimeService: ShowtimeService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -25,6 +27,13 @@ export class HomeComponent implements OnInit {
         
       }
     })
+  }
+
+  book(id: number){
+    const queryParams = {
+      id: id
+    };
+    this.router.navigate(['/select-movie'],{queryParams});
   }
 
 }

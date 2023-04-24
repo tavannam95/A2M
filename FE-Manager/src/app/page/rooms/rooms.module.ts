@@ -17,13 +17,17 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SeeRoomDialogComponent } from './dialog/see-room-dialog/see-room-dialog.component';
 import { RowFormDialogComponent } from './dialog/row-form-dialog/row-form-dialog.component';
+import { ShowRoomComponent } from './dialog/show-room/show-room.component';
+import { AddRowComponent } from './dialog/add-row/add-row.component';
 
 @NgModule({
   declarations: [
     RoomListComponent,
     RoomDialogComponent,
     SeeRoomDialogComponent,
-    RowFormDialogComponent
+    RowFormDialogComponent,
+    ShowRoomComponent,
+    AddRowComponent
   ],
   imports: [
     CommonModule,
