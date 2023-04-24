@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Constant } from 'app/constants/Constant';
 import { BillApiService } from 'app/services/bill/bill-api.service';
+import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
 import { RoomService } from 'app/services/room/room.service';
 import { RowService } from 'app/services/row/row.service';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
 import { TicketApiService } from 'app/services/ticket/ticket-api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-select-seat',
@@ -23,10 +27,12 @@ export class SelectSeatComponent implements OnInit {
   tickets: any;
   selled: any[] = [];
   fare: any;
+  isLoading = false;
 
   seatRow: any;
   selectedSeat: any[] = [];
   showSelectedSeat: any[] = [];
+  listSeatFare = [];
   show: string = '';
   total: number = 0;
 
@@ -36,7 +42,9 @@ export class SelectSeatComponent implements OnInit {
     private roomService: RoomService,
     private rowService: RowService,
     private ticketApiService: TicketApiService,
-    private billService: BillApiService
+    private billService: BillApiService,
+    private matDialog: MatDialog,
+    private toastrServcie: ToastrService
   ) { }
 
   ngOnInit() {
@@ -44,6 +52,13 @@ export class SelectSeatComponent implements OnInit {
       movie: {poster: ''},
       room: {name: ''}
     }
+    
+    this.loadPage();
+
+  }
+
+  loadPage(){
+    this.listSeatFare = [];
     this.route.queryParamMap.subscribe(params => {
       this.showtimeId = Number(params.get('id'));
       this.findById();
@@ -97,6 +112,7 @@ export class SelectSeatComponent implements OnInit {
         }
       }
       this.selectedSeat.splice(index,1);
+      this.listSeatFare.splice(index,1);
       this.showSelectedSeat.splice(index,1);
       this.show = '';
       for (let i = 0; i < this.showSelectedSeat.length; i++) {
@@ -104,11 +120,18 @@ export class SelectSeatComponent implements OnInit {
       }
       this.show = this.show.substring(0,this.show.length-2);
     }else{
+      let fareId = -1;
       for (let i = 0; i < this.fare.length; i++) {
         if (this.fare[i].seatType==seat.seatType.id) {
           this.total+=this.fare[i].price;
+          fareId = this.fare[i].id;
         }
       }
+      let seatFare = {
+        seatId: seat.id,
+        fareId: fareId
+      }
+      this.listSeatFare.push(seatFare);
       this.selectedSeat.push(seat.id);
       let show = row.toUpperCase() + seatNumber;
       this.showSelectedSeat.push(show);
@@ -153,20 +176,38 @@ export class SelectSeatComponent implements OnInit {
   }
 
   createBill(){
-    let billRequest = {
-      idAccount: 1,
-      totalPrice: this.total
-    }
-    this.billService.createBill(billRequest).subscribe({
-      next: res =>{
-        console.log(res);
-        
-      },
-      error: e =>{
-        console.log(e);
-        
+    this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+          message: 'Bạn có muốn đặt vé xem phim?'
       }
+    }).afterClosed().subscribe(result => {
+        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+          this.isLoading = true;
+
+          let billRequest = {
+            idAccount: 1,
+            totalPrice: this.total,
+            listSeatFare: this.listSeatFare,
+            showtimeId: this.showtimeId,
+          }
+          this.billService.createBill(billRequest).subscribe({
+            next: res =>{
+              console.log(res);
+              this.isLoading = false;
+              this.toastrServcie.success(res.message);
+              this.loadPage();
+            },
+            error: e =>{
+              console.log(e);
+              this.isLoading = false;
+            }
+          })
+          
+        }
     })
+    
     
   }
 

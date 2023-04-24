@@ -18,8 +18,8 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Long> {
     @Query("SELECT DISTINCT new ShowtimeResponse (st.movie.id, st.movie.name, st.movie.poster, st.movie.category.name, st.movie.startDate) FROM Showtimes st WHERE st.isDelete <> true")
     List<ShowtimeResponse> getAllShowtimeActive();
 
-    @Query("SELECT DISTINCT new ShowtimeDateResponse (st.date) FROM Showtimes st WHERE st.movie.id = :idMovie AND st.isDelete <> true AND date(st.date) >= :today")
-    List<ShowtimeDateResponse> findByMovie(Long idMovie, Date today);
+    @Query("SELECT DISTINCT new ShowtimeDateResponse (st.date) FROM Showtimes st WHERE st.movie.id = :idMovie AND st.isDelete <> true AND date(st.date) >= :date")
+    List<ShowtimeDateResponse> findByMovie(Long idMovie, Date date);
 
     @Query("SELECT st FROM Showtimes st WHERE st.movie.id = :idMovie AND date(st.date) = :date")
     List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date);

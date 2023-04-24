@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.a2m.model.request.BillRequest;
 import com.a2m.model.response.DataResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import com.a2m.service.BillService;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/bill")
+@Slf4j
 public class BillController {
 	
 	@Autowired
@@ -35,6 +37,8 @@ public class BillController {
 
 	@PostMapping("/create")
 	DataResponse<Bills> create(@RequestBody BillRequest billRequest){
-		return new DataResponse<>(true,"Tạo đơn thành công", this.billService.createBill(billRequest));
+		log.warn("{}", billRequest.getListSeatFare().get(0).getFareId());
+		log.warn("{}",billRequest.getShowtimeId());
+		return new DataResponse<>(true,"Đặt vé thành công",this.billService.createBill(billRequest));
 	}
 }
