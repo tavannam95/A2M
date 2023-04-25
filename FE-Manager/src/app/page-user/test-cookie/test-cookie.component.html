@@ -1,7 +1,7 @@
 <form [formGroup]="formGroup">
-  <label for="">Cookie</label>
-  <input formControlName="token" type="text">
-  <button (click)="save()">save</button>
-  <button (click)="delete()">delete</button>
-  <button (click)="get()">get</button>
+  <label for="">Username</label>
+  <input formControlName="username" type="text">
+  <label for="">Password</label>
+  <input formControlName="password" type="text">
+  <button (click)="login()">Login</button>
 </form>
