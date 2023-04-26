@@ -6,6 +6,7 @@ import { SelectMovieComponent } from 'app/page-user/select-movie/select-movie/se
 import { SelectSeatComponent } from 'app/page-user/select-seat/select-seat/select-seat.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { RegisterComponent } from '../auth/register/register.component';
+import { UserAccountModule } from '../../page-user/user-account/user-account.module';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -14,7 +15,13 @@ const routes: Routes = [
   {path: 'select-seat', component: SelectSeatComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-];
+  {
+    path: 'user-account',
+    loadChildren: () => import('../../page-user/user-account/user-account.module').then(m => m.UserAccountModule)
+  },
+  { path: 'select-seat', component: SelectSeatComponent },
+]
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
