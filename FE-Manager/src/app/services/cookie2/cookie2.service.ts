@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import {JwtHelperService} from '@auth0/angular-jwt';
-import { Cookie } from 'ng2-cookies';
+import {Cookie} from 'ng2-cookies/ng2-cookies';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Cookie2Service {
 
-  private jwtHelper = new JwtHelperService();
+  // private jwtHelper = new JwtHelperService();
 
   constructor(
   ) { }

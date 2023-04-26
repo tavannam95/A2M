@@ -5,6 +5,7 @@ import { FareComponent } from 'app/page-user/fare/fare/fare.component';
 import { SelectMovieComponent } from 'app/page-user/select-movie/select-movie/select-movie.component';
 import { SelectSeatComponent } from 'app/page-user/select-seat/select-seat/select-seat.component';
 import { LoginComponent } from '../auth/login/login.component';
+import { RegisterComponent } from '../auth/register/register.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'fare', component: FareComponent},
   {path: 'select-seat', component: SelectSeatComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
 ];
 
 @NgModule({
