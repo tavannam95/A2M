@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
 import { LoginServiceService } from 'app/services/login/login-service.service';
-import { Cookie } from 'ng2-cookies/cookie';
+import { Cookie, CookieService } from 'ng2-cookies/cookie';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private loginService: LoginServiceService
+    private loginService: LoginServiceService,
+    private cookieService: Cookie2Service
   ) { }
 
   ngOnInit() {
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
       next: res => {
         const token = res['acess_token'];
         Cookie.set("token", "yeheeyehesusuusus");
+        this.cookieService.saveToken(token);
         console.log(res);
       }
     })

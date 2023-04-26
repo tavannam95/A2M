@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { Cookie } from 'ng2-cookies';
+// import { Cookie } from 'ng2-cookies';
 import { HeadersUtil } from 'app/page/util/headers-util';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class LoginServiceService {
   login(loginRequest: any): Observable<any> {
     const headers: HttpHeaders = HeadersUtil.getHeaders();
     // const params: RequestParam[] = ParamUtil.toRequestParams(search);
-    const url = "http://localhost:8080/login"
+    const url = "http://localhost:8080/api/v1/auth/login"
     return this.http.post<any>(url,loginRequest, { headers: headers });
   }
 }
