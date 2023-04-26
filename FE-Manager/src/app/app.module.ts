@@ -17,6 +17,7 @@ import { CustomerLayoutComponent } from './layouts/customer/customer-layout/cust
 import { TestCookieComponent } from './page-user/test-cookie/test-cookie.component';
 
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
