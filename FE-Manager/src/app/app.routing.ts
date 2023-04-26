@@ -7,6 +7,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
 import { LoginComponent } from './layouts/auth/login/login.component';
 
+
 const routes: Routes = [
   {
     path: '',

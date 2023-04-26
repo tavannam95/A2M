@@ -14,6 +14,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AccountModule } from './page/account/account.module';
 import { ToastrModule } from 'ngx-toastr';
 import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
+// import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 
 @NgModule({
