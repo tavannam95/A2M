@@ -60,15 +60,15 @@
                         <tr>
                             <th>Vị trí ghế</th>
                             <td>
-                                <span *ngFor="let ticket of bill.listTickets">
-                                    {{ticket.seat.row.name}}{{ticket.seat.number}}
-                                </span>
+                                <div *ngFor="let ticket of bill.listTickets">
+                                    {{ticket.seat.row.name}}{{ticket.seat.number}} - {{bill.seatType}}
+                                </div>
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <th>Loại ghế</th>
                             <td>{{bill.seatType}}</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <th>Trạng thái</th>
                             <td>
