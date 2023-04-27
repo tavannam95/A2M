@@ -7,13 +7,13 @@ import { SelectSeatComponent } from 'app/page-user/select-seat/select-seat/selec
 import { LoginComponent } from '../auth/login/login.component';
 import { RegisterComponent } from '../auth/register/register.component';
 import { UserAccountModule } from '../../page-user/user-account/user-account.module';
+import { AuthGuard } from 'app/guard/auth.guard';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: 'select-movie', component: SelectMovieComponent},
+  {path: 'select-movie', component: SelectMovieComponent, canActivate: [AuthGuard]},
   {path: 'fare', component: FareComponent},
-  {path: 'select-seat', component: SelectSeatComponent},
-  {path: 'login', component: LoginComponent},
+  {path: 'select-seat', component: SelectSeatComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {
     path: 'user-account',

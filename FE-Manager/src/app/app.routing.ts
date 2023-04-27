@@ -7,17 +7,20 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
 import { LoginComponent } from './layouts/auth/login/login.component';
 import { TestCookieComponent } from './page-user/test-cookie/test-cookie.component';
+import { AuthGuard } from './guard/auth.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: '/login',
     pathMatch: 'full',
   },
+  {path: 'login', component: LoginComponent},
   {
     path: 'test-ck',
-    component: TestCookieComponent
+    component: TestCookieComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -25,7 +28,8 @@ const routes: Routes = [
     children: [{
       path: '',
       loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
-    }]
+    }],
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -33,7 +37,7 @@ const routes: Routes = [
     children: [{
       path: '',
       loadChildren: () => import('./layouts/customer/customer.module').then(m => m.CustomerModule)
-    }]
+    }],
   },
 
 ];
