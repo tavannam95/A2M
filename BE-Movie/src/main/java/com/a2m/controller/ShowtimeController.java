@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import com.a2m.model.response.ShowtimeDateResponse;
 import com.a2m.model.response.ShowtimeResponse;
 import com.a2m.repository.ShowtimesRepository;
@@ -24,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -32,15 +33,15 @@ import java.time.format.DateTimeParseException;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/showtime")
-@AllArgsConstructor
+
 @Slf4j
 public class ShowtimeController {
 
-    private final ShowtimeService showtimeService;
-
-    private final ShowtimesRepository showtimesRepository;
-
-    private final RoomsRepository roomsRepository;
+	private ShowtimeService showtimeService;
+	
+	private ShowtimesRepository showtimesRepository;
+	
+	private RoomsRepository roomsRepository;
 
     @GetMapping("/today")
     public DataResponse<List<ShowtimeResponse>> today(){
@@ -49,7 +50,7 @@ public class ShowtimeController {
 
 
     @GetMapping("/getAllShowtimes")
-    public DataResponse<List<Showtimes>> getAllShowtimes() throws ParseException{
+    public DataResponse<List<Showtimes>> getAllShowtimes(){
         List<Showtimes> showtime = this.showtimesRepository.findAll();
         List<Showtimes> showtimes = new ArrayList<>();
         for(Showtimes s: showtime) {
@@ -57,12 +58,15 @@ public class ShowtimeController {
         		showtimes.add(s);
         	}
         }
-        return new DataResponse<>(true,"Thành công",showtimes);
+        return new DataResponse<>(true,"Thành công",showtime);
     }
     @GetMapping("/getMoviesByDate")
-    public DataResponse<List<Movies>> getMoviesByDate(@RequestParam Date date){
+    public DataResponse<List<Movies>> getMoviesByDate(@RequestParam String date) throws ParseException{
 //        System.out.println(date);
-        return new DataResponse<>(true,"Thành công",this.showtimesRepository.getMoviesByDate(date));
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    java.util.Date parsedDate = format.parse(date);
+	    Date dateInput = new Date(parsedDate.getTime());
+        return new DataResponse<>(true,"Thành công",this.showtimesRepository.getMoviesByDate(dateInput));
     }
 
     @GetMapping("/getAllRooms")
@@ -71,7 +75,7 @@ public class ShowtimeController {
     }
 
     @GetMapping("/getShowTimeByDate")
-    public DataResponse<List<Showtimes>> getShowtimeByDate(@RequestParam Date date, @RequestParam int id){
+    public DataResponse<List<Showtimes>> getShowtimeByDate(@RequestParam Date date, @RequestParam Long id){
     	List<Showtimes> showtime = this.showtimesRepository.getShowTimeByDate(date, id);
         List<Showtimes> showtimes = new ArrayList<>();
         for(Showtimes s: showtime) {
@@ -115,7 +119,8 @@ public class ShowtimeController {
     }
     
     @GetMapping("/getShowtimeByDateAndID")
-    public DataResponse<List<Showtimes>> getShowtimeByDateAndID(@RequestParam String date, @RequestParam int id) throws ParseException {
+
+    public DataResponse<List<Showtimes>> getShowtimeByDateAndID(@RequestParam String date, @RequestParam Long id) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
         java.util.Date parsedDate = format.parse(date);
         Date dateInput = new Date(parsedDate.getTime());
@@ -133,7 +138,7 @@ public class ShowtimeController {
 
     @PostMapping("/time/{idMovie}")
     public DataResponse<List<Showtimes>> getShowtimeByMovieAndDate(@PathVariable("idMovie") Long idMovie, @RequestBody String dateStr) throws Exception{
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+        Date date = (java.sql.Date) new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
         return new DataResponse<>(true,"Thành công", this.showtimeService.getShowtimeByMovieAndDate(idMovie,date));
     }
 
