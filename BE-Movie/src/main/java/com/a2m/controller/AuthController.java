@@ -73,7 +73,7 @@ public class AuthController {
 
 		return ResponseEntity.ok(new JwtResponse(jwt));
 	}
-	
+  
 	@PostMapping("/createAccount")
 	public DataResponse<Accounts> createAccounts(@RequestBody Accounts accounts) {
 		List<Accounts> account = this.accountsRepository.findAll();

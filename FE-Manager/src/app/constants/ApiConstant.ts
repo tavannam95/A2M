@@ -11,4 +11,5 @@ export const ApiConstant = {
     bill: "http://localhost:8080/api/v1/bill",
     ticket: "http://localhost:8080/api/v1/ticket",
     fare: "http://localhost:8080/api/v1/fare",
+    public: "http://localhost:8080/public/api/v1",
 };
