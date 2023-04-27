@@ -41,27 +41,28 @@ public class AccountController {
 //	private BCryptPasswordEncoder passwordEncoder;
 
 	@GetMapping("/getAll")
-	public DataResponse<List<AccountInfor>> findAll() {
+	public DataResponse<List<Accounts>> findAll() {
 		List<AccountInfor> accountinforList = new ArrayList<>();
 		List<Accounts> accountsList = this.accountRepository.findAll();
-		for (Accounts a : accountsList) {
-			if(a.getIsDelete() == null) {
-				continue;
-			}
-			else if (a.getIsDelete() == false) {
-				AccountInfor account = new AccountInfor();
-				account.setId(a.getId());
-				account.setFullname(a.getFullname());
-				account.setUsername(a.getUsername());
-				account.setPassword(a.getPassword());
-				account.setEmail(a.getEmail());
-				account.setBirthDate(a.getBirthDate());
-				account.setGender(a.getGender());
-				account.setRoles(a.getRole().getName());
-				accountinforList.add(account);
-			}
-		}
-		return new DataResponse<>(true, "Thành công", accountinforList);
+//		for (Accounts a : accountsList) {
+//			if(a.getIsDelete() == null) {
+//				continue;
+//			}
+//			else if (a.getIsDelete() == false) {
+//				AccountInfor account = new AccountInfor();
+//				account.setId(a.getId());
+//				account.setFullname(a.getFullname());
+//				account.setUsername(a.getUsername());
+//				account.setPassword(a.getPassword());
+//				account.setEmail(a.getEmail());
+//				account.setBirthDate(a.getBirthDate());
+//				account.setGender(a.getGender());
+//				account.setRoles(a.getRole().getName());
+//				accountinforList.add(account);
+//			}
+//		}
+//		return new DataResponse<>(true, "Thành công", accountsList);
+		return new DataResponse<>(true, "Thành công", this.accountRepository.findAll());
 	}
 
 	@PostMapping("/createAccount")
