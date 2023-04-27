@@ -36,7 +36,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
 //    }
 
     @Override
-    public List<Showtimes> getShowTimeByDate(Date date, Long id) {
+    public List<Showtimes> getShowTimeByDate(Date date, int id) {
         return this.showtimesRepository.getShowTimeByDate(date, id);
     }
 

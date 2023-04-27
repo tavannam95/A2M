@@ -63,7 +63,7 @@ public class ShowtimeController {
         		showtimes.add(s);
         	}
         }
-        return new DataResponse<>(true,"Thành công",showtime);
+        return new DataResponse<>(true,"Thành công",showtimes);
     }
     @GetMapping("/getMoviesByDate")
     public DataResponse<List<Movies>> getMoviesByDate(@RequestParam String date) throws ParseException{
@@ -127,7 +127,7 @@ public class ShowtimeController {
     }
     
     @GetMapping("/getShowtimeByDateAndID")
-    public DataResponse<List<Showtimes>> getShowtimeByDateAndID(@RequestParam String date, @RequestParam Long id) throws ParseException {
+    public DataResponse<List<Showtimes>> getShowtimeByDateAndID(@RequestParam String date, @RequestParam int id) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
         java.util.Date parsedDate = format.parse(date);
         Date dateInput = new Date(parsedDate.getTime());

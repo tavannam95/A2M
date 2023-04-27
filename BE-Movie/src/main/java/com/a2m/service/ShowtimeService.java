@@ -15,7 +15,7 @@ public interface ShowtimeService {
 
     List<Movies> getMovieByDate(Date date);
 
-    List<Showtimes> getShowTimeByDate(Date date, Long id);
+    List<Showtimes> getShowTimeByDate(Date date, int id);
     
 //    List<Showtimes> getShowtimesByDate(String date);
 
