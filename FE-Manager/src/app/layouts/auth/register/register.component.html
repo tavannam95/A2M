@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
 <div class="register-container">
   <div class="register-form">
     <h2>Đăng ký</h2>
@@ -22,7 +25,7 @@
         <label for="birthday">Ngày sinh</label>
         <input type="date" id="birthday" name="birthday" [(ngModel)]="user.birthDate" required>
       </div>
-      <button type="submit">Đăng ký</button>
+      <button type="submit" (click)="submit()">Đăng ký</button>
     </form>
   </div>
 </div>

@@ -36,10 +36,10 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     this.loginService.login(this.loginForm.value).subscribe({
       next: res => {
-        const token = res['acess_token'];
-        Cookie.set("token", "yeheeyehesusuusus");
+        const token = res.token;
         this.cookieService.saveToken(token);
-        console.log(res);
+        console.log('get token');
+        console.log(this.cookieService.getToken());
       }
     })
     
