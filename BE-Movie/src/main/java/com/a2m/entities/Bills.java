@@ -1,6 +1,5 @@
 package com.a2m.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +32,9 @@ public class Bills {
     
     @Column(name = "total_price")
     private Integer totalPrice;
+    
+    @Column(name = "created_date")
+    private Date createdDate;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")

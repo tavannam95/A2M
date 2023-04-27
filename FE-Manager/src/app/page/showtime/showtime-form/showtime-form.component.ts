@@ -102,7 +102,7 @@ export class ShowtimeFormComponent implements OnInit {
     (this.day.getMonth() + 1 < 10) ? this.dayArray.push(this.day6.getFullYear() + '-0' + (this.day6.getMonth() + 1) + '-' + this.day6.getDate())
       : this.dayArray.push(this.day6.getFullYear() + '-' + (this.day6.getMonth() + 1) + '-' + this.day6.getDate());
     this.getRoom();
-    this.selectRoom(event);
+    this.selectRoom(null);
   }
 
 
@@ -142,6 +142,10 @@ export class ShowtimeFormComponent implements OnInit {
 
 
   selectRoom(event: any) {
+    console.log('===================');
+    
+    console.log(event);
+    
     // let id: number = 1;
     if (this.select_day !== null && event !== null) {
       this.showtimesService.getShowTimeByDate(this.select_day, event).subscribe({
@@ -159,8 +163,8 @@ export class ShowtimeFormComponent implements OnInit {
           this.dataSource.data = res.data;
           // this.dataSource.sort = this.sort;
         },
-        error: res =>{
-          console.log('Lỗi');
+        error: e =>{
+          console.log(e);
         }
       })
       // this.dataSource = new MatTableDataSource<any>(this.dataList);
