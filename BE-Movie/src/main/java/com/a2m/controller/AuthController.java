@@ -1,8 +1,12 @@
 package com.a2m.controller;
 
+import com.a2m.entities.Accounts;
 import com.a2m.entities.Menus;
 import com.a2m.entities.Roles;
 import com.a2m.model.response.DataResponse;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -70,5 +74,18 @@ public class AuthController {
 		return ResponseEntity.ok(new JwtResponse(jwt));
 	}
 	
-	
+	@PostMapping("/createAccount")
+	public DataResponse<Accounts> createAccounts(@RequestBody Accounts accounts) {
+		List<Accounts> account = this.accountsRepository.findAll();
+		for (Accounts a : account) {
+			if (a.getEmail().contentEquals(accounts.getEmail())) {
+				return new DataResponse<>(false, "Email is exists", accounts);
+			}
+			if (a.getUsername().contentEquals(accounts.getUsername())) {
+				return new DataResponse<>(false, "Username is exists", accounts);
+			}
+		}
+		accounts.setIsDelete(false);
+		return new DataResponse<>(true, "Success", this.accountsRepository.save(accounts));
+	}
 }
