@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerLayoutComponent } from './customer-layout/customer-layout.component';
+import { UserAccountModule } from 'app/page-user/user-account/user-account.module';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import { CustomerLayoutComponent } from './customer-layout/customer-layout.compo
   ],
   imports: [
     CommonModule,
+    UserAccountModule,
     CustomerRoutingModule
   ]
 })

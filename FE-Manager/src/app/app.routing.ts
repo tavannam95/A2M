@@ -8,6 +8,7 @@ import { CustomerLayoutComponent } from './layouts/customer/customer-layout/cust
 import { LoginComponent } from './layouts/auth/login/login.component';
 import { TestCookieComponent } from './page-user/test-cookie/test-cookie.component';
 
+
 const routes: Routes = [
   {
     path: '',

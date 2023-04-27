@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
-import {JwtHelperService} from '@auth0/angular-jwt';
-import { Cookie } from 'ng2-cookies';
+import {Cookie} from 'ng2-cookies/ng2-cookies';
+
+const USER_TOKEN = 'user-token';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class Cookie2Service {
 
-  private jwtHelper = new JwtHelperService();
+  // private jwtHelper = new JwtHelperService();
+
 
   constructor(
   ) { }
 
   public saveToken(token: any){
-    Cookie.set('token',token);
+    Cookie.set(USER_TOKEN,token);
   }
   public getToken(){
-    return Cookie.get('token');
+    return Cookie.get(USER_TOKEN);
   }
   public delete(){
-    Cookie.delete('token');
+    Cookie.delete(USER_TOKEN);
   }
 }
