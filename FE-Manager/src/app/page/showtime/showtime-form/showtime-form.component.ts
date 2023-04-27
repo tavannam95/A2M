@@ -11,8 +11,6 @@ import { Observable } from 'rxjs';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
 // import { TableShowtimesDialogComponent } from '../showtime-dialog/table-showtimes-dialog/table-showtimes-dialog.component';
 import { event } from 'jquery';
-import { error } from 'console';
-
 @Component({
   selector: 'app-showtime-form',
   templateUrl: './showtime-form.component.html',
@@ -144,6 +142,10 @@ export class ShowtimeFormComponent implements OnInit {
 
 
   selectRoom(event: any) {
+    console.log('===================');
+    
+    console.log(event);
+    
     // let id: number = 1;
     if (this.select_day !== null && event !== null) {
       this.showtimesService.getShowTimeByDate(this.select_day, event).subscribe({
@@ -161,8 +163,8 @@ export class ShowtimeFormComponent implements OnInit {
           this.dataSource.data = res.data;
           // this.dataSource.sort = this.sort;
         },
-        error: res =>{
-          console.log('Lỗi');
+        error: e =>{
+          console.log(e);
         }
       })
       // this.dataSource = new MatTableDataSource<any>(this.dataList);

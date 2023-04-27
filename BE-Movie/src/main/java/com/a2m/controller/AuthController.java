@@ -1,8 +1,12 @@
 package com.a2m.controller;
 
+import com.a2m.entities.Accounts;
 import com.a2m.entities.Menus;
 import com.a2m.entities.Roles;
 import com.a2m.model.response.DataResponse;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +29,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class AuthController {
 	
@@ -68,5 +72,21 @@ public class AuthController {
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 
 		return ResponseEntity.ok(new JwtResponse(jwt));
+	}
+	
+	@PostMapping("/createAccount")
+	public DataResponse<Accounts> createAccounts(@RequestBody Accounts accounts) {
+		List<Accounts> account = this.accountsRepository.findAll();
+		for (Accounts a : account) {
+			if (a.getEmail().contentEquals(accounts.getEmail())) {
+				return new DataResponse<>(false, "Email is exists", accounts);
+			}
+			if (a.getUsername().contentEquals(accounts.getUsername())) {
+				return new DataResponse<>(false, "Username is exists", accounts);
+			}
+		}
+		accounts.setIsDelete(false);
+//		accounts.setRole
+		return new DataResponse<>(true, "Success", this.accountsRepository.save(accounts));
 	}
 }

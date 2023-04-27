@@ -10,11 +10,12 @@ import java.util.List;
 
 public interface ShowtimeService {
     List<ShowtimeResponse> today();
+
     List<Showtimes> getAllShowtime();
 
     List<Movies> getMovieByDate(Date date);
 
-    List<Showtimes> getShowTimeByDate(Date date, int id);
+    List<Showtimes> getShowTimeByDate(Date date, Long id);
     
 //    List<Showtimes> getShowtimesByDate(String date);
 
@@ -25,5 +26,9 @@ public interface ShowtimeService {
     List<ShowtimeDateResponse> findByMovie(Long idMovie);
 
     List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date);
+
+//	List<Showtimes> getShowTimeByDate(Date date, Long id);
+
+//	List<ShowtimeResponse> today();
 
 }

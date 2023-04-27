@@ -6,8 +6,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Constant } from 'app/constants/Constant';
 import { ShowtimeFormComponent } from '../showtime-form/showtime-form.component';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
-import { time } from 'console';
-import * as moment from 'moment-timezone';
 
 
 @Component({
@@ -53,6 +51,7 @@ export class ShowtimeListComponent implements OnInit {
   getAllShowtimes() {
     this.showtimesService.getAllShowtimes().subscribe({
       next: res => {
+        // console.log(res.data)
         res.data.forEach((data) => {
           data.date = new Date(data.date).toLocaleDateString()
           data.timeStart = new Date(data.timeStart).toLocaleDateString() + ' ' + new Date(data.timeStart).toLocaleTimeString('en-US', { hour12: false })

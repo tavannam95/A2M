@@ -37,6 +37,7 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Long> {
     @Query("select st from Showtimes  st where st.room.id = :id")
     List<Showtimes> getShowTimesByID(Long id);
 
+
 //	List<Showtimes> getShowTimesByDate(String date);
     
 //  1 đã chiếu, 0 là chưa chiếu

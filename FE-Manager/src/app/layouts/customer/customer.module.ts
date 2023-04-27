@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CustomerRoutingModule } from './customer-routing.module';
-import { CustomerLayoutComponent } from './customer-layout/customer-layout.component';
+import { UserAccountModule } from 'app/page-user/user-account/user-account.module';
+import { ComponentsModule } from 'app/components/components.module';
 
 
 @NgModule({
@@ -10,6 +11,8 @@ import { CustomerLayoutComponent } from './customer-layout/customer-layout.compo
   ],
   imports: [
     CommonModule,
+    ComponentsModule,
+    UserAccountModule,
     CustomerRoutingModule
   ]
 })

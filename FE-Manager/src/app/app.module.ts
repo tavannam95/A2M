@@ -14,6 +14,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AccountModule } from './page/account/account.module';
 import { ToastrModule } from 'ngx-toastr';
 import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
+import { TestCookieComponent } from './page-user/test-cookie/test-cookie.component';
+
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { CustomerLayoutComponent } from './layouts/customer/customer-layout/cust
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    CustomerLayoutComponent
+    CustomerLayoutComponent,
+    TestCookieComponent
+
   ],
   providers: [],
   bootstrap: [AppComponent]

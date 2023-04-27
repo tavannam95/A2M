@@ -1,6 +1,7 @@
 // import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PublicApiService } from 'app/services/public/public-api.service';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class SelectMovieComponent implements OnInit {
     private route: ActivatedRoute,
     // private datePipe: DatePipe,
     private showtimeService: ShowtimeService,
-    private router: Router
+    private router: Router,
+    private publicApiService: PublicApiService
   ) { }
 
   ngOnInit() {
@@ -41,14 +43,14 @@ export class SelectMovieComponent implements OnInit {
   }
 
   getAllShowtimeActive(){
-    this.showtimeService.getAllShowtimeActive().subscribe({
+    this.publicApiService.getAllShowtimeActive().subscribe({
       next: res=>{
         this.movies = res.data;
-        this.showtimeService.findByMovie(this.idMovie).subscribe({
+        this.publicApiService.findByMovie(this.idMovie).subscribe({
           next: res =>{
             this.listShowtime = res.data;
             this.selectDate = this.listShowtime[0].date;
-            this.showtimeService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
+            this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
               next: res =>{
                 this.timeShowtime = res.data;
                 
@@ -71,11 +73,11 @@ export class SelectMovieComponent implements OnInit {
 
   selectMovie(event: any){
     let idMovie = event.value;
-    this.showtimeService.findByMovie(idMovie).subscribe({
+    this.publicApiService.findByMovie(idMovie).subscribe({
       next: res =>{
         this.listShowtime = res.data;
         this.selectDate = this.listShowtime[0].date;
-        this.showtimeService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
+        this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
           next: res =>{
             this.timeShowtime = res.data;
           },
@@ -93,7 +95,7 @@ export class SelectMovieComponent implements OnInit {
   }
 
   changeDate(event: any){
-    this.showtimeService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
+    this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
       next: res =>{
         this.timeShowtime = res.data;
         console.log(this.timeShowtime);

@@ -13,11 +13,11 @@ import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import com.a2m.model.response.ShowtimeDateResponse;
 import com.a2m.model.response.ShowtimeResponse;
 import com.a2m.repository.ShowtimesRepository;
@@ -47,6 +47,7 @@ public class ShowtimeController {
 	@Autowired
     private RoomsRepository roomsRepository;
 
+
     @GetMapping("/today")
     public DataResponse<List<ShowtimeResponse>> today(){
         return new DataResponse<>(true,"Thành công",this.showtimeService.today());
@@ -54,7 +55,7 @@ public class ShowtimeController {
 
 
     @GetMapping("/getAllShowtimes")
-    public DataResponse<List<Showtimes>> getAllShowtimes() throws ParseException{
+    public DataResponse<List<Showtimes>> getAllShowtimes(){
         List<Showtimes> showtime = this.showtimesRepository.findAll();
         List<Showtimes> showtimes = new ArrayList<>();
         for(Showtimes s: showtime) {
@@ -62,12 +63,15 @@ public class ShowtimeController {
         		showtimes.add(s);
         	}
         }
-        return new DataResponse<>(true,"Thành công",showtimes);
+        return new DataResponse<>(true,"Thành công",showtime);
     }
     @GetMapping("/getMoviesByDate")
-    public DataResponse<List<Movies>> getMoviesByDate(@RequestParam Date date){
+    public DataResponse<List<Movies>> getMoviesByDate(@RequestParam String date) throws ParseException{
 //        System.out.println(date);
-        return new DataResponse<>(true,"Thành công",this.showtimesRepository.getMoviesByDate(date));
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    java.util.Date parsedDate = format.parse(date);
+	    Date dateInput = new Date(parsedDate.getTime());
+        return new DataResponse<>(true,"Thành công",this.showtimesRepository.getMoviesByDate(dateInput));
     }
 
     @GetMapping("/getAllRooms")
@@ -77,10 +81,7 @@ public class ShowtimeController {
 
     @GetMapping("/getShowTimeByDate")
     public DataResponse<List<Showtimes>> getShowtimeByDate(@RequestParam Date date, @RequestParam int id){
-//    	Long longValue = Long.valueOf(id);
-//    	Long id1 = longValue.longValue();
-    	long idLong = (long) id;
-//    	System.out.println(idLong.getClass().getName());
+
     	List<Showtimes> showtime = this.showtimeService.getShowTimeByDate(date, id);
         List<Showtimes> showtimes = new ArrayList<>();
         for(Showtimes s: showtime) {
@@ -126,15 +127,12 @@ public class ShowtimeController {
     }
     
     @GetMapping("/getShowtimeByDateAndID")
-    public DataResponse<List<Showtimes>> getShowtimeByDateAndID(@RequestParam String date, @RequestParam int id) throws ParseException{
-    	 SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-    	    java.util.Date parsedDate = format.parse(date);
-    	    Date dateInput = new Date(parsedDate.getTime());
-    	    Long longValue = Long.valueOf(id);
-        	Long id1 = longValue.longValue();
-        return new DataResponse<>(true,"Thành công",this.showtimesRepository.getShowTimeByDate(dateInput, id));
+    public DataResponse<List<Showtimes>> getShowtimeByDateAndID(@RequestParam String date, @RequestParam Long id) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        java.util.Date parsedDate = format.parse(date);
+        Date dateInput = new Date(parsedDate.getTime());
+        return new DataResponse<>(true, "Thành công", this.showtimesRepository.getShowTimeByDate(dateInput, id));
     }
-    
     @GetMapping("/all-active")
     public DataResponse<List<ShowtimeResponse>> getAllShowtimeActive(){
         return new DataResponse<>(true, "Thành công", this.showtimeService.getAllShowtimeActive());
@@ -147,7 +145,7 @@ public class ShowtimeController {
 
     @PostMapping("/time/{idMovie}")
     public DataResponse<List<Showtimes>> getShowtimeByMovieAndDate(@PathVariable("idMovie") Long idMovie, @RequestBody String dateStr) throws Exception{
-        java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+        Date date = (java.sql.Date) new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
         return new DataResponse<>(true,"Thành công", this.showtimeService.getShowtimeByMovieAndDate(idMovie,date));
     }
 

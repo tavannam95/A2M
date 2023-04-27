@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiConstant } from 'app/constants/ApiConstant';
+import { HeadersUtil } from 'app/util/headers-util';
+
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +15,6 @@ export class FareApiService {
 constructor(private readonly http: HttpClient) { }
 
   getAll(): Observable<any>{
-    return this.http.get(`${ApiConstant.fare}/listFare`);
+    return this.http.get<any>(`${ApiConstant.fare}/listFare`,{headers: headers});
   }
 }
