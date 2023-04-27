@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
+import { JwtService } from 'app/services/jwt/jwt.service';
 
 @Component({
   selector: 'app-navbar-user',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarUserComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private cookieService: Cookie2Service,
+    private jwtService: JwtService
+  ) { }
 
   ngOnInit() {
+  }
+
+  logout(){
+    this.cookieService.delete();
+    this.jwtService.reloadPage();
   }
 
 

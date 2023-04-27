@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
+import { JwtService } from 'app/services/jwt/jwt.service';
 import { LoginServiceService } from 'app/services/login/login-service.service';
 import { Cookie, CookieService } from 'ng2-cookies/cookie';
 
@@ -10,13 +12,16 @@ import { Cookie, CookieService } from 'ng2-cookies/cookie';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  redirectUrl: any;
   loginForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginServiceService,
-    private cookieService: Cookie2Service
+    private cookieService: Cookie2Service,
+    private route: ActivatedRoute,
+    private readonly router: Router,
+    private jwtService: JwtService
   ) { }
 
   ngOnInit() {
@@ -32,14 +37,25 @@ export class LoginComponent implements OnInit {
 
   login() {
     // this.jwtRespones.username = this.loginForm.value
-    console.log('=====login form');
-    console.log(this.loginForm.value);
     this.loginService.login(this.loginForm.value).subscribe({
       next: res => {
-        const token = res['acess_token'];
-        Cookie.set("token", "yeheeyehesusuusus");
+        const token = res.token;
         this.cookieService.saveToken(token);
-        console.log(res);
+        let param = this.route.snapshot.queryParams;
+        if (param['redirectUrl']) {
+          this.redirectUrl = param['redirectUrl'];
+        }
+        console.log(param['id']);
+        
+        if (this.redirectUrl) {
+          this.router.navigateByUrl(this.redirectUrl)
+            .then(() => this.jwtService.reloadPage())
+            .catch(() => this.router.navigate(['/home']))
+        } else {
+          this.router.navigate(['/home']).then(() => this.jwtService.reloadPage())
+        }
+        console.log('get token');
+        console.log(this.cookieService.getToken());
       }
     })
     
