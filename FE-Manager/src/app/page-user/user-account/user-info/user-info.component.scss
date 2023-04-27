@@ -1,42 +1,9 @@
-
     .main {
         margin: 45px 0px;
 
         .col-3,
         .col-9 {
             padding: 0px;
-        }
-
-        .left-menu {
-            ul {
-                margin: 0px;
-                padding: 0px;
-                list-style: none;
-
-                .menu-title {
-                    background: red;
-                    color: white !important;
-                    font-weight: bold;
-                    display: flex;
-                    justify-content: center;
-                }
-
-                li {
-                    height: 45px;
-                    padding: 10px;
-                    padding-left: 30px;
-                    background: #fff;
-                    margin: 2px 0px;
-                    font-size: 17px;
-                    color: #191818;
-                    i {
-                        padding-right: 10px;
-                    }
-                }
-                li:hover{
-                    background: #d4d1d1;
-                }
-            }
         }
 
         .info {

@@ -7,6 +7,7 @@ import { SelectSeatComponent } from 'app/page-user/select-seat/select-seat/selec
 import { LoginComponent } from '../auth/login/login.component';
 import { RegisterComponent } from '../auth/register/register.component';
 import { UserAccountModule } from '../../page-user/user-account/user-account.module';
+import { UserPasswordComponent } from 'app/page-user/user-password/user-password.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -15,10 +16,15 @@ const routes: Routes = [
   {path: 'select-seat', component: SelectSeatComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'user-password', component: UserPasswordComponent},
   {
     path: 'user-account',
     loadChildren: () => import('../../page-user/user-account/user-account.module').then(m => m.UserAccountModule)
   },
+  // {
+  //   path: 'user-password',
+  //   loadChildren: () => import('../../page-user/user-password/user-password.module').then(m => m.UserPasswordModule)
+  // },
   { path: 'select-seat', component: SelectSeatComponent },
 ]
 

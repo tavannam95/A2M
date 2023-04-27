@@ -47,6 +47,7 @@ import { TestCookieComponent } from './page-user/test-cookie/test-cookie.compone
     AdminLayoutComponent,
     CustomerLayoutComponent,
     TestCookieComponent
+
   ],
   providers: [],
   bootstrap: [AppComponent]
