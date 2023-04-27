@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface ShowtimeService {
+    List<ShowtimeResponse> today();
+
     List<Showtimes> getAllShowtime();
 
     List<Movies> getMovieByDate(Date date);
@@ -17,7 +19,7 @@ public interface ShowtimeService {
     
 //    List<Showtimes> getShowtimesByDate(String date);
 
-    List<ShowtimeResponse> today();
+//    List<ShowtimeResponse> today();
 
     List<ShowtimeResponse> getAllShowtimeActive();
 

@@ -66,7 +66,7 @@ export class ShowtimeListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.dataArray = res.data;
-        // console.log(res)
+        console.log(res)
       },
       error: e => {
         console.log(e);

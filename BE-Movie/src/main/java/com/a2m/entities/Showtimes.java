@@ -94,7 +94,7 @@ public class Showtimes {
 	}
 
 	public void setDate(String date) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 	    java.util.Date parsedDate = format.parse(date);
 	    Date dateInput = new Date(parsedDate.getTime());
 		this.date = dateInput;
@@ -105,7 +105,7 @@ public class Showtimes {
 	}
 
 	public void setTimeStart(String timeStart) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 	    java.util.Date parsedDate = format.parse(timeStart);
 	    Date dateInput = new Date(parsedDate.getTime());
 		this.timeStart = dateInput;
@@ -116,7 +116,7 @@ public class Showtimes {
 	}
 
 	public void setTimeEnd(String timeEnd) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 	    java.util.Date parsedDate = format.parse(timeEnd);
 	    Date dateInput = new Date(parsedDate.getTime());
 		this.timeEnd = dateInput;
@@ -127,7 +127,7 @@ public class Showtimes {
 	}
 
 	public void setCreateDate(String createDate) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 	    java.util.Date parsedDate = format.parse(createDate);
 	    Date dateInput = new Date(parsedDate.getTime());
 		this.createDate = dateInput;
@@ -138,7 +138,9 @@ public class Showtimes {
 	}
 
 	public void setUpdateDate(String updateDate) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+
 	    java.util.Date parsedDate = format.parse(updateDate);
 	    Date dateInput = new Date(parsedDate.getTime());
 		this.updateDate = dateInput;
