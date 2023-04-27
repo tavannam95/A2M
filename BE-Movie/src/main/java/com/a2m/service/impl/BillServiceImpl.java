@@ -39,6 +39,8 @@ public class BillServiceImpl implements BillService{
 		bills.setTotalPrice(billRequest.getTotalPrice());
 		bills.setStatus(0);
 		bills.setCustomer(accounts);
+		bills.setCreatedDate(new Date());
+
 		while(true){
 			Random generator = new Random();
 			int barCode = generator.nextInt((9999999 - 1000000) + 1) + 1000000;
