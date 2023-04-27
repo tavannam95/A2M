@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PublicApiService } from 'app/services/public/public-api.service';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
 
 @Component({
@@ -13,11 +14,12 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private showtimeService: ShowtimeService,
-    private router: Router
+    private router: Router,
+    private publicApi: PublicApiService
   ) { }
 
   ngOnInit() {
-    this.showtimeService.today().subscribe({
+    this.publicApi.today().subscribe({
       next: res =>{
         this.movies = res.data;
         console.log(this.movies);

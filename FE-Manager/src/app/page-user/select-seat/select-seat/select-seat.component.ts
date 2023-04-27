@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Constant } from 'app/constants/Constant';
 import { BillApiService } from 'app/services/bill/bill-api.service';
 import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
+import { PublicApiService } from 'app/services/public/public-api.service';
 import { RoomService } from 'app/services/room/room.service';
 import { RowService } from 'app/services/row/row.service';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
@@ -44,7 +45,8 @@ export class SelectSeatComponent implements OnInit {
     private ticketApiService: TicketApiService,
     private billService: BillApiService,
     private matDialog: MatDialog,
-    private toastrServcie: ToastrService
+    private toastrServcie: ToastrService,
+    private publicApiService: PublicApiService
   ) { }
 
   ngOnInit() {
@@ -69,7 +71,7 @@ export class SelectSeatComponent implements OnInit {
     }else{
       this.isHoliday = false;
     }
-    this.ticketApiService.findByIsHoliday(this.isHoliday).subscribe({
+    this.publicApiService.findByIsHoliday(this.isHoliday).subscribe({
       next: res=>{
         this.fare = res.data;
       },
@@ -81,7 +83,7 @@ export class SelectSeatComponent implements OnInit {
   }
 
   findByShowtime(){
-    this.ticketApiService.findByShowtime(this.showtimeId).subscribe({
+    this.publicApiService.findByShowtime(this.showtimeId).subscribe({
       next: res=>{
         this.tickets = res.data;
         for (let i = 0; i < this.tickets.length; i++) {
@@ -153,12 +155,12 @@ export class SelectSeatComponent implements OnInit {
   }
 
   findById(){
-    this.showtimeService.findById(this.showtimeId).subscribe({
+    this.publicApiService.findById(this.showtimeId).subscribe({
       next: res =>{
         this.showtime= res.data;
         console.log(this.showtime);
         
-        this.rowService.getByRoom(this.showtime.room).subscribe({
+        this.publicApiService.getByRoom(this.showtime.room).subscribe({
           next: res=>{
             this.seatRow = res.data;
           },
@@ -192,7 +194,7 @@ export class SelectSeatComponent implements OnInit {
             listSeatFare: this.listSeatFare,
             showtimeId: this.showtimeId,
           }
-          this.billService.createBill(billRequest).subscribe({
+          this.publicApiService.createBill(billRequest).subscribe({
             next: res =>{
               console.log(res);
               this.isLoading = false;
