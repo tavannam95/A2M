@@ -10,6 +10,7 @@ import com.a2m.repository.ShowtimesRepository;
 import com.a2m.service.ShowtimeService;
 import lombok.AllArgsConstructor;
 import org.hibernate.annotations.Parameter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -34,15 +35,17 @@ import java.time.format.DateTimeParseException;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/showtime")
-@AllArgsConstructor
 @Slf4j
 public class ShowtimeController {
 
-    private final ShowtimeService showtimeService;
+	@Autowired
+    private ShowtimeService showtimeService;
 
-    private final ShowtimesRepository showtimesRepository;
+	@Autowired
+    private ShowtimesRepository showtimesRepository;
 
-    private final RoomsRepository roomsRepository;
+	@Autowired
+    private RoomsRepository roomsRepository;
 
     @GetMapping("/today")
     public DataResponse<List<ShowtimeResponse>> today(){
@@ -55,7 +58,7 @@ public class ShowtimeController {
         List<Showtimes> showtime = this.showtimesRepository.findAll();
         List<Showtimes> showtimes = new ArrayList<>();
         for(Showtimes s: showtime) {
-        	if(s.getDelete() == false) {
+        	if(s.getIsDelete() == false) {
         		showtimes.add(s);
         	}
         }
@@ -74,10 +77,14 @@ public class ShowtimeController {
 
     @GetMapping("/getShowTimeByDate")
     public DataResponse<List<Showtimes>> getShowtimeByDate(@RequestParam Date date, @RequestParam int id){
-    	List<Showtimes> showtime = this.showtimesRepository.getShowTimeByDate(date, id);
+//    	Long longValue = Long.valueOf(id);
+//    	Long id1 = longValue.longValue();
+    	long idLong = (long) id;
+//    	System.out.println(idLong.getClass().getName());
+    	List<Showtimes> showtime = this.showtimeService.getShowTimeByDate(date, id);
         List<Showtimes> showtimes = new ArrayList<>();
         for(Showtimes s: showtime) {
-        	if(s.getDelete() == false) {
+        	if(s.getIsDelete() == false) {
         		showtimes.add(s);
         	}
         }
@@ -88,18 +95,18 @@ public class ShowtimeController {
     public DataResponse<Showtimes> saveShowtimes(@RequestBody Showtimes listShowtimes){
     	System.out.println(listShowtimes.getTimeStart());
     	System.out.println(listShowtimes.getTimeEnd());
-    	listShowtimes.setDelete(false);
+    	listShowtimes.setIsDelete(false);
         return new DataResponse<>(true,"Thành công",this.showtimesRepository.save(listShowtimes));
     }
     
     @PutMapping("/updateData")
     public DataResponse<Showtimes> updateData(@RequestBody Showtimes listShowtimes){
     	if(listShowtimes.getId() == null) {
-    		listShowtimes.setDelete(false);
+    		listShowtimes.setIsDelete(false);
     		return new DataResponse<>(true,"Thành công",this.showtimesRepository.save(listShowtimes));
     	}
         Showtimes newShowtime = this.showtimesRepository.findById(listShowtimes.getId()).orElse(null);
-        newShowtime.setDelete(listShowtimes.getDelete());
+        newShowtime.setIsDelete(listShowtimes.getIsDelete());
         return new DataResponse<>(true,"Thành công",this.showtimesRepository.save(newShowtime));
     }
     
@@ -113,7 +120,9 @@ public class ShowtimeController {
     
     @GetMapping("/getShowtimesByID")
     public DataResponse<List<Showtimes>> getShowtimeByID(@RequestParam int id) throws ParseException{
-        return new DataResponse<>(true,"Thành công",this.showtimesRepository.getShowTimesByID(id));
+    	Long longValue = Long.valueOf(id);
+    	Long id1 = longValue.longValue();
+        return new DataResponse<>(true,"Thành công",this.showtimesRepository.getShowTimesByID(id1));
     }
     
     @GetMapping("/getShowtimeByDateAndID")
@@ -121,8 +130,11 @@ public class ShowtimeController {
     	 SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
     	    java.util.Date parsedDate = format.parse(date);
     	    Date dateInput = new Date(parsedDate.getTime());
+    	    Long longValue = Long.valueOf(id);
+        	Long id1 = longValue.longValue();
         return new DataResponse<>(true,"Thành công",this.showtimesRepository.getShowTimeByDate(dateInput, id));
-
+    }
+    
     @GetMapping("/all-active")
     public DataResponse<List<ShowtimeResponse>> getAllShowtimeActive(){
         return new DataResponse<>(true, "Thành công", this.showtimeService.getAllShowtimeActive());
@@ -135,7 +147,7 @@ public class ShowtimeController {
 
     @PostMapping("/time/{idMovie}")
     public DataResponse<List<Showtimes>> getShowtimeByMovieAndDate(@PathVariable("idMovie") Long idMovie, @RequestBody String dateStr) throws Exception{
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+        java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
         return new DataResponse<>(true,"Thành công", this.showtimeService.getShowtimeByMovieAndDate(idMovie,date));
     }
 

@@ -40,8 +40,6 @@ public class Movies {
     @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "end_date")
-    private Date endDate;
     @Column(name = "create_date")
     private Date createDate;
 
@@ -179,10 +177,6 @@ public class Movies {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-
-	public Date getStartDate() {
-		return startDate;
 	}
 
 	public void setStartDate(Date startDate) {

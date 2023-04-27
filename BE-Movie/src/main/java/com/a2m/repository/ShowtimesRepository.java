@@ -22,23 +22,20 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Long> {
     @Query("SELECT DISTINCT new ShowtimeDateResponse (st.date) FROM Showtimes st WHERE st.movie.id = :idMovie AND st.isDelete <> true AND date(st.date) >= :date")
     List<ShowtimeDateResponse> findByMovie(Long idMovie, Date date);
 
-    @Query("SELECT st FROM Showtimes st WHERE st.movie.id = :idMovie AND date(st.date) = :date")
+    @Query("SELECT st FROM Showtimes st WHERE st.movie.id = :idMovie AND date(st.date) = :date AND st.isDelete = false")
     List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date);
-
-    @Query("SELECT st FROM Showtimes st WHERE date(st.date) = :today")
-    List<Showtimes> today(Date today);
 
     @Query("select st from Movies st  where date(st.endDate) >= :date")
     List<Movies> getMoviesByDate(Date date);
 
-    @Query("select st from Showtimes  st where date(st.date) = :date and st.rooms.id = :id")
+    @Query("select st from Showtimes  st where date(st.date) = :date and st.room.id = :id")
     List<Showtimes> getShowTimeByDate(Date date, int id);
     
     @Query("select st from Showtimes  st where date(st.date) = :date")
     List<Showtimes> getShowTimesByDate(Date date);
     
-    @Query("select st from Showtimes  st where st.rooms.id = :id")
-    List<Showtimes> getShowTimesByID(int id);
+    @Query("select st from Showtimes  st where st.room.id = :id")
+    List<Showtimes> getShowTimesByID(Long id);
 
 //	List<Showtimes> getShowTimesByDate(String date);
     
