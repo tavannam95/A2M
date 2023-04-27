@@ -1,24 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItems, RouteInfo } from 'app/menu/menuItem';
 
 declare const $: any;
-declare interface RouteInfo {
-    path: string;
-    title: string;
-    icon: string;
-    class: string;
-}
-export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/room', title: 'Phòng chiếu',  icon:'meeting_room', class: '' },
-    { path: '/movie', title: 'Phim',  icon:'live_tv', class: '' },
-    { path: '/account', title: 'Tài khoản',  icon:'assignment_ind', class: '' },
-    { path: '/bill', title: 'Hóa đơn',  icon:'receipt_long', class: '' },
-    { path: '/showtime', title: 'Xuất chiếu',  icon:'theaters', class: '' },
-    { path: '/ticket', title: 'Vé',  icon:'local_activity', class: '' },
-    //Customer
-    { path: '/home', title: 'Amenic',  icon:'', class: '' },
-
-];
 
 @Component({
   selector: 'app-sidebar',
@@ -26,12 +9,12 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
+  menuItems: RouteInfo[];
 
   constructor() { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.menuItems = MenuItems.filter(menuItem => menuItem);
   }
   isMobileMenu() {
       if ($(window).width() > 991) {
