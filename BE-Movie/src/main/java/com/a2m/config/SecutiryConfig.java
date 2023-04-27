@@ -47,7 +47,6 @@ public class SecutiryConfig {
 		.antMatchers("/api/v1/account/**","/api/v1/room/**").hasRole("ADMINSTRATOR")
 //		.antMatchers("/authoAd").hasRole("ADMINSTRATOR")
 		.anyRequest().authenticated()
-
 //		.authorizeRequests()
 //		.anyRequest().permitAll()
 		.and()

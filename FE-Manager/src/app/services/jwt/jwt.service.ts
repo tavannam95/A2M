@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Cookie2Service } from '../cookie2/cookie2.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,7 @@ export class JwtService {
 
   private jwtHelper = new JwtHelperService();
 
-  constructor() { }
-
-  clean() {
-      window.localStorage.clear();
-  }
+  constructor(private cookieService: Cookie2Service) { }
 
   reloadPage() {
       window.location.reload();
@@ -20,20 +17,21 @@ export class JwtService {
 
   decode(){
     try {
-      const decode = this.jwtHelper.decodeToken('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXAiLCJyb2xlIjpbeyJhdXRob3JpdHkiOiJFTVBMT1lFRSJ9XSwiZXhwIjoxNjgyNTEwMjM0LCJpYXQiOjE2ODI0NzQyMzR9.V3M5SZQX0peyWNCPEgzdBEZ_5L4VX0bZesWfLl47RqM');
+      const decode = this.jwtHelper.decodeToken(this.cookieService.getToken());
       console.log(decode);
       console.log(decode.sub);
       return decode !== null ? decode: null;
     } catch (e) {
-      console.log(e);
+      this.cookieService.delete();
+      this.reloadPage();      
     }
   }
 
   /**Check user đã đăng nhập */
-  //   public isLoggedIn() :boolean{
-  //     const authToken = this.getUserToken();
-  //     return authToken !== undefined && authToken?.token !== undefined;
-  // }
+    public isLoggedIn() :boolean{
+      const authToken = this.cookieService.getToken();
+      return authToken !== undefined && authToken !== '' && authToken !== null;
+  }
 
   /**Decode và lấy Role của token */
   getRoleFromToken() {
@@ -49,7 +47,7 @@ export class JwtService {
 
   /**Decode và lấy thời gian hết hạn của token */
   getExpiration() {
-    return this.jwtHelper.isTokenExpired('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXAiLCJyb2xlIjpbeyJhdXRob3JpdHkiOiJFTVBMT1lFRSJ9XSwiZXhwIjoxNjgyNTEwMjM0LCJpYXQiOjE2ODI0NzQyMzR9.V3M5SZQX0peyWNCPEgzdBEZ_5L4VX0bZesWfLl47RqM');
+    return this.jwtHelper.isTokenExpired(this.cookieService.getToken());
   }
 
 }

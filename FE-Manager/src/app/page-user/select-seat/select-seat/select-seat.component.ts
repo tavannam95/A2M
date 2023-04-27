@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Constant } from 'app/constants/Constant';
 import { BillApiService } from 'app/services/bill/bill-api.service';
 import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
+import { JwtService } from 'app/services/jwt/jwt.service';
 import { PublicApiService } from 'app/services/public/public-api.service';
 import { RoomService } from 'app/services/room/room.service';
 import { RowService } from 'app/services/row/row.service';
@@ -46,7 +47,9 @@ export class SelectSeatComponent implements OnInit {
     private billService: BillApiService,
     private matDialog: MatDialog,
     private toastrServcie: ToastrService,
-    private publicApiService: PublicApiService
+    private publicApiService: PublicApiService,
+    private jwtService: JwtService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -178,6 +181,13 @@ export class SelectSeatComponent implements OnInit {
   }
 
   createBill(){
+
+    // if (!this.jwtService.isLoggedIn()) {
+    //   this.router.navigate(['/login'],);
+    //   this.toastrServcie.warning('Bạn phải đăng nhập để thực hiện chức năng này');
+    //   return;
+    // }
+
     this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       hasBackdrop: true,
