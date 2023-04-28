@@ -102,7 +102,7 @@ export class ShowtimeFormComponent implements OnInit {
     (this.day.getMonth() + 1 < 10) ? this.dayArray.push(this.day6.getFullYear() + '-0' + (this.day6.getMonth() + 1) + '-' + this.day6.getDate())
       : this.dayArray.push(this.day6.getFullYear() + '-' + (this.day6.getMonth() + 1) + '-' + this.day6.getDate());
     this.getRoom();
-    this.selectRoom(event);
+    this.selectRoom(null);
   }
 
 
@@ -111,7 +111,7 @@ export class ShowtimeFormComponent implements OnInit {
     this.dataList.forEach((data) => {
       this.showtimesService.updateData(data).subscribe({
         next: res => {
-          // console.log(res);
+          console.log(data);
           this.matDialogRef.close()
           this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
           if (res.status === true) {
@@ -142,6 +142,10 @@ export class ShowtimeFormComponent implements OnInit {
 
 
   selectRoom(event: any) {
+    console.log('===================');
+    
+    console.log(event);
+    
     // let id: number = 1;
     if (this.select_day !== null && event !== null) {
       this.showtimesService.getShowTimeByDate(this.select_day, event).subscribe({
@@ -159,8 +163,8 @@ export class ShowtimeFormComponent implements OnInit {
           this.dataSource.data = res.data;
           // this.dataSource.sort = this.sort;
         },
-        error: res =>{
-          console.log('Lỗi');
+        error: e =>{
+          console.log(e);
         }
       })
       // this.dataSource = new MatTableDataSource<any>(this.dataList);
@@ -231,12 +235,12 @@ export class ShowtimeFormComponent implements OnInit {
       })
     }
     if (flag == 1) {
-      this.dataList.push({ movie: { id: this.select_movies, name: this.data1[0].name }, rooms: { id: this.select_room }, date: startTime.toLocaleDateString(), timeStart: startTime.toLocaleDateString() + ' ' + startTime.toLocaleTimeString('en-US', {hour12: false}), timeEnd: endTime.toLocaleDateString() + ' ' + endTime.toLocaleTimeString('en-US', {hour12: false}), createDate: createTime.toLocaleDateString(), delete: false, updateDate: createTime.toLocaleDateString() })
+      this.dataList.push({ movie: { id: this.select_movies, name: this.data1[0].name }, room: { id: this.select_room }, date: startTime.toLocaleDateString(), timeStart: startTime.toLocaleDateString() + ' ' + startTime.toLocaleTimeString('en-US', {hour12: false}), timeEnd: endTime.toLocaleDateString() + ' ' + endTime.toLocaleTimeString('en-US', {hour12: false}), createDate: createTime.toLocaleDateString(), delete: false, updateDate: createTime.toLocaleDateString() })
     }
     this.dataSource = new MatTableDataSource<any>(this.dataList.filter((data) => data.delete === false));
     // this.dataSource.renderRow()
-    // console.log(this.dataList);
-    // console.log(this.dataSource);
+    console.log(this.dataList);
+    console.log(this.dataSource);
   }
 
   getDelete(element: any) {
@@ -259,7 +263,7 @@ export class ShowtimeFormComponent implements OnInit {
 export interface PeriodicElement {
   // id: number;
   movie: { id: number, name: string };
-  rooms: { id: number };
+  room: { id: number };
   // nameMovie?: string;
   date?: string;
   timeStart?: string;

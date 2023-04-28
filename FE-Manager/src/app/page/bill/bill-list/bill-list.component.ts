@@ -16,6 +16,7 @@ export class BillListComponent implements OnInit {
 
   currentDate = new Date();
   isLoading = true;
+  
   // showDate = new Date();
   displayedColumns: string[] = ['billCode', 'email', 'showDate', 'totalPrice', 'status', 'func'];
   dataSource: MatTableDataSource<any>;
@@ -41,7 +42,9 @@ export class BillListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         console.log(this.dataSource.data);
-        this.dataSource.data.forEach((element) => {
+        if(this.dataSource.data.length > 0){
+
+          this.dataSource.data.forEach((element) => {
             element.showDate = element.listTickets[0].showtime.date;
         })
         this.dataSource.data.forEach((element) => {
@@ -51,6 +54,8 @@ export class BillListComponent implements OnInit {
             element.status = 1;
           }
         })
+        }
+        
         this.isLoading = false;
       },
       error: e => {
@@ -70,7 +75,7 @@ export class BillListComponent implements OnInit {
 
   seenBill(row: any) {
     this.matDialog.open(BillDetailComponent, {
-      width: '400px',
+      width: '500px',
       disableClose: true,
       autoFocus: false,
       data: {
