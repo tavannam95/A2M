@@ -6,7 +6,6 @@ import { SelectMovieComponent } from 'app/page-user/select-movie/select-movie/se
 import { SelectSeatComponent } from 'app/page-user/select-seat/select-seat/select-seat.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { RegisterComponent } from '../auth/register/register/register.component';
-// import { RegisterComponent } from '../auth/register/register.component';
 import { UserAccountModule } from '../../page-user/user-account/user-account.module';
 import { UserPasswordComponent } from 'app/page-user/user-password/user-password.component';
 import { AuthGuard } from 'app/guard/auth.guard';

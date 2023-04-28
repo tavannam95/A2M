@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-danger spinner-center" role="status"></div>
+  </div>
 <div class="register-container">
     <div class="register-box">
         <h2>Đăng ký</h2>
@@ -37,15 +40,29 @@
                     <div *ngIf="email.errors.email">Email không hợp lệ</div>
                 </div>
             </div>
-            <div>
-                <label for="birthDate">Birthday</label>
-                <select formControlName="birthDate" required>
-                    <option value="">-- Select a date --</option>
-                    <option *ngFor="let date of dates" [value]="date">{{ date }}</option>
+            <div style="margin-bottom: 20px;">
+                <label>Birthday</label>
+                <select [(value)]="selectedDate" formControlName="date" required>
+                    <option value="chọn ngày sinh">-- Chọn ngày sinh --</option>
+                    <option *ngFor="let date of days" [value]="date">{{ date }}</option>
                 </select>
-                <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)" class="error-message">
-                    <div *ngIf="birthday.errors.required">Birthday is required.</div>
-                </div>
+                <select [(value)]="selectedMonth" formControlName="month" required>
+                    <option value="">-- Chọn tháng --</option>
+                    <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+                </select>
+                <select [(value)]="selectedYear" formControlName="year" required>
+                    <!-- <option value="" disabled selected hidden>Please Choose...</option> -->
+                    <option value="">-- Chọn năm sinh --</option>
+                    <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label>Giới tính</label>
+                <select [(value)]="selectedDate" formControlName="gender" required>
+                    <option value="chọn giới tính">-- Chọn giới tính --</option>
+                    <option value="Female">Nữ</option>
+                    <option value="Male">Nam</option>
+                </select>
             </div>
             <button type="submit" [disabled]="registerForm.invalid">Đăng ký</button>
         </form>
