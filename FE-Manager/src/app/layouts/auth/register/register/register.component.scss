@@ -12,6 +12,8 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     width: 600px;
+    margin-top: 20px;
+    margin-bottom: 20px
   }
   
   .form-group {
@@ -52,3 +54,36 @@
     font-size: 14px;
     margin-top: 5px;
   }
+
+  select, select.form-control {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 2px;
+    margin-left: 10px;
+    border: 1px solid #ddd;
+}
+// .loading {
+//   background: rgba(0, 0, 0, 0.5);
+//   width: 100%;
+//   height: 100%;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   z-index: 999;
+// }
+
+.loading {
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.spinner-center {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+}

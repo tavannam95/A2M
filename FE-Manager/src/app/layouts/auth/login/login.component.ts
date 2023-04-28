@@ -58,7 +58,10 @@ export class LoginComponent implements OnInit {
         console.log(this.cookieService.getToken());
       }
     })
-    
+  }
+
+  register(){
+    this.router.navigate(['/register']);
   }
 
 }

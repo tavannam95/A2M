@@ -10,6 +10,9 @@
       <label for="password">Password:</label>
       <input type="password" id="password" formControlName="password" class="form-control">
     </div>
-    <button type="submit" class="btn btn-primary" (click)="login()">Login</button>
+    <div style="display: flex; justify-content: space-around;">
+      <button type="submit" class="btn btn-primary login" (click)="login()">Đăng nhập</button>
+      <button type="submit" class="btn btn-primary register" (click)="register()">Đăng kí</button>
+    </div>
   </form>
 </div>
