@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
 import { JwtService } from 'app/services/jwt/jwt.service';
 import { LoginServiceService } from 'app/services/login/login-service.service';
+import { HeadersUtil } from 'app/util/headers-util';
 import { Cookie, CookieService } from 'ng2-cookies/cookie';
 
 @Component({
@@ -41,8 +42,7 @@ export class LoginComponent implements OnInit {
       next: res => {
         const token = res.token;
         this.cookieService.saveToken(token);
-        let param = this.route.snapshot.queryParams;
-
+        HeadersUtil.getHeadersAuth();      
         if (this.jwtService.getRoleFromToken()=== 'ROLE_ADMINSTRATOR' || this.jwtService.getRoleFromToken()=== 'ROLE_EMPLOYEE') {
           this.router.navigate(['/dashboard']);
         }else{
