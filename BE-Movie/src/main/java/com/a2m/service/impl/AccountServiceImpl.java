@@ -42,7 +42,7 @@ public class AccountServiceImpl implements AccountService{
 			account1.setEmail(account.getEmail());
 		}
 		if(account.getBirthDate()!=null) {
-//			account1.setBirthDate(account.getBirthDate());
+			account1.setBirthDate(account.getBirthDate());
 		}
 		if(account.getGender()!=null) {
 			account1.setGender(account.getGender());
