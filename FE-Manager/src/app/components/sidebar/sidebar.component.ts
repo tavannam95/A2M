@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItems, RouteInfo } from 'app/menu/menuItem';
+import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
+import { JwtService } from 'app/services/jwt/jwt.service';
 
 declare const $: any;
 
@@ -11,7 +13,10 @@ declare const $: any;
 export class SidebarComponent implements OnInit {
   menuItems: RouteInfo[];
 
-  constructor() { }
+  constructor(
+    private cookieService: Cookie2Service,
+    private jwtService: JwtService
+    ) { }
 
   ngOnInit() {
     this.menuItems = MenuItems.filter(menuItem => menuItem);
@@ -22,4 +27,9 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+
+  logout(){
+    this.cookieService.delete();
+    this.jwtService.reloadPage();
+  }
 }

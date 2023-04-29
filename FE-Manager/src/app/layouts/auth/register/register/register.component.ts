@@ -15,7 +15,6 @@ import { CloudinaryService } from 'app/services/cloudinary/cloudinary.service';
 import { ToastrService } from 'ngx-toastr';
 import { RegisterService } from 'app/services/register/register.service';
 // import { Router } from 'express';
-import { error } from 'console';
 import { Router } from '@angular/router';
 
 interface User{
