@@ -18,8 +18,6 @@ export class JwtService {
   decode(){
     try {
       const decode = this.jwtHelper.decodeToken(this.cookieService.getToken());
-      console.log(decode);
-      console.log(decode.sub);
       return decode !== null ? decode: null;
     } catch (e) {
       this.cookieService.delete();
@@ -36,13 +34,13 @@ export class JwtService {
   /**Decode và lấy Role của token */
   getRoleFromToken() {
     const decode = this.decode();
-    return decode !== null && decode?.sub !== null ? decode?.sub : null;
+    return decode !== null && decode?.role[0] !== null ? decode?.role[0].authority : null;
   }
 
   /**Decode và lấy Role của token */
   getUsernameFromToken() {
     const decode = this.decode();
-    return decode !== null && decode?.role !== null ? decode?.role : null;
+    return decode !== null && decode?.sub !== null ? decode?.sub : null;
   }
 
   /**Decode và lấy thời gian hết hạn của token */

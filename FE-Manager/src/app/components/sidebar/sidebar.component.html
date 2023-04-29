@@ -28,6 +28,13 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)="logout()">
+                <p>
+                    Đăng xuất
+                </p>
+            </a>
+        </li>
         <li class="nav-item dropdown">
             <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">notifications</i>
@@ -56,11 +63,13 @@
   </div>
     <ul class="nav">
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <a class="nav-link" [routerLink]="[menuItem.path]">
-                <!-- <i class="{{menuItem.icon}}"></i> -->
-                <i class="material-icons">{{menuItem.icon}}</i>
-                <p>{{menuItem.title}}</p>
-            </a>
+            <ng-container *ngFor="let role of menuItem.role">
+                <a *ngIf="role == jwtService.getRoleFromToken()" class="nav-link" [routerLink]="[menuItem.path]">
+                    <!-- <i class="{{menuItem.icon}}"></i> -->
+                    <i class="material-icons">{{menuItem.icon}}</i>
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </ng-container>
         </li>
     </ul>
 </div>

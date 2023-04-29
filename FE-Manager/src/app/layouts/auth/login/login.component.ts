@@ -42,20 +42,12 @@ export class LoginComponent implements OnInit {
         const token = res.token;
         this.cookieService.saveToken(token);
         let param = this.route.snapshot.queryParams;
-        if (param['redirectUrl']) {
-          this.redirectUrl = param['redirectUrl'];
+
+        if (this.jwtService.getRoleFromToken()=== 'ROLE_ADMINSTRATOR' || this.jwtService.getRoleFromToken()=== 'ROLE_EMPLOYEE') {
+          this.router.navigate(['/dashboard']);
+        }else{
+          this.router.navigate(['/home']);
         }
-        console.log(param['id']);
-        
-        if (this.redirectUrl) {
-          this.router.navigateByUrl(this.redirectUrl)
-            .then(() => this.jwtService.reloadPage())
-            .catch(() => this.router.navigate(['/home']))
-        } else {
-          this.router.navigate(['/home']).then(() => this.jwtService.reloadPage())
-        }
-        console.log('get token');
-        console.log(this.cookieService.getToken());
       }
     })
   }
