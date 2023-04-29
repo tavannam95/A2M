@@ -80,9 +80,11 @@ public class ShowtimeController {
     }
 
     @GetMapping("/getShowTimeByDate")
-    public DataResponse<List<Showtimes>> getShowtimeByDate(@RequestParam Date date, @RequestParam int id){
-
-    	List<Showtimes> showtime = this.showtimeService.getShowTimeByDate(date, id);
+    public DataResponse<List<Showtimes>> getShowtimeByDate(@RequestParam String date, @RequestParam int id) throws ParseException{
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    java.util.Date parsedDate = format.parse(date);
+	    Date dateInput = new Date(parsedDate.getTime());
+    	List<Showtimes> showtime = this.showtimeService.getShowTimeByDate(dateInput, id);
         List<Showtimes> showtimes = new ArrayList<>();
         for(Showtimes s: showtime) {
         	if(s.getIsDelete() == false) {

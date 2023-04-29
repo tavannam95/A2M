@@ -10,6 +10,7 @@ import javax.persistence.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -119,11 +120,8 @@ public class Accounts {
 		return birthDate;
 	}
 
-	public void setBirthDate(String birthDate) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date parsedDate = format.parse(birthDate);
-        Date dateInput = new Date(parsedDate.getTime());
-		this.birthDate = dateInput;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	public Boolean getGender() {

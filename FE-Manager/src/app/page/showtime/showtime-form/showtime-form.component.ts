@@ -235,9 +235,9 @@ export class ShowtimeFormComponent implements OnInit {
       })
     }
     if (flag == 1) {
-      this.dataList.push({ movie: { id: this.select_movies, name: this.data1[0].name }, room: { id: this.select_room }, date: startTime.toLocaleDateString(), timeStart: startTime.toLocaleDateString() + ' ' + startTime.toLocaleTimeString('en-US', {hour12: false}), timeEnd: endTime.toLocaleDateString() + ' ' + endTime.toLocaleTimeString('en-US', {hour12: false}), createDate: createTime.toLocaleDateString(), delete: false, updateDate: createTime.toLocaleDateString() })
+      this.dataList.push({ movie: { id: this.select_movies, name: this.data1[0].name }, room: { id: this.select_room }, date: startTime.toLocaleDateString(), timeStart: startTime.toLocaleDateString() + ' ' + startTime.toLocaleTimeString('en-US', {hour12: false}), timeEnd: endTime.toLocaleDateString() + ' ' + endTime.toLocaleTimeString('en-US', {hour12: false}), createDate: createTime.toLocaleDateString(), isDelete: false, updateDate: createTime.toLocaleDateString() })
     }
-    this.dataSource = new MatTableDataSource<any>(this.dataList.filter((data) => data.delete === false));
+    this.dataSource = new MatTableDataSource<any>(this.dataList.filter((data) => data.isDelete === false));
     // this.dataSource.renderRow()
     console.log(this.dataList);
     console.log(this.dataSource);
@@ -253,7 +253,7 @@ export class ShowtimeFormComponent implements OnInit {
     let updateDate = new Date();
     this.dataList.forEach((data) => {
       if (data.timeStart === element.timeStart) {
-        data.delete = true;
+        data.isDelete = true;
         data.updateDate = updateDate.toLocaleDateString();
       }
     })
@@ -269,6 +269,6 @@ export interface PeriodicElement {
   timeStart?: string;
   timeEnd?: string;
   createDate?: string;
-  delete?: boolean;
+  isDelete?: boolean;
   updateDate?: string;
 }
