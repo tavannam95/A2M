@@ -23,7 +23,7 @@ interface User{
   username?: string;
   password?: string;
   email?: string;
-  birthDate?: string;
+  birthDate?: Date;
   gender?: boolean;
   role?: {id: 1};
 }
@@ -108,7 +108,7 @@ export class RegisterComponent implements OnInit {
     // this.user.gender = (this.registerForm.value.gender==='Female') ? true : false;
     this.user.push({fullname: this.registerForm.value.fullname, username: this.registerForm.value.username,
                     password: this.registerForm.value.password, email: this.registerForm.value.email,
-                    birthDate: this.registerForm.value.birthDate, gender: (this.registerForm.value.gender==='Female') ? true : false,
+                    birthDate: new Date(""+this.registerForm.value.birthDate), gender: (this.registerForm.value.gender==='Female') ? true : false,
                     role:{id:1}});
     console.log(this.user);
     this.registerService.createUser(this.user[0]).subscribe({
@@ -117,6 +117,7 @@ export class RegisterComponent implements OnInit {
         if(resp.status===true){
           this.toastrService.success(resp.message);
           this.isLoading = false;
+          this.router.navigate(['/login']);
         }
         else{
           this.isLoading = false;
@@ -127,7 +128,6 @@ export class RegisterComponent implements OnInit {
         console.log(e);
       }
     })
-    this.router.navigate(['/login']);
   }
 }
 

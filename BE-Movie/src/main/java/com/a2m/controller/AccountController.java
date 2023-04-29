@@ -82,6 +82,7 @@ public class AccountController {
 
 	@PutMapping("/updateAccount")
 	public DataResponse<Accounts> updateaccount(@RequestBody Accounts accounts) {
+		System.out.println(accounts.getBirthDate());
 		return new DataResponse<>(true, "Sửa thông tin thành công", accountService.updateAccount(accounts));
 	}
 

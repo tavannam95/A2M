@@ -140,7 +140,6 @@ public class Showtimes {
 	public void setUpdateDate(String updateDate) throws ParseException {
 
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-
 	    java.util.Date parsedDate = format.parse(updateDate);
 	    Date dateInput = new Date(parsedDate.getTime());
 		this.updateDate = dateInput;
