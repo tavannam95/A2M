@@ -1,0 +1,30 @@
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
+<h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+  <form class="mb-0">
+    <div class="row" [formGroup]="formGroup">
+      <div class="col-12">
+
+        <!-- Tên phòng -->
+        <mat-form-field appearance="outline">
+          <mat-label>Tên phòng</mat-label>
+          <input type="text" formControlName="name" matInput>
+          <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
+                                      formGroup.get('name')?.touched">
+            Tên phòng không được để trống
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+    </div>
+  </form>
+
+
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <button class="btn btn-success" mat-button (click)="onSubmit()">Đồng ý</button>
+  <button class="btn btn-dark" mat-button mat-dialog-close>Hủy</button>
+</div>

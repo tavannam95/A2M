@@ -1,0 +1,33 @@
+.label_tab{
+    font-size: 20px;
+}
+
+.img-poster{
+    position: relative;
+    overflow: hidden;
+    transition: .5s ease;
+}
+
+.poster-hover{
+    position: absolute;
+    bottom: 0;
+    height: 60%;
+    width: 100%;
+    background-color: rgba($color: #DCDCDC, $alpha: 0.8);
+    display: none;
+    transition: .5s ease;
+}
+
+.img-poster:hover .poster-hover{
+    display: block;
+    transition: .5s ease;
+}
+
+.title-movie{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.info-movie{
+    font-size: 14px;
+}
