@@ -1,6 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {ToastrService} from 'ngx-toastr';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,13 +7,9 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor(private toast: ToastrService) { }
+  constructor() { }
 
   ngOnInit() {
-
   }
 
-  show() {
-    this.toast.success("Hihi")
-  }
 }

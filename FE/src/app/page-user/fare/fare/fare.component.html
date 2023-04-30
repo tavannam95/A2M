@@ -1,0 +1,104 @@
+<div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
+<div class="container">
+    <header>
+        <div class="title">
+            <h2>giá vé</h2>
+        </div>
+        <div class="icon">
+            <i class="material-icons">local_activity</i>
+        </div>
+        <div class="sub">
+            <h3>GIÁ VÉ XEM PHIM</h3>
+            <h3>(Áp dụng từ ngày 1/1/2023)</h3>
+        </div>
+    </header>
+    <div class="row">
+        <div class="col-12">
+            <div mat-dialog-content>
+                <form class="mb-0">
+                    <div class="font-weight-bold row" *ngIf="!isLoading">
+                        <table mat-table [dataSource]="price" matSort>
+                            <!-- normalDay Column -->
+                            <!-- SeatType 1 Column -->
+                            <ng-container matColumnDef="standardNormal">
+                                <th class="text-center" class="standard" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>
+                                    <h4>Ghế thường</h4>
+                                    <h4>Standard</h4>
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{price.standardNormal}}</td>
+                            </ng-container>
+
+                            <!-- SeatType 2 Column -->
+                            <ng-container matColumnDef="vipNormal">
+                                <th class="text-center" class="vip" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    <h4>Ghế VIP</h4>
+                                    <h4>VIP</h4>
+                                </th>
+                                <td mat-cell *matCellDef="let row"> {{price.vipNormal}} </td>
+                            </ng-container>
+
+                            <!-- holiday Column -->
+                            <!-- SeatType 1 Column -->
+                            <ng-container matColumnDef="standardHoliday">
+                                <th class="text-center" class="standard" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>
+                                    <h4>Ghế thường</h4>
+                                    <h4>Standard</h4>
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{price.standardHoliday}}</td>
+                            </ng-container>
+                            <!-- SeatType 2 Column -->
+                            <ng-container matColumnDef="vipHoliday">
+                                <th class="text-center" class="vip" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    <h4>Ghế VIP</h4>
+                                    <h4>VIP</h4>
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{price.vipHoliday}}</td>
+                            </ng-container>
+
+                            <!-- Header row normalDay group -->
+                            <ng-container matColumnDef="header-row-first-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.colspan]="2" class="header-normalDay">
+                                    <div>Từ thứ 2 đến thứ 5</div>
+                                    <div>From Monday to Thursday</div>
+                                </th>
+                            </ng-container>
+
+                            <!-- Header row Holiday group -->
+                            <ng-container matColumnDef="header-row-second-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.colspan]="2" class="header-holiday">
+                                    <div>Thứ 6, 7, Chủ Nhật </div>
+                                    <div>Friday, Saturday, Sunday</div>
+                                </th>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="['header-row-first-group', 'header-row-second-group']">
+                            </tr>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                            <!-- Row shown when there is no matching data. -->
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="5">Không có dữ liệu phù hợp!</td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <!-- end -->
+        </div>
+    </div>
+    <footer>
+        <h4>*LƯU Ý: ĐỀ NGHỊ QUÝ KHÁN GIẢ LƯU Ý KHI MUA VÉ XEM PHIM (ĐẶC BIỆT KHI MUA VÉ ONLINE). RẠP AMENIC KHÔNG CHẤP NHẬN
+            HOÀN TIỀN HOẶC ĐỔI VÉ ĐÃ THANH TOÁN THÀNH CÔNG KHI MUA VÉ ONLINE VÀ VÉ MUA SAI QUY ĐỊNH TẠI QUẦY VÉ.</h4>
+        <div class="footer-sub">
+            <a>Rất mong Quý khán giả phối hợp thực hiện.</a>
+            <br>
+            <a>Xin trân trọng cảm ơn!</a>
+        </div>
+
+    </footer>
+</div>

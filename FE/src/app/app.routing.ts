@@ -3,31 +3,42 @@ import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {Routes, RouterModule} from '@angular/router';
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
-import {content_admin} from './shared/router/admin_router';
-import {AuthGuard} from './shared/guard/auth.guard';
+import { LoginComponent } from './layouts/auth/login/login.component';
+import { TestCookieComponent } from './page-user/test-cookie/test-cookie.component';
+import { AuthGuard } from './guard/auth.guard';
+import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
 
 const routes: Routes = [
     {
+      path: '',
+      redirectTo: '/dashboard',
+      pathMatch: 'full',
+    },
+    {path: 'login', component: LoginComponent},
+    {
+      path: 'test-ck',
+      component: TestCookieComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: '',
+      component: AdminLayoutComponent,
+      children: [{
         path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full',
+        loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
+      }],
+      canActivate: [AuthGuard]
     },
     {
+      path: '',
+      component: CustomerLayoutComponent,
+      children: [{
         path: '',
-        component: AdminLayoutComponent,
-        children: content_admin,
-        canActivate: [AuthGuard],
+        loadChildren: () => import('./layouts/customer/customer.module').then(m => m.CustomerModule)
+      }],
     },
-    {
-        path: 'selling',
-        loadChildren: () => import('./pages/admin/selling/selling.module').then(m => m.SellingModule),
-        canActivate: [AuthGuard],
-    },
-    {
-        path: 'login',
-        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-    }
-];
+  
+  ];
 
 @NgModule({
     imports: [

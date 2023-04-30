@@ -1,0 +1,118 @@
+.container {
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0px;
+
+        .title {
+            text-transform: uppercase;
+
+            h2 {
+                font-weight: bold;
+            }
+        }
+
+        .sub {
+            text-align: center;
+        }
+    }
+
+    .row {
+        overflow: hidden;
+        border-radius: 10px;
+
+        table {
+            width: 100%;
+            border: solid thin #a8a4a4;
+
+            .header-normalDay {
+                background-color: #d50d0d;
+                color: #ffffff;
+            }
+
+            .header-holiday {
+                background-color: #ffc000;
+            }
+
+            .standard {
+                background-color: #1a1818;
+                color: #ffffff;
+            }
+
+            .vip {
+                background-color: #1a1818;
+                color: #db1515;
+            }
+
+            h4 {
+                font-weight: 500;
+                font-size: 20px;
+            }
+
+            .mat-form-field {
+                font-size: 14px;
+                width: 100%;
+            }
+
+            table,
+            th,
+            td {
+                border: 1px solid #a8a4a4;
+                border-collapse: collapse;
+
+            }
+
+            td {
+                font-size: 20px;
+                text-align: center;
+                width: 16%;
+            }
+
+            th {
+                text-align: center;
+                width: 16%;
+                padding: 10px 0px;
+            }
+
+            th {
+                text-align: center;
+                font-weight: bold;
+                font-size: 1.2em;
+                color: black;
+            }
+
+            td:first-child {
+                border-top-left-radius: 10px;
+            }
+
+            td:last-child {
+                border-top-right-radius: 10px;
+            }
+
+            .loading {
+                background: rgba(0, 0, 0, 0.5);
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 999;
+            }
+
+            .spinner-center {
+                top: 50%;
+                left: 50%;
+                position: absolute;
+            }
+        }
+    }
+
+    footer {
+        .footer-sub {
+            text-align: center;
+        }
+
+    }
+
+}

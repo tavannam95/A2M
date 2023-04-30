@@ -1,0 +1,38 @@
+form {
+    .row {
+        padding: 0px 40px;
+        .title{
+            width: 100%;
+            text-align: center;
+
+            border-top: 2px solid #363434c7;
+        }
+        .info{
+            padding: 10px 0px;
+            width: 100%;
+            border-top: 2px solid #363434c7;
+            table {
+                width: 100%;
+                tbody {
+                    margin-left: 10px;
+    
+                    tr {
+                        height: 30px;
+                        th {
+                            width: 60%;
+                        }
+                        td{
+                            width:40%;
+                            span{
+                                width: 50%
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+    }
+
+}

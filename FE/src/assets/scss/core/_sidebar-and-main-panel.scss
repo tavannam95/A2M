@@ -182,7 +182,8 @@
     p {
       margin: 0;
       line-height: 30px;
-      font-size: 14px;
+      font-weight: 550;
+      font-size: 17px;
       position: relative;
       display: block;
       height: auto;
@@ -196,7 +197,7 @@
       line-height: 30px;
       width: 30px;
       text-align: center;
-      color: #a9afbb;
+      // color: #a9afbb;
     }
   }
 
@@ -264,10 +265,10 @@
       text-transform: uppercase;
       padding: $padding-small-vertical $padding-zero;
       display: inline-block;
-      font-size: 18px;
+      font-size: 20px;
       color: $black-color;
       white-space: nowrap;
-      font-weight: $font-weight-default;
+      font-weight: $font-weight-bold;
       line-height: 30px;
       overflow: hidden;
       text-align: center;

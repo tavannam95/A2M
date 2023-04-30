@@ -1,12 +1,13 @@
-<div class="logo" style="height: 70px;">
-    <a href="/" class="simple-text">
-        <div class="logo-img">
-            <img src="/assets/img/angular2-logo-red.png"/>
-        </div>
+<div class="logo">
+    <a routerLink="/dashboard" class="simple-text">
+        <!-- <div class="logo-img">
+            <img src="/assets/img/amenic.png"/>
+        </div> -->
+        Amenic
     </a>
 </div>
-<div class="sidebar-wrapper">    
-  <!-- <div *ngIf="isMobileMenu()">
+<div class="sidebar-wrapper">
+  <div *ngIf="isMobileMenu()">
     <form class="navbar-form">
       <span class="bmd-form-group">
         <div class="input-group no-border">
@@ -24,6 +25,13 @@
                 <i class="material-icons">dashboard</i>
                 <p>
                     <span class="d-lg-none d-md-block">Stats</span>
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)="logout()">
+                <p>
+                    Đăng xuất
                 </p>
             </a>
         </li>
@@ -52,15 +60,13 @@
             </a>
         </li>
     </ul>
-  </div> -->
+  </div>
     <ul class="nav">
-        <li *ngFor="let menuItem of menuItems"
-            routerLinkActive="active"
-            title="{{menuItem.title}}"
-            class="{{menuItem.class}} nav-item">
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
             <ng-container *ngFor="let role of menuItem.role">
-                <a *ngIf="role == storageService.getRoleFromToken()" class="nav-link" [routerLink]="[menuItem.path]">
-                    <i class="{{menuItem.icon}}"></i>
+                <a *ngIf="role == jwtService.getRoleFromToken()" class="nav-link" [routerLink]="[menuItem.path]">
+                    <!-- <i class="{{menuItem.icon}}"></i> -->
+                    <i class="material-icons">{{menuItem.icon}}</i>
                     <p>{{menuItem.title}}</p>
                 </a>
             </ng-container>

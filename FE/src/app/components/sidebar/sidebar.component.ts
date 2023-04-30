@@ -1,44 +1,35 @@
-import {Component, OnInit} from '@angular/core';
-import {MenuItems, RouteInfo} from '../../shared/menu/menuItems';
-import {StorageService} from '../../shared/service/storage.service';
+import { Component, OnInit } from '@angular/core';
+import { MenuItems, RouteInfo } from 'app/menu/menuItem';
+import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
+import { JwtService } from 'app/services/jwt/jwt.service';
 
-// declare const $: any;
-//
-// declare interface RouteInfo {
-//     path: string;
-//     title: string;
-//     icon: string;
-//     class: string;
-// }
-//
-// export const ROUTES: RouteInfo[] = [
-//     {path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: ''},
-//     {path: '/user-profile', title: 'User Profile', icon: 'person', class: ''},
-//     {path: '/table-list', title: 'Table List', icon: 'content_paste', class: ''},
-//     {path: '/typography', title: 'Typography', icon: 'library_books', class: ''},
-//     {path: '/icons', title: 'Icons', icon: 'bubble_chart', class: ''},
-//     {path: '/notifications', title: 'Notifications', icon: 'notifications', class: ''},
-// ];
+declare const $: any;
 
 @Component({
-    selector: 'app-sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.css']
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-    menuItems: RouteInfo[];
+  menuItems: RouteInfo[];
 
-    constructor(public readonly storageService: StorageService) {
-    }
+  constructor(
+    private cookieService: Cookie2Service,
+    private jwtService: JwtService
+    ) { }
 
-    ngOnInit() {
-        this.menuItems = MenuItems.filter(menuItem => menuItem);
-    }
+  ngOnInit() {
+    this.menuItems = MenuItems.filter(menuItem => menuItem);
+  }
+  isMobileMenu() {
+      if ($(window).width() > 991) {
+          return false;
+      }
+      return true;
+  };
 
-    isMobileMenu() {
-        if ($(window).width() > 991) {
-            return false;
-        }
-        return true;
-    };
+  logout(){
+    this.cookieService.delete();
+    this.jwtService.reloadPage();
+  }
 }
