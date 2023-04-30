@@ -1,0 +1,35 @@
+<h1 mat-dialog-title class="text-center h3 font-weight-bold">
+  Nhập số lượng bạn muốn in
+</h1>
+<div mat-dialog-content>
+
+
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="formGroup">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Số lượng</mat-label>
+          <input type="text" matInput formControlName="quantity">
+          <mat-error class="text-danger" *ngIf="formGroup.get('quantity')?.hasError('required') &&
+                          formGroup.get('quantity')?.touched">
+            Số lượng không được để trống
+          </mat-error>
+          <mat-error class="text-danger" *ngIf="formGroup.get('quantity')?.hasError('min') &&
+                          formGroup.get('quantity')?.touched">
+            Số lượng phải lớn hơn 0
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+
+
+</div>
+
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <div>
+    <button mat-button mat-dialog-close (click)="printQR()" class="btn btn-info" mat-button mat-dialog-close>Đồng ý</button>
+    <button mat-button mat-dialog-close class="btn btn-dark" mat-button mat-dialog-close>Hủy</button>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<h1 mat-dialog-title class="text-center h3 font-weight-bold">{{ title }}</h1>
+<div mat-dialog-content>
+  
+    <form class="mb-0">
+        <div class="row" [formGroup]="formGroup">
+            <div class="col-10 m-auto">
+                <mat-form-field class="w-100 mt-3" appearance="outline">
+                    <mat-label>Tên danh mục</mat-label>
+                    <input type="text" matInput cdkFocusInitial formControlName="name">
+                    <mat-error class="text-danger"
+                               *ngIf="formGroup.get('name')?.hasError('required') &&
+                                      formGroup.get('name')?.touched">
+                        Tên danh mục không được để trống
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="form-group d-flex">
+                    <mat-label>Trạng thái</mat-label>
+                    <mat-radio-group formControlName="status">
+                        <mat-radio-button [value]="1" class="ml-4">
+                            Hoạt động
+                        </mat-radio-button>
+                        <mat-radio-button [value]="0" class="ml-4">
+                            Không hoạt động
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                
+            </div>
+        </div>
+    </form>
+
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+        <button class="btn btn-success" type="button" mat-raised-button (click)="save()">
+            <span>
+                <i *ngIf="isLoadingButton" class="fa fa-spinner fa-spin"></i>
+                Xác nhận
+            </span>
+        </button>
+        <button class="btn btn-dark" type="button" mat-raised-button (click)="onDismiss()">
+            <span><span class="fe fe-x mg-r-2"></span>Hủy</span>
+        </button>
+</div>

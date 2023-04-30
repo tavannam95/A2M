@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center" style="height: 900px">
+        <div class="login-wrapper shadow">
+            <div class="row">
+                <div class="col-10 m-auto">
+                    <div class="login-title text-center mt-3">
+                        <span class="h2 font-weight-bold">Đăng nhập</span>
+                        <!-- <p>Welcome Back</p> -->
+                    </div>
+                    <form [formGroup]="formGroup" (keyup.enter)="onLogin()">
+                        <mat-form-field appearance="outline" class="mt-4">
+                            <mat-label>Email</mat-label>
+                            <input type="text" matInput formControlName="email">
+                            <mat-error
+                                    *ngIf="formGroup.get('email').hasError('required') || formGroup.get('email').touched">
+                                Email không được để trống
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="mt-2">
+                            <mat-label>Mật khẩu</mat-label>
+                            <input matInput [type]="hide ? 'password' : 'text'"
+                                   autocomplete="off"
+                                   formControlName="password">
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                    [attr.aria-label]="'Hide password'"
+                                    [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error
+                                    *ngIf="formGroup.get('password').hasError('required') || formGroup.get('password').touched">
+                                Mật khẩu không được để trống
+                            </mat-error>
+                        </mat-form-field>
+                        <button type="button" mat-raised-button color="warn" class="d-block w-100 mt-1"
+                                style="height:45px" (click)="onLogin()">
+                            Đăng nhập
+                        </button>
+                        <p class="text-center mt-5">
+                            Bạn quên mật khẩu? <a href="javasrcipt:void(0)">Lấy lại mật khẩu</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

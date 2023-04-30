@@ -1,0 +1,30 @@
+
+ngx-dropzone,
+.custom-dropzone {
+  margin-top: 60px;
+}
+
+.custom-dropzone {
+  height: 61%;
+  border: 1px dashed #cccccc;
+  border-radius: 5px;
+  font-size: 20px;
+  width: 100%;
+}
+
+.custom-dropzone.ngx-dz-hovered {
+  border: 5px solid rgb(235, 79, 79);
+}
+
+ngx-dropzone-image-preview {
+  width: 100% !important;
+  height: 265px !important;
+}
+
+:host ::ng-deep img {
+  max-width: 100% !important;
+}
+
+.avt-preview {
+  margin-top: 50px !important;
+}

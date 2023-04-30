@@ -1,0 +1,81 @@
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status">
+  </div>
+</div>
+<h1 mat-dialog-title class="text-center h3 font-weight-bold">
+  Đổi địa chỉ
+</h1>
+<div class="order-detail2">
+  <div mat-dialog-content class="scroll-order-detail">
+    <div class="row">
+      <div class="col-12 mb-3">
+        <i class="text-danger">(Lưu ý: Đổi địa chỉ nhận hàng có thể làm thay đổi phí ship)</i>
+      </div>
+    </div>
+    <form [formGroup]="formGroup">
+      
+      <!--======TỈNH / THÀNH PHỐ ======-->
+      <mat-form-field appearance="outline">
+        <mat-label>Chọn Tỉnh/Thành phố *</mat-label>
+        <mat-select formControlName="provinceId">
+          <mat-option 
+            *ngFor="let p of provinces" 
+            [value]="p.ProvinceID"
+            (onSelectionChange)="getDistrict(p.ProvinceID,p.ProvinceName);"
+            (click)="getDistrict(p.ProvinceID,p.ProvinceName); resetDistrictAndWard()"
+          >
+            {{p.ProvinceName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!--====== QUẬN / HUYỆN  ======-->
+      <mat-form-field appearance="outline">
+        <mat-label>Chọn Quận/Huyện *</mat-label>
+        <mat-select formControlName="districtId">
+          <mat-option 
+            *ngFor="let d of districts" 
+            [value]="d.DistrictID"
+            (onSelectionChange)="getWard(d.DistrictID, d.DistrictName)"
+            (click)="getWard(d.DistrictID, d.DistrictName); resetWard()"
+          >
+            {{d.DistrictName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!--====== PHƯỜNG / XÃ * ======-->
+      <mat-form-field appearance="outline">
+        <mat-label>Chọn Phường/Xã *</mat-label>
+        <mat-select formControlName="wardId">
+          <mat-option 
+            *ngFor="let w of wards"
+            [value]="w.WardCode"
+            (click)="getWardName(w.WardName)"
+          >
+            {{w.WardName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Số nhà/Thôn, Xóm</mat-label>
+        <input type="text" matInput formControlName="other">
+        <mat-error class="text-danger" *ngIf="formGroup.get('other')?.hasError('required') &&
+                                      formGroup.get('other')?.touched">
+                                      Số nhà/Thôn, Xóm không được để trống
+                    </mat-error>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('other')?.hasError('pattern') &&
+                                      formGroup.get('other')?.touched">
+                                      Số nhà/Thôn, Xóm không chứa ký tự đặc biệt
+                    </mat-error>
+      </mat-form-field>
+      
+    </form>
+
+  </div>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-button class="btn btn-info" (click)="onSubmit()">Đồng ý</button>
+    <button mat-button class="btn btn-dark" mat-dialog-close>Hủy</button>
+</div>

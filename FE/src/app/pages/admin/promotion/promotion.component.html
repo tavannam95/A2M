@@ -1,0 +1,128 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card custom-card">
+            <div class="card-body">
+                <form class="mt-4" [formGroup]="form">
+                    <div class="row d-flex justify-content-around">
+                        <mat-form-field appearance="outline" class="col-3">
+                            <mat-label>Tên khuyến mãi</mat-label>
+                            <input matInput formControlName="name">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="col-3">
+                            <mat-label>Từ ngày</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="startDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="col-3">
+                            <mat-label>Đến ngày</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="endDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="row d-flex justify-content-around">
+                        <mat-form-field appearance="outline" class="col-3">
+                            <mat-label>Trạng thái</mat-label>
+                            <mat-select formControlName="status">
+                                <mat-option value="null">Tất cả</mat-option>
+                                <mat-option value="1">Chưa diễn ra</mat-option>
+                                <mat-option value="2">Đang diễn ra</mat-option>
+                                <mat-option value="3">Đã kết thúc</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="col-3"></div>
+                        <div class="col-3"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <button type="button" mat-button class="btn-color text-white" (click)="onClear()">Làm mới
+                            </button>
+                            <button type="button" mat-button class="btn-color text-white mx-3" (click)="onSearch()">Tìm
+                                kiếm
+                            </button>
+                            <button type="button" mat-button class="btn-color text-white"
+                                    (click)="onOpenForm(CONSTRANT.NEW)">Thêm mới
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <table mat-table [dataSource]="dataSource" class="w-100 table-hover">
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef> Tên khuyến mãi</th>
+                                <td mat-cell *matCellDef="let element"> {{element.discountName}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="discount">
+                                <th mat-header-cell *matHeaderCellDef>Giảm giá</th>
+                                <td mat-cell *matCellDef="let element"> {{element.discount}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="startDate">
+                                <th mat-header-cell *matHeaderCellDef> Từ ngày</th>
+                                <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd-MM-yyyy'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="endDate">
+                                <th mat-header-cell *matHeaderCellDef> Đến ngày</th>
+                                <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'dd-MM-yyyy'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef> Trạng thái</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <span *ngIf="element.status == 1" style="color: orange">Chưa diễn ra</span>
+                                    <span *ngIf="element.status == 2" style="color: green"> Đang diễn ra </span>
+                                    <span *ngIf="element.status == 3" style="color: red">Đã kết thúc</span>
+                            </ng-container>
+
+                                <ng-container matColumnDef="action">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Thao tác </th>
+                                    <td class="text-center" mat-cell *matCellDef="let element">
+
+                                    <button mat-icon-button [matMenuTriggerFor]="menu"
+                                            aria-label="Example icon-button with a menu">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item
+                                                (click)="onAddProduct(element.id)">
+                                            <span>Thêm sản phẩm</span>
+                                        </button>
+                                        <button mat-menu-item (click)="onOpenForm(CONSTRANT.UPDATE , element)">
+                                            <span>Sửa thông tin</span>
+                                        </button>
+                                    </mat-menu>
+
+                                    <!-- <button mat-raised-button *ngIf="element.status != 2"
+                                            matTooltip="Thêm sản phẩm vào khuyến mãi"
+                                            [matTooltipPosition]="'left'"
+                                            class="btn btn-primary btn-link btn-just-icon"
+                                    (click)="onAddProduct(element.id)"><i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button mat-raised-button
+                                            class="btn btn-primary btn-link btn-just-icon"
+                                            (click)="onOpenForm(CONSTRANT.UPDATE , element)">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button> -->
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                                       showFirstLastButtons
+                                       aria-label="Select page of periodic elements">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

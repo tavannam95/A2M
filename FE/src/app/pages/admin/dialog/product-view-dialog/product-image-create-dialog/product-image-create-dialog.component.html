@@ -1,0 +1,42 @@
+<div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-danger spinner-center" role="status">
+    </div>
+</div>
+<h2 class="text-center font-weight-bold h3" mat-dialog-title>Thêm ảnh sản phẩm</h2>
+<mat-dialog-content>
+
+    <div class="row">
+        <div class="col-12 p-0">
+            <!-- Image Product -->
+            <div class="custom-dropzone" style="height: 360px" ngx-dropzone [accept]="'image/*'"
+                (change)="onSelectDetail($event)">
+                <ngx-dropzone-label>
+                    <div>
+                        <span>Chọn ảnh sản phẩm</span>
+                    </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of imagesFile" [file]="f"
+                    [removable]="true" (removed)="onRemoveDetail(f)">
+                    <ngx-dropzone-label>
+                        <!-- Text content -->
+                    </ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+            </div>
+        </div>
+
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <div class="row">
+        <div class="col-12 mt-3">
+            <div class="d-flex justify-content-end align-items-end">
+                <button class="btn btn-info" mat-button (click)="createPI()">
+                    Đồng ý
+                </button>
+                <button class="btn btn-dark" mat-button mat-dialog-close>Đóng</button>
+            </div>
+        </div>
+    </div>
+</mat-dialog-actions>

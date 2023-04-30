@@ -1,0 +1,152 @@
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status">
+  </div>
+</div>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card custom-card">
+      <mat-card-title class="text-center mt-3"><span class="h2 font-weight-bold text-center">Thêm sản phẩm</span>
+      </mat-card-title>
+      <div class="card-body">
+        <mat-stepper linear #stepper>
+          <mat-step [stepControl]="formGroup" [editable]="false">
+            
+            <form [formGroup]="formGroup">
+              <ng-template matStepLabel>Thông tin sản phẩm</ng-template>
+
+              <div class="row">
+                <!-- Thumbnail product -->
+                <div class="col-3 p-0">
+                  <div class="custom-dropzone" style="height: 360px; width: 234px;" ngx-dropzone [accept]="'image/*'"
+                    [multiple]="false" (change)="onSelect($event)">
+                    <ngx-dropzone-label>
+                      <div>
+                        <span>Chọn ảnh bìa</span>
+                      </div>
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of thumnailFile"
+                      [file]="f" [removable]="true" (removed)="onRemove(f)">
+                      <ngx-dropzone-label> </ngx-dropzone-label>
+                    </ngx-dropzone-image-preview>
+                  </div>
+                </div>
+                <!-- Info product -->
+                <div class="col-9">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Tên sản phẩm</mat-label>
+                    <input matInput type="text" formControlName="name" required/>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
+                                      formGroup.get('name')?.touched">
+                      Tên sản phẩm không được để trống
+                    </mat-error>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('pattern') &&
+                                      formGroup.get('name')?.touched">
+                      Tên sản phẩm không chứa ký tự đặc biệt
+                    </mat-error>
+                  </mat-form-field>
+                  <div class="row p-0">
+                    <div class="col-11">
+                      <mat-form-field appearance="outline" formGroupName="category">
+                        <mat-label>Danh mục</mat-label>
+                        <mat-select formControlName="id">
+                          <mat-option *ngFor="let item of categories" [value]="item.id">
+                            {{ item.name }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error class="text-danger" *ngIf="formGroup.get('category')?.hasError('required')">
+                          Bạn chưa chọn danh mục sản phẩm
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-1">
+                      <a (click)="openDialogCreateCategory()" class="text-success h2" style="cursor: pointer">
+                        <i class="fas fa-plus"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Giá</mat-label>
+                    <input formControlName="price" matInput type="text" currencyMask 
+                      [options]="{ prefix: '', suffix: 'đ', thousands: ',',precision: '0'  ,allowNegative :'false',max: '999999999999', align: 'left'}"
+                      />
+                    <mat-error class="text-danger" *ngIf="formGroup.get('price')?.hasError('min') &&
+                                      formGroup.get('price')?.touched">
+                      Giá sản phẩm thấp nhất là 10.000đ
+                    </mat-error>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('price')?.hasError('required') &&
+                                      formGroup.get('price')?.touched">
+                      Giá sản phẩm không được để trống
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Trọng lượng</mat-label>
+                    <input formControlName="weight" matInput  type="text" currencyMask 
+                    [options]="{ prefix: '', suffix: ' gam', thousands: ',',precision: '0' ,allowNegative :'false',max: '999999999999', align: 'left'}"/>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('weight')?.hasError('min') &&
+                                      formGroup.get('weight')?.touched">
+                      Trọng lượng phải lớn hơn 1
+                    </mat-error>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('weight')?.hasError('required') &&
+                                      formGroup.get('weight')?.touched">
+                      Trọng lượng không được để trống
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Mô tả</mat-label>
+                    <textarea formControlName="description" matInput id="floatingInput"></textarea>
+                  </mat-form-field>
+                  <div class="d-flex justify-content-end align-items-end" style="height: 100px">
+                    <button class="btn btn-info mt-auto" mat-button (click)="createP(stepper)">
+                      <!-- createProduct()-->
+                      Đồng ý
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [editable]="false">
+            <ng-template matStepLabel>Ảnh sản phẩm</ng-template>
+            <div class="row">
+              <div class="col-12 p-0">
+                <!-- Image Product -->
+                <div class="custom-dropzone" style="height: 360px" ngx-dropzone [accept]="'image/*'"
+                  (change)="onSelectDetail($event)">
+                  <ngx-dropzone-label>
+                    <div>
+                      <span>Chọn ảnh sản phẩm</span>
+                    </div>
+                  </ngx-dropzone-label>
+                  <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of imagesFile" [file]="f"
+                    [removable]="true" (removed)="onRemoveDetail(f)">
+                    <ngx-dropzone-label>
+                      <!-- Text content -->
+                    </ngx-dropzone-label>
+                  </ngx-dropzone-image-preview>
+                </div>
+              </div>
+              <div class="col-12 mt-3">
+                <div class="d-flex justify-content-end align-items-end">
+                  <button class="btn btn-info" mat-button (click)="createPI(stepper)">
+                    Đồng ý
+                  </button>
+                </div>
+              </div>
+            </div>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Chuyển hướng</ng-template>
+            <span class="h3 d-flex justify-content-center">
+              Thêm mới sản phẩm thành công, chuyển đến trang thêm chi tiết
+            </span>
+            <div class="d-flex justify-content-center">
+              <a routerLink="/productDetail/{{productId}}" class="btn btn-info" mat-button>
+                Tiếp theo
+              </a>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </div>
+    </div>
+  </div>
+</div>

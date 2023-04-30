@@ -1,0 +1,6 @@
+.card .card-header {
+    z-index: 0 !important;
+}
+.card-title{
+    font-size: 20px;
+}

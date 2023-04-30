@@ -1,0 +1,120 @@
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status">
+  </div>
+</div>
+<h1 mat-dialog-title class="text-center h3 font-weight-bold">
+  Chỉnh sửa đơn hàng
+</h1>
+<div class="edit-order">
+  <div mat-dialog-content class="scroll-order-detail">
+    <div class="row">
+      <div class="col-12">
+        <div class="col-5 pt-3 d-flex justify-content-end">
+          <form class="example-form p-0 w-100">
+            <mat-form-field class="example-full-width m-0" appearance="outline">
+              <mat-label>Thêm sản phẩm</mat-label>
+              <input type="text" matInput [formControl]="productInput" [matAutocomplete]="auto" placeholder="Tìm kiếm sản phẩm">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option class="mat-option-custom" *ngFor="let pro of filteredProduct | async" [value]="pro.id" (click)="openDialog(pro)">
+                  <a class="search-product" >
+
+                    <div class="img-product-search">
+                        <img
+                             src="{{pro.thumnail}}">
+                    </div>
+                    <div class="info-product-search">
+                        <p class="name-product-search" #tooltip="matTooltip"
+                           matTooltip="{{pro.name.length>40?pro.name:''}}">{{pro.name}}</p>
+                        <span class="price-product-search"> {{pro.price| currency:' ':'symbol':'0.0-2'}}₫</span>
+                    </div>
+                </a>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+        </div>
+      </div>
+      <div class="col-12">
+        <table mat-table [dataSource]="dataSource" matSort>
+  
+          <!-- ID Column -->
+          <ng-container matColumnDef="image">
+            <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header> Ảnh </th>
+            <td mat-cell *matCellDef="let row">
+              <img style="width: 4rem;" [src]="row.productsDetail.product.thumnail" alt="">
+            </td>
+          </ng-container>
+  
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header>
+              Sản phẩm
+            </th>
+            <td mat-cell *matCellDef="let row">{{ row.productsDetail.product.name }}</td>
+          </ng-container>
+  
+          <!-- Category Column -->
+          <ng-container matColumnDef="price">
+            <th class="text-center" mat-header-cell *matHeaderCellDef>Đơn giá</th>
+            <td mat-cell *matCellDef="let row">{{ row.unitprice| currency:' ':'symbol':'0.0-2' }}₫</td>
+          </ng-container>
+  
+          <!-- Category Column -->
+          <ng-container matColumnDef="color">
+            <th class="text-center" mat-header-cell *matHeaderCellDef>Màu sắc</th>
+            <td class="text-center" mat-cell *matCellDef="let row">
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                  <div style="width: 30px; height: 30px; border-radius: 100%; border: 1px solid black;" [style.background-color]="row.productsDetail.color.code"></div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+  
+          <!-- Category Column -->
+          <ng-container matColumnDef="size">
+            <th class="text-center" mat-header-cell *matHeaderCellDef>Size</th>
+            <td mat-cell *matCellDef="let row">{{ row.productsDetail.size.code}}</td>
+          </ng-container>
+  
+          <!-- Price Column -->
+          <ng-container matColumnDef="quantity">
+            <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header>Số lượng</th>
+            <td mat-cell class="text-center" *matCellDef="let row, let i = index">
+                <input class="text-center input-quantity" 
+                [options]="{ prefix: '', thousands: ',',precision: '0' , align:'center', allowNegative :'false',max:quantityInventory, min: 1}"
+                 currencyMask type="text" [value]="row.quantity" (keyup)="setQuantity($event, i, row)">
+            </td>
+          </ng-container>
+  
+          <!-- Function Column -->
+          <ng-container matColumnDef="function">
+            <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header>
+              Thao tác
+            </th>
+            <td class="text-center" mat-cell *matCellDef="let row, let i = index">
+              <a class="btn-link text-danger" (click)="removeOrderDetail(i)">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              Không có bản ghi nào
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  
+  </div>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button class="btn btn-success" mat-button (click)="onSubmit()">Đồng ý</button>
+    <button class="btn btn-dark" style="margin-left: 0.5em;" mat-button (click)="closeDialog('close')">Đóng</button>
+</div>

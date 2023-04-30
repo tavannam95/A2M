@@ -1,0 +1,101 @@
+<h1 mat-dialog-title class="text-center h3 font-weight-bold">Thêm mới màu sắc</h1>
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col-3">
+      <div
+              class="custom-dropzone"
+              style="height: 360px; width: 234px;"
+              ngx-dropzone
+              [accept]="'image/*'"
+              [multiple]="false"
+              (change)="onSelect($event)"
+            >
+              <ngx-dropzone-label>
+                <div>
+                  <span>Tải ảnh lên để hút màu</span>
+                  <br>
+                  <span>(Không bắt buộc)</span>
+                </div>
+              </ngx-dropzone-label>
+              <ngx-dropzone-image-preview
+                ngProjectAs="ngx-dropzone-preview"
+                *ngFor="let f of files"
+                [file]="f"
+                [removable]="true"
+                (removed)="onRemove(f)"
+              >
+                <ngx-dropzone-label> </ngx-dropzone-label>
+              </ngx-dropzone-image-preview>
+            </div>
+    </div>
+    <div class="col-9">
+        <form [formGroup]="colorFormGroup">
+                        <div class="row">
+                      <div class="col-10">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Mã màu</mat-label>
+                            <input
+                              matInput
+                              type="text"
+                              onfocus="this.select()"
+                              (change)="onChangeColor($event)"
+                              formControlName="code"
+                              placeholder="Ví dụ: #FFFFFF"
+                            />
+                            <mat-error class="text-danger"
+                                    *ngIf="colorFormGroup.get('code')?.hasError('required') &&
+                                    colorFormGroup.get('code')?.touched">
+                              Mã màu không được để trống
+                          </mat-error>
+                            <mat-error class="text-danger"
+                                  *ngIf="colorFormGroup.get('code')?.hasError('pattern') &&
+                                  colorFormGroup.get('code')?.touched">
+                            Mã màu không đúng định dạng
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-2">
+                          <input
+                          formControlName="code"
+                          class=""
+                          style="height: 60px; width: 60px; cursor: pointer;"
+                          type="color"
+                          (change)="onChangeColor($event)"
+                          title="Chọn hoặc hút màu"
+                          />
+                        </div>
+                      </div>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Tên màu</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          onfocus="this.select()"
+                          formControlName="name"
+                        />
+                        <mat-error class="text-danger"
+                                *ngIf="colorFormGroup.get('name')?.hasError('required') &&
+                                colorFormGroup.get('name')?.touched">
+                          Tên màu không được để trống
+                      </mat-error>
+                      <mat-error class="text-danger"
+                                *ngIf="colorFormGroup.get('name')?.hasError('pattern') &&
+                                colorFormGroup.get('name')?.touched">
+                          Tên màu chứa ký tự không hợp lệ
+                      </mat-error>
+                      </mat-form-field>
+        </form>
+      </div>
+    </div>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <div class="row">
+    <button 
+    class="btn btn-info" 
+    mat-button 
+    cdkFocusInitial
+    (click)="createColor()"
+    >Đồng ý</button>
+    <button class="btn btn-danger" mat-button (click)="cancel()">Hủy</button>
+  </div>
+</div>

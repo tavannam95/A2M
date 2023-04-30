@@ -1,0 +1,26 @@
+
+:host ::ng-deep img {
+    width: 210px !important;
+    min-height: 340px !important;
+  }
+  .example-section {
+    margin: 12px 0;
+  }
+  
+  .example-margin {
+    margin: 0 12px;
+  }
+  .loading {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+  .spinner-center {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+  }

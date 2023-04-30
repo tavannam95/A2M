@@ -1,0 +1,78 @@
+<form class="row mt-4" [formGroup]="formShow">
+    <mat-form-field appearance="outline" class=" p-0 col-3">
+        <mat-label>Loại tìm kiếm</mat-label>
+        <mat-select formControlName="type">
+            <mat-option (click)="onType(1)"  [value]="1">Báo cáo theo năm</mat-option>
+            <mat-option (click)="onType(2)"  [value]="2">Báo cáo theo tháng</mat-option>
+            <mat-option (click)="onType(3)"  [value]="3">Bán cáo theo ngày</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-3" appearance="outline" *ngIf="type == 3">
+        <mat-label>Từ ngày</mat-label>
+        <input matInput [matDatepicker]="startDate" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="col-3" appearance="outline" *ngIf="type == 3">
+        <mat-label>Đến ngày</mat-label>
+        <input matInput [matDatepicker]="endDate" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-2" *ngIf="type == 2">
+        <mat-label>Tháng</mat-label>
+        <mat-select formControlName="month">
+            <mat-option *ngFor="let x of listMonth" [value]="x">{{x}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-2" *ngIf="type == 1 || type == 2">
+        <mat-label>Năm</mat-label>
+        <mat-select formControlName="year">
+            <mat-option *ngFor="let x of listYear" [value]="x">{{x}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="col-12 p-0">
+        <button type="button" mat-button class="btn-color" (click)="onSearch()">Tìm kiếm</button>
+    </div>
+</form>
+
+<div class="row mt-5">
+    <div class="col-12 ">
+        <button mat-button class="btn-color" (click)="onShow(0)">Tổng quát</button>
+        <button mat-button class="btn-color mx-2" (click)="onShow(1)">Chi tiết</button>
+    </div>
+</div>
+
+<div class="row mt-5" [hidden]="showChart != 0">
+    <div class="col-12">
+        <div class="ct-chart d-flex justify-content-center" id="viewStaticalCustomer"></div>
+    </div>
+</div>
+
+<div class="row mt-5" *ngIf="showChart == 1">
+    <div class="col-12">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>STT</th>
+                <th>Họ tên</th>
+                <th>Sinh nhật</th>
+                <th>Số lượng mua</th>
+                <th>Tổng tiền hàng</th>
+            </tr>
+            <tr *ngFor="let x of listStatic; let i=index ">
+                <td>{{i + 1}}</td>
+                <td>{{x.name}}</td>
+                <td>{{x.birdDay | date: 'dd-MM-yyyy'}}</td>
+                <td>{{x.quantity}}</td>
+                <td>{{x.total | currency: ' ' : 'symbol' : '4.0-1'}}₫</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+

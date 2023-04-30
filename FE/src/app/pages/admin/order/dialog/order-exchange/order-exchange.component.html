@@ -1,0 +1,16 @@
+<!-- <div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status">
+  </div>
+</div> -->
+<h1 mat-dialog-title class="text-center h2 font-weight-bold">
+  Tình trạng sản phẩm
+</h1>
+  <div mat-dialog-content class="scroll-order-detail p-2 text-center">
+
+        <button (click)="acceptExchange(1)" mat-button class="btn btn-success">Giao nhầm</button>
+        <button (click)="acceptExchange(0)" style="margin-left: 30px;" mat-button class="btn btn-danger">Hỏng hóc</button>
+    
+  </div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <button mat-button class="btn btn-dark" (click)="close('cancel')">Đóng</button>
+</div>

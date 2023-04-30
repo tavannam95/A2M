@@ -1,0 +1,39 @@
+
+  //SEARCH PRODUCT
+  .search-product {
+    display: flex;
+    flex-direction: row;
+    padding: 6px;
+    border-radius: 10px;
+  }
+  
+  .img-product-search {
+    max-width: 50px;
+  }
+  
+  .img-product-search img {
+    width: 100%;
+  }
+  .info-product-search{
+    flex:1;
+    line-height: 32px;
+    padding-left: 25px;
+    overflow: hidden;
+  }
+  .name-product-search{
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+    color: black;
+    font-weight: 400;
+  }
+  
+  .price-product-search{
+    color: red;
+    font-weight: 400;
+  }
+  .mat-option-custom{
+    height: 83px !important;
+    padding: 0px 0px !important;
+  }

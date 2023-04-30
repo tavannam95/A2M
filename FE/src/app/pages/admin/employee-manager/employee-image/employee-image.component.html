@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <h6 class="main-content-label" style="font-size: 16px;">{{ title }}</h6>
+                <span class="fa-solid fa-xmark icon-close" style="font-size: 16px; cursor: pointer;"
+                      (click)="onDismiss()"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-8 offset-2">
+            <ngx-dropzone
+                    class="custom-dropzone"
+                    ngx-dropzone
+                    [accept]="'image/*'"
+                    (change)="onChangeAvatar($event)"
+                    [multiple]="false">
+                <ngx-dropzone-label>
+                    <div>
+                        <h5>nhấn vào đây để chọn ảnh</h5>
+                    </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-image-preview
+                        ngProjectAs="ngx-dropzone-preview"
+                        *ngFor="let f of avatarFile"
+                        [file]="f"
+                        [removable]="true"
+                        (removed)="onRemove(f)">
+                </ngx-dropzone-image-preview>
+            </ngx-dropzone>
+
+            <button class="btn btn-primary mt-3" (click)="saveImage()">Thêm ảnh</button>
+        </div>
+    </div>
+
+
+</div>
