@@ -174,9 +174,6 @@ public class Movies {
         return startDate;
     }
 
-    public Movies(){
-
-    }
 
     public Date getEndDate() {
 		return endDate;
@@ -189,22 +186,8 @@ public class Movies {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
+	
+	
 
-	public Movies(Long id, Nationals national, Categories category, String name, Integer time, String poster, String summary, Date startDate, Date endDate, Date createDate, Date updateDate, String createBy, String updateBy, Boolean isDelete, List<Showtimes> listShowtimes) {
-        this.id = id;
-        this.national = national;
-        this.category = category;
-        this.name = name;
-        this.time = time;
-        this.poster = poster;
-        this.summary = summary;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-        this.createBy = createBy;
-        this.updateBy = updateBy;
-        this.isDelete = isDelete;
-        this.listShowtimes = listShowtimes;
-    }
+	
 }

@@ -13,10 +13,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.a2m.jwt.JwtUtil;
@@ -39,8 +43,15 @@ public class AuthController {
 
 	private MyUserDetailsService userDetailsService;
 	
+//	private AccountsRepository accountsRepository;
+//	@Autowired    
+//	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	AccountsRepository accountsRepository;
 
+	@Autowired(required = true)
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@GetMapping("/hello")
 	public String get() {
 		return "Hello";
@@ -87,6 +98,30 @@ public class AuthController {
 		}
 		accounts.setIsDelete(false);
 //		accounts.setRole
+//		accounts.setPassword(bCryptPasswordEncoder.encode(accounts.getPassword()));
+		return new DataResponse<>(true, "Success", this.accountsRepository.save(accounts));
+	}
+	
+	@GetMapping("/changePass")
+	public DataResponse<Accounts> changePass(@RequestParam String username, @RequestParam String email) {
+		List<Accounts> account = this.accountsRepository.findByUsername(username);
+		if(account.get(0) == null) {
+			return new DataResponse<>(false, "Can not find account", null);
+		}
+		return new DataResponse<>(true, "Success", account.get(0));
+	}
+	
+	@PutMapping("/savePass")
+	public DataResponse<Accounts> changePass(@RequestBody Accounts account) {
+		long millis=System.currentTimeMillis();  
+		java.sql.Date date=new java.sql.Date(millis);  
+		System.out.println(date);  
+		Accounts accounts = this.accountsRepository.findById(account.getId()).orElse(null);
+		if(accounts == null) {
+			return new DataResponse<>(false, "Can not find account", null);
+		}
+		accounts.setPassword(account.getPassword());
+		accounts.setUpdateDate(date);
 		return new DataResponse<>(true, "Success", this.accountsRepository.save(accounts));
 	}
 }

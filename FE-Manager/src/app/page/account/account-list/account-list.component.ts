@@ -7,6 +7,7 @@ import { AccountService } from 'app/services/account/account.service';
 import { AccountFormComponent } from '../Account-Dialog/account-form/account-form.component';
 import { Constant } from 'app/constants/Constant';
 import { UpdateDialogComponent } from '../Account-Dialog/update-dialog/update-dialog.component';
+import { AccountDetailComponent } from '../Account-Dialog/account-detail/account-detail.component';
 
 @Component({
   selector: 'app-account-list',
@@ -33,11 +34,15 @@ export class AccountListComponent implements OnInit {
   getAllRoom() {
     this.AccountService.getAll().subscribe({
       next: res => {
+        console.log(res);
+        res.data.forEach((data)=>{
+          data.birthDate = new Date(data.birthDate).toLocaleDateString();
+        })
         this.dataSource = new MatTableDataSource<any>(res);
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        // console.log(this.dataSource.data.filter((data) => data.roles === "EMPLOYEE"));
+        console.log(this.dataSource);
       },
       error: e => {
         console.log(e);
@@ -71,6 +76,21 @@ export class AccountListComponent implements OnInit {
 
   openUpdateDialogProduct(type: String, row?: any) {
     this.matDialog.open(UpdateDialogComponent, {
+      disableClose: true,
+      data: {
+        type,
+        row
+      },
+      width: '700px'
+    }).afterClosed().subscribe(result => {
+      if (result === Constant.RESULT_CLOSE_DIALOG.SUCCESS) {
+        // ----------------------After close----------------------
+      }
+    })
+  }
+
+  openDialogProductView(type: string, row: any){
+    this.matDialog.open(AccountDetailComponent, {
       disableClose: true,
       data: {
         type,

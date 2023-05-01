@@ -37,32 +37,42 @@ public class AccountController {
 
 	private AccountServiceImpl accountServiceImpl;
 
-//	@Autowired
-//	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired(required = true)
+	private BCryptPasswordEncoder passwordEncoder;
 
+//	public AccountController() {
+//		
+//	}
+//	
+//	public AccountController(BCryptPasswordEncoder passwordEncoder, AccountService accountService, AccountServiceImpl accountServiceImpl, AccountsRepository accountRepository) {
+////        this.userService = userService;
+//        this.passwordEncoder = passwordEncoder;
+//        this.accountRepository = accountRepository;
+//        this.accountService = accountService;
+//        this.accountServiceImpl = accountServiceImpl;
+//    }
+	
 	@GetMapping("/getAll")
 	public DataResponse<List<Accounts>> findAll() {
-		List<AccountInfor> accountinforList = new ArrayList<>();
+		List<Accounts> accountinforList = new ArrayList<>();
 		List<Accounts> accountsList = this.accountRepository.findAll();
-//		for (Accounts a : accountsList) {
-//			if(a.getIsDelete() == null) {
-//				continue;
-//			}
-//			else if (a.getIsDelete() == false) {
-//				AccountInfor account = new AccountInfor();
-//				account.setId(a.getId());
-//				account.setFullname(a.getFullname());
-//				account.setUsername(a.getUsername());
-//				account.setPassword(a.getPassword());
-//				account.setEmail(a.getEmail());
-//				account.setBirthDate(a.getBirthDate());
-//				account.setGender(a.getGender());
-//				account.setRoles(a.getRole().getName());
-//				accountinforList.add(account);
-//			}
-//		}
-//		return new DataResponse<>(true, "Thành công", accountsList);
-		return new DataResponse<>(true, "Thành công", this.accountRepository.findAll());
+		for (Accounts a : accountsList) {
+			if(a.getIsDelete() == null || a.getIsDelete() == true) {
+				continue;
+			}
+			else if(a.getBirthDate() == null) {
+				continue;
+			}
+			else if(a.getRole() == null) {
+				continue;
+			}
+			else {
+				accountinforList.add(a);
+				System.out.println(a.getId());
+			}
+		}
+		return new DataResponse<>(true, "Thành công", accountinforList);
+//		return new DataResponse<>(true, "Thành công", this.accountRepository.findAll());
 	}
 
 	@PostMapping("/createAccount")
@@ -77,6 +87,7 @@ public class AccountController {
 			}
 		}
 		accounts.setIsDelete(false);
+//		accounts.setPassword(bCryptPasswordEncoder.encode(accounts.getPassword()));
 		return new DataResponse<>(true, "Thêm mới thành công", accountRepository.save(accounts));
 	}
 

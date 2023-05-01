@@ -26,6 +26,10 @@ interface User{
   birthDate?: Date;
   gender?: boolean;
   role?: {id: 1};
+  createDate: Date;
+  createBy: string,
+  updateDate: Date,
+  updateBy: string
 }
 
 @Component({
@@ -83,7 +87,11 @@ export class RegisterComponent implements OnInit {
     month:[],
     year:[],
     birthDate: [],
-    gender: []
+    gender: [],
+    createDate: [],
+    createBy: [],
+    updateDate: [],
+    updateBy: [],
   });
 
   ngOnInit(): void {
@@ -98,7 +106,9 @@ export class RegisterComponent implements OnInit {
   // get birthDate() { return this.registerForm.get('year'+'-'+'month'+'-'+'date'); }
 
   onSubmit() {
+    let newDate = new Date();
     this.registerForm.patchValue({birthDate: ''+this.registerForm.value.year+'-'+this.registerForm.value.month+'-'+this.registerForm.value.date})
+    this.registerForm.patchValue({createDate: newDate});
     console.log(this.registerForm.value);
     // this.user.fullname = this.registerForm.value.fullname;
     // this.user.username = this.registerForm.value.username;
@@ -109,7 +119,7 @@ export class RegisterComponent implements OnInit {
     this.user.push({fullname: this.registerForm.value.fullname, username: this.registerForm.value.username,
                     password: this.registerForm.value.password, email: this.registerForm.value.email,
                     birthDate: new Date(""+this.registerForm.value.birthDate), gender: (this.registerForm.value.gender==='Female') ? true : false,
-                    role:{id:1}});
+                    role:{id:1}, createDate: newDate, createBy: '', updateDate: null, updateBy: ''});
     console.log(this.user);
     this.registerService.createUser(this.user[0]).subscribe({
       next: resp => {
