@@ -149,7 +149,6 @@ export class NavbarComponent implements OnInit {
                 this.bill = res.data;
                 if (res.status) {
                     this.scanner2.close();
-                    // this.toastrService.success(res.message);
                     this.dialog.open(ConfirmDialogComponent, {
                         disableClose: true,
                         hasBackdrop: true,
