@@ -44,6 +44,7 @@ public class SecutiryConfig {
 		http.csrf().disable()
 		.authorizeRequests().antMatchers("/api/v1/auth/**","/public/api/v1/**","/api/image/**").permitAll()
 		.antMatchers("/api/v1/movie/**").hasAnyRole("EMPLOYEE","ADMINSTRATOR")
+		.antMatchers("/api/v1/account/userLogin").authenticated()
 		.antMatchers("/api/v1/account/**","/api/v1/room/**").hasRole("ADMINSTRATOR")
 //		.antMatchers("/authoAd").hasRole("ADMINSTRATOR")
 		.anyRequest().authenticated()

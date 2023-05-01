@@ -1,6 +1,6 @@
-<div *ngIf="isLoading" class="loading">
+<!-- <div *ngIf="isLoading" class="loading">
     <div class="spinner-border text-danger spinner-center" role="status"></div>
-</div>
+</div> -->
 <div class="main">
     <div class="info">
         <div class="title">
@@ -8,7 +8,7 @@
         </div>
         <div class="person-info">
             <form class="mb-0">
-                <div class="row" [formGroup]="formGroup">
+                <div class="row" [formGroup]="formGroup" >
                     <div class="col-4">
                         <!-- Poster -->
                         <!-- <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
@@ -24,14 +24,14 @@
                     <div class="col-8">
 
                         <!-- Tên phim -->
-                        <!-- <mat-form-field appearance="outline">
-                                <mat-label>Tên phim</mat-label>
-                                <input type="text" formControlName="name" matInput>
-                                <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
+                        <mat-form-field appearance="outline">
+                                <mat-label>Họ tên</mat-label>
+                                <input type="text" formControlName="fullname" matInput>
+                                <!-- <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
                                                     formGroup.get('name')?.touched">
-                                    Tên phim không được để trống
-                                </mat-error>
-                            </mat-form-field> -->
+                                    Họ tên không được để trống
+                                </mat-error> -->
+                            </mat-form-field>
                         <!-- /Tên phim -->
 
                         <!-- Thể loại -->
@@ -76,6 +76,10 @@
                     </div>
                     </div>
             </form>
+        </div>
+        <div mat-dialog-actions class="d-flex justify-content-end">
+            <button class="btn btn-success" mat-button (click)="onSubmit()">Đồng ý</button>
+            <button class="btn btn-dark" mat-button mat-dialog-close>Hủy</button>
         </div>
     </div>
 </div>

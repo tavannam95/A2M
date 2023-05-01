@@ -3,84 +3,170 @@
         <div class="title">
             <b>LỊCH SỬ GIAO DỊCH</b>
         </div>
-        <div class="transaction-info">
+        <div class="transaction-info" *ngFor="let bill of bills">
             <div class="created-date">
-                <h3>- Hoá đơn ngày: 1/1/2023</h3>
+                <h3>- Hoá đơn ngày: {{bill.createdDate | date: "dd/MM/yyyy"}}</h3>
+                <button mat-button onclick="toggleBillDetails()">Xem chi tiết</button>
             </div>
-            <form class="mb-0">
-                <div class="row">
-                    <div class="col-4">
-                        <!-- Poster Column -->
-                        <div class="poster">
-                            <img src="https://chieuphimquocgia.com.vn/Content/Images/0016805_0.jpeg" alt="">
+            <div class="bill-details" *ngIf="showBillDetails" style="display: block;">
+                <form class="mb-0" class="bill-details" >
+                    <div class="row">
+                        <div class="col-4">
+                            <!-- Poster Column -->
+                            <div class="poster">
+                                <img src="{{bill.listTickets[0].showtime.movie.poster}}" alt="">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-8">
-                        <table>
-                            <thead><h4><b>KHẮC TINH CỦA QUỶ</b></h4></thead>
-                            <tbody>
-                                <tr>
-                                    <th>Mã vé:</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Số lượng vé:</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Ngày chiếu:</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Giờ chiếu:</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Thời lượng:</th>
-                                    <td> phút</td>
-                                </tr>
-                                <tr>
-                                    <th>Phòng chiếu:</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Vị trí ghế:</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Loại ghế:</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Giá tiền:</th>
-                                    <td> đ</td>
-                                </tr>
-                                <tr>
-                                    <th>Trạng thái:</th>
-                                    <td>
-                                        <!-- <div *ngIf="!movie.delete" >
-                                            <div [ngSwitch]="movie.status">
-                                              <span *ngSwitchCase=0 [style.color]="'red'"> Đã chiếu</span>
-                                              <span *ngSwitchCase=1 [style.color]="'blue'"> Đang chiếu</span>
-                                              <span *ngSwitchCase=2 [style.color]="'green'"> Sắp chiếu</span>
+                        <div class="col-8">
+                            <table>
+                                <thead>
+                                    <h4><b>KHẮC TINH CỦA QUỶ</b></h4>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Mã vé:</th>
+                                        <td>{{bill.billCode}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Số lượng vé:</th>
+                                        <td>{{bill.countTickets}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày chiếu:</th>
+                                        <td>{{bill.listTickets[0].showtime.timeStart | date:"dd-MM-yyyy"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Giờ chiếu:</th>
+                                        <td>{{bill.listTickets[0].showtime.timeStart | date:"hh:mm:ss"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Thời lượng:</th>
+                                        <td>{{bill.listTickets[0].showtime.movie.time}} phút</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phòng chiếu:</th>
+                                        <td>{{bill.listTickets[0].showtime.room.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Vị trí ghế:</th>
+                                        <td>
+                                            <div *ngFor="let ticket of bill.listTickets">
+                                                {{ticket.seat.row.name}}{{ticket.seat.number}} - {{ticket.seat.seatType.nameVi}}
                                             </div>
-                                          </div>
-                                          <div *ngIf="movie.delete">
-                                            Đã xoá
-                                          </div> -->
-                                    </td>
-                                </tr>
-                                <tr><hr></tr>
-                                <tr>
-                                    <th>TỔNG TIỀN:</th>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <th>Giá tiền:</th>
+                                        <td> đ</td>
+                                    </tr> -->
+                                    <tr>
+                                        <th>Trạng thái:</th>
+                                        <td>
+                                            <div *ngIf="bill.listTickets[0].status == 0">
+                                                <span [style.color]="'red'">Hết hạn</span>
+                                            </div>
+                                            <div *ngIf="bill.listTickets[0].status == 1">
+                                                <span [style.color]="'green'">Còn hạn</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <hr>
+                                    </tr>
+                                    <tr>
+                                        <th>TỔNG TIỀN:</th>
+                                        <td>{{bill.totalPrice}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="barCode">
+                            BarCode:{{bill.barCode}}
+                        </div>
+                        <!-- end -->
                     </div>
-                    <!-- end -->
-                </div>
-            </form>
+                </form>
+            </div>
+            <div *ngIf="!showBillDetails" style="display: none;">
+                <!-- Nội dung chi tiết của bill -->
+                <form class="mb-0" class="bill-details" >
+                    <div class="row">
+                        <div class="col-4">
+                            <!-- Poster Column -->
+                            <div class="poster">
+                                <img src="{{bill.listTickets[0].showtime.movie.poster}}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <table>
+                                <thead>
+                                    <h4><b>KHẮC TINH CỦA QUỶ</b></h4>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Mã vé:</th>
+                                        <td>{{bill.billCode}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Số lượng vé:</th>
+                                        <td>{{bill.countTickets}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày chiếu:</th>
+                                        <td>{{bill.listTickets[0].showtime.timeStart | date:"dd-MM-yyyy"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Giờ chiếu:</th>
+                                        <td>{{bill.listTickets[0].showtime.timeStart | date:"hh:mm:ss"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Thời lượng:</th>
+                                        <td>{{bill.listTickets[0].showtime.movie.time}} phút</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phòng chiếu:</th>
+                                        <td>{{bill.listTickets[0].showtime.room.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Vị trí ghế:</th>
+                                        <td>
+                                            <div *ngFor="let ticket of bill.listTickets">
+                                                {{ticket.seat.row.name}}{{ticket.seat.number}} - {{ticket.seat.seatType.nameVi}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <th>Giá tiền:</th>
+                                        <td> đ</td>
+                                    </tr> -->
+                                    <tr>
+                                        <th>Trạng thái:</th>
+                                        <td>
+                                            <div *ngIf="bill.listTickets[0].status == 0">
+                                                <span [style.color]="'red'">Hết hạn</span>
+                                            </div>
+                                            <div *ngIf="bill.listTickets[0].status == 1">
+                                                <span [style.color]="'green'">Còn hạn</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <hr>
+                                    </tr>
+                                    <tr>
+                                        <th>TỔNG TIỀN:</th>
+                                        <td>{{bill.totalPrice}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="barCode">
+                            BarCode:{{bill.barCode}}
+                        </div>
+                        <!-- end -->
+                    </div>
+                </form>
+              </div>
         </div>
     </div>
 </div>

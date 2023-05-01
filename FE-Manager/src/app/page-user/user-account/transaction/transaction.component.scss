@@ -26,11 +26,11 @@
             align-items: center;
             height: 51px;
             font-size: 25px;
+            // padding-bottom: 20px;
         }
 
         form {
             margin-top: 20px;
-
             .poster {
                 img {
                     width: 100%;
@@ -58,12 +58,9 @@
                 }
             }
 
-            .description {
-                color: black;
-
-                .title {
-                    text-align: center;
-                }
+            .barCode{
+                display: grid;
+                justify-content: center;
             }
         }
 

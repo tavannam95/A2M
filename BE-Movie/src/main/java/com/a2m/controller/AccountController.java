@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.a2m.dto.AccountDTO;
 import com.a2m.entities.AccountInfor;
 import com.a2m.entities.Accounts;
 import com.a2m.entities.Roles;
@@ -22,8 +23,11 @@ import com.a2m.repository.AccountsRepository;
 import com.a2m.repository.RoomsRepository;
 import com.a2m.service.AccountService;
 import com.a2m.service.impl.AccountServiceImpl;
+import com.a2m.service.mapper.AccountDTOMapper;
+import com.a2m.util.SecurityUtils;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @CrossOrigin("*")
 @RestController
@@ -34,8 +38,8 @@ public class AccountController {
 	private AccountsRepository accountRepository;
 
 	private AccountService accountService;
-
-	private AccountServiceImpl accountServiceImpl;
+	
+	private AccountDTOMapper accountDTOMapper;
 
 //	@Autowired
 //	private BCryptPasswordEncoder passwordEncoder;
@@ -84,6 +88,19 @@ public class AccountController {
 	public DataResponse<Accounts> updateaccount(@RequestBody Accounts accounts) {
 		return new DataResponse<>(true, "Sửa thông tin thành công", accountService.updateAccount(accounts));
 	}
-
-
+	
+	@GetMapping(value = "/userLogin")
+	public AccountDTO getUser() {
+		Accounts accounts = SecurityUtils.getLoggedUser().get();
+		System.out.println("email"+accounts.getEmail());
+		System.out.println("ac: "+accounts);
+		System.out.println("data: "+accountDTOMapper.apply(accounts));
+		return accountDTOMapper.apply(accounts);
+	}
+	
+	@PutMapping("/updateUser")
+	public Accounts updateUser(@RequestBody Accounts accounts) {
+		System.out.println("abc");
+		return accountService.updateUser(accounts);
+	}
 }

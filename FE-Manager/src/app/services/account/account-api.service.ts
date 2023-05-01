@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiConstant } from 'app/constants/ApiConstant';
 import { HeadersUtil } from 'app/util/headers-util';
+import { data } from 'jquery';
 
 const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
 @Injectable({
@@ -26,5 +27,13 @@ export class AccountApiService {
 
   updateAccount(data: any): Observable<any> {
     return this.http.put<any>(ApiConstant.account+"/updateAccount", data,{headers: headers});
+  }
+
+  getUser(): Observable<any> {
+    return this.http.get<any>(ApiConstant.account+"/userLogin", {headers: headers});
+  }
+
+  updateUser(data: any): Observable<any> {
+    return this.http.put<any>(`${ApiConstant.movie}/updateUser`, data, {headers: headers});
   }
 }

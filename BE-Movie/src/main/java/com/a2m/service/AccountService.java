@@ -1,5 +1,6 @@
 package com.a2m.service;
 
+import com.a2m.dto.AccountDTO;
 import com.a2m.entities.Accounts;
 
 public interface AccountService {
@@ -7,4 +8,7 @@ public interface AccountService {
 	Accounts saveOrUpdate(Accounts account);
 	
 	Accounts updateAccount(Accounts account);
+
+	Accounts updateUser(Accounts accouns);
+	
 }

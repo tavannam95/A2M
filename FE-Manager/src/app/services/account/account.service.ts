@@ -23,4 +23,12 @@ export class AccountService {
   updateAccount(data: any){
     return this.apiService.updateAccount(data);
   }
+
+  getUser(){
+    return this.apiService.getUser();
+  }
+
+  updateUser(data:any){
+    return this.apiService.updateUser(data);
+  }
 }

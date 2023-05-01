@@ -1,9 +1,13 @@
 package com.a2m.service.impl;
 
+import com.a2m.dto.AccountDTO;
 import com.a2m.entities.Accounts;
 import com.a2m.model.response.DataResponse;
 import com.a2m.repository.AccountsRepository;
 import com.a2m.service.AccountService;
+import com.a2m.service.mapper.AccountDTOMapper;
+import com.a2m.util.SecurityUtils;
+import com.cloudinary.provisioning.Account;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +24,8 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImpl implements AccountService{
 	
     private final AccountsRepository accountsRepository;
+    
+    private final AccountDTOMapper accountDTOMapper;
     
 	@Override
 	public Accounts saveOrUpdate(Accounts account) {
@@ -58,4 +65,23 @@ public class AccountServiceImpl implements AccountService{
     	}
     	return Emails;
     }
+
+	@Override
+	public Accounts updateUser(Accounts accounts) {
+		Accounts account1 = SecurityUtils.getLoggedUser().get();
+		System.out.println("acc: "+account1.getFullname());
+		accounts.setFullname(account1.getFullname());
+		accounts.setEmail(account1.getEmail());
+		accounts.setBirthDate(account1.getBirthDate());
+		accounts.setGender(account1.getGender());
+		accounts.setPhone(account1.getPhone());
+		accounts.setPhoto(account1.getPhoto());
+		System.out.println("acc1: "+accounts.getFullname());
+		return accountsRepository.save(accounts);
+	}
+
+
+
+
+
 }

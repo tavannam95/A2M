@@ -1,16 +1,17 @@
+import { async } from '@angular/core/testing';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Constant } from 'app/constants/Constant';
-import { MovieFormComponent } from 'app/page/movies/movie-form/movie-form.component';
+import { AccountService } from 'app/services/account/account.service';
 import { CloudinaryService } from 'app/services/cloudinary/cloudinary.service';
 import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
-import { MovieService } from 'app/services/movie/movie.service';
 import { NotificationService } from 'app/services/notification-service/notification.service';
 import { Regex } from 'app/services/regex/regex';
+import { log } from 'console';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -19,38 +20,30 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./form-person.component.scss']
 })
 export class FormPersonComponent implements OnInit {
-  isLoading: boolean = false;
+  // isLoading = true;
 
   titleMess = '';
-  title: string = 'Phim';
-  categories = [];
-  nations = [];
   files: File[] = [];
   imgUrl: any;
-
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dataMovie: any;
+  info: any;
 
   formGroup = this.fb.group({
     fullname: ['', [Validators.required, Validators.pattern(Regex.unicodeAndNumber)]],
-    category: [null],
-    national: [null],
-    time: ['', [Validators.required, Validators.pattern(Regex.number)]],
-    poster: [''],
-    startDate: [null],
-    endDate: [null],
-    summary: ['']
+    username: [''],
+    email: ['', [Validators.required, Validators.pattern(Regex.email)]],
+    birthDate: ['', [Validators.required]],
+    gender: ['', [Validators.required]],
+    phone: ['', [Validators.required, Validators.pattern(Regex.number)]],
+    photo: [''],
   })
   constructor(
-    @Inject(MAT_DIALOG_DATA) public dataDialog: any,
     private fb: FormBuilder,
-    private matDialogRef: MatDialogRef<MovieFormComponent>,
-    private matDialog: MatDialog,
     private notificationService: NotificationService,
     private toastrService: ToastrService,
-    private movieService: MovieService,
+    private accountService: AccountService,
     private uploadImageService: CloudinaryService,
   ) { }
 
@@ -59,113 +52,110 @@ export class FormPersonComponent implements OnInit {
   }
 
   onInit() {
-    if (this.dataDialog.type == 'update') {
-      this.title = 'Sửa phim';
-      this.titleMess = 'Bạn có muốn cập nhật thông tin phim?'
-      this.dataMovie = this.dataDialog.row;
-      this.categories = this.dataDialog.categories;
-      this.nations = this.dataDialog.nations;
-      this.formGroup.patchValue(
+      this.getUser();
+      this.titleMess = 'Bạn có muốn cập nhật thông tài khoản?'
+      console.log(this.formGroup);
+      console.log(this.info);
+      
+      this.info.patchValue(
         {
-          fullname: this.dataMovie.name,
-          category: this.categories.find(c => c.id == this.dataMovie.category.id),
-          national: this.nations.find(c => c.id == this.dataMovie.national.id),
-          time: this.dataMovie.time,
-          poster: this.dataMovie.poster,
-          startDate: new Date(this.dataMovie.startDate),
-          endDate: new Date(this.dataMovie.endDate),
-          summary: this.dataMovie.summary,
+          fullname: this.info.fullname,
+          username: this.info.username,
+          email: this.info.email,
+          birthDate: this.info.birthDate,
+          gender: this.info.gender,
+          phone: this.info.phone,
+          photo: this.info.photo,
         }
       );
-    }
-  }
-  async uploadImage() {
-    if (this.files.length > 0) {
-      await this.uploadImg();
-    }
-    if (this.dataDialog.type == 'update') {
-
-      this.updateMovie();
-
-    }
   }
 
-  async onSubmit() {
-    this.formGroup.markAllAsTouched();
-    if (this.formGroup.invalid) {
-      return;
-    }
-    this.matDialog.open(ConfirmDialogComponent, {
-      disableClose: true,
-      hasBackdrop: true,
-      data: {
-        message: this.titleMess
-      }
-    }).afterClosed().subscribe(result => {
-      if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
-        this.isLoading = true;
-        this.uploadImage();
-        if (this.dataDialog.type == 'update') {
-
-          this.movieService.updateMovie(this.formGroup.value).subscribe({
-            next: res => {
-              this.toastrService.success(res.message);
-              this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
-              this.isLoading = false;
-
-            },
-            error: e => {
-              console.log(e);
-
-            }
-          })
-
-        }
-      }
-    })
+  onSubmit(){
+    this.accountService.updateUser(this.formGroup.value);
+    console.log(this.formGroup.value);
+    console.log(this.accountService.updateUser(this.formGroup.value));
+    
   }
 
-  updateMovie() {
-    this.matDialog.open(ConfirmDialogComponent, {
-      disableClose: true,
-      hasBackdrop: true,
-      data: {
-        message: 'Bạn có muốn cập nhật thông tin phim?'
-      }
-    }).afterClosed().subscribe(result => {
-      if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
-        this.isLoading = true;
-        // this.notificationService.showNotification('success', 'Sửa thành công !');
+  getUser(){
+    this.accountService.getUser()
+        .subscribe(response => {
+          this.info = response;
+          console.log(this.info);
+          
+          // this.isLoading = false;
+        });
+  }
+  // async uploadImage() {
+  //   if (this.files.length > 0) {
+  //     await this.uploadImg();
+  //   }
 
-      }
-    })
+  //     this.updateUser();
+
+  //   }
+
+  // onSubmit() {
+  //   this.formGroup.markAllAsTouched();
+  //   if (this.formGroup.invalid) {
+  //     return;
+  //   }
+  //   this.accountService.updateUser(this.formGroup.value).subscribe({
+  //     next: res => {
+  //       this.toastrService.success(res.message);
+  //       // this.isLoading = false;
+
+  //     },
+  //     error: e => {
+  //       console.log(e);
+
+  //     }
+  //   })
+
   }
 
-  onSelect(event) {
-    if (this.files.length > 0) {
-      this.files.splice(0, 1);
-    }
-    this.files.push(...event.addedFiles);
-  }
 
-  onRemove(event) {
-    this.files.splice(this.files.indexOf(event), 1);
-  }
+// updateMovie() {
+//   this.matDialog.open(ConfirmDialogComponent, {
+//     disableClose: true,
+//     hasBackdrop: true,
+//     data: {
+//       message: 'Bạn có muốn cập nhật thông tin phim?'
+//     }
+//   }).afterClosed().subscribe(result => {
+//     if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+//       this.isLoading = true;
+//       // this.notificationService.showNotification('success', 'Sửa thành công !');
 
-  async uploadImg() {
-    const formData = new FormData();
-    if (this.files.length > 0) {
-      formData.append('files', this.files[0])
-    }
-    try {
-      this.imgUrl = await this.uploadImageService.upload(formData).toPromise();
+//     }
+//   })
+// }
 
-      this.formGroup.patchValue({ poster: this.imgUrl.data[0] });
+// onSelect(event) {
+//   if (this.files.length > 0) {
+//     this.files.splice(0, 1);
+//   }
+//   this.files.push(...event.addedFiles);
+// }
 
-    } catch (error) {
-      console.log(error);
+// onRemove(event) {
+//   this.files.splice(this.files.indexOf(event), 1);
+// }
 
-    }
-  }
+//   async uploadImg() {
+//   const formData = new FormData();
+//   if (this.files.length > 0) {
+//     formData.append('files', this.files[0])
+//   }
+//   try {
+//     this.imgUrl = await this.uploadImageService.upload(formData).toPromise();
 
-}
+//     this.formGroup.patchValue({ poster: this.imgUrl.data[0] });
+
+//   } catch (error) {
+//     console.log(error);
+
+//   }
+
+
+
