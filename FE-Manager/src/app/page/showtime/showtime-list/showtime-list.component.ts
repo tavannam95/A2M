@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Constant } from 'app/constants/Constant';
 import { ShowtimeFormComponent } from '../showtime-form/showtime-form.component';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
+import { ShowtimesDetailComponent } from '../showtimes-detail/showtimes-detail.component';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class ShowtimeListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['id', 'nameMovie', 'room_id', 'date', 'timeStart', 'timeEnd', 'createDate', 'delete'];
+  displayedColumns: string[] = ['id', 'nameMovie', 'room_id', 'date', 'timeStart', 'timeEnd', 'createDate', 'delete', 'func'];
 
   dayArray: string[] = [];
 
@@ -132,4 +133,18 @@ export class ShowtimeListComponent implements OnInit {
     })
   }
 
+  openDialogShowtimesView(type: any, row: any){
+    this.matDialog.open(ShowtimesDetailComponent, {
+      disableClose: true,
+      data: {
+        type,
+        row
+      },
+      width: '2000px'
+    }).afterClosed().subscribe(result => {
+      if (result === Constant.RESULT_CLOSE_DIALOG.SUCCESS) {
+        // ----------------------After close----------------------
+      }
+    })
+  }
 }

@@ -66,4 +66,125 @@ public class Movies {
     @OneToMany(mappedBy = "movie")
     private List<Showtimes> listShowtimes;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNational(Nationals national) {
+        this.national = national;
+    }
+
+    public void setCategory(Categories category) {
+        this.category = category;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
+    public void setListShowtimes(List<Showtimes> listShowtimes) {
+        this.listShowtimes = listShowtimes;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Nationals getNational() {
+        return national;
+    }
+
+    public Categories getCategory() {
+        return category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getTime() {
+        return time;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public List<Showtimes> getListShowtimes() {
+        return listShowtimes;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+
+    public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	
 }
