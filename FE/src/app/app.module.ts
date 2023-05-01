@@ -23,13 +23,11 @@ import { CustomerLayoutComponent } from './layouts/customer/customer-layout/cust
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RoomsModule } from './page/rooms/rooms.module';
 import { AccountModule } from './page/account/account.module';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
     imports: [
         BrowserAnimationsModule,
         FormsModule,
-        ZXingScannerModule,
         ReactiveFormsModule,
         HttpClientModule,
         ComponentsModule,

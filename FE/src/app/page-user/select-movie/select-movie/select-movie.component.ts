@@ -50,9 +50,14 @@ export class SelectMovieComponent implements OnInit {
           next: res =>{
             this.listShowtime = res.data;
             this.selectDate = this.listShowtime[0].date;
+            console.log(this.selectDate);
             this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
               next: res =>{
+                console.log(res);
+                
                 this.timeShowtime = res.data;
+                console.log(this.timeShowtime);
+                
                 
               },
               error: e =>{

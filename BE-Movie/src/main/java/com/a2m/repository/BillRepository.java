@@ -8,4 +8,5 @@ public interface BillRepository extends JpaRepository<Bills, Long>{
     Bills findByBillCode(String billCode);
 
     Bills findByBarCode(String barCode);
+
 }
