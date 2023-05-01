@@ -27,10 +27,9 @@ export class LoginServiceService {
   // }
 
   login(loginRequest: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeaders();
     // const params: RequestParam[] = ParamUtil.toRequestParams(search);
     const url = "http://localhost:8080/api/v1/auth/login"
-    return this.http.post<any>(url,loginRequest, { headers: headers });
+    return this.http.post<any>(url,loginRequest);
   }
 }
 

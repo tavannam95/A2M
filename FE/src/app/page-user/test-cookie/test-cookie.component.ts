@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { CloudinaryService } from 'app/services/cloudinary/cloudinary.service';
 import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
 import { JwtService } from 'app/services/jwt/jwt.service';
 
@@ -10,39 +11,76 @@ import { JwtService } from 'app/services/jwt/jwt.service';
   styleUrls: ['./test-cookie.component.scss']
 })
 export class TestCookieComponent implements OnInit {
+  fileToUpload: File | null = null;
+  fileRes: any;
 
   formGroup = this.fb.group({
-    username: [''],
-    password: ['']
+    files: ['']
   })
 
   constructor(
     private fb: FormBuilder,
     private cookie2Service: Cookie2Service,
     private http: HttpClient,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private uploadService: CloudinaryService
   ) { }
 
   ngOnInit() {
   }
 
-  decode(){
-    this.jwtService.decode();
-    console.log(this.jwtService.decode());
-    console.log(this.jwtService.getExpiration());
-  }
+  files: File[] = [];
 
-  checkLogin(){
-    console.log(this.jwtService.isLoggedIn());
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.fileToUpload = file;
   }
+  
 
-  logOut(){
-    this.cookie2Service.delete();
-    this.jwtService.reloadPage();
-  }
-
-  testTime(){
-    console.log(this.jwtService.getExpiration());
+  upload(){
+    // if (!this.fileToUpload) {
+    //   return;
+    // }
+    const formData = new FormData();
+    formData.append('files', this.fileToUpload);
+    console.log(formData);
+    
+    // const formData = new FormData();
+    //   formData.append('files', this.files[0]);
+    this.fileRes =  this.uploadService.upload(formData).toPromise();
     
   }
+
+  uploadDrop(){
+    const formData = new FormData();
+    formData.append('files', this.files[0]);
+    this.uploadService.upload(formData).subscribe({
+      next: res =>{
+        this.fileRes =  res;
+        console.log(res);
+        
+      },
+      error: e =>{
+        console.log(e);
+        
+      }
+    });
+  }
+
+  checkRes(){
+    console.log(this.fileRes);
+    
+  }
+
+	onSelect(event) {
+		console.log(event);
+		this.files.push(...event.addedFiles);
+	}
+
+	onRemove(event) {
+		console.log(event);
+		this.files.splice(this.files.indexOf(event), 1);
+	}
+
+  
 }
