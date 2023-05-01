@@ -23,13 +23,13 @@ import { CustomerLayoutComponent } from './layouts/customer/customer-layout/cust
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RoomsModule } from './page/rooms/rooms.module';
 import { AccountModule } from './page/account/account.module';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { httpInterceptorProviders } from './interceptor/http-request.interceptor';
+import { CustomPaginator } from './interceptor/CustomPaginatorConfiguration';
 
 @NgModule({
     imports: [
         BrowserAnimationsModule,
         FormsModule,
-        ZXingScannerModule,
         ReactiveFormsModule,
         HttpClientModule,
         ComponentsModule,
@@ -56,8 +56,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
         CustomerLayoutComponent,
         TestCookieComponent
     ],
-    providers: [],
-    // providers: [httpInterceptorProviders,{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],
+    providers: [httpInterceptorProviders,{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],
     bootstrap: [AppComponent]
 })
 export class AppModule {

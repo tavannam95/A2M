@@ -14,9 +14,6 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const userToken = this.cookieService.getToken();
-    console.log('interceptor==========');
-    console.log(userToken);
-    
 
     let httpHeader = new HttpHeaders({
       // 'Content-Type': 'application/json',

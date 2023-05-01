@@ -13,18 +13,15 @@ export class RowApiService {
   constructor(private http: HttpClient) { }
 
   createRow(data: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.post<any>(ApiConstant.row, data, { headers: headers });
+    return this.http.post<any>(ApiConstant.row, data);
   }
 
   getByRoom(data: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.post<any>(`${ApiConstant.row}/row-of-room`, data, { headers: headers });
+    return this.http.post<any>(`${ApiConstant.row}/row-of-room`, data);
   }
 
   activeOrInactive(data: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.put<any>(`${ApiConstant.row}/active-or-inactive`, data, { headers: headers });
+    return this.http.put<any>(`${ApiConstant.row}/active-or-inactive`, data);
   }
 
 }

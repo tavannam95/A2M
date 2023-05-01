@@ -14,28 +14,23 @@ export class MovieApiService {
   constructor(private readonly http: HttpClient) { }
 
   getAll(): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(`${ApiConstant.movie}/listMovie`, { headers: headers });
+    return this.http.get<any>(`${ApiConstant.movie}/listMovie`);
   }
 
   getOne(id: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(`${ApiConstant.movie}/${id}`, { headers: headers });
+    return this.http.get<any>(`${ApiConstant.movie}/${id}`);
   }
 
   createMovie(data: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.post<any>(`${ApiConstant.movie}/addMovie`, data, { headers: headers });
+    return this.http.post<any>(`${ApiConstant.movie}/addMovie`, data);
   }
 
   updateMovie(data: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.put<any>(`${ApiConstant.movie}/updateMovie`, data, { headers: headers });
+    return this.http.put<any>(`${ApiConstant.movie}/updateMovie`, data);
   }
 
   activeOrInactive(data: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.put<any>(`${ApiConstant.movie}/deleteMovie`, data, { headers: headers });
+    return this.http.put<any>(`${ApiConstant.movie}/deleteMovie`, data);
   }
 
 }

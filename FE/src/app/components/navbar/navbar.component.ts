@@ -1,9 +1,18 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Component, OnInit, ElementRef, TemplateRef } from '@angular/core';
+import { DatePipe, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { MenuItems, RouteInfo } from 'app/menu/menuItem';
 import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
 import { JwtService } from 'app/services/jwt/jwt.service';
+import { MatDialog } from '@angular/material/dialog';
+import { BehaviorSubject } from 'rxjs';
+import { BillService } from 'app/services/bill/bill.service';
+// import printJS = require("print-js");
+// @ts-ignore
+import printJS from 'print-js';
+import { ToastrService } from 'ngx-toastr';
+import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
+import { Constant } from 'app/constants/Constant';
 
 @Component({
     selector: 'app-navbar',
@@ -11,23 +20,41 @@ import { JwtService } from 'app/services/jwt/jwt.service';
     styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+    bill: any;
+
+    availableDevices: MediaDeviceInfo[];
+    currentDevice: MediaDeviceInfo = null;
+    hasDevices: boolean;
+    hasPermission: boolean;
+    scanner2: any;
+
+    qrResultString: string;
+
+    torchEnabled = false;
+    torchAvailable$ = new BehaviorSubject<boolean>(false);
+    tryHarder = false;
+
     private listTitles: RouteInfo[];
     location: Location;
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(location: Location, private element: ElementRef, private router: Router,
+    constructor(
+        location: Location, 
+        private element: ElementRef, 
+        private router: Router,
+        private dialog: MatDialog,
         private cookieService: Cookie2Service,
-        private jwtService: JwtService) {
+        private billService: BillService,
+        private toastrService: ToastrService,
+        private jwtService: JwtService,
+        private datePipe: DatePipe
+    ) {
         this.location = location;
         this.sidebarVisible = false;
     }
 
-    logout() {
-        this.cookieService.delete();
-        this.jwtService.reloadPage();
-    }
 
     ngOnInit() {
         this.listTitles = MenuItems.filter(listTitle => listTitle);
@@ -41,6 +68,155 @@ export class NavbarComponent implements OnInit {
                 this.mobile_menu_visible = 0;
             }
         });
+    }
+
+    print(data: any) {
+        
+        const formatter = new Intl.NumberFormat();
+        let text ='';
+        
+        data.listTickets.forEach(t =>{
+            let ngayChieu = this.datePipe.transform(t.showtime.date,'dd/MM/yyyy');
+            let gioChieu = this.datePipe.transform(t.showtime.timeStart,'hh:mm');
+            console.log(t);
+            text+=`<div class="ticket">
+            <div class="title">AMENIC | Ngày mới - Phim mới</div>
+            <div class="subtitle">VÉ XEM PHIM</div>
+            <div class="info">
+                <span>Ngày chiếu:</span>
+                <span>${ngayChieu}</span>
+            </div>
+            <div class="info">
+                <span>Giờ chiếu:</span>
+                <span>${gioChieu}</span>
+            </div>
+            <div class="info">
+                <span>Phòng chiếu:</span>
+                <span>${t.showtime.room.name}</span>
+            </div>
+            <div class="info">
+                <span>Hàng ghế:</span>
+                <span>${t.seat.row.name}</span>
+            </div>
+            <div class="info">
+                <span>Số ghế:</span>
+                <span>${t.seat.number}</span>
+            </div>
+            <div class="instructions">Cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi. Chúc quý khách xem phim vui vẻ!</div>
+            </div>
+            `
+        });
+        
+        // @ts-ignore
+        printJS({
+            printable: 'demo',
+            properties: [{
+                field: ' ',
+                displayName: ' '
+            }],
+            documentTitle: ' ',
+            type: 'html',
+            showModal: false,
+            maxWidth: 800,
+            font: 'Thoma',
+            font_size: '12pt',
+            header: text,
+            style: '.ticket { margin-top: 20px; font-family: Arial, sans-serif; width: 100%; border: 1px solid #ccc; padding: 20px; box-sizing: border-box; } .ticket .title { font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 10px; } .ticket .subtitle { font-size: 18px; font-weight: bold; text-align: center; margin-bottom: 20px; } .ticket .info { display: flex; justify-content: space-between; margin-bottom: 10px; } .ticket .info span { font-size: 14px; font-weight: bold; } .ticket .seat { font-size: 16px; font-weight: bold; text-align: center; margin-bottom: 20px; } .ticket .instructions { font-size: 14px; text-align: center; }',
+            onPrintDialogClose: (res) => {
+                // Xử lý sự kiện in thành công ở đây
+                console.log(res);
+                this.billService.printTicket(this.bill.id).subscribe({
+                    next: res =>{
+                        console.log(res);
+                        this.toastrService.success('In vé thành công');
+                    },
+                    error: e =>{
+                        console.log(e);
+                        
+                    }
+                })
+            }
+        })
+        // printJS(data, 'html')
+    }
+
+    onCodeResult(resultString: string) {
+        const barcode = resultString.substring(0,resultString.length-1);
+        console.log(barcode);
+        this.billService.findByBarcode(barcode).subscribe({
+            next: res =>{
+                console.log(res.data);
+                this.bill = res.data;
+                if (res.status) {
+                    this.scanner2.close();
+                    this.dialog.open(ConfirmDialogComponent, {
+                        disableClose: true,
+                        hasBackdrop: true,
+                        data: {
+                          message: 'Bạn có muốn in vé xem phim?'
+                        }
+                      }).afterClosed().subscribe(result => {
+                        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+                          // this.notificationService.showNotification('success', 'Sửa thành công !');
+                            this.print(this.bill);
+                        }
+                      })
+                }else{
+                    this.toastrService.warning(res.message);
+                }
+            },
+            error: e =>{
+                console.log(e);
+                
+            }
+        })
+    }
+
+    openScanner(template: TemplateRef<any>) {
+        this.scanner2 = this.dialog.open(template, {
+            width: '500px',
+            disableClose: true,
+            hasBackdrop: true,
+        });
+    }
+
+
+
+    clearResult(): void {
+        this.qrResultString = null;
+    }
+
+    onCamerasFound(devices: MediaDeviceInfo[]): void {
+        this.availableDevices = devices;
+        this.hasDevices = Boolean(devices && devices.length);
+    }
+
+
+
+    onDeviceSelectChange(selected: string) {
+        const device = this.availableDevices.find(x => x.deviceId === selected);
+        this.currentDevice = device || null;
+    }
+
+    onHasPermission(has: boolean) {
+        this.hasPermission = has;
+    }
+
+    onTorchCompatible(isCompatible: boolean): void {
+        this.torchAvailable$.next(isCompatible || false);
+    }
+
+    toggleTorch(): void {
+        this.torchEnabled = !this.torchEnabled;
+    }
+
+    toggleTryHarder(): void {
+        this.tryHarder = !this.tryHarder;
+    }
+
+    logout() {
+        this.cookieService.delete();
+        this.jwtService.reloadPage();
     }
 
     sidebarOpen() {

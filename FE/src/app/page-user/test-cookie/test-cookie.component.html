@@ -1,14 +1,15 @@
-<!-- <form [formGroup]="formGroup">
-  <label for="">Username</label>
-  <input formControlName="username" type="text">
-  <label for="">Password</label>
-  <input formControlName="password" type="text">
-
-
-  <button (click)="checkLogin()">Check Login</button>
-  <button (click)="decode()">Decode</button>
-  <button (click)="logOut()">Log out</button>
-  <button (click)="testTime()">testTime</button>
+<form>
+  <input type="file" (change)="onFileSelected($event)" #fileInput>
+  <button type="submit" (click)="upload()">Upload</button>
 </form>
- -->
- <zxing-scanner></zxing-scanner>
+
+<ngx-dropzone (change)="onSelect($event)">
+  <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+	<ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+	</ngx-dropzone-preview>
+</ngx-dropzone>
+
+<button type="submit" (click)="uploadDrop()">Upload</button>
+<br>
+<button (click)="checkRes()">Check Res</button>

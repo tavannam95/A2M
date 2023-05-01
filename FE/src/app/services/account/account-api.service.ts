@@ -12,22 +12,19 @@ export class AccountApiService {
   constructor(private readonly http: HttpClient) { }
 
   getAll(): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(ApiConstant.account + "/getAll", { headers: headers });
+    return this.http.get<any>(ApiConstant.account + "/getAll");
   }
 
   save(data: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.post<any>(ApiConstant.account + "/createAccount", data, { headers: headers });
+    return this.http.post<any>(ApiConstant.account + "/createAccount", data);
   }
 
   getEmails(): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(ApiConstant.account + "/getEmail", { headers: headers });
+    return this.http.get<any>(ApiConstant.account + "/getEmail");
   }
 
   updateAccount(data: any): Observable<any> {
     const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.put<any>(ApiConstant.account + "/updateAccount", data, { headers: headers });
+    return this.http.put<any>(ApiConstant.account + "/updateAccount", data);
   }
 }

@@ -14,22 +14,18 @@ export class TicketApiService {
   constructor(private readonly http: HttpClient) { }
 
   getAll(): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(`${ApiConstant.ticket}/listTicket`, { headers: headers });
+    return this.http.get<any>(`${ApiConstant.ticket}/listTicket`);
   }
 
   getOne(id: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(`${ApiConstant.ticket}/${id}`, { headers: headers });
+    return this.http.get<any>(`${ApiConstant.ticket}/${id}`);
   }
 
   findByShowtime(showtimeId: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(`${ApiConstant.ticket}/showtime/${showtimeId}`, { headers: headers });
+    return this.http.get<any>(`${ApiConstant.ticket}/showtime/${showtimeId}`);
   }
 
   findByIsHoliday(isHoliday: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(`${ApiConstant.ticket}/fare/${isHoliday}`, { headers: headers });
+    return this.http.get<any>(`${ApiConstant.ticket}/fare/${isHoliday}`);
   }
 }

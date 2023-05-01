@@ -15,8 +15,7 @@ export class NationApiService {
   constructor(private readonly http: HttpClient) { }
 
   getAll(): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(`${ApiConstant.nation}/listNational`, { headers: headers });
+    return this.http.get<any>(`${ApiConstant.nation}/listNational`);
   }
 
 }

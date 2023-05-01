@@ -18,7 +18,6 @@ const routes: Routes = [
     {
       path: 'test-ck',
       component: TestCookieComponent,
-      canActivate: [AuthGuard]
     },
     {
       path: '',

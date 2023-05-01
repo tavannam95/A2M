@@ -14,8 +14,7 @@ export class CategoriesApiService {
   constructor(private readonly http: HttpClient) { }
 
   getAll(): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(`${ApiConstant.categories}/listCategories`, { headers: headers });
+    return this.http.get<any>(`${ApiConstant.categories}/listCategories`);
   }
 
 }

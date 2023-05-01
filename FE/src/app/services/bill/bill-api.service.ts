@@ -14,17 +14,22 @@ export class BillApiService {
   constructor(private readonly http: HttpClient) { }
 
   getAll(): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(`${ApiConstant.bill}/listBill`, { headers: headers });
+    return this.http.get<any>(`${ApiConstant.bill}/listBill`);
+  }
+
+  printTicket(data: any): Observable<any> {
+    return this.http.put<any>(`${ApiConstant.bill}/print-ticket/${data}`, null);
+  }
+
+  findByBarcode(barcode: any): Observable<any> {
+    return this.http.get<any>(`${ApiConstant.bill}/barcode/${barcode}`);
   }
 
   getOne(id: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.get<any>(`${ApiConstant.bill}/${id}`, { headers: headers });
+    return this.http.get<any>(`${ApiConstant.bill}/${id}`);
   }
 
   createBill(data: any): Observable<any> {
-    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
-    return this.http.post<any>(`${ApiConstant.bill}/create`, data, { headers: headers });
+    return this.http.post<any>(`${ApiConstant.bill}/create`, data);
   }
 }
