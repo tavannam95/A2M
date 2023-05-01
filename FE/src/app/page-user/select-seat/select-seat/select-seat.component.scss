@@ -1,0 +1,66 @@
+.img-cinema{
+    width: 90%;
+}
+.loading {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+  
+  .spinner-center {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+  }
+  .link_seat{
+    position: relative;
+  }
+  .number_seat {
+    width: 25px;
+    height: 22px;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    text-align: center;
+    line-height: 17px;
+    color: #000;
+    cursor: pointer;
+    /* margin: 4px; */
+    /* color: white; */
+  }
+  .input-seat{
+    opacity: 0;
+  }
+  .right-checkmovie{
+    float: right;
+    background: url(https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/content.v2/images/bg04.png) no-repeat left top;
+    background-size: 100% 100%;
+    width: 270px;
+    height: 598px;
+    text-align: center;
+    padding: 40px 10px;
+  }
+  .img-poster{
+    width: 80%;
+  }
+
+  .loading {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+  
+  .spinner-center {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+  }
+  

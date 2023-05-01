@@ -21,9 +21,10 @@ public class CloudinaryServiceImpl implements CloudinaryService {
 
     @Override
     public List<String> upload(MultipartFile[] files) throws IOException {
-        List<String>listImageUrls = new ArrayList<>();
-        for (MultipartFile file: files){
-            listImageUrls.add(this.save(file));
+        List<String> listImageUrls = new ArrayList<>();
+
+        for (MultipartFile file : files) {
+            listImageUrls.add(save(file));
         }
         return listImageUrls;
     }

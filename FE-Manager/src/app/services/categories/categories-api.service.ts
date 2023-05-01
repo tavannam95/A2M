@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { ApiConstant } from 'app/constants/ApiConstant';
 import { HeadersUtil } from 'app/util/headers-util';
 
-const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +11,11 @@ const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
 export class CategoriesApiService {
   [x: string]: any;
 
-constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
-  getAll(): Observable<any>{
-    return this.http.get<any>(`${ApiConstant.categories}/listCategories`,{headers: headers});
+  getAll(): Observable<any> {
+    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
+    return this.http.get<any>(`${ApiConstant.categories}/listCategories`, { headers: headers });
   }
 
 }

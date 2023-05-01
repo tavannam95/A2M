@@ -1,0 +1,59 @@
+/*!
+
+=========================================================
+* Material Dashboard Angular - v2.7.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-angular2
+* Copyright 2021 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-angular2/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+@import '~ngx-toastr/toastr.css';
+
+.tim-typo {
+    padding-left: 25%;
+    margin-bottom: 40px;
+    position: relative;
+    width: 100%;
+}
+
+.tim-typo .tim-note {
+    bottom: 5px;
+    color: #c0c1c2;
+    display: block;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    left: 0;
+    margin-left: 20px;
+    position: absolute;
+    width: 260px;
+}
+
+.custom-card {
+    margin-bottom: 20px;
+    border: 0;
+    box-shadow: -7.829px 11.607px 20px 0px rgb(228, 227, 245);
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.76562rem;
+    line-height: 1.5;
+}
+
+.main-content-label {
+    font-weight: 500;
+    color: #3c4858;
+    font-size: 14px;
+    margin-bottom: 0rem;
+    line-height: 1;
+}
+

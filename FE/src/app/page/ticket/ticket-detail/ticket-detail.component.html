@@ -1,0 +1,55 @@
+<h2 class="text-center h2 font-weight-bold" mat-dialog-title>Rạp Amenic</h2>
+<div mat-dialog-content>
+    <form class="mb-0">
+        <div class="row">
+            <div class="title">
+                <!-- Tên phim -->
+                <h3>{{ticket.showtime.movie.name}}</h3>
+            </div>
+            <div class="info-ticket">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Mã vé</th>
+                            <td>{{ticket.ticketId}}</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày chiếu</th>
+                            <td>{{ticket.showtime.date | date:'dd-MM-yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Giờ chiếu</th>
+                            <td>{{ticket.showtime.date | date:'hh:mm:ss'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Thời lượng</th>
+                            <td>{{ticket.showtime.movie.time}} phút</td>
+                        </tr>
+                        <tr>
+                            <th>Phòng chiếu</th>
+                            <td>{{ticket.seat.row.room.name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Vị trí ghế</th>
+                            <td>{{ticket.seat.row.name}}{{ticket.seat.number}}</td>
+                        </tr>
+                        <tr>
+                            <th>Loại ghế</th>
+                            <td>{{ticket.seat.seatType.nameVi}}</td>
+                        </tr>
+                        <tr>
+                            <th>Giá tiền</th>
+                            <td>{{ticket.fare.price}} đ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- end -->
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <!-- <button class="btn btn-success" (click)="openDialogForm('update',movie)" mat-button>Sửa thông tin</button> -->
+    <button class="btn btn-dark" mat-button mat-dialog-close>Thoát</button>
+</div>

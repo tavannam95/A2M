@@ -57,13 +57,11 @@ public class ShowtimeServiceImpl implements ShowtimeService {
 
 	@Override
 	public List<Movies> getMovieByDate(Date date) {
-		// TODO Auto-generated method stub
 		return this.showtimesRepository.getMoviesByDate(date);
 	}
 
 @Override
 public List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date) {
-	// TODO Auto-generated method stub
 	return this.showtimesRepository.getShowtimeByMovieAndDate(idMovie,date);
 }
 }

@@ -187,7 +187,4 @@ public class Movies {
 		this.startDate = startDate;
 	}
 	
-	
-
-	
 }

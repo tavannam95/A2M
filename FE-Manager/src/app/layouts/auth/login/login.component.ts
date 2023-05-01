@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
 import { JwtService } from 'app/services/jwt/jwt.service';
 import { LoginServiceService } from 'app/services/login/login-service.service';
+import { HeadersUtil } from 'app/util/headers-util';
 import { Cookie, CookieService } from 'ng2-cookies/cookie';
 
 @Component({
@@ -41,21 +42,12 @@ export class LoginComponent implements OnInit {
       next: res => {
         const token = res.token;
         this.cookieService.saveToken(token);
-        let param = this.route.snapshot.queryParams;
-        if (param['redirectUrl']) {
-          this.redirectUrl = param['redirectUrl'];
+        HeadersUtil.getHeadersAuth();      
+        if (this.jwtService.getRoleFromToken()=== 'ROLE_ADMINSTRATOR' || this.jwtService.getRoleFromToken()=== 'ROLE_EMPLOYEE') {
+          this.router.navigate(['/dashboard']);
+        }else{
+          this.router.navigate(['/home']);
         }
-        console.log(param['id']);
-        
-        if (this.redirectUrl) {
-          this.router.navigateByUrl(this.redirectUrl)
-            .then(() => this.jwtService.reloadPage())
-            .catch(() => this.router.navigate(['/home']))
-        } else {
-          this.router.navigate(['/home']).then(() => this.jwtService.reloadPage())
-        }
-        console.log('get token');
-        console.log(this.cookieService.getToken());
       }
     })
   }
