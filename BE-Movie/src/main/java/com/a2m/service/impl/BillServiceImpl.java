@@ -1,9 +1,11 @@
 package com.a2m.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import com.a2m.dto.BillDTO;
 import com.a2m.entities.*;
 import com.a2m.model.request.BillRequest;
 import com.a2m.repository.AccountsRepository;
@@ -14,22 +16,29 @@ import org.springframework.stereotype.Service;
 
 import com.a2m.repository.BillRepository;
 import com.a2m.service.BillService;
+import com.a2m.service.mapper.BillDTOMapper;
 
 @Service
 @AllArgsConstructor
 public class BillServiceImpl implements BillService{
 	
-	@Autowired
 	BillRepository billRepository;
 
 	TicketsRepository ticketsRepository;
 
 	AccountsRepository accountsRepository;
 	
+	BillDTOMapper billDTOMapper;
+	
 	@Override
-	public List<Bills> getListBill() {
-		// TODO Auto-generated method stub
-		return billRepository.findAll();
+	public List<BillDTO> getListBill() {
+		// TODO Auto-generated method s
+		List<Bills> bills = billRepository.findAll();
+		List<BillDTO> billDTOs = new ArrayList<>();
+		for (Bills bill : bills) {
+			billDTOs.add(billDTOMapper.apply(bill));
+		}
+		return billDTOs;
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    MatRadioModule,
   ]
 })
 export class UserAccountModule { }

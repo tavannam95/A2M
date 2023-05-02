@@ -27,4 +27,8 @@ export class BillApiService {
     const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.post<any>(`${ApiConstant.bill}/create`, data, { headers: headers });
   }
+
+  getBillUser(): Observable<any>{
+    return this.http.get<any>(`${ApiConstant.bill}/billUser`,{headers: headers});
+  }
 }

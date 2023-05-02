@@ -72,6 +72,13 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest jwtRequest) {
+		try {
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest jwtRequest) throws Exception {
 		try {
 			authenticationManager.authenticate(

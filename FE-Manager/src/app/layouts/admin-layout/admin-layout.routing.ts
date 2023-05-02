@@ -17,6 +17,21 @@ import { TicketListComponent } from 'app/page/ticket/ticket-list/ticket-list.com
 import { RoleGuard } from 'app/guard/role.guard';
 
 export const AdminLayoutRoutes: Routes = [
+    
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'user-profile', component: UserProfileComponent },
+    // { path: 'table-list', component: TableListComponent },
+    // { path: 'typography', component: TypographyComponent },
+    // { path: 'icons', component: IconsComponent },
+    // { path: 'maps', component: MapsComponent },
+    { path: 'notifications', component: NotificationsComponent },
+    // { path: 'upgrade', component: UpgradeComponent },
+    { path: 'movie', component: MovieListComponent },
+    { path: 'room', component: RoomListComponent },
+    { path: 'account', component: AccountListComponent },
+    { path: 'bill', component: BillListComponent },
+    { path: 'showtime', component: ShowtimeListComponent },
+    { path: 'ticket', component: TicketListComponent },
 
     {
         path: 'dashboard', component: DashboardComponent, data: {

@@ -15,4 +15,7 @@ constructor(private apiService: BillApiService) { }
   getOne(id: any){
     return this.apiService.getOne(id);
   }
+  getBillUser(){
+    return this.apiService.getBillUser();
+  }
 }
