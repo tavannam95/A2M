@@ -39,7 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            Accounts userDetails = this.userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
 
@@ -54,7 +54,5 @@ public class JwtFilter extends OncePerRequestFilter {
     }
     public static void main(String[] args) {
 		System.out.println(new BCryptPasswordEncoder().encode("abc"));
-		
-		
 	}
 }

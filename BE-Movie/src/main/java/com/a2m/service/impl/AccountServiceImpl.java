@@ -28,10 +28,6 @@ public class AccountServiceImpl implements AccountService{
     private final AccountsRepository accountsRepository;
     
     private final AccountDTOMapper accountDTOMapper;
-    
-public class AccountServiceImpl implements AccountService {
-
-	private final AccountsRepository accountsRepository;
 
 	@Override
 	public Accounts saveOrUpdate(Accounts account) {
@@ -122,13 +118,5 @@ public class AccountServiceImpl implements AccountService {
 		Boolean check = new BCryptPasswordEncoder().matches(oldPassword , account.getPassword());
 //		System.out.println("check: "+check);
 		return check;
-	}
-
-		List<String> Emails = new ArrayList<>();
-		List<Accounts> accountsList = this.accountsRepository.findAll();
-		for (Accounts a : accountsList) {
-			Emails.add(a.getEmail());
-		}
-		return Emails;
 	}
 }

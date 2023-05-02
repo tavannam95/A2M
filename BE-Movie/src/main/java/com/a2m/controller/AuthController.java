@@ -49,8 +49,8 @@ public class AuthController {
 	
 	AccountsRepository accountsRepository;
 
-//	@Autowired(required = true)
-//	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	
 	@GetMapping("/hello")
@@ -79,13 +79,7 @@ public class AuthController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest jwtRequest) throws Exception {
-		try {
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
-		} catch (BadCredentialsException e) {
-			throw new Exception("Tài khoản hoặc mật khẩu sai", e);
-		}
+
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequest.getUsername());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);

@@ -33,22 +33,27 @@ export class AccountApiService {
   }
 
   getUser(): Observable<any> {
+    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(ApiConstant.account+"/userLogin", {headers: headers});
   }
 
   updateUser(data: any): Observable<any> {
+    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.put<any>(ApiConstant.account+"/updateUser", data, {headers: headers});
   }
 
   getPassword(): Observable<any> {
+    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(ApiConstant.account+"/userPassword", {headers: headers});
   }
 
   updatePassword(data: any): Observable<any> {
+    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.put<any>(ApiConstant.account+"/updatePassword", data, {headers: headers});
   }
 
   checkPassword(data: any): Observable<any> {
+    const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.post<any>(ApiConstant.account+"/checkPassword", data,{headers: headers});
   }
 }

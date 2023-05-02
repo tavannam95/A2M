@@ -42,8 +42,8 @@ public class AccountController {
 	
 	private AccountDTOMapper accountDTOMapper;
 
-//	@Autowired(required = true)
-//	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 
 	
