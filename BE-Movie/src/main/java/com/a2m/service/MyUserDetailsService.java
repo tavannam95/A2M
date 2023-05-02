@@ -38,7 +38,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
 //		List<Roles> roles = rolesRepository.findAll();
 //
-//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 //		if (!roles.isEmpty()) {
 //			for (Roles role : roles) {
 //                GrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
