@@ -40,12 +40,6 @@ public class SecutiryConfig {
     }
 	
 	@Bean
-	public PasswordEncoder passwordEncoder()
-	{
-	    return new BCryptPasswordEncoder();
-	}
-	
-	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 		.authorizeRequests().antMatchers("/api/v1/auth/**","/public/api/v1/**","/api/image/**").permitAll()
