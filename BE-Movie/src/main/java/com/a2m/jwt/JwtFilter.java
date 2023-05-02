@@ -53,6 +53,8 @@ public class JwtFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
     public static void main(String[] args) {
-		System.out.println(new BCryptPasswordEncoder().encode("123"));
+		System.out.println(new BCryptPasswordEncoder().encode("abc"));
+		
+		
 	}
 }

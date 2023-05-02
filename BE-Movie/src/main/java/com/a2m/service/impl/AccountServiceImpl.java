@@ -8,6 +8,7 @@ import com.a2m.service.AccountService;
 import com.a2m.service.mapper.AccountDTOMapper;
 import com.a2m.util.SecurityUtils;
 import com.cloudinary.provisioning.Account;
+import com.sun.xml.bind.v2.runtime.output.Encoded;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -68,16 +70,57 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public Accounts updateUser(Accounts accounts) {
+		Accounts account1 = SecurityUtils.getLoggedUser().get();		
+
+		if (account1 == null) {
+            return null;
+        }
+		if(accounts.getFullname()!=null) {
+			account1.setFullname(accounts.getFullname());
+		}
+		if(accounts.getUsername()!=null) {
+			account1.setUsername(accounts.getUsername());
+		}
+		if(accounts.getEmail()!=null) {
+			account1.setEmail(accounts.getEmail());
+		}
+		if(accounts.getBirthDate()!=null) {
+			account1.setBirthDate(accounts.getBirthDate());
+		}
+		if(accounts.getGender()!=null) {
+			account1.setGender(accounts.getGender());
+		}
+		if(accounts.getPhone()!=null) {
+			account1.setPhone(accounts.getPhone());
+		}
+		if(accounts.getPhoto()!=null) {
+			account1.setPhoto(accounts.getPhoto());
+		}
+		
+		return accountsRepository.save(account1);
+	}
+
+	@Override
+	public Accounts updatePassword(Accounts accounts) {
 		Accounts account1 = SecurityUtils.getLoggedUser().get();
-		System.out.println("acc: "+account1.getFullname());
-		accounts.setFullname(account1.getFullname());
-		accounts.setEmail(account1.getEmail());
-		accounts.setBirthDate(account1.getBirthDate());
-		accounts.setGender(account1.getGender());
-		accounts.setPhone(account1.getPhone());
-		accounts.setPhoto(account1.getPhoto());
-		System.out.println("acc1: "+accounts.getFullname());
-		return accountsRepository.save(accounts);
+		if (account1 == null) {
+            return null;
+        }
+		if(accounts.getPassword()!=null) {
+			System.out.println("pw: "+accounts.getPassword());
+			String encodePassword = new BCryptPasswordEncoder().encode(accounts.getPassword());
+			account1.setPassword(encodePassword);
+		}
+		return accountsRepository.save(account1);
+	}
+
+	@Override
+	public Boolean checkPassword(String oldPassword) {
+		Accounts account = SecurityUtils.getLoggedUser().get();
+//		String encodePassword = new BCryptPasswordEncoder().encode(oldPassword);
+		Boolean check = new BCryptPasswordEncoder().matches(oldPassword , account.getPassword());
+//		System.out.println("check: "+check);
+		return check;
 	}
 
 

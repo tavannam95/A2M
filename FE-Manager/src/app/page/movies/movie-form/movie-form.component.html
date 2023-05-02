@@ -37,6 +37,9 @@
                         <mat-option *ngFor="let category of categories"
                             [value]="category">{{category.name}}</mat-option>
                     </mat-select>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required')">
+                        Thể loại không được để trống
+                    </mat-error>
                 </mat-form-field>
                 <!-- /Thể loại -->
 
@@ -46,6 +49,9 @@
                     <mat-select formControlName="national">
                         <mat-option *ngFor="let nation of nations" [value]="nation">{{nation.nameVi}}</mat-option>
                     </mat-select>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required')">
+                        Quốc gia không được để trống
+                    </mat-error>
                 </mat-form-field>
                 <!-- /Quốc gia -->
 
@@ -60,12 +66,6 @@
                 <!-- /Thời lượng -->
 
                 <!-- Ngày bắt đầu -->
-                <!-- <mat-form-field appearance="outline">
-                    <mat-label>Ngày bắt đầu</mat-label>
-                    <input type="date" formControlName="startDate" matInput>
-                </mat-form-field> -->
-                <!-- /Ngày bắt đầu -->
-
                 <mat-form-field appearance="outline">
                     <mat-label>Ngày bắt đầu</mat-label>
                     <input matInput [matDatepicker]="startDate" formControlName="startDate">
@@ -74,10 +74,6 @@
                 </mat-form-field>
 
                 <!-- Ngày kết thúc -->
-                <!-- <mat-form-field appearance="outline">
-                    <mat-label>Ngày kết thúc</mat-label>
-                    <input type="date" formControlName="endDate"  matInput>
-                </mat-form-field> -->
                 <mat-form-field appearance="outline">
                     <mat-label>Ngày kết thúc</mat-label>
                     <input matInput [matDatepicker]="endDate" formControlName="endDate">

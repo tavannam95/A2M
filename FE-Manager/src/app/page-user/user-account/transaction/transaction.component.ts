@@ -9,11 +9,12 @@ import { BillService } from 'app/services/bill/bill.service';
 export class TransactionComponent implements OnInit {
 
   isLoading = true;
-  showBillDetails = false;
+  showBillDetailsIndex: number | null = null;
 
   bills: any;
   countTickets: any;
-
+  barCodeImg = "https://barcode.tec-it.com/barcode.ashx?data=";
+  barCodeSub = "&code=EAN8";
   constructor(
     private billService: BillService
   ) { }
@@ -30,14 +31,15 @@ export class TransactionComponent implements OnInit {
         if (this.bills.length > 0) {
           this.bills.forEach((element) => {
             element.countTickets = element.listTickets.length;
+          
           })
           this.isLoading = false;
         }
       })
   }
 
-  toggleBillDetails() {
-    this.showBillDetails = !this.showBillDetails;
+  toggleBillDetails(index: number) {
+    this.showBillDetailsIndex = this.showBillDetailsIndex === index ? null : index;
   }
 
 }

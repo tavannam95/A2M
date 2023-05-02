@@ -31,4 +31,16 @@ export class AccountService {
   updateUser(data:any){
     return this.apiService.updateUser(data);
   }
+
+  getPassword(){
+    return this.apiService.getPassword();
+  }
+  
+  updatePassword(data:any){
+    return this.apiService.updatePassword(data);
+  }
+
+  checkPassword(data:any){
+    return this.apiService.checkPassword(data);
+  }
 }

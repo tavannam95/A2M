@@ -34,6 +34,18 @@ export class AccountApiService {
   }
 
   updateUser(data: any): Observable<any> {
-    return this.http.put<any>(`${ApiConstant.movie}/updateUser`, data, {headers: headers});
+    return this.http.put<any>(ApiConstant.account+"/updateUser", data, {headers: headers});
+  }
+
+  getPassword(): Observable<any> {
+    return this.http.get<any>(ApiConstant.account+"/userPassword", {headers: headers});
+  }
+
+  updatePassword(data: any): Observable<any> {
+    return this.http.put<any>(ApiConstant.account+"/updatePassword", data, {headers: headers});
+  }
+
+  checkPassword(data: any): Observable<any> {
+    return this.http.post<any>(ApiConstant.account+"/checkPassword", data,{headers: headers});
   }
 }

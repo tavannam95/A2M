@@ -15,6 +15,9 @@ import { AccountModule } from './page/account/account.module';
 import { ToastrModule } from 'ngx-toastr';
 import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
 import { TestCookieComponent } from './page-user/test-cookie/test-cookie.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -32,6 +35,7 @@ import { TestCookieComponent } from './page-user/test-cookie/test-cookie.compone
     MatAutocompleteModule,
     NgxDropzoneModule,
     AccountModule,
+    MatNativeDateModule,
     ToastrModule.forRoot({
       maxOpened: 1,
       preventDuplicates: true,
@@ -41,6 +45,8 @@ import { TestCookieComponent } from './page-user/test-cookie/test-cookie.compone
       resetTimeoutOnDuplicate: true
     }),
     MatAutocompleteModule,
+    MatRadioModule,
+    MatDatepickerModule,
   ],
   declarations: [
     AppComponent,

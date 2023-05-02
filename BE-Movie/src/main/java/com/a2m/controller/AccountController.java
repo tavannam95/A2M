@@ -92,15 +92,27 @@ public class AccountController {
 	@GetMapping(value = "/userLogin")
 	public AccountDTO getUser() {
 		Accounts accounts = SecurityUtils.getLoggedUser().get();
-		System.out.println("email"+accounts.getEmail());
-		System.out.println("ac: "+accounts);
-		System.out.println("data: "+accountDTOMapper.apply(accounts));
 		return accountDTOMapper.apply(accounts);
 	}
 	
 	@PutMapping("/updateUser")
 	public Accounts updateUser(@RequestBody Accounts accounts) {
-		System.out.println("abc");
 		return accountService.updateUser(accounts);
+	}
+	
+	@GetMapping(value = "/userPassword")
+	public Accounts getPassword() {
+		Accounts accounts = SecurityUtils.getLoggedUser().get();
+		return accounts;
+	}
+	
+	@PutMapping("/updatePassword")
+	public Accounts updatePassword(@RequestBody Accounts accounts) {
+		return accountService.updatePassword(accounts);
+	}
+	
+	@PostMapping("/checkPassword")
+	public Boolean checkPassword(@RequestBody String oldPassword) {
+		return accountService.checkPassword(oldPassword);
 	}
 }

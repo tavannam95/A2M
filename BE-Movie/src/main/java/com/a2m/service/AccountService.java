@@ -11,4 +11,7 @@ public interface AccountService {
 
 	Accounts updateUser(Accounts accouns);
 	
+	Accounts updatePassword(Accounts accounts);
+	
+	Boolean checkPassword(String oldPassword);
 }

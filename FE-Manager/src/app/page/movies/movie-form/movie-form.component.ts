@@ -35,8 +35,8 @@ export class MovieFormComponent implements OnInit {
   formGroup = this.fb.group({
     id: [''],
     name: ['', [Validators.required, Validators.pattern(Regex.unicodeAndNumber)]],
-    category: [null],
-    national: [null],
+    category: [null, [Validators.required]],
+    national: [null, [Validators.required]],
     time: ['', [Validators.required, Validators.pattern(Regex.number)]],
     poster: [''],
     startDate: [null],
@@ -122,7 +122,7 @@ export class MovieFormComponent implements OnInit {
         if (this.dataDialog.type === "create") {
           this.movieService.createMovie(this.formGroup.value).subscribe({
             next: res => {
-              this.toastrService.success(res.message);
+              this.toastrService.success('Thêm thành công');
               this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
               this.isLoading = false;
               console.log(res);
@@ -137,7 +137,7 @@ export class MovieFormComponent implements OnInit {
 
           this.movieService.updateMovie(this.formGroup.value).subscribe({
             next: res => {
-              this.toastrService.success(res.message);
+              this.toastrService.success('Cập nhật thành công');
               this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
               this.isLoading = false;
 
