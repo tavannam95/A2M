@@ -37,8 +37,8 @@ public class AccountController {
 
 	private AccountServiceImpl accountServiceImpl;
 
-	@Autowired(required = true)
-	private BCryptPasswordEncoder passwordEncoder;
+//	@Autowired(required = true)
+//	private BCryptPasswordEncoder passwordEncoder;
 
 //	public AccountController() {
 //		
