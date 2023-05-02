@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,17 +41,7 @@ public class AccountController {
 //	@Autowired(required = true)
 //	private BCryptPasswordEncoder passwordEncoder;
 
-//	public AccountController() {
-//		
-//	}
-//	
-//	public AccountController(BCryptPasswordEncoder passwordEncoder, AccountService accountService, AccountServiceImpl accountServiceImpl, AccountsRepository accountRepository) {
-////        this.userService = userService;
-//        this.passwordEncoder = passwordEncoder;
-//        this.accountRepository = accountRepository;
-//        this.accountService = accountService;
-//        this.accountServiceImpl = accountServiceImpl;
-//    }
+
 	
 	@GetMapping("/getAll")
 	public DataResponse<List<Accounts>> findAll() {
@@ -87,7 +78,7 @@ public class AccountController {
 			}
 		}
 		accounts.setIsDelete(false);
-//		accounts.setPassword(bCryptPasswordEncoder.encode(accounts.getPassword()));
+		accounts.setPassword(passwordEncoder.encode(accounts.getPassword()));
 		return new DataResponse<>(true, "Thêm mới thành công", accountRepository.save(accounts));
 	}
 

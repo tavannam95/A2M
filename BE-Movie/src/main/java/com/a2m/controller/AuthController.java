@@ -51,6 +51,7 @@ public class AuthController {
 
 //	@Autowired(required = true)
 //	private BCryptPasswordEncoder passwordEncoder;
+
 	
 	@GetMapping("/hello")
 	public String get() {
@@ -103,7 +104,7 @@ public class AuthController {
 		}
 		accounts.setIsDelete(false);
 //		accounts.setRole
-//		accounts.setPassword(bCryptPasswordEncoder.encode(accounts.getPassword()));
+		accounts.setPassword(passwordEncoder.encode(accounts.getPassword()));
 		return new DataResponse<>(true, "Success", this.accountsRepository.save(accounts));
 	}
 	
