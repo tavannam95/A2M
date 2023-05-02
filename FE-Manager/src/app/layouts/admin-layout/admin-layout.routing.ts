@@ -14,6 +14,7 @@ import { AccountListComponent } from 'app/page/account/account-list/account-list
 import { BillListComponent } from 'app/page/bill/bill-list/bill-list.component';
 import { ShowtimeListComponent } from 'app/page/showtime/showtime-list/showtime-list.component';
 import { TicketListComponent } from 'app/page/ticket/ticket-list/ticket-list.component';
+import { RoleGuard } from 'app/guard/role.guard';
 
 export const AdminLayoutRoutes: Routes = [
     
@@ -31,4 +32,61 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'bill', component: BillListComponent },
     { path: 'showtime', component: ShowtimeListComponent },
     { path: 'ticket', component: TicketListComponent },
+
+    {
+        path: 'dashboard', component: DashboardComponent, data: {
+            role: 'ROLE_EMPLOYEE',
+            message: 'Bạn không có quyền truy cập chúc năng này !'
+        },
+        canActivate: [RoleGuard],
+    },
+    {
+        path: 'notifications', component: NotificationsComponent, data: {
+            role: 'ROLE_EMPLOYEE',
+            message: 'Bạn không có quyền truy cập chúc năng này !'
+        },
+        canActivate: [RoleGuard],
+    },
+    {
+        path: 'movie', component: MovieListComponent, data: {
+            role: 'ROLE_EMPLOYEE',
+            message: 'Bạn không có quyền truy cập chúc năng này !'
+        },
+        canActivate: [RoleGuard],
+    },
+    {
+        path: 'room', component: RoomListComponent, data: {
+            role: 'ROLE_ADMINSTRATOR',
+            message: 'Bạn không có quyền truy cập chúc năng này !'
+        },
+        canActivate: [RoleGuard],
+    },
+    {
+        path: 'account', component: AccountListComponent, data: {
+            role: 'ROLE_ADMINSTRATOR',
+            message: 'Bạn không có quyền truy cập chúc năng này !'
+        },
+        canActivate: [RoleGuard],
+    },
+    {
+        path: 'bill', component: BillListComponent, data: {
+            role: 'ROLE_EMPLOYEE',
+            message: 'Bạn không có quyền truy cập chúc năng này !'
+        },
+        canActivate: [RoleGuard],
+    },
+    {
+        path: 'showtime', component: ShowtimeListComponent, data: {
+            role: 'ROLE_EMPLOYEE',
+            message: 'Bạn không có quyền truy cập chúc năng này !'
+        },
+        canActivate: [RoleGuard],
+    },
+    {
+        path: 'ticket', component: TicketListComponent, data: {
+            role: 'ROLE_EMPLOYEE',
+            message: 'Bạn không có quyền truy cập chúc năng này !'
+        },
+        canActivate: [RoleGuard],
+    },
 ];

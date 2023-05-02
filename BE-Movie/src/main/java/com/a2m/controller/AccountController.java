@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,32 +42,32 @@ public class AccountController {
 	
 	private AccountDTOMapper accountDTOMapper;
 
-//	@Autowired
+//	@Autowired(required = true)
 //	private BCryptPasswordEncoder passwordEncoder;
 
+
+	
 	@GetMapping("/getAll")
 	public DataResponse<List<Accounts>> findAll() {
-		List<AccountInfor> accountinforList = new ArrayList<>();
+		List<Accounts> accountinforList = new ArrayList<>();
 		List<Accounts> accountsList = this.accountRepository.findAll();
-//		for (Accounts a : accountsList) {
-//			if(a.getIsDelete() == null) {
-//				continue;
-//			}
-//			else if (a.getIsDelete() == false) {
-//				AccountInfor account = new AccountInfor();
-//				account.setId(a.getId());
-//				account.setFullname(a.getFullname());
-//				account.setUsername(a.getUsername());
-//				account.setPassword(a.getPassword());
-//				account.setEmail(a.getEmail());
-//				account.setBirthDate(a.getBirthDate());
-//				account.setGender(a.getGender());
-//				account.setRoles(a.getRole().getName());
-//				accountinforList.add(account);
-//			}
-//		}
-//		return new DataResponse<>(true, "Thành công", accountsList);
-		return new DataResponse<>(true, "Thành công", this.accountRepository.findAll());
+		for (Accounts a : accountsList) {
+			if(a.getIsDelete() == null || a.getIsDelete() == true) {
+				continue;
+			}
+			else if(a.getBirthDate() == null) {
+				continue;
+			}
+			else if(a.getRole() == null) {
+				continue;
+			}
+			else {
+				accountinforList.add(a);
+				System.out.println(a.getId());
+			}
+		}
+		return new DataResponse<>(true, "Thành công", accountinforList);
+//		return new DataResponse<>(true, "Thành công", this.accountRepository.findAll());
 	}
 
 	@PostMapping("/createAccount")
@@ -81,11 +82,13 @@ public class AccountController {
 			}
 		}
 		accounts.setIsDelete(false);
+		accounts.setPassword(passwordEncoder.encode(accounts.getPassword()));
 		return new DataResponse<>(true, "Thêm mới thành công", accountRepository.save(accounts));
 	}
 
 	@PutMapping("/updateAccount")
 	public DataResponse<Accounts> updateaccount(@RequestBody Accounts accounts) {
+		System.out.println(accounts.getBirthDate());
 		return new DataResponse<>(true, "Sửa thông tin thành công", accountService.updateAccount(accounts));
 	}
 	

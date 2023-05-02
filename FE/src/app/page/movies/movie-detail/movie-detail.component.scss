@@ -1,0 +1,20 @@
+form{
+    .poster{
+        img{
+            width: 100%;
+        }
+    }
+    table{
+        tbody{
+            td{
+                padding-left: 10px;
+            }            
+        }
+    }
+    .description{
+        color: black;
+        .title{
+            text-align: center;
+        }
+    }
+}

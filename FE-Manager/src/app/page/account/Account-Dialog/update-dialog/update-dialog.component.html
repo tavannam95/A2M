@@ -28,27 +28,19 @@
                 <!-- Username -->
                 <mat-form-field appearance="outline">
                     <mat-label>Username</mat-label>
-                    <input type="text" formControlName="username" matInput>
-                    <mat-error class="text-danger" *ngIf="formGroupUpdate.get('username')?.hasError('required') &&
-                                        formGroupUpdate.get('username')?.touched">
-                        Tên đăng nhập không đúng
-                    </mat-error>
+                    <input type="text" formControlName="username" matInput readonly>
                 </mat-form-field>
 
                 <!-- Email -->
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input type="text" formControlName="email" matInput>
-                    <mat-error class="text-danger" *ngIf="formGroupUpdate.get('email')?.hasError('required') &&
-                                        formGroupUpdate.get('email')?.touched">
-                        Email không đúng
-                    </mat-error>
+                    <input type="text" formControlName="email" matInput readonly>
                 </mat-form-field>
 
                 <!-- Birthday -->
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="outline">
                     <mat-label>Choose a Birthday</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="birth_date" matInput>
+                    <input type="text" matInput [matDatepicker]="picker" formControlName="birthDate" matInput>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -56,7 +48,7 @@
                 <!-- Gender -->
                 <mat-form-field appearance="fill">
                     <mat-label>Gender</mat-label>
-                    <mat-select [(value)]="selected">
+                    <mat-select [(value)]="selected" formControlName="gender">
                         <mat-option value="Female">Female</mat-option>
                         <mat-option value="Male">Male</mat-option>
                     </mat-select>

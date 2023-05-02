@@ -1,0 +1,67 @@
+<h1 class="text-center h2 font-weight-bold" mat-dialog-title>{{movie.name}}</h1>
+<div mat-dialog-content>
+
+    <form class="mb-0">
+        <div class="row">  
+            <div class="col-4">
+                <!-- Poster Column -->
+                <div class="poster">
+                    <img src="{{movie.poster}}" alt="">
+                </div>
+            </div>
+            <div class="col-8">
+                <table>
+                    <!-- <thead>{{movie.name}}</thead> -->
+                    <tbody>
+                        <tr>
+                            <th>Thể loại</th>
+                            <td>{{movie.category.name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Quốc gia</th>
+                            <td>{{movie.national.nameVi}}</td>
+                        </tr>
+                        <tr>
+                            <th>Khởi chiếu</th>
+                            <td>{{movie.startDate | date: 'dd/MM/yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày kết thúc</th>
+                            <td>{{movie.endDate | date: 'dd/MM/yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Thời lượng</th>
+                            <td>{{movie.time}} phút</td>
+                        </tr>
+                        <tr>
+                            <th>Trạng thái</th>
+                            <td>
+                                <div *ngIf="!movie.delete" >
+                                <div [ngSwitch]="movie.status">
+                                  <span *ngSwitchCase=0 [style.color]="'red'"> Đã chiếu</span>
+                                  <span *ngSwitchCase=1 [style.color]="'blue'"> Đang chiếu</span>
+                                  <span *ngSwitchCase=2 [style.color]="'green'"> Sắp chiếu</span>
+                                </div>
+                              </div>
+                              <div *ngIf="movie.delete">
+                                Đã xoá
+                              </div>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <!-- end -->
+        </div>
+        <hr>
+        <div class="description">
+            <div class="title"><h3>Mô tả</h3></div>
+            <div class="summary">{{movie.summary}}</div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button class="btn btn-success" (click)="openDialogForm('update',movie)" mat-button>Sửa thông tin</button>
+    <button class="btn btn-dark" mat-button mat-dialog-close>Thoát</button>
+</div>

@@ -1,0 +1,52 @@
+    .main {
+        margin: 45px 0px;
+
+        .col-3,
+        .col-9 {
+            padding: 0px;
+        }
+
+        .info {
+            padding-left: 40px;
+            padding-top: 2px;
+
+            .title {
+                background: #191818;
+                color: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 51px;
+                font-size: 25px;
+            }
+
+            .person-info {
+                padding: 15px;
+
+                .avt {
+                    display: flex;
+                    justify-content: center;
+                    padding-top: 10px;
+
+                    img {
+                        width: 100px;
+                        height: 100px;
+                        border: 2px solid black;
+                        border-radius: 50px;
+                        overflow: hidden;
+                    }
+                }
+
+                .sub-info {
+                    table {
+                        font-size: 17px;
+
+                        tr {
+                            height: 30px;
+                        }
+                    }
+                }
+            }
+        }
+
+    }

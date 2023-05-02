@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Constant } from 'app/constants/Constant';
 import { ShowtimeFormComponent } from '../showtime-form/showtime-form.component';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
+import { ShowtimesDetailComponent } from '../showtimes-detail/showtimes-detail.component';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class ShowtimeListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['id', 'nameMovie', 'room_id', 'date', 'timeStart', 'timeEnd', 'createDate', 'delete'];
+  displayedColumns: string[] = ['id', 'nameMovie', 'room_id', 'date', 'timeStart', 'timeEnd', 'createDate', 'delete', 'func'];
 
   dayArray: string[] = [];
 
@@ -51,7 +52,7 @@ export class ShowtimeListComponent implements OnInit {
   getAllShowtimes() {
     this.showtimesService.getAllShowtimes().subscribe({
       next: res => {
-        // console.log(res.data)
+        console.log(res.data)
         res.data.forEach((data) => {
           data.date = new Date(data.date).toLocaleDateString()
           data.timeStart = new Date(data.timeStart).toLocaleDateString() + ' ' + new Date(data.timeStart).toLocaleTimeString('en-US', { hour12: false })
@@ -66,7 +67,7 @@ export class ShowtimeListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.dataArray = res.data;
-        // console.log(res)
+        console.log(res)
       },
       error: e => {
         console.log(e);
@@ -132,4 +133,18 @@ export class ShowtimeListComponent implements OnInit {
     })
   }
 
+  openDialogShowtimesView(type: any, row: any){
+    this.matDialog.open(ShowtimesDetailComponent, {
+      disableClose: true,
+      data: {
+        type,
+        row
+      },
+      width: '2000px'
+    }).afterClosed().subscribe(result => {
+      if (result === Constant.RESULT_CLOSE_DIALOG.SUCCESS) {
+        // ----------------------After close----------------------
+      }
+    })
+  }
 }

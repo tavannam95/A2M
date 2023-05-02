@@ -1,0 +1,15 @@
+<form>
+  <input type="file" (change)="onFileSelected($event)" #fileInput>
+  <button type="submit" (click)="upload()">Upload</button>
+</form>
+
+<ngx-dropzone (change)="onSelect($event)">
+  <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+	<ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+	</ngx-dropzone-preview>
+</ngx-dropzone>
+
+<button type="submit" (click)="uploadDrop()">Upload</button>
+<br>
+<button (click)="checkRes()">Check Res</button>

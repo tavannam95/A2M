@@ -10,17 +10,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
-
-import { AppComponent } from 'app/app.component';
-
+import { FormsModule } from '@angular/forms';
+import { ChangePassComponent } from './change-pass/change-pass.component';
+import { SavePassComponent } from './change-pass/save-pass/save-pass.component'; 
 
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ChangePassComponent,
+    SavePassComponent
   ],
   imports: [
     CommonModule,

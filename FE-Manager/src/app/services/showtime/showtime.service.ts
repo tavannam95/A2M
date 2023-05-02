@@ -5,7 +5,6 @@ import { PeriodicElement } from 'app/page/showtime/showtime-form/showtime-form.c
 import { HeadersUtil } from 'app/util/headers-util';
 import { Observable } from 'rxjs';
 
-const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
 
 
 @Injectable({
@@ -17,56 +16,70 @@ constructor(private http: HttpClient) { }
 
 
   today():Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/today`,{headers: headers});
   }
   getAllShowtimes(): Observable<any> {
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/getAllShowtimes`,{headers: headers});
   }
 
   getMoviesByDate(date: string): Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/getMoviesByDate?date=`+date,{headers: headers});
   }
 
   getAllRooms(): Observable<any> {
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/getAllRooms`,{headers: headers});
   }
 
   getShowTimeByDate(date: string, id: number): Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/getShowTimeByDate?date=`+date+`&id=`+id,{headers: headers});
   }
 
   saveShowtime(data: any): Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.post<any>(`${ApiConstant.showtime}/saveShowtimes`, data,{headers: headers});
   }
 
   updateData(data: any): Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.put<any>(`${ApiConstant.showtime}/updateData`, data,{headers: headers});
   }
 
   getShowtimesByDate(date: string): Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/getShowtimesByDate?date=`+date,{headers: headers});
   }
 
   getShowtimesByIDRoom(id: number): Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/getShowtimesByID?id=`+id,{headers: headers});
   }
 
   getShowTimeByDateAndID(date: string, id: number): Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/getShowTimeByDateAndID?date=`+date+`&id=`+id,{headers: headers});
   }
   getAllShowtimeActive():Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/all-active`,{headers: headers});
   }
 
   findByMovie(idMovie: number):Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/${idMovie}`,{headers: headers});
   }
 
   getShowtimeByMovieAndDate(idMovie: number, date: any):Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.post<any>(`${ApiConstant.showtime}/time/${idMovie}`,date,{headers: headers});
   }
 
   findById(showtimeId: any):Observable<any>{
+const headers: HttpHeaders = HeadersUtil.getHeadersAuth();
     return this.http.get<any>(`${ApiConstant.showtime}/id/${showtimeId}`,{headers: headers});
   }
 }

@@ -1,0 +1,28 @@
+<div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-danger spinner-center" role="status"></div>
+  </div>
+<div class="register-container">
+    <div class="register-box">
+        <h2>Đặt lại mật khẩu</h2>
+        <form [formGroup]="changePassForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" formControlName="username">
+                <div *ngIf="username.touched && username.invalid" class="error-message">
+                    <div *ngIf="username.errors.required">Họ và tên không được để trống</div>
+                    <div *ngIf="username.errors.minlength">Họ và tên phải có ít nhất 2 ký tự</div>
+                    <div *ngIf="username.errors.maxlength">Họ và tên không được quá 50 ký tự</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" formControlName="email">
+                <div *ngIf="email.touched && email.invalid" class="error-message">
+                    <div *ngIf="email.errors.required">Email không được để trống</div>
+                    <div *ngIf="email.errors.email">Email không hợp lệ</div>
+                </div>
+            </div>
+            <button type="submit" [disabled]="changePassForm.invalid">Kiểm tra</button>
+        </form>
+    </div>
+</div>

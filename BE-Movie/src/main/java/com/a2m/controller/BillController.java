@@ -44,6 +44,26 @@ public class BillController {
 		return billRepository.findById(id).get();
 	}
 
+	@PutMapping("/print-ticket/{billId}")
+	public DataResponse<Bills> update(@PathVariable("billId") Long billId){
+		Bills bills = this.billRepository.findById(billId).get();
+		bills.setStatus(1);
+		return new DataResponse<>(true,"Cập nhật thành công", this.billRepository.save(bills));
+	}
+
+	@GetMapping("barcode/{barcode}")
+	public DataResponse<Bills> findByBarcode(@PathVariable("barcode") String barcode){
+		Bills bills = this.billRepository.findByBarCode(barcode);
+		if (bills == null){
+			return new DataResponse<>(false,"Hóa đơn không tồn tại",null);
+		}
+		if (bills.getStatus()==1){
+			return new DataResponse<>(false,"Hóa đơn này đã được in vé trước đó",bills);
+		}
+		return new DataResponse<>(true,"Thành công",bills);
+
+	}
+
 	@PostMapping("/create")
 	DataResponse<Bills> create(@RequestBody BillRequest billRequest){
 		return new DataResponse<>(true,"Đặt vé thành công",this.billService.createBill(billRequest));

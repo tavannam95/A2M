@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
 // import { TableShowtimesDialogComponent } from '../showtime-dialog/table-showtimes-dialog/table-showtimes-dialog.component';
 import { event } from 'jquery';
+import { JwtService } from 'app/services/jwt/jwt.service';
 @Component({
   selector: 'app-showtime-form',
   templateUrl: './showtime-form.component.html',
@@ -78,29 +79,23 @@ export class ShowtimeFormComponent implements OnInit {
     private toastrService: ToastrService,
     private showtimesService: ShowtimeService,
     private matDialogRef: MatDialogRef<ShowtimeFormComponent>,
+    private jwtService: JwtService,
   ) { }
 
   ngOnInit() {
-    (this.day.getMonth() + 1 < 10) ? this.dayArray.push(this.day.getFullYear() + '-0' + (this.day.getMonth() + 1) + '-' + this.day.getDate())
-      : this.dayArray.push(this.day.getFullYear() + '-' + (this.day.getMonth() + 1) + '-' + this.day.getDate());
-    this.day2.setDate(this.day.getDate() + 1);
-    (this.day.getMonth() + 1 < 10) ? this.dayArray.push(this.day2.getFullYear() + '-0' + (this.day2.getMonth() + 1) + '-' + this.day2.getDate())
-      : this.dayArray.push(this.day2.getFullYear() + '-' + (this.day2.getMonth() + 1) + '-' + this.day2.getDate());
-    this.day3.setDate(this.day2.getDate() + 1);
-    (this.day3.getMonth() + 1 < 10) ? this.dayArray.push(this.day3.getFullYear() + '-0' + (this.day3.getMonth() + 1) + '-' + this.day3.getDate())
-      : this.dayArray.push(this.day3.getFullYear() + '-' + (this.day3.getMonth() + 1) + '-' + this.day3.getDate());
-    this.day4.setDate(this.day3.getDate() + 1);
-    (this.day.getMonth() + 1 < 10) ? this.dayArray.push(this.day4.getFullYear() + '-0' + (this.day4.getMonth() + 1) + '-' + this.day4.getDate())
-      : this.dayArray.push(this.day4.getFullYear() + '-' + (this.day4.getMonth() + 1) + '-' + this.day4.getDate());
-    this.day5.setDate(this.day4.getDate() + 1);
-    (this.day.getMonth() + 1 < 10) ? this.dayArray.push(this.day5.getFullYear() + '-0' + (this.day5.getMonth() + 1) + '-' + this.day5.getDate())
-      : this.dayArray.push(this.day5.getFullYear() + '-' + (this.day5.getMonth() + 1) + '-' + this.day5.getDate());
-    this.day6.setDate(this.day5.getDate() + 1);
-    (this.day.getMonth() + 1 < 10) ? this.dayArray.push(this.day5.getFullYear() + '-0' + (this.day5.getMonth() + 1) + '-' + this.day5.getDate())
-      : this.dayArray.push(this.day5.getFullYear() + '-' + (this.day5.getMonth() + 1) + '-' + this.day5.getDate());
-    this.day7.setDate(this.day6.getDate() + 1);
-    (this.day.getMonth() + 1 < 10) ? this.dayArray.push(this.day6.getFullYear() + '-0' + (this.day6.getMonth() + 1) + '-' + this.day6.getDate())
-      : this.dayArray.push(this.day6.getFullYear() + '-' + (this.day6.getMonth() + 1) + '-' + this.day6.getDate());
+    this.dayArray.push(this.day.getFullYear()+'-'+(this.day.getMonth()+1)+'-'+this.day.getDate())
+    this.day2.setTime(this.day.getTime()+24*60*60*1000);
+    this.dayArray.push(this.day2.getFullYear()+'-'+(this.day2.getMonth()+1)+'-'+this.day2.getDate())
+    this.day3.setTime(this.day2.getTime()+24*60*60*1000);
+    this.dayArray.push(this.day3.getFullYear()+'-'+(this.day3.getMonth()+1)+'-'+this.day3.getDate())
+    this.day4.setTime(this.day3.getTime()+24*60*60*1000);
+    this.dayArray.push(this.day4.getFullYear()+'-'+(this.day4.getMonth()+1)+'-'+this.day4.getDate())
+    this.day5.setTime(this.day4.getTime()+24*60*60*1000);
+    this.dayArray.push(this.day5.getFullYear()+'-'+(this.day5.getMonth()+1)+'-'+this.day5.getDate())
+    this.day6.setTime(this.day5.getTime()+24*60*60*1000);
+    this.dayArray.push(this.day6.getFullYear()+'-'+(this.day6.getMonth()+1)+'-'+this.day6.getDate())
+    this.day7.setTime(this.day6.getTime()+24*60*60*1000);
+    this.dayArray.push(this.day7.getFullYear()+'-'+(this.day7.getMonth()+1)+'-'+this.day7.getDate())
     this.getRoom();
     this.selectRoom(null);
   }
@@ -111,12 +106,13 @@ export class ShowtimeFormComponent implements OnInit {
     this.dataList.forEach((data) => {
       this.showtimesService.updateData(data).subscribe({
         next: res => {
-          // console.log(res);
+          console.log(data);
           this.matDialogRef.close()
           this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
           if (res.status === true) {
             this.toastrService.success(res.message);
             this.isLoading = false;
+            window.location.reload();
           }
           else {
             this.isLoading = false;
@@ -142,7 +138,7 @@ export class ShowtimeFormComponent implements OnInit {
 
 
   selectRoom(event: any) {
-    console.log('===================');
+    // console.log('===================');
     
     console.log(event);
     
@@ -235,12 +231,12 @@ export class ShowtimeFormComponent implements OnInit {
       })
     }
     if (flag == 1) {
-      this.dataList.push({ movie: { id: this.select_movies, name: this.data1[0].name }, rooms: { id: this.select_room }, date: startTime.toLocaleDateString(), timeStart: startTime.toLocaleDateString() + ' ' + startTime.toLocaleTimeString('en-US', {hour12: false}), timeEnd: endTime.toLocaleDateString() + ' ' + endTime.toLocaleTimeString('en-US', {hour12: false}), createDate: createTime.toLocaleDateString(), delete: false, updateDate: createTime.toLocaleDateString() })
+      this.dataList.push({ movie: { id: this.select_movies, name: this.data1[0].name }, room: { id: this.select_room }, date: startTime.toLocaleDateString(), timeStart: startTime.toLocaleDateString() + ' ' + startTime.toLocaleTimeString('en-US', {hour12: false}), timeEnd: endTime.toLocaleDateString() + ' ' + endTime.toLocaleTimeString('en-US', {hour12: false}), createDate: createTime.toLocaleDateString(), isDelete: false, updateDate: createTime.toLocaleDateString(), createBy: this.jwtService.decode().sub})
     }
-    this.dataSource = new MatTableDataSource<any>(this.dataList.filter((data) => data.delete === false));
+    this.dataSource = new MatTableDataSource<any>(this.dataList.filter((data) => data.isDelete === false));
     // this.dataSource.renderRow()
-    // console.log(this.dataList);
-    // console.log(this.dataSource);
+    console.log(this.dataList);
+    console.log(this.dataSource);
   }
 
   getDelete(element: any) {
@@ -253,8 +249,9 @@ export class ShowtimeFormComponent implements OnInit {
     let updateDate = new Date();
     this.dataList.forEach((data) => {
       if (data.timeStart === element.timeStart) {
-        data.delete = true;
+        data.isDelete = true;
         data.updateDate = updateDate.toLocaleDateString();
+        data.updateBy = this.jwtService.decode().sub;
       }
     })
   }
@@ -263,12 +260,14 @@ export class ShowtimeFormComponent implements OnInit {
 export interface PeriodicElement {
   // id: number;
   movie: { id: number, name: string };
-  rooms: { id: number };
+  room: { id: number };
   // nameMovie?: string;
   date?: string;
   timeStart?: string;
   timeEnd?: string;
   createDate?: string;
-  delete?: boolean;
+  isDelete?: boolean;
   updateDate?: string;
+  createBy?: string;
+  updateBy?: string;
 }

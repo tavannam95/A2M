@@ -2,7 +2,8 @@ package com.a2m.controller;
 
 import com.a2m.model.response.DataResponse;
 import com.a2m.service.CloudinaryService;
-import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,13 +14,16 @@ import java.util.Map;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/image")
-@AllArgsConstructor
 public class CloudinaryController {
     private final CloudinaryService cloudinaryService;
 
-    @PostMapping("/upload")
-    public DataResponse<?>upload(@RequestParam("files")MultipartFile[] files) throws IOException{
-        return new DataResponse<>(true,"Tải lên ảnh thành công", this.cloudinaryService.upload(files));
+    public CloudinaryController(CloudinaryService cloudinaryService) {
+        this.cloudinaryService = cloudinaryService;
+    }
+
+    @PostMapping("upload")
+    public ResponseEntity<?> upload(@RequestParam("files") MultipartFile[] files) throws IOException {
+        return new ResponseEntity<>(cloudinaryService.upload(files), HttpStatus.OK);
     }
 
     @DeleteMapping("/{publicId}")

@@ -30,21 +30,16 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         return this.showtimesRepository.findAll();
     }
 
-    @Override
-    public List<Movies> getMovieByDate(Date date) {
-        return this.showtimesRepository.getMoviesByDate(date);
-    }
+//    @Override
+//    public List<Movies> getMovieByDate(Date date) {
+//        return this.showtimesRepository.getMoviesByDate(date);
+//    }
 
     @Override
     public List<Showtimes> getShowTimeByDate(Date date, int id) {
         return this.showtimesRepository.getShowTimeByDate(date, id);
     }
 
-//	@Override
-//	public List<Showtimes> getShowtimesByDate(String date) {
-//		// TODO Auto-generated method stub
-//		return this.showtimesRepository.getShowTimesByDate(date);
-//	}
     public List<ShowtimeResponse> getAllShowtimeActive() {
         return this.showtimesRepository.getAllShowtimeActive();
     }
@@ -55,8 +50,18 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         return this.showtimesRepository.findByMovie(idMovie, today);
     }
 
-    @Override
-    public List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date) {
-        return this.showtimesRepository.getShowtimeByMovieAndDate(idMovie,date);
-    }
+//    @Override
+//    public List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date) {
+//        return this.showtimesRepository.getShowtimeByMovieAndDate(idMovie,date);
+//    }
+
+	@Override
+	public List<Movies> getMovieByDate(Date date) {
+		return this.showtimesRepository.getMoviesByDate(date);
+	}
+
+@Override
+public List<Showtimes> getShowtimeByMovieAndDate(Long idMovie, Date date) {
+	return this.showtimesRepository.getShowtimeByMovieAndDate(idMovie,date);
+}
 }

@@ -1,0 +1,31 @@
+form {
+    .row {
+        padding: 0px 40px;
+        .title{
+            width: 100%;
+            text-align: center;
+            border-bottom: 2px solid #363434c7;
+            border-top: 2px solid #363434c7;
+        }
+        .info-ticket{
+            padding: 10px 0px;
+            width: 100%;
+            border-bottom: 2px solid #363434c7;
+            table {
+                width: 100%;
+                tbody {
+                    margin-left: 10px;
+    
+                    tr {
+                        height: 30px;
+                        th {
+                            width: 60%;
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+
+}

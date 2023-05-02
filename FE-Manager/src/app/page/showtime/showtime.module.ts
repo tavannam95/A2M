@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatCardModule } from '@angular/material/card';
+import { ShowtimesDetailComponent } from './showtimes-detail/showtimes-detail.component';
 // import { TableShowtimesDialogComponent } from './showtime-dialog/table-showtimes-dialog/table-showtimes-dialog.component';
 
 
@@ -22,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
   declarations: [
     ShowtimeFormComponent,
     ShowtimeListComponent,
+    ShowtimesDetailComponent,
     // TableShowtimesDialogComponent
   ],
   imports: [
