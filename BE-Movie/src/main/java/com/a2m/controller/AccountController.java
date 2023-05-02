@@ -38,20 +38,10 @@ public class AccountController {
 
 	private AccountServiceImpl accountServiceImpl;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+//	@Autowired(required = true)
+//	private BCryptPasswordEncoder passwordEncoder;
 
-//	public AccountController() {
-//		
-//	}
-//	
-//	public AccountController(BCryptPasswordEncoder passwordEncoder, AccountService accountService, AccountServiceImpl accountServiceImpl, AccountsRepository accountRepository) {
-////        this.userService = userService;
-//        this.passwordEncoder = passwordEncoder;
-//        this.accountRepository = accountRepository;
-//        this.accountService = accountService;
-//        this.accountServiceImpl = accountServiceImpl;
-//    }
+
 	
 	@GetMapping("/getAll")
 	public DataResponse<List<Accounts>> findAll() {

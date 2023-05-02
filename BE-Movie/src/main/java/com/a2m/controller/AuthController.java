@@ -49,8 +49,9 @@ public class AuthController {
 	
 	AccountsRepository accountsRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+//	@Autowired(required = true)
+//	private BCryptPasswordEncoder passwordEncoder;
+
 	
 	@GetMapping("/hello")
 	public String get() {
@@ -89,11 +90,16 @@ public class AuthController {
 	public DataResponse<Accounts> createAccounts(@RequestBody Accounts accounts) {
 		List<Accounts> account = this.accountsRepository.findAll();
 		for (Accounts a : account) {
-			if (a.getEmail().contentEquals(accounts.getEmail())) {
-				return new DataResponse<>(false, "Email is exists", accounts);
+			if(a.getEmail()== null || a.getUsername() == null) {
+				a.setIsDelete(true);
 			}
-			if (a.getUsername().contentEquals(accounts.getUsername())) {
-				return new DataResponse<>(false, "Username is exists", accounts);
+			else {
+				if (a.getEmail().equalsIgnoreCase(accounts.getEmail())) {
+					return new DataResponse<>(false, "Email is exists", accounts);
+				}
+				if (a.getUsername().equalsIgnoreCase(accounts.getUsername())) {
+					return new DataResponse<>(false, "Username is exists", accounts);
+				}
 			}
 		}
 		accounts.setIsDelete(false);

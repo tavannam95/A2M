@@ -112,6 +112,7 @@ export class ShowtimeFormComponent implements OnInit {
           if (res.status === true) {
             this.toastrService.success(res.message);
             this.isLoading = false;
+            window.location.reload();
           }
           else {
             this.isLoading = false;
