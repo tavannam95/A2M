@@ -10,32 +10,48 @@
 
         <!-- Chọn ngày -->
         <mat-form-field appearance="fill">
-          <mat-label>Date time</mat-label>
+          <mat-label>Ngày chiếu</mat-label>
           <mat-select [(value)]="select_day" (valueChange)="getMovie($event)" formControlName="date">
             <mat-option *ngFor="let days of dayArray" value="{{days}}">{{days}}</mat-option>
           </mat-select>
+          <mat-error class="text-danger" *ngIf="formGroup.get('date')?.hasError('required') &&
+                                        formGroup.get('date')?.touched">
+                  Ngày chiếu không được để trống
+          </mat-error>
         </mat-form-field>
 
         <!-- chọn ID room -->
         <mat-form-field appearance="fill">
-          <mat-label>Rooms</mat-label>
-          <mat-select [(value)]="select_room" (valueChange)="selectRoom($event)" formControlName="room_id">
+          <mat-label>Phòng chiếu</mat-label>
+          <mat-select [(value)]="select_room" (valueChange)="selectRoom($event)">
             <mat-option *ngFor="let room of rooms " value={{room.id}}>{{room.name}}</mat-option>
           </mat-select>
+          <mat-error class="text-danger" *ngIf="formGroup.get('room_id')?.hasError('required') &&
+                                        formGroup.get('room_id').touched">
+                  Số phòng không được để trống
+          </mat-error>
         </mat-form-field>
 
         <!-- Chọn phim -->
         <mat-form-field appearance="fill">
-          <mat-label>Movies</mat-label>
+          <mat-label>Phim</mat-label>
           <mat-select [(value)]="select_movies" formControlName="nameMovie">
             <mat-option *ngFor="let movie of movies " value={{movie.id}}>{{movie.name}}: {{movie.time}}</mat-option>
           </mat-select>
+          <mat-error class="text-danger" *ngIf="formGroup.get('nameMovie')?.hasError('required') &&
+                                        formGroup.get('nameMovie')?.touched">
+                  Tên phim không được để trống
+          </mat-error>
         </mat-form-field>
 
         <!-- chọn giờ chiếu -->
         <mat-form-field class="outline">
-          <mat-label>Time start</mat-label>
+          <mat-label>Thời gian bắt đầu</mat-label>
           <input type="email" matInput formControlName="hour" placeholder="HH:mm:ss">
+          <mat-error class="text-danger" *ngIf="formGroup.get('hour')?.hasError('required') &&
+                                        formGroup.get('hour')?.touched">
+                  Giờ chiếu không được để trống
+          </mat-error>
         </mat-form-field>
 
         <div class="example-button-row" style="float: right; margin-bottom: 15px" (click)="addShowtimes()">
@@ -66,7 +82,7 @@
           </tr>
         </table> -->
 
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" formControlName = 'dataArraylist'> 
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
           <!-- <ng-container matColumnDef="id1">
             <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -105,10 +121,10 @@
 
           <ng-container matColumnDef="func">
             <div class="example-button-row">
-              <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
-                <td mat-cell *matCellDef="let element">
-                  <button mat-raised-button color="warn" (click)="getDelete(element)">Delete</button>
-                </td>
+              <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header> Xóa </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-raised-button color="warn" (click)="getDelete(element)">Xóa</button>
+              </td>
             </div>
           </ng-container>
 

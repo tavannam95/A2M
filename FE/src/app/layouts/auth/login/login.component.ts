@@ -6,6 +6,7 @@ import { JwtService } from 'app/services/jwt/jwt.service';
 import { LoginServiceService } from 'app/services/login/login-service.service';
 import { HeadersUtil } from 'app/util/headers-util';
 import { Cookie, CookieService } from 'ng2-cookies/cookie';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private cookieService: Cookie2Service,
     private route: ActivatedRoute,
     private readonly router: Router,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -32,28 +34,45 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    console.log(this.loginForm.value);
-  }
+  get username() { return this.loginForm.get('username'); }
+  get password() { return this.loginForm.get('password'); }
+  // onSubmit() {
+  //   console.log(this.loginForm.value);
+  // }
 
   login() {
     // this.jwtRespones.username = this.loginForm.value
+    this.loginForm.markAllAsTouched();
+    if (this.loginForm.invalid) {
+      return;
+    }
     this.loginService.login(this.loginForm.value).subscribe({
       next: res => {
-        const token = res.token;
-        this.cookieService.saveToken(token);
-        HeadersUtil.getHeadersAuth();      
-        if (this.jwtService.getRoleFromToken()=== 'ROLE_ADMINSTRATOR' || this.jwtService.getRoleFromToken()=== 'ROLE_EMPLOYEE') {
-          this.router.navigate(['/dashboard']);
-        }else{
-          this.router.navigate(['/home']);
+        // console.log(res);
+        if (res.status) {
+          const token = res.data.token;
+          this.cookieService.saveToken(token);
+          HeadersUtil.getHeadersAuth();
+          this.toastrService.success(res.message);
+          if (this.jwtService.getRoleFromToken() === 'ROLE_ADMINSTRATOR' || this.jwtService.getRoleFromToken() === 'ROLE_EMPLOYEE') {
+            this.router.navigate(['/dashboard']);         
+          } else {
+            this.router.navigate(['/home']);
+          }
+        }
+        else{
+          this.toastrService.warning(res.message);
         }
       }
     })
   }
 
-  register(){
+  register() {
     this.router.navigate(['/register']);
+  }
+
+  changePass() {
+
   }
 
 }

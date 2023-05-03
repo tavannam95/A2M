@@ -24,7 +24,7 @@ export class AccountListComponent implements OnInit {
     private AccountService: AccountService
   ) { }
 
-  displayedColumns: string[] = ['id', 'fullname', 'username', 'email', 'birthDate', 'gender', 'role', 'func'];
+  displayedColumns: string[] = ['fullname', 'username', 'email', 'birthDate', 'gender', 'role', 'func'];
   
   ngOnInit() {
     this.getAllRoom();

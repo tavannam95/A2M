@@ -4,9 +4,10 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { Constant } from 'app/constants/Constant';
 import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
 import { Regex } from 'app/services/regex/regex';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AccountListComponent } from '../../account-list/account-list.component';
 import { AccountService } from 'app/services/account/account.service';
+import { JwtService } from 'app/services/jwt/jwt.service';
 
 
 @Component({
@@ -18,10 +19,12 @@ export class UpdateDialogComponent implements OnInit {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public dataDialog: any,
-  private fb: FormBuilder,
-  private matDialogRef: MatDialogRef<UpdateDialogComponent>,
-  private matDialog: MatDialog,
-  private accountService: AccountService) { }
+    private fb: FormBuilder,
+    private matDialogRef: MatDialogRef<UpdateDialogComponent>,
+    private matDialog: MatDialog,
+    private accountService: AccountService,
+    private jwtService: JwtService
+  ) { }
 
   title: String = 'Account'
 
@@ -30,26 +33,34 @@ export class UpdateDialogComponent implements OnInit {
     fullname: [this.dataDialog.row.fullname, [Validators.required, Validators.pattern(Regex.unicode)]],
     username: [this.dataDialog.row.username, [Validators.required, Validators.minLength(8)]],
     email: [this.dataDialog.row.email, Validators.required],
-    birth_date: [this.dataDialog.row.birth_date, Validators.required],
-    gender: [1, Validators.required],
+    birthDate: [(this.dataDialog.row.birthDate===null)?'':this.dataDialog.row.birthDate],
+    gender: [this.dataDialog.row.gender, Validators.required],
+    createBy: [(this.dataDialog.row.createBy===null)?'':this.dataDialog.row.createBy],
+    updateBy: [this.jwtService.decode().sub],
+    createDate: [(this.dataDialog.row.createDate===null)?'':this.dataDialog.row.createDate],
+    updateDate: [(this.dataDialog.row.updateDate===null)?'':this.dataDialog.row.updateDate],
   })
-
-  selected: String = ''
-
+  birthDate = new Date();
+  selected: String = (this.dataDialog.row.gender===true)?'Nam':'Nữ';
   ngOnInit(): void {
-    console.log(this.dataDialog.row);
-    
+    // console.log(this.birthDate);
+    this.birthDate = new Date(this.dataDialog.row.birthDate);
+    // this.birthDate.setDate(this.dataDialog.row.birthDate)s
   }
 
   onSubmited() {
-    const gender1 = (this.selected==='Female')? 1 : 0;
+    let updateDate = new Date();
+    const gender1 = (this.selected==='Female')? 0 : 1;
     this.formGroupUpdate.patchValue({gender:gender1});
-    console.log(this.formGroupUpdate.value);
+    // this.formGroupUpdate.patchValue({updateDate: updateDate});
+    // console.log(this.formGroupUpdate.value);
     this.accountService.updateAccount(this.formGroupUpdate.value).subscribe((data) => {
-      next: console.log(this.formGroupUpdate.value);
-            this.matDialogRef.close()
+      next:
+      this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
     })
+    window.location.reload();
   }
 
 
-}
+  }
+
