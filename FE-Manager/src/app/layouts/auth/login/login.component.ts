@@ -32,15 +32,22 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    console.log(this.loginForm.value);
-  }
+  get username() { return this.loginForm.get('username'); }
+  get password() { return this.loginForm.get('password'); }
+  // onSubmit() {
+  //   console.log(this.loginForm.value);
+  // }
 
   login() {
     // this.jwtRespones.username = this.loginForm.value
+    this.loginForm.markAllAsTouched();
+    if(this.loginForm.invalid){
+      return;
+    }
     this.loginService.login(this.loginForm.value).subscribe({
       next: res => {
         const token = res.token;
+        console.log(res);
         this.cookieService.saveToken(token);
         HeadersUtil.getHeadersAuth();      
         if (this.jwtService.getRoleFromToken()=== 'ROLE_ADMINSTRATOR' || this.jwtService.getRoleFromToken()=== 'ROLE_EMPLOYEE') {

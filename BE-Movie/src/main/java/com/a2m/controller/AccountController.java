@@ -63,7 +63,7 @@ public class AccountController {
 			}
 			else {
 				accountinforList.add(a);
-				System.out.println(a.getId());
+//				System.out.println(a.getId());
 			}
 		}
 		return new DataResponse<>(true, "Thành công", accountinforList);
