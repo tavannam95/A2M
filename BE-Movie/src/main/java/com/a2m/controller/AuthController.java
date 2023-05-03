@@ -72,19 +72,19 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest jwtRequest) throws Exception {
+	public DataResponse<?> createAuthenticationToken(@RequestBody JwtRequest jwtRequest) throws Exception {
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
 		} catch (BadCredentialsException e) {
-			throw new Exception("Invalid username or password", e);
+			return new DataResponse<>(false,"Loi",null);
 		}
 
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequest.getUsername());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new JwtResponse(jwt));
+		return new DataResponse<>(true,"thanh cong",new JwtResponse(jwt));
 	}
 	
 	@PostMapping("/createAccount")
