@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div style="margin-bottom: 20px;">
-                <label>Birthday</label>
+                <label>Ngày sinh</label>
                 <select [(value)]="selectedDate" formControlName="date" required>
                     <option value="chọn ngày sinh">-- Chọn ngày sinh --</option>
                     <option *ngFor="let date of days" [value]="date">{{ date }}</option>

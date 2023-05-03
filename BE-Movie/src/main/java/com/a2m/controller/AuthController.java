@@ -104,9 +104,10 @@ public class AuthController {
 				}
 			}
 		}
-//		accounts.setRole
+		accounts.setIsDelete(false);
+		accounts.setPhoto("https://res.cloudinary.com/amenica2m/image/upload/v1683101893/uti9khjqzmsdojb6eq0z.jpg");
 		accounts.setPassword(passwordEncoder.encode(accounts.getPassword()));
-		return new DataResponse<>(true, "Đăng kí thành công", this.accountsRepository.save(accounts));
+		return new DataResponse<>(true, "Thành công", this.accountsRepository.save(accounts));
 	}
 	
 	@GetMapping("/changePass")
@@ -115,7 +116,7 @@ public class AuthController {
 		if(account.get(0) == null) {
 			return new DataResponse<>(false, "Không tìm thấy tài khoản", null);
 		}
-		return new DataResponse<>(true, "Success", account.get(0));
+		return new DataResponse<>(true, "Đăng ký thành công", account.get(0));
 	}
 	
 	@PutMapping("/savePass")
