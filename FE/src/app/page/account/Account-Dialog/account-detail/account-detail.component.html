@@ -1,0 +1,94 @@
+<div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
+<h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+    <form class="mb-0">
+        <div class="row" [formGroup]="formGroup">
+            <div class="col-4">
+                <img [src]="photo" alt="Ảnh đại diện">
+            </div>
+            <div class="col-8">
+
+                <!-- Tên -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Fullname</mat-label>
+                    <input type="text" formControlName="fullname" matInput readonly>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('fullname')?.hasError('required') &&
+                                          formGroup.get('fullname')?.touched">
+                        Fullname can't be empty
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Username -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input type="text" formControlName="username" matInput readonly>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('username')?.hasError('required') &&
+                                          formGroup.get('username')?.touched">
+                        Username can't be empty
+                    </mat-error>
+
+                </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input type="text" formControlName="email" matInput readonly>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('email')?.hasError('required') &&
+                                          formGroup.get('email')?.touched">
+                        {{messengerUsername}}
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Birthday -->
+                <!-- Password -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Ngày sinh</mat-label>
+                    <input type="text" formControlName="birthDate" matInput readonly>
+                </mat-form-field>
+
+                <!-- Gender -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Giới tính</mat-label>
+                    <input type="text" formControlName="gender" matInput readonly>
+                </mat-form-field>
+                <!-- Roles -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Quyền</mat-label>
+                    <input type="text" formControlName="role" matInput readonly>
+                </mat-form-field>
+
+                <!-- createBy -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Người tạo</mat-label>
+                    <input type="text" formControlName="createBy" matInput readonly>
+                </mat-form-field>
+
+                <!-- createDate -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Ngày tạo</mat-label>
+                    <input type="text" formControlName="createDate" matInput readonly>
+                </mat-form-field>
+
+                <!-- updateDate -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Cập nhật lần cuối</mat-label>
+                    <input type="text" formControlName="updateDate" matInput readonly>
+                </mat-form-field>
+
+                <!-- updateBy -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Người cập nhật</mat-label>
+                    <input type="text" formControlName="updateBy" matInput readonly>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button class="btn btn-dark" mat-button mat-dialog-close>Đóng</button>
+</div>

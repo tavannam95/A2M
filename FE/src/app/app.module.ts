@@ -22,9 +22,9 @@ import { TestCookieComponent } from './page-user/test-cookie/test-cookie.compone
 import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RoomsModule } from './page/rooms/rooms.module';
-import { AccountModule } from './page/account/account.module';
 import { httpInterceptorProviders } from './interceptor/http-request.interceptor';
 import { CustomPaginator } from './interceptor/CustomPaginatorConfiguration';
+import { AccountModule } from './page/account/account.module';
 
 @NgModule({
     imports: [

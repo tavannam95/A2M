@@ -30,11 +30,11 @@
 
                 <!-- Username -->
                 <mat-form-field appearance="outline">
-                    <mat-label>Tài khoản</mat-label>
+                    <mat-label>Tên đăng nhập</mat-label>
                     <input type="text" formControlName="username" matInput>
                     <mat-error class="text-danger" *ngIf="formGroup.get('username')?.hasError('required') &&
                                         formGroup.get('username')?.touched">
-                        Tài khoản không được để trống
+                        Tên đăng nhập không được để trống
                     </mat-error>
 
                 </mat-form-field>
@@ -80,13 +80,13 @@
 
                 <!-- Roles -->
                 <mat-form-field appearance="outline">
-                    <mat-label>Vai trò</mat-label>
+                    <mat-label>Quyền</mat-label>
                     <mat-select [(value)]="selected_id">
                         <mat-option value="ADMINSTATOR">Quản lý</mat-option>
                         <mat-option value="EMPLOYEE">Nhân viên</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <p>Vai trò: {{selected_id}}</p>
+                <p>Quyền: {{selected_id}}</p>
             </div>
         </div>
     </form>
