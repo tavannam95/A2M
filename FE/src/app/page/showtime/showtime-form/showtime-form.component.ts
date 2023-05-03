@@ -30,7 +30,7 @@ export class ShowtimeFormComponent implements OnInit {
 
   messengerUsername: string = 'Không được để trống ô này';
 
-  title: string = 'Thêm suất chiếu'
+  title: string = 'Thêm lịch chiếu'
 
   // selected_id: string;
 
@@ -112,7 +112,7 @@ export class ShowtimeFormComponent implements OnInit {
       disableClose: true,
       hasBackdrop: true,
       data: {
-        message: 'Bạn có muốn thêm xuất chiếu không'
+        message: 'Bạn có muốn thêm lịch chiếu không'
       }
     }).afterClosed().subscribe(result => {
       if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {

@@ -23,7 +23,7 @@ import { ShowtimesDetailComponent } from './showtimes-detail/showtimes-detail.co
   declarations: [
     ShowtimeFormComponent,
     ShowtimeListComponent,
-    ShowtimesDetailComponent
+    ShowtimesDetailComponent,
     // TableShowtimesDialogComponent
   ],
   imports: [

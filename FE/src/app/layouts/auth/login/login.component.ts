@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
   redirectUrl: any;
   loginForm: FormGroup;
 
+  isLoading = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginServiceService,
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit {
   // }
 
   login() {
+    this.isLoading = true;
     // this.jwtRespones.username = this.loginForm.value
     this.loginForm.markAllAsTouched();
     if (this.loginForm.invalid) {
@@ -48,7 +51,7 @@ export class LoginComponent implements OnInit {
     }
     this.loginService.login(this.loginForm.value).subscribe({
       next: res => {
-        // console.log(res);
+        this.isLoading = false;
         if (res.status) {
           const token = res.data.token;
           this.cookieService.saveToken(token);
@@ -61,7 +64,8 @@ export class LoginComponent implements OnInit {
           }
         }
         else{
-          this.toastrService.warning(res.message);
+        this.isLoading = false;
+        this.toastrService.warning(res.message);
         }
       }
     })

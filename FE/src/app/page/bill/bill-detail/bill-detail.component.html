@@ -90,7 +90,7 @@
                     <tbody>
                         <tr>
                             <th>Tổng tiền</th>
-                            <td>{{bill.totalPrice}}</td>
+                            <td>{{bill.totalPrice|currency:' ':'symbol':'1.0-0'}}₫</td>
                         </tr>
                     </tbody>
                 </table>
@@ -102,7 +102,9 @@
                     <tbody>
                         <tr>
                             <th>Mã barcode</th>
-                            <td>{{bill.barCode}}</td>
+                            <td>
+                                <img [src]="'https://barcode.tec-it.com/barcode.ashx?data='+bill.barCode+'&code=EAN8'" alt="">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -112,5 +114,5 @@
 </div>
 <div mat-dialog-actions class="d-flex justify-content-end">
     <!-- <button class="btn btn-success" (click)="openDialogForm('update',movie)" mat-button>Sửa thông tin</button> -->
-    <button class="btn btn-dark" mat-button mat-dialog-close>Thoát</button>
+    <button class="btn btn-dark" mat-button mat-dialog-close>Đóng</button>
 </div>
