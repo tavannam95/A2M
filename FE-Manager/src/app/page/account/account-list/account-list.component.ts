@@ -25,7 +25,7 @@ export class AccountListComponent implements OnInit {
     private AccountService: AccountService
   ) { }
 
-  displayedColumns: string[] = ['id', 'fullname', 'username', 'email', 'birthDate', 'gender', 'role', 'func'];
+  displayedColumns: string[] = ['fullname', 'username', 'email', 'birthDate', 'gender', 'role', 'func'];
   
   ngOnInit() {
     this.getAllRoom();
@@ -34,7 +34,7 @@ export class AccountListComponent implements OnInit {
   getAllRoom() {
     this.AccountService.getAll().subscribe({
       next: res => {
-        console.log(res);
+        // console.log(res);
         res.data.forEach((data)=>{
           data.birthDate = new Date(data.birthDate).toLocaleDateString();
         })
@@ -42,7 +42,7 @@ export class AccountListComponent implements OnInit {
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource);
+        // console.log(this.dataSource);
       },
       error: e => {
         console.log(e);

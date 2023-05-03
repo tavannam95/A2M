@@ -12,7 +12,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ChangePassComponent } from './change-pass/change-pass.component';
-import { SavePassComponent } from './change-pass/save-pass/save-pass.component'; 
+import { SavePassComponent } from './change-pass/save-pass/save-pass.component';
+// import { RegisterDialogComponent } from './register/register-dialog/register-dialog.component'; 
 
 
 

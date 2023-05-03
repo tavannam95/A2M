@@ -43,7 +43,7 @@ export class SavePassComponent implements OnInit {
   onSubmit() {
     // this.dataDialog.patchValue({password: this.newPassword})
     this.dataDialog.data.password = this.savePassForm.value.acceptPass;
-    console.log(this.dataDialog.data)
+    // console.log(this.dataDialog.data)
     this.changePassService.savePass(this.dataDialog.data).subscribe({
       next: res=>{
         if(res.status == true){
