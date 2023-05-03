@@ -29,6 +29,11 @@ export class NavbarComponent implements OnInit {
         this.jwtService.reloadPage();
     }
 
+    token(){
+        console.log(this.cookieService.getToken());
+        
+    }
+
     ngOnInit() {
         this.listTitles = MenuItems.filter(listTitle => listTitle);
         const navbar: HTMLElement = this.element.nativeElement;
