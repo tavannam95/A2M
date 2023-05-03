@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { Constant } from 'app/constants/Constant';
 import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
 import { Regex } from 'app/services/regex/regex';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AccountListComponent } from '../../account-list/account-list.component';
 import { AccountService } from 'app/services/account/account.service';
 import { JwtService } from 'app/services/jwt/jwt.service';
@@ -41,21 +41,21 @@ export class UpdateDialogComponent implements OnInit {
     updateDate: [],
   })
 
-  selected: String = (this.dataDialog.row.gender===true)?'Female':'Male';
+  selected: String = (this.dataDialog.row.gender === true) ? 'Female' : 'Male';
 
   ngOnInit(): void {
-    console.log(this.dataDialog.row);
-    
+    // console.log(this.dataDialog.row);
+
   }
 
   onSubmited() {
     let updateDate = new Date();
-    const gender1 = (this.selected==='Female')? 1 : 0;
-    this.formGroupUpdate.patchValue({gender:gender1});
+    const gender1 = (this.selected === 'Female') ? 1 : 0;
+    this.formGroupUpdate.patchValue({ gender: gender1 });
     // this.formGroupUpdate.patchValue({updateDate: updateDate});
-    console.log(this.formGroupUpdate.value);
+    // console.log(this.formGroupUpdate.value);
     this.accountService.updateAccount(this.formGroupUpdate.value).subscribe((data) => {
-      next: console.log(this.formGroupUpdate.value);
+      next:
       this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
     })
     window.location.reload();

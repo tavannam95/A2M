@@ -94,7 +94,7 @@ public class Showtimes {
 	}
 
 	public void setDate(String date) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 	    java.util.Date parsedDate = format.parse(date);
 	    Date dateInput = new Date(parsedDate.getTime());
 		this.date = dateInput;
