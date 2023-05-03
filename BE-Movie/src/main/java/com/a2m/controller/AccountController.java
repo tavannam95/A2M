@@ -95,6 +95,7 @@ public class AccountController {
 	@GetMapping(value = "/userLogin")
 	public AccountDTO getUser() {
 		Accounts accounts = SecurityUtils.getLoggedUser().get();
+		System.out.println("user: "+accounts);
 		return accountDTOMapper.apply(accounts);
 	}
 	
