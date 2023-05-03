@@ -26,6 +26,13 @@ export const AdminLayoutRoutes: Routes = [
         canActivate: [RoleGuard],
     },
     {
+        path: 'user-profile', component: UserProfileComponent, data: {
+            role: 'ROLE_EMPLOYEE',
+            message: 'Bạn không có quyền truy cập chúc năng này !'
+        },
+        canActivate: [RoleGuard],
+    },
+    {
         path: 'notifications', component: NotificationsComponent, data: {
             role: 'ROLE_EMPLOYEE',
             message: 'Bạn không có quyền truy cập chúc năng này !'

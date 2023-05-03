@@ -12,6 +12,10 @@ constructor(private apiService: BillApiService) { }
     return this.apiService.getAll();
   }
 
+  getBillUser(){
+    return this.apiService.getBillUser();
+  }
+
   printTicket(data: any){
     return this.apiService.printTicket(data);
   }

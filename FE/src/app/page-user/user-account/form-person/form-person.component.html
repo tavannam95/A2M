@@ -1,81 +1,93 @@
-<div *ngIf="isLoading" class="loading">
+<!-- <div *ngIf="isLoading" class="loading">
     <div class="spinner-border text-danger spinner-center" role="status"></div>
-</div>
+</div> -->
 <div class="main">
     <div class="info">
         <div class="title">
             <b>CHI TIẾT TÀI KHOẢN</b>
         </div>
         <div class="person-info">
-            <form class="mb-0">
-                <div class="row" [formGroup]="formGroup">
+            <form class="mb-0" [formGroup]="formGroup">
+                <div class="row">
                     <div class="col-4">
                         <!-- Poster -->
-                        <!-- <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
+                        <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
                                 <ngx-dropzone-label>
-                                    <span class="material-symbols-outlined">tải ảnh lên</span>
+                                    <span class="material-symbols-outlined">Tải ảnh lên</span>
                                 </ngx-dropzone-label>
                                 <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files"
                                     [file]="f" [removable]="true" (removed)="onRemove(f)" [value]="f">
                                 </ngx-dropzone-image-preview>
-                            </ngx-dropzone> -->
+                            </ngx-dropzone>
                         <!-- /Poster -->
                     </div>
                     <div class="col-8">
 
-                        <!-- Tên phim -->
-                        <!-- <mat-form-field appearance="outline">
-                                <mat-label>Tên phim</mat-label>
-                                <input type="text" formControlName="name" matInput>
-                                <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
+                        <!-- Họ tên  -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Họ tên</mat-label>
+                            <input type="text" formControlName="fullname" matInput>
+                            <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
                                                     formGroup.get('name')?.touched">
-                                    Tên phim không được để trống
-                                </mat-error>
-                            </mat-form-field> -->
-                        <!-- /Tên phim -->
+                                Họ tên không được để trống
+                            </mat-error>
+                        </mat-form-field>
+                        <!-- /Họ tên -->
 
-                        <!-- Thể loại -->
-                        <!-- <mat-form-field appearance="outline" id="category">
-                                <mat-label>Thể loại</mat-label>
-                                <mat-select formControlName="category">
-                                    <mat-option *ngFor="let category of categories"
-                                        [value]="category">{{category.name}}</mat-option>
-                                </mat-select>
-                            </mat-form-field> -->
-                        <!-- /Thể loại -->
+                        <!-- Tên đăng nhập  -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tên đăng nhập</mat-label>
+                            <input type="text" formControlName="username" [readonly]="this.username" matInput>
+                        </mat-form-field>
+                        <!-- /Tên đăng nhập -->
 
-                        <!-- Quốc gia -->
-                        <!-- <mat-form-field appearance="outline" id="nations">
-                                <mat-label>Quốc gia</mat-label>
-                                <mat-select formControlName="national">
-                                    <mat-option *ngFor="let nation of nations"
-                                        [value]="nation">{{nation.nameVi}}</mat-option>
-                                </mat-select>
-                            </mat-form-field> -->
-                        <!-- /Quốc gia -->
+                        <!-- Email  -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input type="text" formControlName="email" matInput>
+                            <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
+                                                formGroup.get('name')?.touched">
+                                Email không được để trống
+                            </mat-error>
+                        </mat-form-field>
+                        <!-- /Email -->
 
-                        <!-- Thời lượng -->
+                        <!-- Ngày sinh -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ngày sinh</mat-label>
+                            <input matInput [matDatepicker]="birthDate" formControlName="birthDate">
+                            <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+                            <mat-datepicker #birthDate></mat-datepicker>
+                        </mat-form-field>
+                        <!-- /Ngày sinh -->
+
+                        <!-- Giới tính -->
                         <!-- <mat-form-field appearance="outline">
-                                <mat-label>Thời lượng</mat-label>
-                                <input type="number" formControlName="time" matInput>
+                            <mat-label>Giới tính</mat-label>
+                            <mat-radio-group formControlName="gender">
+                                <mat-radio-button value="1">Nam</mat-radio-button>
+                                <mat-radio-button value="0">Nữ</mat-radio-button>
+                            </mat-radio-group>
+                        </mat-form-field> -->
+                        <!-- /Giới tính -->
+
+                        <!-- sdt -->
+                        <mat-form-field appearance="outline">
+                                <mat-label>Số điện thoại</mat-label>
+                                <input type="text" formControlName="phone" matInput>
                                 <mat-error class="text-danger" *ngIf="formGroup.get('time')?.touched">
                                     Có ký tự không hợp lệ
                                 </mat-error>
-                            </mat-form-field> -->
-                        <!-- /Thời lượng -->
-
-                        <!-- Ngày bắt đầu -->
-                        <!-- <mat-form-field appearance="outline">
-                                <mat-label>Ngày bắt đầu</mat-label>
-                                <input matInput [matDatepicker]="" formControlName="">
-                                <mat-datepicker-toggle matSuffix [for]=""></mat-datepicker-toggle>
-                                <mat-datepicker></mat-datepicker>
-                            </mat-form-field> -->
-                        <!-- /Ngày bắt đầu -->
+                            </mat-form-field>
+                        <!-- /sdt -->
 
                     </div>
-                    </div>
+                </div>
             </form>
+        </div>
+        <div mat-dialog-actions class="d-flex justify-content-end">
+            <button class="btn btn-success" mat-button (click)="onSubmit()">Cập nhật</button>
+            <!-- <button class="btn btn-dark" mat-button mat-dialog-close>Hủy</button> -->
         </div>
     </div>
 </div>

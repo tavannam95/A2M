@@ -35,7 +35,7 @@ import { ComponentsModule } from 'app/components/components.module';
   ],
   declarations: [
     DashboardComponent,
-    UserProfileComponent,
+    // UserProfileComponent,
     TableListComponent,
     TypographyComponent,
     IconsComponent,

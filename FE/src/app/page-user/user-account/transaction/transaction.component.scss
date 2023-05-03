@@ -11,11 +11,17 @@
             height: 45px;
             background-color: #e3ddddca;
             padding-left: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             h3 {
                 display: flex;
                 align-items: center;
             }
 
+            button:hover a{
+                color: green;
+            }
         }
 
         .title {
@@ -26,11 +32,11 @@
             align-items: center;
             height: 51px;
             font-size: 25px;
+            // padding-bottom: 20px;
         }
 
         form {
             margin-top: 20px;
-
             .poster {
                 img {
                     width: 100%;
@@ -58,13 +64,11 @@
                 }
             }
 
-            .description {
-                color: black;
-
-                .title {
-                    text-align: center;
-                }
-            }
+            // .barCode{
+            //     display: flex;
+            //     flex-direction: column;
+            //     justify-content: flex-end;
+            // }
         }
 
     }
