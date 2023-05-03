@@ -27,7 +27,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public Accounts loadUserByUsername(String username) throws UsernameNotFoundException {
         List<Accounts> account = accountsRepository.findByUsername(username);
         
         
@@ -38,7 +38,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
 //		List<Roles> roles = rolesRepository.findAll();
 //
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 //		if (!roles.isEmpty()) {
 //			for (Roles role : roles) {
 //                GrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
@@ -48,11 +48,12 @@ public class MyUserDetailsService implements UserDetailsService {
         if (account.get(0).getRole() == null) {
         	throw new AccessDeniedException("Người dùng này chưa được phân quyền");
         }
+		return account.get(0);
 
-        GrantedAuthority authority = new SimpleGrantedAuthority(account.get(0).getRole().getName());
-                grantedAuthorities.add(authority);
-        UserDetails userDetails = (UserDetails) new User(account.get(0).getUsername(), account.get(0).getPassword(),
-                grantedAuthorities);
-        return userDetails;
+//        GrantedAuthority authority = new SimpleGrantedAuthority(account.get(0).getRole().getName());
+//                grantedAuthorities.add(authority);
+//        UserDetails userDetails = (UserDetails) new User(account.get(0).getUsername(), account.get(0).getPassword(),
+//                grantedAuthorities);
+//        return userDetails;
     }
 }
