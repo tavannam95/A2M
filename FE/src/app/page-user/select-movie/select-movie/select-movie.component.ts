@@ -31,7 +31,7 @@ export class SelectMovieComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
-      this.idMovie = Number(params.get('id'));
+      this.idMovie = Number(params.get('movie'));
     });
     this.getAllShowtimeActive();
   }

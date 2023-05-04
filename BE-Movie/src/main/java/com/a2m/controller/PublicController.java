@@ -34,6 +34,11 @@ public class PublicController {
     public DataResponse<List<ShowtimeResponse>> today(){
         return new DataResponse<>(true,"Thành công",this.showtimeService.today());
     }
+
+    @GetMapping("/upcoming-movie")
+    public DataResponse<List<ShowtimeResponse>> upcomingMovie(){
+        return new DataResponse<>(true,"Thành công",this.showtimeService.upcomingMovie());
+    }
     @GetMapping("/all-active")
     public DataResponse<List<ShowtimeResponse>> getAllShowtimeActive(){
         return new DataResponse<>(true, "Thành công", this.showtimeService.getAllShowtimeActive());

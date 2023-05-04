@@ -26,6 +26,11 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     }
 
     @Override
+    public List<ShowtimeResponse> upcomingMovie() {
+        return this.showtimesRepository.upcomingMovie();
+    }
+
+    @Override
     public List<Showtimes> getAllShowtime() {
         return this.showtimesRepository.findAll();
     }

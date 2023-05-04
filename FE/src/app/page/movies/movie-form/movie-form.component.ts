@@ -34,7 +34,7 @@ export class MovieFormComponent implements OnInit {
 
   formGroup = this.fb.group({
     id: [''],
-    name: ['', [Validators.required, Validators.pattern(Regex.unicodeAndNumber)]],
+    name: ['', [Validators.required]],
     category: [null, Validators.required],
     national: [null, Validators.required],
     time: ['', [Validators.required, Validators.pattern(Regex.number)]],

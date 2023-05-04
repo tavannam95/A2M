@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface ShowtimeService {
     List<ShowtimeResponse> today();
+    List<ShowtimeResponse> upcomingMovie();
 
     List<Showtimes> getAllShowtime();
 
