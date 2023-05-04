@@ -48,6 +48,7 @@ export class UpdateDialogComponent implements OnInit {
     console.log(this.dataDialog.row);
     this.formGroupUpdate.patchValue({birthDate: new Date(this.formGroupUpdate.value.birthDate)});
     this.formGroupUpdate.patchValue({gender: this.selected});
+
   }
 
   onSubmited() {
@@ -59,8 +60,6 @@ export class UpdateDialogComponent implements OnInit {
       next:
       this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
     })
-    console.log(this.formGroupUpdate.value);
-    // window.location.reload();
   }
 
 

@@ -160,7 +160,7 @@ export class NavbarComponent implements OnInit {
                 }
             },
             error: e =>{
-                this.toastrService.warning('Lỗi hệ thống, vui lòng thử lại sau')
+                this.toastrService.warning('Lỗi hệ thống, vui lòng thử lại sau');
                 
             }
         })

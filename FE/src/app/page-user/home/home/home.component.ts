@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
     })
     this.publicApi.upcomingMovie().subscribe({
       next: res =>{
-        console.log(res);
         this.upcomingMovie = res.data;
       },
       error: e =>{
@@ -58,6 +57,13 @@ export class HomeComponent implements OnInit {
       movie: id
     };
     this.router.navigate(['/select-movie'],{queryParams: queryParams});
+  }
+
+  movieDetail(id: number){
+    const queryParams = {
+      movie: id
+    };
+    this.router.navigate(['/movie-detail'],{queryParams: queryParams});
   }
 
 }

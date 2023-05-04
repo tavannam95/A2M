@@ -7,6 +7,7 @@ import com.a2m.model.response.RowResponse;
 import com.a2m.model.response.ShowtimeDateResponse;
 import com.a2m.model.response.ShowtimeResponse;
 import com.a2m.repository.FareRepository;
+import com.a2m.repository.MoviesRepository;
 import com.a2m.repository.ShowtimesRepository;
 import com.a2m.service.BillService;
 import com.a2m.service.RowService;
@@ -30,9 +31,20 @@ public class PublicController {
     private FareRepository fareRepository;
     private RowService rowService;
     private final ShowtimesRepository showtimesRepository;
+    private final MoviesRepository moviesRepository;
     @GetMapping("/today")
     public DataResponse<List<ShowtimeResponse>> today(){
         return new DataResponse<>(true,"Thành công",this.showtimeService.today());
+    }
+
+    @GetMapping("/movie/{id}")
+    Movies getOneMovie(@PathVariable("id") Long id){
+        return moviesRepository.findById(id).get();
+    }
+
+    @GetMapping("/movie-date/{id}")
+    public DataResponse<List<Date>> getAllDateByMovie(@PathVariable("id") Long id){
+        return new DataResponse<>(true,"Thành công", this.showtimesRepository.getAllDateByMovie(id));
     }
 
     @GetMapping("/upcoming-movie")
