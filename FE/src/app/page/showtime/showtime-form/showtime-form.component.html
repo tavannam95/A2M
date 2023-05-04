@@ -9,7 +9,7 @@
       <div class="col-12">
 
         <!-- Chọn ngày -->
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Ngày chiếu</mat-label>
           <mat-select [(value)]="select_day" (valueChange)="getMovie($event)" formControlName="date">
             <mat-option *ngFor="let days of dayArray" value="{{days}}">{{days}}</mat-option>
@@ -21,7 +21,7 @@
         </mat-form-field>
 
         <!-- chọn ID room -->
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Phòng chiếu</mat-label>
           <mat-select [(value)]="select_room" (valueChange)="selectRoom($event)">
             <mat-option *ngFor="let room of rooms " value={{room.id}}>{{room.name}}</mat-option>
@@ -33,7 +33,7 @@
         </mat-form-field>
 
         <!-- Chọn phim -->
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Phim</mat-label>
           <mat-select [(value)]="select_movies" formControlName="nameMovie">
             <mat-option *ngFor="let movie of movies " value={{movie.id}}>{{movie.name}}: {{movie.time}}</mat-option>
@@ -45,7 +45,7 @@
         </mat-form-field>
 
         <!-- chọn giờ chiếu -->
-        <mat-form-field class="outline">
+        <mat-form-field appearance="outline">
           <mat-label>Thời gian bắt đầu</mat-label>
           <input type="email" matInput formControlName="hour" placeholder="HH:mm:ss">
           <mat-error class="text-danger" *ngIf="formGroup.get('hour')?.hasError('required') &&
