@@ -60,4 +60,11 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/select-movie'],{queryParams: queryParams});
   }
 
+  movieDetail(id: number){
+    const queryParams = {
+      movie: id
+    };
+    this.router.navigate(['/movie-detail'],{queryParams: queryParams});
+  }
+
 }

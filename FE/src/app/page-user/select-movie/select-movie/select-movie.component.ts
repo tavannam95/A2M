@@ -14,6 +14,9 @@ export class SelectMovieComponent implements OnInit {
 
   idMovie: number;
   movies: any;
+  
+  allDate: any[];
+  showtime: any[] = [];
 
   listShowtime: any;
   selectDate: any;
@@ -34,6 +37,8 @@ export class SelectMovieComponent implements OnInit {
       this.idMovie = Number(params.get('movie'));
     });
     this.getAllShowtimeActive();
+    this.findAllDateByMovie(this.idMovie);
+
   }
 
   selectShowtime(showtimeId: any){
@@ -51,56 +56,56 @@ export class SelectMovieComponent implements OnInit {
         this.publicApiService.findByMovie(this.idMovie).subscribe({
           next: res =>{
             this.listShowtime = res.data;
-            this.selectDate = this.listShowtime[0].date;
-            this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
-              next: res =>{
-                
-                this.timeShowtime = res.data;
-                
-                
-              },
-              error: e =>{
-                this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
-                
-              }
-            })
-            
           },
           error: e =>{
             this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
             
           }
         })
+      }
+    })
+  }
+
+  findAllDateByMovie(id: any){
+    this.publicApiService.getAllDateByMovie(id).subscribe({
+      next: res =>{
+        this.allDate = res.data;
+        this.selectDate = this.allDate[0];
+        this.allDate.forEach((date)=>{
+           this.getStByMovieDate(date);
+        })
+      },
+      error: e=>{
+        this.toastrService.warning('Lỗi hệ thống, vui lòng thử lại sau');
+      }
+    })
+  }
+
+  async getStByMovieDate(date: any){
+    await this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,date).subscribe({
+      next: res =>{
+        this.timeShowtime = res.data;
+      },
+      error: e =>{
+        
+        this.toastrService.warning('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
   }
 
   selectMovie(event: any){
     let idMovie = event.value;
-    this.publicApiService.findByMovie(idMovie).subscribe({
-      next: res =>{
-        this.listShowtime = res.data;
-        this.selectDate = this.listShowtime[0].date;
-        this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
-          next: res =>{
-            this.timeShowtime = res.data;
-          },
-          error: e =>{
-            this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
-            
-          }
-        })
-      },
-      error: e =>{
-        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
-        
-      }
-    })
+    this.findAllDateByMovie(idMovie);
   }
 
   changeDate(event: any){
+    console.log(this.selectDate);
+    console.log(this.idMovie);
+    
     this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
       next: res =>{
+        console.log(res);
+        
         this.timeShowtime = res.data;
       },
       error: e =>{

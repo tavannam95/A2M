@@ -10,6 +10,7 @@ import { UserAccountModule } from '../../page-user/user-account/user-account.mod
 import { UserPasswordComponent } from 'app/page-user/user-password/user-password.component';
 import { AuthGuard } from 'app/guard/auth.guard';
 import { ContactComponent } from 'app/page-user/contact/contact.component';
+import { MovieDetailsComponent } from 'app/page-user/movie-details/movie-details.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'user-password', component: UserPasswordComponent},
   {path: 'contact', component: ContactComponent},
+  {path: 'movie-detail', component: MovieDetailsComponent},
   {
     path: 'user-account',
     loadChildren: () => import('../../page-user/user-account/user-account.module').then(m => m.UserAccountModule)

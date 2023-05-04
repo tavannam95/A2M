@@ -18,6 +18,14 @@ export class PublicApiService {
     return this.http.get(`${ApiConstant.public}/upcoming-movie`);
   }
 
+  getAllDateByMovie(id: any):Observable<any>{
+    return this.http.get(`${ApiConstant.public}/movie-date/${id}`);
+  }
+
+  getOneMovie(id: any):Observable<any>{
+    return this.http.get(`${ApiConstant.public}/movie/${id}`);
+  }
+
   getAllShowtimeActive():Observable<any>{
     return this.http.get(`${ApiConstant.public}/all-active`);
   }
