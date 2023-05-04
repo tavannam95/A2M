@@ -40,7 +40,7 @@
                 <!-- Birthday -->
                 <mat-form-field appearance="outline">
                     <mat-label>Chọn ngày sinh</mat-label>
-                    <input type="text" matInput [matDatepicker]="picker" [(ngModel)]="birthDate" matInput>
+                    <input type="text" matInput [matDatepicker]="picker" formControlName="birthDate" matInput>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>

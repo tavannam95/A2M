@@ -33,27 +33,30 @@ export class UpdateDialogComponent implements OnInit {
     fullname: [this.dataDialog.row.fullname, [Validators.required, Validators.pattern(Regex.unicode)]],
     username: [this.dataDialog.row.username, [Validators.required, Validators.minLength(8)]],
     email: [this.dataDialog.row.email, Validators.required],
-    birthDate: [(this.dataDialog.row.birthDate===null)?'':this.dataDialog.row.birthDate],
+    birthDate: [this.dataDialog.row.birthDate],
     gender: [this.dataDialog.row.gender, Validators.required],
     createBy: [(this.dataDialog.row.createBy===null)?'':this.dataDialog.row.createBy],
     updateBy: [this.jwtService.decode().sub],
     createDate: [(this.dataDialog.row.createDate===null)?'':this.dataDialog.row.createDate],
     updateDate: [(this.dataDialog.row.updateDate===null)?'':this.dataDialog.row.updateDate],
   })
-  birthDate = new Date();
+  // birthDate = new Date();
   selected: String = (this.dataDialog.row.gender===true)?'Nam':'Nữ';
   ngOnInit(): void {
-    this.birthDate = new Date(this.dataDialog.row.birthDate);
+    // this.birthDate = new Date(this.dataDialog.row.birthDate);
+    console.log(this.dataDialog.row);
   }
 
   onSubmited() {
     let updateDate = new Date();
     const gender1 = (this.selected==='Female')? 0 : 1;
     this.formGroupUpdate.patchValue({gender:gender1});
+    this.formGroupUpdate.patchValue({birthDate: new Date(this.formGroupUpdate.value.birthDate)});
     this.accountService.updateAccount(this.formGroupUpdate.value).subscribe((data) => {
       next:
       this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
     })
+    console.log(this.formGroupUpdate.value);
     window.location.reload();
   }
 

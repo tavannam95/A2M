@@ -28,7 +28,7 @@ export class AccountDetailComponent implements OnInit {
     username: [this.dataDialog.row.username],
     email: [this.dataDialog.row.email],
     birthDate: [this.dataDialog.row.birthDate],
-    gender: [this.dataDialog.row.gender],
+    gender: [(this.dataDialog.row.gender===true)?'Nam':'Nữ'],
     createBy: [this.dataDialog.row.createBy],
     updateBy: [this.jwtService.decode().sub],
     createDate: [this.dataDialog.row.createDate],
@@ -36,7 +36,7 @@ export class AccountDetailComponent implements OnInit {
     role: [this.dataDialog.row.role.name]
   })
 
-  selected: string = 'Female'
+  // selected: string = 'Female'
 
   selected_id: string;
 
