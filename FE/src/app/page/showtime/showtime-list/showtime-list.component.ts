@@ -54,6 +54,8 @@ export class ShowtimeListComponent implements OnInit {
           data.date = new Date(data.date).toLocaleDateString()
           data.timeStart = new Date(data.timeStart).toLocaleDateString() + ' ' + new Date(data.timeStart).toLocaleTimeString('en-US', { hour12: false })
           data.timeEnd = new Date(data.timeEnd).toLocaleDateString() + ' ' + new Date(data.timeEnd).toLocaleTimeString('en-US', { hour12: false })
+          data.createDate = new Date(data.createDate).toLocaleDateString()
+          data.updateDate = new Date(data.updateDate).toLocaleDateString()
           this.dayArray.push(data.date);
           this.roomArray.push(''+data.room.id);
         })
@@ -63,6 +65,8 @@ export class ShowtimeListComponent implements OnInit {
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator = this.paginator;
         this.dataArray = res.data;
       },
       error: e => {
@@ -119,6 +123,8 @@ export class ShowtimeListComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       if (result === Constant.RESULT_CLOSE_DIALOG.SUCCESS) {
         // ----------------------After close----------------------
+        this.getAllShowtimes();
+        this.toastrService.success('Thêm mới lịch chiếu thành công');
       }
     })
   }

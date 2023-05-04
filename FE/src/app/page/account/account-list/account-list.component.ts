@@ -27,8 +27,8 @@ export class AccountListComponent implements OnInit {
     private toastrService: ToastrService
   ) { }
 
-  displayedColumns: string[] = ['fullname','image', 'username', 'email', 'birthDate', 'gender', 'role', 'func'];
-  
+  displayedColumns: string[] = ['fullname', 'image', 'username', 'email', 'birthDate', 'gender', 'role', 'func'];
+
   ngOnInit() {
     this.getAllRoom();
   }
@@ -36,7 +36,7 @@ export class AccountListComponent implements OnInit {
   getAllRoom() {
     this.AccountService.getAll().subscribe({
       next: res => {
-        res.data.forEach((data)=>{
+        res.data.forEach((data) => {
           data.birthDate = new Date(data.birthDate).toLocaleDateString();
         })
         this.dataSource = new MatTableDataSource<any>(res);
@@ -68,8 +68,9 @@ export class AccountListComponent implements OnInit {
       },
       width: '700px'
     }).afterClosed().subscribe(result => {
+      console.log(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
       if (result === Constant.RESULT_CLOSE_DIALOG.SUCCESS) {
-        // ----------------------After close----------------------
+        this.getAllRoom();
       }
     })
   }
@@ -84,12 +85,12 @@ export class AccountListComponent implements OnInit {
       width: '700px'
     }).afterClosed().subscribe(result => {
       if (result === Constant.RESULT_CLOSE_DIALOG.SUCCESS) {
-        // ----------------------After close----------------------
+        this.getAllRoom();
       }
     })
   }
 
-  openDialogProductView(type: string, row: any){
+  openDialogProductView(type: string, row: any) {
     this.matDialog.open(AccountDetailComponent, {
       disableClose: true,
       data: {

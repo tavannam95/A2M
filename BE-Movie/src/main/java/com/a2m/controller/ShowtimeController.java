@@ -56,13 +56,14 @@ public class ShowtimeController {
 
     @GetMapping("/getAllShowtimes")
     public DataResponse<List<Showtimes>> getAllShowtimes(){
-        List<Showtimes> showtime = this.showtimesRepository.findAll();
+        List<Showtimes> showtime = this.showtimesRepository.findAll1();
         List<Showtimes> showtimes = new ArrayList<>();
         for(Showtimes s: showtime) {
         	if(s.getIsDelete() == false) {
         		showtimes.add(s);
         	}
         }
+//        showtimes.sort(Comparator.comparing(Showtimes::getTimeStart));
         return new DataResponse<>(true,"Thành công",showtimes);
     }
     @GetMapping("/getMoviesByDate")

@@ -42,12 +42,14 @@
                 <!-- Password -->
                 <mat-form-field appearance="outline">
                     <mat-label>Mật khẩu</mat-label>
-                    <input type="text" formControlName="password" matInput>
+                    <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password">
+                    <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                        {{showPassword?'visibility_off':'visibility'}}
+                    </mat-icon>
                     <mat-error class="text-danger" *ngIf="formGroup.get('password')?.hasError('required') &&
                                         formGroup.get('password')?.touched">
                         Mật khẩu không được để trống
                     </mat-error>
-
                 </mat-form-field>
 
                 <!-- Email -->
@@ -57,6 +59,15 @@
                     <mat-error class="text-danger" *ngIf="formGroup.get('email')?.hasError('required') &&
                                         formGroup.get('email')?.touched">
                         Email không được để trống
+                    </mat-error>
+                </mat-form-field>
+                <!-- Số ĐT -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Số điện thoại</mat-label>
+                    <input type="text" formControlName="phone" matInput>
+                    <mat-error class="text-danger" *ngIf="formGroup.get('phone')?.hasError('required') &&
+                                        formGroup.get('phone')?.touched">
+                        Số điện thoại không được để trống
                     </mat-error>
                 </mat-form-field>
 
@@ -76,17 +87,16 @@
                         <mat-option value=true>Nam</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <p>Giới tính: {{selected}}</p>
+                <!-- <p>Giới tính: {{selected}}</p> -->
 
                 <!-- Roles -->
                 <mat-form-field appearance="outline">
                     <mat-label>Vai trò</mat-label>
-                    <mat-select [(value)]="selected_id">
-                        <mat-option value="ADMINSTATOR">Quản lý</mat-option>
-                        <mat-option value="EMPLOYEE">Nhân viên</mat-option>
+                    <mat-select [(value)]="selected_id" formControlName="role">
+                        <mat-option value="Quản lý">Quản lý</mat-option>
+                        <mat-option value="Nhân viên">Nhân viên</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <p>Vai trò: {{selected_id}}</p>
             </div>
         </div>
     </form>

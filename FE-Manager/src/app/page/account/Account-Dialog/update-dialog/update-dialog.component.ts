@@ -50,7 +50,7 @@ export class UpdateDialogComponent implements OnInit {
 
   onSubmited() {
     let updateDate = new Date();
-    const gender1 = (this.selected==='Female')? 0 : 1;
+    const gender1 = (this.selected==='Nữ')? 0 : 1;
     this.formGroupUpdate.patchValue({gender:gender1});
     this.formGroupUpdate.patchValue({birthDate: new Date(this.formGroupUpdate.value.birthDate)});
     // this.formGroupUpdate.patchValue({updateDate: updateDate});

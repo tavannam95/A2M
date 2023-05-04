@@ -27,6 +27,7 @@ export class AccountDetailComponent implements OnInit {
     fullname: [this.dataDialog.row.fullname],
     username: [this.dataDialog.row.username],
     email: [this.dataDialog.row.email],
+    phone: [this.dataDialog.row.phone],
     birthDate: [this.dataDialog.row.birthDate],
     gender: [(this.dataDialog.row.gender===true)?'Nam':'Nữ'],
     createBy: [this.dataDialog.row.createBy],
