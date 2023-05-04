@@ -11,8 +11,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  checkTab = true;
   movies: any;
+  upcomingMovie: any;
 
   constructor(
     private showtimeService: ShowtimeService,
@@ -26,6 +27,19 @@ export class HomeComponent implements OnInit {
     this.publicApi.today().subscribe({
       next: res =>{
         this.movies = res.data;
+        if (this.movies.length==0) {
+          this.checkTab = false;
+        }
+      },
+      error: e =>{
+        this.toastrServcie.error('Lỗi hệ thống, vui lòng thử lại sau');
+        
+      }
+    })
+    this.publicApi.upcomingMovie().subscribe({
+      next: res =>{
+        console.log(res);
+        this.upcomingMovie = res.data;
       },
       error: e =>{
         this.toastrServcie.error('Lỗi hệ thống, vui lòng thử lại sau');
@@ -41,7 +55,7 @@ export class HomeComponent implements OnInit {
       return;
     }
     const queryParams = {
-      id: id
+      movie: id
     };
     this.router.navigate(['/select-movie'],{queryParams: queryParams});
   }
