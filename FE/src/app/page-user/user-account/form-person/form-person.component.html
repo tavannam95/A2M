@@ -52,39 +52,57 @@
             <!-- /Tài khoản -->
 
             <!-- Họ tên  -->
-            <mat-form-field appearance="outline">
+            <mat-form-field class="mt-3" appearance="outline">
               <mat-label>Họ tên</mat-label>
               <input type="text" formControlName="fullname" matInput />
               <mat-error
                 class="text-danger"
                 *ngIf="
-                  formGroup.get('name')?.hasError('required') &&
-                  formGroup.get('name')?.touched
+                  formGroup.get('fullname')?.hasError('required') &&
+                  formGroup.get('fullname')?.touched
                 "
               >
                 Họ tên không được để trống
+              </mat-error>
+              <mat-error
+                class="text-danger"
+                *ngIf="
+                  formGroup.get('fullname')?.hasError('pattern') &&
+                  formGroup.get('fullname')?.touched
+                "
+              >
+                Họ tên không đúng định dạng
               </mat-error>
             </mat-form-field>
             <!-- /Họ tên -->
 
             <!-- Email  -->
-            <mat-form-field appearance="outline">
+            <mat-form-field class="mt-3" appearance="outline">
               <mat-label>Email</mat-label>
               <input type="text" formControlName="email" matInput />
               <mat-error
                 class="text-danger"
                 *ngIf="
-                  formGroup.get('name')?.hasError('required') &&
-                  formGroup.get('name')?.touched
+                  formGroup.get('email')?.hasError('required') &&
+                  formGroup.get('email')?.touched
                 "
               >
                 Email không được để trống
+              </mat-error>
+              <mat-error
+                class="text-danger"
+                *ngIf="
+                  formGroup.get('email')?.hasError('pattern') &&
+                  formGroup.get('email')?.touched
+                "
+              >
+                Email không đúng định dạng
               </mat-error>
             </mat-form-field>
             <!-- /Email -->
 
             <!-- Ngày sinh -->
-            <mat-form-field appearance="outline">
+            <mat-form-field class="mt-3" appearance="outline">
               <mat-label>Ngày sinh</mat-label>
               <input
                 matInput
@@ -96,18 +114,39 @@
                 [for]="birthDate"
               ></mat-datepicker-toggle>
               <mat-datepicker #birthDate></mat-datepicker>
+              <mat-error
+                class="text-danger"
+                *ngIf="
+                  formGroup.get('birthDate')?.hasError('required') &&
+                  formGroup.get('birthDate')?.touched
+                "
+              >
+                Bạn chưa chọn ngày sinh
+              </mat-error>
             </mat-form-field>
             <!-- /Ngày sinh -->
 
             <!-- sdt -->
-            <mat-form-field appearance="outline">
+            <mat-form-field class="mt-3" appearance="outline">
               <mat-label>Số điện thoại</mat-label>
               <input type="text" formControlName="phone" matInput />
               <mat-error
                 class="text-danger"
-                *ngIf="formGroup.get('time')?.touched"
+                *ngIf="
+                  formGroup.get('phone')?.hasError('required') &&
+                  formGroup.get('phone')?.touched
+                "
               >
-                Có ký tự không hợp lệ
+              Số điện thoại không được để trống
+              </mat-error>
+              <mat-error
+                class="text-danger"
+                *ngIf="
+                  formGroup.get('phone')?.hasError('pattern') &&
+                  formGroup.get('phone')?.touched
+                "
+              >
+                Số điện thoại không đúng định dạng
               </mat-error>
             </mat-form-field>
             <!-- /sdt -->

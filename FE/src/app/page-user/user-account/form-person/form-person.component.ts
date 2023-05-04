@@ -45,12 +45,12 @@ export class FormPersonComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   formGroup = this.fb.group({
-    fullname: ['', [Validators.required, Validators.pattern(Regex.unicodeAndNumber)]],
+    fullname: ['', [Validators.required, Validators.pattern(Regex.unicode)]],
     username: [''],
     email: ['', [Validators.required, Validators.pattern(Regex.email)]],
     birthDate: ['', [Validators.required]],
     gender: [null, [Validators.required]],
-    phone: ['', [Validators.required, Validators.pattern(Regex.number)]],
+    phone: ['', [Validators.required, Validators.pattern(Regex.phone)]],
     photo: [''],
   })
   constructor(
