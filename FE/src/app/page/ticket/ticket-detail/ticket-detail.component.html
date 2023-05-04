@@ -15,7 +15,7 @@
                         </tr>
                         <tr>
                             <th>Ngày chiếu</th>
-                            <td>{{ticket.showtime.date | date:'dd-MM-yyyy'}}</td>
+                            <td>{{ticket.showtime.date | date:'dd/MM/yyyy'}}</td>
                         </tr>
                         <tr>
                             <th>Giờ chiếu</th>
@@ -39,7 +39,7 @@
                         </tr>
                         <tr>
                             <th>Giá tiền</th>
-                            <td>{{ticket.fare.price}} đ</td>
+                            <td>{{ticket.fare.price|currency:' ':'symbol':'1.0-0'}}₫</td>
                         </tr>
                     </tbody>
                 </table>
@@ -51,5 +51,5 @@
 </div>
 <div mat-dialog-actions class="d-flex justify-content-end">
     <!-- <button class="btn btn-success" (click)="openDialogForm('update',movie)" mat-button>Sửa thông tin</button> -->
-    <button class="btn btn-dark" mat-button mat-dialog-close>Thoát</button>
+    <button class="btn btn-dark" mat-button mat-dialog-close>Đóng</button>
 </div>

@@ -35,7 +35,7 @@ export class AccountService {
   getPassword(){
     return this.apiService.getPassword();
   }
-  
+
   updatePassword(data:any){
     return this.apiService.updatePassword(data);
   }

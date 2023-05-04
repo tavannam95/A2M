@@ -53,7 +53,6 @@ export class FareComponent implements OnInit {
             this.price.vipHoliday = element.price;
           }
         })
-        console.log(this.price);
         
         this.isLoading = false;
       },

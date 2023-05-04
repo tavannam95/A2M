@@ -17,7 +17,7 @@
 
                 <!-- Tên -->
                 <mat-form-field appearance="outline">
-                    <mat-label>Fullname</mat-label>
+                    <mat-label>Họ tên</mat-label>
                     <input type="text" formControlName="fullname" matInput>
                     <mat-error class="text-danger" *ngIf="formGroupUpdate.get('fullname')?.hasError('required') &&
                                         formGroupUpdate.get('fullname')?.touched">
@@ -27,41 +27,34 @@
 
                 <!-- Username -->
                 <mat-form-field appearance="outline">
-                    <mat-label>Username</mat-label>
-                    <input type="text" formControlName="username" matInput>
-                    <mat-error class="text-danger" *ngIf="formGroupUpdate.get('username')?.hasError('required') &&
-                                        formGroupUpdate.get('username')?.touched">
-                        Tên đăng nhập không đúng
-                    </mat-error>
+                    <mat-label>Tên đăng nhập</mat-label>
+                    <input type="text" formControlName="username" matInput readonly>
                 </mat-form-field>
 
                 <!-- Email -->
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input type="text" formControlName="email" matInput>
-                    <mat-error class="text-danger" *ngIf="formGroupUpdate.get('email')?.hasError('required') &&
-                                        formGroupUpdate.get('email')?.touched">
-                        Email không đúng
-                    </mat-error>
+                    <input type="text" formControlName="email" matInput readonly>
                 </mat-form-field>
 
                 <!-- Birthday -->
-                <mat-form-field appearance="fill">
-                    <mat-label>Choose a Birthday</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="birth_date" matInput>
+                <mat-form-field appearance="outline">
+                    <mat-label>Chọn ngày sinh</mat-label>
+                    <input type="text" matInput [matDatepicker]="picker" [(ngModel)]="birthDate" matInput>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
                 <!-- Gender -->
-                <mat-form-field appearance="fill">
-                    <mat-label>Gender</mat-label>
-                    <mat-select [(value)]="selected">
-                        <mat-option value="Female">Female</mat-option>
-                        <mat-option value="Male">Male</mat-option>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Giới tính</mat-label>
+                    <mat-select [(value)]="selected" formControlName="gender">
+                        <mat-option value="Female">Nữ</mat-option>
+                        <mat-option value="Male">Nam</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <p>You selected: {{selected}}</p>
+                <p>Giới tính: {{selected}}</p>
                 
             </div>
         </div>

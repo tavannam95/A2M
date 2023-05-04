@@ -1,0 +1,78 @@
+<div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
+<h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+    <form class="mb-0">
+        <div class="row" [formGroup]="formGroup">
+            <div class="col-12">
+
+                <!-- ID -->
+                <mat-form-field appearance="outline">
+                    <mat-label>ID</mat-label>
+                    <input type="text" formControlName="id" matInput readonly>
+                </mat-form-field>
+
+                <!-- Tên phim -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Tên phim</mat-label>
+                    <input type="text" formControlName="nameMovie" matInput readonly>
+                </mat-form-field>
+
+                <!-- Số phòng -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Số phòng</mat-label>
+                    <input type="text" formControlName="Room_id" matInput readonly>
+                </mat-form-field>
+
+                <!-- Ngày chiếu -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Ngày chiếu</mat-label>
+                    <input type="text" formControlName="date" matInput readonly>
+                </mat-form-field>
+
+                <!-- Thời gian bắt đầu -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Thời gian bắt đầu</mat-label>
+                    <input type="text" formControlName="timeStart" matInput readonly>
+                </mat-form-field>
+            
+                <!-- Thời gian kết thúc -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Thời gian bắt đầu</mat-label>
+                    <input type="text" formControlName="timeEnd" matInput readonly>
+                </mat-form-field>
+
+                <!-- Ngày tạo -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Ngày tạo</mat-label>
+                    <input type="text" formControlName="createDate" matInput readonly>
+                </mat-form-field>
+
+                <!-- Người tạo -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Người tạo</mat-label>
+                    <input type="text" formControlName="createBy" matInput readonly>
+                </mat-form-field>
+
+                <!-- updateDate -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Cập nhật lần cuối</mat-label>
+                    <input type="text" formControlName="updateDate" matInput readonly>
+                </mat-form-field>
+
+                <!-- updateBy -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Người cập nhật</mat-label>
+                    <input type="text" formControlName="updateBy" matInput readonly>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button class="btn btn-dark" mat-button mat-dialog-close>Đóng</button>
+</div>

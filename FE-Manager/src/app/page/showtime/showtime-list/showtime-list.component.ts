@@ -52,7 +52,7 @@ export class ShowtimeListComponent implements OnInit {
   getAllShowtimes() {
     this.showtimesService.getAllShowtimes().subscribe({
       next: res => {
-        console.log(res.data)
+        // console.log(res.data)
         res.data.forEach((data) => {
           data.date = new Date(data.date).toLocaleDateString()
           data.timeStart = new Date(data.timeStart).toLocaleDateString() + ' ' + new Date(data.timeStart).toLocaleTimeString('en-US', { hour12: false })
@@ -67,7 +67,7 @@ export class ShowtimeListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.dataArray = res.data;
-        console.log(res)
+        // console.log(res)
       },
       error: e => {
         console.log(e);
@@ -89,7 +89,7 @@ export class ShowtimeListComponent implements OnInit {
     // console.log(event);
     // console.log(this.roomArray);
     if (this.roomArray.includes(event)) {
-      console.log(2);
+      // console.log(2);
       if (this.select_day === '') {
         this.dataSource.data = this.dataArray.filter((data) => {
           return (''+data.room.id === event);

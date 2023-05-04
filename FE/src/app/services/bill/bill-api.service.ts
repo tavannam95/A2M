@@ -13,6 +13,10 @@ export class BillApiService {
 
   constructor(private readonly http: HttpClient) { }
 
+  getBillUser(): Observable<any>{
+    return this.http.get<any>(`${ApiConstant.bill}/billUser`);
+  }
+
   getAll(): Observable<any> {
     return this.http.get<any>(`${ApiConstant.bill}/listBill`);
   }

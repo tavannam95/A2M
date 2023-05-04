@@ -17,14 +17,14 @@ import { RegisterService } from 'app/services/register/register.service';
 // import { Router } from 'express';
 import { Router } from '@angular/router';
 
-interface User{
+interface User {
   fullname?: string;
   username?: string;
   password?: string;
   email?: string;
   birthDate?: Date;
   gender?: boolean;
-  role?: {id: 1};
+  role?: { id: 1 };
   createDate: Date;
   createBy: string,
   updateDate: Date,
@@ -40,8 +40,8 @@ export class RegisterComponent implements OnInit {
 
   // registerForm: FormGroup;
 
-  days: string[] = Array.from({length: 31}, (_, i) => (i + 1).toString());
-  
+  days: string[] = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
+
   months: string[] = [
     '1',
     '2',
@@ -60,8 +60,8 @@ export class RegisterComponent implements OnInit {
   isLoading = false;
 
   user: User[] = [];
-  
-  years: string[] = Array.from({length: 100}, (_, i) => (new Date().getFullYear() - i).toString());
+
+  years: string[] = Array.from({ length: 100 }, (_, i) => (new Date().getFullYear() - i).toString());
 
 
   selectedDate: string = null;
@@ -69,12 +69,13 @@ export class RegisterComponent implements OnInit {
   selectedMonth: string = null;
 
   selectedYear: string = null;
-  
+
   constructor(
     private fb: FormBuilder,
     private registerService: RegisterService,
     private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private matDialog: MatDialog,
   ) { }
 
   registerForm = this.fb.group({
@@ -82,9 +83,9 @@ export class RegisterComponent implements OnInit {
     username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
-    date:[],
-    month:[],
-    year:[],
+    date: [],
+    month: [],
+    year: [],
     birthDate: [],
     gender: [],
     createDate: [],
@@ -105,36 +106,43 @@ export class RegisterComponent implements OnInit {
   // get birthDate() { return this.registerForm.get('year'+'-'+'month'+'-'+'date'); }
 
   onSubmit() {
-    let newDate = new Date();
-    this.registerForm.patchValue({birthDate: ''+this.registerForm.value.year+'-'+this.registerForm.value.month+'-'+this.registerForm.value.date})
-    this.registerForm.patchValue({createDate: newDate});
-    console.log(this.registerForm.value);
-    // this.user.fullname = this.registerForm.value.fullname;
-    // this.user.username = this.registerForm.value.username;
-    // this.user.password = this.registerForm.value.password;
-    // this.user.email = this.registerForm.value.email;
-    // this.user.birthDate = this.registerForm.value.birthDate;
-    // this.user.gender = (this.registerForm.value.gender==='Female') ? true : false;
-    this.user.push({fullname: this.registerForm.value.fullname, username: this.registerForm.value.username,
-                    password: this.registerForm.value.password, email: this.registerForm.value.email,
-                    birthDate: new Date(""+this.registerForm.value.birthDate), gender: (this.registerForm.value.gender==='Female') ? true : false,
-                    role:{id:1}, createDate: newDate, createBy: '', updateDate: null, updateBy: ''});
-    console.log(this.user);
-    this.registerService.createUser(this.user[0]).subscribe({
-      next: resp => {
-        console.log(resp);
-        if(resp.status===true){
-          this.toastrService.success(resp.message);
-          this.isLoading = false;
-          this.router.navigate(['/login']);
-        }
-        else{
-          this.isLoading = false;
-          this.toastrService.warning(resp.message);
-        }
-      },
-      error: e => {
-        console.log(e);
+    this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+        message: 'Bạn có muốn đăng ký không'
+      }
+    }).afterClosed().subscribe(result => {
+      if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+        this.user = [];
+        let newDate = new Date();
+        this.registerForm.patchValue({ birthDate: '' + this.registerForm.value.year + '-' + this.registerForm.value.month + '-' + this.registerForm.value.date })
+        this.registerForm.patchValue({ createDate: newDate });
+        // console.log(this.registerForm.value);
+        this.user.push({
+          fullname: this.registerForm.value.fullname, username: this.registerForm.value.username,
+          password: this.registerForm.value.password, email: this.registerForm.value.email,
+          birthDate: new Date("" + this.registerForm.value.birthDate), gender: (this.registerForm.value.gender === 'Female') ? false : true,
+          role: { id: 1 }, createDate: newDate, createBy: '', updateDate: null, updateBy: ''
+        });
+        // console.log(this.user);
+        this.registerService.createUser(this.user[0]).subscribe({
+          next: resp => {
+            // console.log(resp);
+            if (resp.status === true) {
+              this.toastrService.success(resp.message);
+              this.isLoading = false;
+              this.router.navigate(['/login']);
+            }
+            else {
+              this.isLoading = false;
+              this.toastrService.warning(resp.message);
+            }
+          },
+          error: e => {
+            console.log(e);
+          }
+        })
       }
     })
   }

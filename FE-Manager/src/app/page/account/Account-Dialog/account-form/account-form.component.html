@@ -1,5 +1,5 @@
 <div *ngIf="isLoading" class="loading">
-  <div class="spinner-border text-danger spinner-center" role="status"></div>
+    <div class="spinner-border text-danger spinner-center" role="status"></div>
 </div>
 <h1 class="text-center h3 font-weight-bold" mat-dialog-title>{{title}}</h1>
 <div mat-dialog-content>
@@ -9,44 +9,45 @@
             <div class="col-4">
                 <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
                     <ngx-dropzone-label>Thêm ảnh vào đây</ngx-dropzone-label>
-                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"  [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                        [removable]="true" (removed)="onRemove(f)">
                         <!-- <ngx-dropzone-label></ngx-dropzone-label> -->
-                      </ngx-dropzone-image-preview>
+                    </ngx-dropzone-image-preview>
                 </ngx-dropzone>
-                
+
             </div>
             <div class="col-8">
 
                 <!-- Tên -->
                 <mat-form-field appearance="outline">
-                    <mat-label>Fullname</mat-label>
+                    <mat-label>Họ tên</mat-label>
                     <input type="text" formControlName="fullname" matInput>
                     <mat-error class="text-danger" *ngIf="formGroup.get('fullname')?.hasError('required') &&
                                         formGroup.get('fullname')?.touched">
-                        Fullname can't be empty
+                        Họ tên không được để trống
                     </mat-error>
                 </mat-form-field>
 
                 <!-- Username -->
                 <mat-form-field appearance="outline">
-                    <mat-label>Username</mat-label>
-                    <input type="text" formControlName="username" matInput >
+                    <mat-label>Tên đăng nhập</mat-label>
+                    <input type="text" formControlName="username" matInput>
                     <mat-error class="text-danger" *ngIf="formGroup.get('username')?.hasError('required') &&
                                         formGroup.get('username')?.touched">
-                        Username can't be empty
+                        Tên đăng nhập không được để trống
                     </mat-error>
-                    
+
                 </mat-form-field>
 
                 <!-- Password -->
                 <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
+                    <mat-label>Mật khẩu</mat-label>
                     <input type="text" formControlName="password" matInput>
                     <mat-error class="text-danger" *ngIf="formGroup.get('password')?.hasError('required') &&
                                         formGroup.get('password')?.touched">
-                        Password can't be empty
+                        Mật khẩu không được để trống
                     </mat-error>
-                   
+
                 </mat-form-field>
 
                 <!-- Email -->
@@ -55,37 +56,37 @@
                     <input type="text" formControlName="email" matInput>
                     <mat-error class="text-danger" *ngIf="formGroup.get('email')?.hasError('required') &&
                                         formGroup.get('email')?.touched">
-                        {{messengerUsername}}
+                        Email không được để trống
                     </mat-error>
                 </mat-form-field>
 
                 <!-- Birthday -->
                 <mat-form-field appearance="outline">
-                    <mat-label>Choose a Birthday</mat-label>
+                    <mat-label>Chọn ngày sinh</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="birthDate" matInput>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
                 <!-- Gender -->
-                <mat-form-field appearance="fill">
-                    <mat-label>Gender</mat-label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Giới tính</mat-label>
                     <mat-select formControlName="gender">
-                        <mat-option value=true>Female</mat-option>
-                        <mat-option value=false>Male</mat-option>
+                        <mat-option value=false>Nữ</mat-option>
+                        <mat-option value=true>Nam</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <p>You selected: {{selected}}</p>
+                <p>Giới tính: {{selected}}</p>
 
                 <!-- Roles -->
-                <mat-form-field appearance="fill">
-                    <mat-label>Role</mat-label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Quyền</mat-label>
                     <mat-select [(value)]="selected_id">
-                        <mat-option value="ADMINSTATOR">ADMINSTATOR</mat-option>
-                        <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>
+                        <mat-option value="ADMINSTATOR">Quản lý</mat-option>
+                        <mat-option value="EMPLOYEE">Nhân viên</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <p>You selected: {{selected_id}}</p>
+                <p>Quyền: {{selected_id}}</p>
             </div>
         </div>
     </form>
@@ -94,5 +95,5 @@
 </div>
 <div mat-dialog-actions class="d-flex justify-content-end">
     <button class="btn btn-success" mat-button (click)="onSubmit()">Đồng ý</button>
-    <button class="btn btn-dark" mat-button mat-dialog-close >Hủy</button>
+    <button class="btn btn-dark" mat-button mat-dialog-close>Hủy</button>
 </div>

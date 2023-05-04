@@ -3,10 +3,10 @@ import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {Routes, RouterModule} from '@angular/router';
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
-import { LoginComponent } from './layouts/auth/login/login.component';
 import { TestCookieComponent } from './page-user/test-cookie/test-cookie.component';
 import { AuthGuard } from './guard/auth.guard';
 import { CustomerLayoutComponent } from './layouts/customer/customer-layout/customer-layout.component';
+import { LoginComponent } from './layouts/auth/login/login.component';
 
 const routes: Routes = [
     {

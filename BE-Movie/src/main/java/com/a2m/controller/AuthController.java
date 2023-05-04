@@ -72,23 +72,24 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest jwtRequest) {
+	public DataResponse<?> createAuthenticationToken(@RequestBody JwtRequest jwtRequest) throws Exception {
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (BadCredentialsException e) {
+			return new DataResponse<>(false,"Tài khoản hoặc mật khẩu không chính xác",null);
 		}
 
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequest.getUsername());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new JwtResponse(jwt));
+		return new DataResponse<>(true,"Đăng nhập thành công",new JwtResponse(jwt));
 	}
 	
 	@PostMapping("/createAccount")
 	public DataResponse<Accounts> createAccounts(@RequestBody Accounts accounts) {
+		accounts.setIsDelete(false);
 		List<Accounts> account = this.accountsRepository.findAll();
 		for (Accounts a : account) {
 			if(a.getEmail()== null || a.getUsername() == null) {
@@ -96,26 +97,26 @@ public class AuthController {
 			}
 			else {
 				if (a.getEmail().equalsIgnoreCase(accounts.getEmail())) {
-					return new DataResponse<>(false, "Email is exists", accounts);
+					return new DataResponse<>(false, "Email đã tồn tại", accounts);
 				}
 				if (a.getUsername().equalsIgnoreCase(accounts.getUsername())) {
-					return new DataResponse<>(false, "Username is exists", accounts);
+					return new DataResponse<>(false, "Username đã tồn tại", accounts);
 				}
 			}
 		}
 		accounts.setIsDelete(false);
-//		accounts.setRole
+		accounts.setPhoto("https://res.cloudinary.com/amenica2m/image/upload/v1683101893/uti9khjqzmsdojb6eq0z.jpg");
 		accounts.setPassword(passwordEncoder.encode(accounts.getPassword()));
-		return new DataResponse<>(true, "Success", this.accountsRepository.save(accounts));
+		return new DataResponse<>(true, "Thành công", this.accountsRepository.save(accounts));
 	}
 	
 	@GetMapping("/changePass")
 	public DataResponse<Accounts> changePass(@RequestParam String username, @RequestParam String email) {
 		List<Accounts> account = this.accountsRepository.findByUsername(username);
 		if(account.get(0) == null) {
-			return new DataResponse<>(false, "Can not find account", null);
+			return new DataResponse<>(false, "Không tìm thấy tài khoản", null);
 		}
-		return new DataResponse<>(true, "Success", account.get(0));
+		return new DataResponse<>(true, "Đăng ký thành công", account.get(0));
 	}
 	
 	@PutMapping("/savePass")
@@ -125,10 +126,10 @@ public class AuthController {
 		System.out.println(date);  
 		Accounts accounts = this.accountsRepository.findById(account.getId()).orElse(null);
 		if(accounts == null) {
-			return new DataResponse<>(false, "Can not find account", null);
+			return new DataResponse<>(false, "Không tìm thấy tài khoản", null);
 		}
-		accounts.setPassword(account.getPassword());
+		accounts.setPassword(passwordEncoder.encode(account.getPassword()));
 		accounts.setUpdateDate(date);
-		return new DataResponse<>(true, "Success", this.accountsRepository.save(accounts));
+		return new DataResponse<>(true, "Đổi mật khẩu thành công", this.accountsRepository.save(accounts));
 	}
 }

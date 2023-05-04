@@ -33,13 +33,12 @@
                             </mat-error>
                         </mat-form-field>
                         <!-- /Họ tên -->
-
-                        <!-- Tên đăng nhập  -->
+                        <!-- Tài khoản  -->
                         <mat-form-field appearance="outline">
-                            <mat-label>Tên đăng nhập</mat-label>
+                            <mat-label>Tài khoản</mat-label>
                             <input type="text" formControlName="username" [readonly]="this.username" matInput>
                         </mat-form-field>
-                        <!-- /Tên đăng nhập -->
+                        <!-- /Tài khoản -->
 
                         <!-- Email  -->
                         <mat-form-field appearance="outline">
@@ -62,15 +61,14 @@
                         <!-- /Ngày sinh -->
 
                         <!-- Giới tính -->
-                        <mat-form-field appearance="outline">
+                        <!-- <mat-form-field appearance="outline">
                             <mat-label>Giới tính</mat-label>
                             <mat-radio-group formControlName="gender">
-                                <mat-radio-button [value]="1">Nam</mat-radio-button>
-                                <mat-radio-button [value]="0">Nữ</mat-radio-button>
+                                <mat-radio-button value="1">Nam</mat-radio-button>
+                                <mat-radio-button value="0">Nữ</mat-radio-button>
                             </mat-radio-group>
-                        </mat-form-field>
+                        </mat-form-field> -->
                         <!-- /Giới tính -->
-
                         <!-- sdt -->
                         <mat-form-field appearance="outline">
                                 <mat-label>Số điện thoại</mat-label>

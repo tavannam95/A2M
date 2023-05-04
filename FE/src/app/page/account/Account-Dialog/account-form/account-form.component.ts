@@ -9,10 +9,11 @@ import { AccountListComponent } from '../../account-list/account-list.component'
 import { AccountService } from 'app/services/account/account.service';
 import { take } from 'rxjs';
 import { Observable } from 'rxjs';
-import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
-import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+// import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
+// import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { CloudinaryService } from 'app/services/cloudinary/cloudinary.service';
 import { ToastrService } from 'ngx-toastr';
+import { JwtService } from 'app/services/jwt/jwt.service';
 
 
 @Component({
@@ -37,7 +38,11 @@ export class AccountFormComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     birthDate: ['', Validators.required],
     gender: [null, Validators.required],
-    role: { id: null }
+    role: { id: null },
+    createBy: [this.jwtService.decode().sub],
+    createDate: [],
+    uploadBy: [],
+    upDateDate: [],
   })
 
   selected: string = 'Female'
@@ -54,7 +59,8 @@ export class AccountFormComponent implements OnInit {
       private matDialog: MatDialog,
       private accountService: AccountService,
       private uploadImageService: CloudinaryService,
-      private toastrService: ToastrService
+      private toastrService: ToastrService,
+      private jwtService: JwtService
     ) { }
 
   ngOnInit(): void {
@@ -102,6 +108,9 @@ export class AccountFormComponent implements OnInit {
   }
 
   async onSubmit() {
+    // console.log(this.jwtService.decode().sub);
+    let newDate = new Date();
+
     this.isLoading = true;
     if (this.files.length>0) {
       await this.uploadImg();
@@ -110,6 +119,7 @@ export class AccountFormComponent implements OnInit {
     // console.log(this.imgUrl);
     
     this.formGroup.patchValue({ role: { id: id } });
+    this.formGroup.patchValue({createDate: newDate})
     // console.log(this.formGroup.value);
 
     this.accountService.save(this.formGroup.value).subscribe({
@@ -119,6 +129,7 @@ export class AccountFormComponent implements OnInit {
         if(res.status===true){
           this.toastrService.success(res.message);
           this.isLoading = false;
+          window.location.reload();
         }
         else{
           this.isLoading = false;

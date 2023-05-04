@@ -1,0 +1,25 @@
+<div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-danger spinner-center" role="status"></div>
+  </div>
+<div class="register-container">
+    <div class="register-box">
+        <h2>Đặt lại mật khẩu</h2>
+        <form [formGroup]="savePassForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="newPassword">Mật khẩu mới</label>
+                <input type="text" id="newPassword" formControlName="newPassword">
+                <div *ngIf="newPassword.touched && newPassword.invalid" class="error-message">
+                    <div *ngIf="newPassword.errors.required">Mật khẩu không được để trống</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="acceptPass">Xác nhận mật khẩu</label>
+                <input type="acceptPass" id="acceptPass" formControlName="acceptPass">
+                <div *ngIf="acceptPass.touched && acceptPass.invalid" class="error-message">
+                    <div *ngIf="acceptPass.errors.required">Xác nhận mật khẩu không được để trống</div>
+                </div>
+            </div>
+            <button type="submit" [disabled]="savePassForm.invalid">Xác nhận</button>
+        </form>
+    </div>
+</div>

@@ -15,12 +15,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="username">Username</label>
+                <label for="username">Tài khoản</label>
                 <input type="text" id="username" formControlName="username">
                 <div *ngIf="username.touched && username.invalid" class="error-message">
-                    <div *ngIf="username.errors.required">Họ và tên không được để trống</div>
-                    <div *ngIf="username.errors.minlength">Họ và tên phải có ít nhất 2 ký tự</div>
-                    <div *ngIf="username.errors.maxlength">Họ và tên không được quá 50 ký tự</div>
+                    <div *ngIf="username.errors.required">Tài khoản không được để trống</div>
+                    <div *ngIf="username.errors.minlength">Tài khoản phải có ít nhất 2 ký tự</div>
+                    <div *ngIf="username.errors.maxlength">Tài khoản không được quá 50 ký tự</div>
                 </div>
             </div>
             <div class="form-group">
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div style="margin-bottom: 20px;">
-                <label>Birthday</label>
+                <label>Ngày sinh</label>
                 <select [(value)]="selectedDate" formControlName="date" required>
                     <option value="chọn ngày sinh">-- Chọn ngày sinh --</option>
                     <option *ngFor="let date of days" [value]="date">{{ date }}</option>

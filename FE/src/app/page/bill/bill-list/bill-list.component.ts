@@ -37,6 +37,8 @@ export class BillListComponent implements OnInit {
     this.isLoading = true;
     this.billService.getAll().subscribe({
       next: res => {
+        console.log(res);
+        
         this.dataSource = new MatTableDataSource<any>(res);
         this.dataSource.data = res;
         this.dataSource.paginator = this.paginator;
