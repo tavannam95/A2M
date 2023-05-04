@@ -81,7 +81,7 @@
         <mat-menu #menu="matMenu">
           <button [matMenuTriggerFor]="menu2" mat-menu-item>Đổi loại</button>
           <mat-menu #menu2="matMenu">
-            <div  *ngFor="let type of seatType;">
+            <div  *ngFor="let type of seatTypeNew;">
               <button mat-menu-item *ngIf="seat.seatType.id!=type.id" (click)="changeNew(indexOfRow,indexOfSeat,type)">
                   {{type.nameVi}}
               </button>

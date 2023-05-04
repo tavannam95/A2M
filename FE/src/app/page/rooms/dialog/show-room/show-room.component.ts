@@ -23,6 +23,7 @@ export class ShowRoomComponent implements OnInit {
   listNewRows = [];
   room = [];
   seatType = [];
+  seatTypeNew = [];
   title = '';
   constructor(
     private matDialog: MatDialog,
@@ -39,6 +40,8 @@ export class ShowRoomComponent implements OnInit {
     this.roomService.getAllSeatType().subscribe({
       next: res => {
         this.seatType = res.data;
+        this.seatTypeNew = res.data;
+        this.seatType = this.seatType.slice(0,2);
       },
       error: e => {
         this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
