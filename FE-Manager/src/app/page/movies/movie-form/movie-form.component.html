@@ -8,11 +8,19 @@
         <div class="row" [formGroup]="formGroup">
             <div class="col-4">
                 <!-- Poster -->
-                <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
+                <ngx-dropzone [multiple]="false" (change)="onSelect($event)" class="poster">
+
                     <ngx-dropzone-label>
-                        <span class="material-symbols-outlined">tải ảnh lên</span>
+                        <span class="material-symbols-outlined">Tải ảnh lên</span>
                     </ngx-dropzone-label>
-                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)" [value]="f">
+                    <ngx-dropzone-label>
+                        <div class="image">
+                            <img [src]="formGroup.get('poster').value" alt="">
+                        </div>
+                    </ngx-dropzone-label>
+                    
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                        [removable]="true" (removed)="onRemove(f)" [value]="f">
                     </ngx-dropzone-image-preview>
                 </ngx-dropzone>
                 <!-- /Poster -->

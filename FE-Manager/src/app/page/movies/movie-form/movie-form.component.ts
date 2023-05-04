@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -52,6 +52,7 @@ export class MovieFormComponent implements OnInit {
     private toastrService: ToastrService,
     private movieService: MovieService,
     private uploadImageService: CloudinaryService,
+
   ) { }
 
   ngOnInit(): void {
@@ -221,4 +222,5 @@ export class MovieFormComponent implements OnInit {
 
     }
   }
+  
 }
