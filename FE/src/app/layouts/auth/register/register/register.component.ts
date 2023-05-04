@@ -22,6 +22,7 @@ interface User {
   username?: string;
   password?: string;
   email?: string;
+  phone?: string;
   birthDate?: Date;
   gender?: boolean;
   role?: { id: 1 };
@@ -82,6 +83,7 @@ export class RegisterComponent implements OnInit {
     fullname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(11)]],
     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
     date: [],
     month: [],
@@ -100,6 +102,7 @@ export class RegisterComponent implements OnInit {
 
   get fullname() { return this.registerForm.get('fullname'); }
   get username() { return this.registerForm.get('username'); }
+  get phone() { return this.registerForm.get('phone'); }
   get email() { return this.registerForm.get('email'); }
   get password() { return this.registerForm.get('password'); }
   get gender() { return this.registerForm.get('gender'); }
@@ -120,7 +123,7 @@ export class RegisterComponent implements OnInit {
         this.registerForm.patchValue({ createDate: newDate });
         this.user.push({
           fullname: this.registerForm.value.fullname, username: this.registerForm.value.username,
-          password: this.registerForm.value.password, email: this.registerForm.value.email,
+          password: this.registerForm.value.password, email: this.registerForm.value.email, phone: this.registerForm.value.phone,
           birthDate: new Date("" + this.registerForm.value.birthDate), gender: (this.registerForm.value.gender === 'Female') ? false : true,
           role: { id: 1 }, createDate: newDate, createBy: '', updateDate: null, updateBy: ''
         });

@@ -63,7 +63,7 @@ public class AccountController {
 			}
 			else {
 				accountinforList.add(a);
-				System.out.println(a.getFullname());
+//				System.out.println(a.getFullname());
 			}
 		}
 		return new DataResponse<>(true, "Thành công", accountinforList);
@@ -75,14 +75,21 @@ public class AccountController {
 		List<Accounts> account = accountRepository.findAll();
 		for (Accounts a : account) {
 			if (a.getEmail().contentEquals(accounts.getEmail())) {
-				return new DataResponse<>(false, "Email đã tồn tại", accounts);
+				return new DataResponse<>(false, "Email đã tồn tại", null);
 			}
 			if (a.getUsername().contentEquals(accounts.getUsername())) {
-				return new DataResponse<>(false, "Username đã tồn tại", accounts);
+				return new DataResponse<>(false, "Username đã tồn tại", null);
+			}
+			if (a.getPhone().contentEquals(accounts.getPhone())) {
+				return new DataResponse<>(false, "Số điện thoại đã tồn tại", null);
 			}
 		}
 		accounts.setIsDelete(false);
 		accounts.setPassword(passwordEncoder.encode(accounts.getPassword()));
+		if(accounts.getPhoto()==null) {
+			accounts.setPhoto("https://res.cloudinary.com/amenica2m/image/upload/v1683101893/uti9khjqzmsdojb6eq0z.jpg");
+		}
+		System.out.println(accounts.getPhoto());
 		return new DataResponse<>(true, "Thêm mới thành công", accountRepository.save(accounts));
 	}
 

@@ -213,8 +213,8 @@ export class ShowtimeFormComponent implements OnInit {
     }
     this.data1 = this.movies.filter(data => '' + data.id === this.select_movies);
     let startTime = new Date('' + this.select_day + ' ' + '00:00:00');
-    const [hoursString, minutesString, secondsString] = this.formGroup.value.hour.split(":");
-    startTime.setTime(startTime.getTime() + parseInt(hoursString) * 60 * 60 * 1000 + parseInt(minutesString) * 60 * 1000 + parseInt(secondsString) * 1000);
+    const [hoursString, minutesString] = this.formGroup.value.hour.split(":");
+    startTime.setTime(startTime.getTime() + parseInt(hoursString) * 60 * 60 * 1000 + parseInt(minutesString) * 60 * 1000 + 0);
     let endTime = new Date();
     endTime.setTime(startTime.getTime() + this.data1[0].time * 60 * 1000);
     let createTime = new Date();
@@ -235,7 +235,7 @@ export class ShowtimeFormComponent implements OnInit {
               flag = 0;
             }
             else {
-              this.toastrService.warning("Trùng thời gian chiếu 1")
+              this.toastrService.warning("Trùng thời gian chiếu ")
               flag = 0;
             }
           }
@@ -245,29 +245,29 @@ export class ShowtimeFormComponent implements OnInit {
               flag = 0;
             }
             else {
-              this.toastrService.warning("Trùng thời gian chiếu 2")
+              this.toastrService.warning("Trùng thời gian chiếu ")
               flag = 0;
             }
           }
-          // else if (this.compareTimes(endTime, timeStart) < 0) {
-          //   if ((timeStart.getTime() - endTime.getTime()) < 30 * 60 * 60 * 1000) {
-          //     this.toastrService.warning("Thời gian giữa hai suất chiếu phải cách nhau 30 phút")
-          //     flag = 0;
-          //   }
-          // }
-          // else if (this.compareTimes(startTime, timeEnd) > 0) {
-          //   if ((startTime.getTime() - timeEnd.getTime()) < 30 * 60 * 60 * 1000) {
-          //     this.toastrService.warning("Thời gian giữa hai suất chiếu phải cách nhau 30 phút")
-          //     flag = 0;
-          //   }
-          // }
           else if (this.compareTimes(startTime, timeStart) >= 0 && this.compareTimes(endTime, timeEnd) <= 0) {
-            this.toastrService.warning("Trùng thời gian chiếu 3")
+            this.toastrService.warning("Trùng thời gian chiếu ")
             flag = 0;
           }
           else if (this.compareTimes(startTime, timeStart) <= 0 && this.compareTimes(endTime, timeEnd) >= 0) {
-            this.toastrService.warning("Trùng thời gian chiếu 4")
+            this.toastrService.warning("Trùng thời gian chiếu ")
             flag = 0;
+          }
+          if (this.compareTimes(endTime, timeStart) < 0) {
+            if ((timeStart.getTime() - endTime.getTime()) < 30 * 60 * 1000) {
+              this.toastrService.warning("Thời gian giữa hai suất chiếu phải cách nhau 30 phút")
+              flag = 0;
+            }
+          }
+          if (this.compareTimes(startTime, timeEnd) > 0) {
+            if ((startTime.getTime() - timeEnd.getTime()) < 30 * 60 * 1000) {
+              this.toastrService.warning("Thời gian giữa hai suất chiếu phải cách nhau 30 phút")
+              flag = 0;
+            }
           }
         }
       })

@@ -60,7 +60,7 @@ export class UpdateDialogComponent implements OnInit {
       this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
     })
     console.log(this.formGroupUpdate.value);
-    window.location.reload();
+    // window.location.reload();
   }
 
 

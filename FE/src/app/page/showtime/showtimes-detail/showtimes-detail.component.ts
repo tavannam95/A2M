@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { JwtService } from 'app/services/jwt/jwt.service';
+import { type } from 'jquery';
 
 @Component({
   selector: 'app-showtimes-detail',
@@ -21,10 +22,10 @@ export class ShowtimesDetailComponent implements OnInit {
     // id: [''],
     id: [this.dataDialog.row.id],
     nameMovie: [this.dataDialog.row.movie.name],
-    Room_id: [this.dataDialog.row.room.id],
+    Room_id: [this.dataDialog.row.room.name],
     date: [this.dataDialog.row.date],
-    timeStart: [this.dataDialog.row.timeStart],
-    timeEnd: [this.dataDialog.row.timeEnd],
+    timeStart: [this.dataDialog.row.timeStart.substring(this.dataDialog.row.timeStart.length - 8)],
+    timeEnd: [this.dataDialog.row.timeEnd.substring(this.dataDialog.row.timeEnd.length - 8)],
     createBy: [this.dataDialog.row.createBy],
     updateBy: [this.dataDialog.row.updateBy],
     createDate: [this.dataDialog.row.createDate],
@@ -49,6 +50,7 @@ export class ShowtimesDetailComponent implements OnInit {
     if (this.dataDialog.type == 'Detail') {
       this.title = 'Xem chi tiết';
     }
+    
   }
 
 }

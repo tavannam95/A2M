@@ -102,6 +102,9 @@ public class AuthController {
 				if (a.getUsername().equalsIgnoreCase(accounts.getUsername())) {
 					return new DataResponse<>(false, "Username đã tồn tại", accounts);
 				}
+				if (a.getPhone().contentEquals(accounts.getPhone())) {
+					return new DataResponse<>(false, "Số điện thoại đã tồn tại", null);
+				}
 			}
 		}
 		accounts.setIsDelete(false);

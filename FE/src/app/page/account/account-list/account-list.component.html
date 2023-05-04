@@ -108,6 +108,12 @@
                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                             </table>
                         </div>
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-end">
+                                <mat-paginator [pageSizeOptions]="[10, 25, 100]"
+                                    aria-label="Select page of users"></mat-paginator>
+                            </div>
+                        </div>
                         <!-- end -->
                     </div>
                 </div>

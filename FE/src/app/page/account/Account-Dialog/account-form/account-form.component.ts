@@ -23,9 +23,10 @@ import { JwtService } from 'app/services/jwt/jwt.service';
 })
 export class AccountFormComponent implements OnInit {
   isLoading = false;
-  
+
   messengerUsername: string = 'Không được để trống ô này';
-  
+
+  showPassword: boolean = false
 
   title: string = 'Account'
 
@@ -36,16 +37,17 @@ export class AccountFormComponent implements OnInit {
     photo: [''],
     password: ['', [Validators.required, Validators.minLength(8)]],
     email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.pattern(Regex.phone)]],
     birthDate: ['', Validators.required],
     gender: [null, Validators.required],
-    role: { id: null },
+    role: [null, Validators.required],
     createBy: [this.jwtService.decode().sub],
     createDate: [],
     uploadBy: [],
     upDateDate: [],
   })
 
-  selected: string = 'Female'
+  // selected: string = 'Female'
 
   selected_id: string;
 
@@ -54,14 +56,14 @@ export class AccountFormComponent implements OnInit {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public dataDialog: any,
-      private fb: FormBuilder,
-      private matDialogRef: MatDialogRef<AccountFormComponent>,
-      private matDialog: MatDialog,
-      private accountService: AccountService,
-      private uploadImageService: CloudinaryService,
-      private toastrService: ToastrService,
-      private jwtService: JwtService
-    ) { }
+    private fb: FormBuilder,
+    private matDialogRef: MatDialogRef<AccountFormComponent>,
+    private matDialog: MatDialog,
+    private accountService: AccountService,
+    private uploadImageService: CloudinaryService,
+    private toastrService: ToastrService,
+    private jwtService: JwtService
+  ) { }
 
   ngOnInit(): void {
     if (this.dataDialog.type == 'create') {
@@ -73,62 +75,91 @@ export class AccountFormComponent implements OnInit {
   }
 
   onSelect(event) {
-    if (this.files.length>0) {
-      this.files.splice(0,1);
+    if (this.files.length > 0) {
+      this.files.splice(0, 1);
     }
     this.files.push(...event.addedFiles);
   }
-  
+
   onRemove(event) {
     this.files.splice(this.files.indexOf(event), 1);
   }
-  
 
-  async uploadImg(){
+
+  async uploadImg() {
     const formData = new FormData();
-    if (this.files.length>0) {
-      formData.append('files',this.files[0])
+    if (this.files.length > 0) {
+      formData.append('files', this.files[0])
     }
     try {
-      this.imgUrl = await this.uploadImageService.upload(formData)
+      this.imgUrl = await this.uploadImageService.upload(formData).subscribe({
+        next: res=>{
+          console.log(res);
+        }
+      })
+      // console.log(formData);
       
-      this.formGroup.patchValue({photo: this.imgUrl.data[0]});
-      
+      this.formGroup.patchValue({ photo: this.imgUrl.data[0] });
+
     } catch (error) {
-      
+
     }
   }
 
-  async onSubmit() {
-    let newDate = new Date();
+  onSubmit() {
+    this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+        message: 'Bạn có muốn thêm tài khoản không'
+      }
+    }).afterClosed().subscribe(result => {
+      if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+        this.uploadInfor()
+      }
+    })
+  }
 
-    this.isLoading = true;
-    if (this.files.length>0) {
+  async uploadInfor(){
+    if (this.files.length > 0) {
       await this.uploadImg();
     }
-    const id = (this.selected_id === "ADMINSTATOR") ? 3 : 2
-    
-    this.formGroup.patchValue({ role: { id: id } });
-    this.formGroup.patchValue({createDate: newDate})
+    let newDate = new Date();
 
-    this.accountService.save(this.formGroup.value).subscribe({
-      next: res => {
-        this.matDialogRef.close()
-        if(res.status===true){
-          this.toastrService.success(res.message);
-          this.isLoading = false;
-          window.location.reload();
-        }
-        else{
-          this.isLoading = false;
-          this.toastrService.warning(res.message);
-        }
-      },
-      error: e=>{
-        this.toastrService.error('Lỗi tạo tài khoản')
-      }
+    this, this.formGroup.markAllAsTouched();
+    if (this.formGroup.invalid) {
+      return;
     }
-    )
+    this.isLoading = true;
+    const id = (this.selected_id === "Quản lý") ? 3 : 2
+
+    this.formGroup.patchValue({ role: { id: id } });
+    this.formGroup.patchValue({ createDate: newDate })
+
+    console.log(this.formGroup.value);
+
+    // this.accountService.save(this.formGroup.value).subscribe({
+    //   next: res => {
+    //     this.matDialogRef.close()
+    //     if (res.status === true) {
+    //       this.toastrService.success(res.message);
+    //       this.isLoading = false;
+    //       // window.location.reload();
+    //     }
+    //     else {
+    //       this.isLoading = false;
+    //       this.toastrService.warning(res.message);
+    //     }
+    //   },
+    //   error: e => {
+    //     this.toastrService.error('Lỗi tạo tài khoản')
+    //   }
+    // }
+    // )
+  }
+  
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
 
