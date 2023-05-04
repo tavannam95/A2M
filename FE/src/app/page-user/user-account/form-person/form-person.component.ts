@@ -162,8 +162,6 @@ export class FormPersonComponent implements OnInit {
     try {
       this.imgUrl = await this.uploadImageService.upload(formData).toPromise();
       this.formGroup.patchValue({ photo: this.imgUrl[0] });
-      console.log(this.formGroup.value);
-      
     } catch (error) {
       this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau')
     }

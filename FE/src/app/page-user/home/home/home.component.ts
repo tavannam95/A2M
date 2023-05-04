@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
     })
     this.publicApi.upcomingMovie().subscribe({
       next: res =>{
-        console.log(res);
         this.upcomingMovie = res.data;
       },
       error: e =>{

@@ -46,7 +46,6 @@ export class SelectMovieComponent implements OnInit {
       id: showtimeId
     };
     this.router.navigate(['/select-seat'],{queryParams})
-    
   }
 
   getAllShowtimeActive(){
@@ -99,13 +98,8 @@ export class SelectMovieComponent implements OnInit {
   }
 
   changeDate(event: any){
-    console.log(this.selectDate);
-    console.log(this.idMovie);
-    
     this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
       next: res =>{
-        console.log(res);
-        
         this.timeShowtime = res.data;
       },
       error: e =>{

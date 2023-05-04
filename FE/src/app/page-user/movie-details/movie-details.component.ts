@@ -76,10 +76,6 @@ export class MovieDetailsComponent implements OnInit {
     })
   }
 
-  checkDate(){
-    console.log(this.showtime);
-    
-  }
 
   async getStByMovieDate(date: any){
     await this.publicService.getShowtimeByMovieAndDate(this.idMovie,date).subscribe({

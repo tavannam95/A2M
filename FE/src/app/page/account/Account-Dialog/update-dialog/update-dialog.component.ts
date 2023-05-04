@@ -44,7 +44,6 @@ export class UpdateDialogComponent implements OnInit {
   selected: String = (this.dataDialog.row.gender===true)?'Nam':'Nữ';
   ngOnInit(): void {
     // this.birthDate = new Date(this.dataDialog.row.birthDate);
-    console.log(this.dataDialog.row);
   }
 
   onSubmited() {
@@ -56,7 +55,6 @@ export class UpdateDialogComponent implements OnInit {
       next:
       this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
     })
-    console.log(this.formGroupUpdate.value);
     window.location.reload();
   }
 
