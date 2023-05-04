@@ -38,9 +38,6 @@ export class LoginComponent implements OnInit {
 
   get username() { return this.loginForm.get('username'); }
   get password() { return this.loginForm.get('password'); }
-  // onSubmit() {
-  //   console.log(this.loginForm.value);
-  // }
 
   login() {
     this.isLoading = true;
@@ -56,7 +53,15 @@ export class LoginComponent implements OnInit {
           const token = res.data.token;
           this.cookieService.saveToken(token);
           HeadersUtil.getHeadersAuth();
-          this.toastrService.success(res.message);
+          this.toastrService.success('',
+            res.message,
+            {
+              enableHtml: true,
+              closeButton: true,
+              timeOut: 3000,
+              positionClass: 'toast-top-right'
+            }
+          );
           if (this.jwtService.getRoleFromToken() === 'ROLE_ADMINSTRATOR' || this.jwtService.getRoleFromToken() === 'ROLE_EMPLOYEE') {
             this.router.navigate(['/dashboard']);         
           } else {

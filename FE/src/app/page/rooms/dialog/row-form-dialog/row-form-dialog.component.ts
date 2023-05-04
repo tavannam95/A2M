@@ -31,12 +31,10 @@ export class RowFormDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.dataDialog);
     this.formGroup.patchValue({roomId: this.dataDialog.room.id});
   }
 
   createRow(){
-    console.log(this.formGroup.value);
     this.formGroup.markAllAsTouched();
     if (this.formGroup.invalid) {
       return;
@@ -58,7 +56,6 @@ export class RowFormDialogComponent implements OnInit {
             },
             error: e =>{
               this.isLoading = false;
-              console.log(e);
               this.toastrService.error('Lỗi thêm hàng ghế');
             }
           })

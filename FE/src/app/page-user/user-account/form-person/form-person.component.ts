@@ -9,6 +9,9 @@ import { NotificationService } from 'app/services/notification-service/notificat
 import { Regex } from 'app/services/regex/regex';
 import { JwtService } from 'app/services/jwt/jwt.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
+import { Constant } from 'app/constants/Constant';
 
 @Component({
   selector: 'app-form-person',
@@ -16,14 +19,26 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./form-person.component.scss']
 })
 export class FormPersonComponent implements OnInit {
-  // isLoading = true;
-
+  isLoading = false;
 
   files: File[] = [];
   imgUrl: any;
   info: any = {};
   account: any;
   username: any;
+
+  gender = true;
+
+  listGender = [
+    {
+      name: 'Nam',
+      value: true
+    },
+    {
+      name: 'Nữ',
+      value: false
+    },
+  ]
 
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,7 +49,7 @@ export class FormPersonComponent implements OnInit {
     username: [''],
     email: ['', [Validators.required, Validators.pattern(Regex.email)]],
     birthDate: ['', [Validators.required]],
-    gender: ['', [Validators.required]],
+    gender: [null, [Validators.required]],
     phone: ['', [Validators.required, Validators.pattern(Regex.number)]],
     photo: [''],
   })
@@ -44,7 +59,8 @@ export class FormPersonComponent implements OnInit {
     private toastrService: ToastrService,
     private accountService: AccountService,
     private uploadImageService: CloudinaryService,
-    private jwt: JwtService
+    private jwt: JwtService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -53,9 +69,7 @@ export class FormPersonComponent implements OnInit {
 
   onInit() {
     this.username = this.jwt.getUsernameFromToken();
-    console.log(this.username);
     this.accountService.getUser().subscribe(response => {
-      console.log(response);
       this.formGroup.patchValue({
         fullname: response.fullname,
         username: response.userName,
@@ -65,7 +79,10 @@ export class FormPersonComponent implements OnInit {
         phone: response.phone,
         photo: response.photo,
       })
+      this.gender = response.gender;
     });
+
+
   }
 
 
@@ -75,12 +92,48 @@ export class FormPersonComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
-    // this.notificationService.showNotification('success', 'Cập nhật thành công !'); 
-    this.toastrService.success("Cập nhật thành công");
-    this.accountService.updateUser(this.formGroup.value).subscribe({
-
+    this.dialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+        message: 'Bạn có muốn cập nhật thông tin cá nhân?'
+      }
+    }).afterClosed().subscribe(result => {
+      if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+        this.update();
+      }
     })
+    
 
+  }
+
+  async update() {
+    this.isLoading = true;
+    if (this.files.length > 0) {
+      await this.uploadImg();
+    }
+    this.accountService.updateUser(this.formGroup.value).subscribe({
+      next: res => {
+        this.isLoading = false;
+        this.toastrService.success('Cập nhật thông tin thành công')
+        this.accountService.getUser().subscribe(response => {
+          this.formGroup.patchValue({
+            fullname: response.fullname,
+            username: response.userName,
+            email: response.email,
+            birthDate: response.birthDate,
+            gender: response.gender,
+            phone: response.phone,
+            photo: response.photo,
+          })
+          this.gender = response.gender;
+        });
+      },
+      error: e => {
+        this.isLoading = false;
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
+      }
+    })
   }
 
   async uploadImage() {
@@ -108,12 +161,11 @@ export class FormPersonComponent implements OnInit {
     }
     try {
       this.imgUrl = await this.uploadImageService.upload(formData).toPromise();
-
-      this.formGroup.patchValue({ photo: this.imgUrl.data[0] });
-
+      this.formGroup.patchValue({ photo: this.imgUrl[0] });
+      console.log(this.formGroup.value);
+      
     } catch (error) {
-      console.log(error);
-
+      this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau')
     }
   }
 }

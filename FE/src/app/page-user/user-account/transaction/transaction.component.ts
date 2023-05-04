@@ -27,7 +27,6 @@ export class TransactionComponent implements OnInit {
     this.billService.getBillUser()
       .subscribe(response => {
         this.bills = response;
-        console.log(this.bills);
         if (this.bills.length > 0) {
           this.bills.forEach((element) => {
             element.countTickets = element.listTickets.length;

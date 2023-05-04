@@ -26,10 +26,9 @@ export class HomeComponent implements OnInit {
     this.publicApi.today().subscribe({
       next: res =>{
         this.movies = res.data;
-        console.log(this.movies);
       },
       error: e =>{
-        console.log(e);
+        this.toastrServcie.error('Lỗi hệ thống, vui lòng thử lại sau');
         
       }
     })

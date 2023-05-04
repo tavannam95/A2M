@@ -17,7 +17,6 @@ export class TicketDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.ticket = this.dataDialog.ticket;
-    console.log(this.dataDialog.ticket);
   }
 
 }

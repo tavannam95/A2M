@@ -58,7 +58,7 @@ public class BillController {
 			return new DataResponse<>(false,"Hóa đơn không tồn tại",null);
 		}
 		if (bills.getStatus()==1){
-			return new DataResponse<>(false,"Hóa đơn này đã được in vé trước đó",bills);
+			return new DataResponse<>(false,"Hóa đơn này đã được in vé",bills);
 		}
 		return new DataResponse<>(true,"Thành công",bills);
 

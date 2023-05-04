@@ -44,11 +44,10 @@ export class RoomListComponent implements OnInit {
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(res);
         this.isLoading = false;
       },
       error: e =>{
-        console.log(e);
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
         this.isLoading = false;
       }
     })
@@ -89,7 +88,6 @@ export class RoomListComponent implements OnInit {
       }
     }).afterClosed().subscribe(result => {
         if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
-          console.log(row);
           this.isLoading = true;
           this.roomService.activeOrInactive(row).subscribe({
             next: res =>{
@@ -98,8 +96,7 @@ export class RoomListComponent implements OnInit {
               this.getAllRoom();
             },
             error: e =>{
-              this.toastrService.error('Server đang quá tải vui lòng thử lại sau');
-              console.log(e);
+              this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
               this.isLoading = false;
             }
           });

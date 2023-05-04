@@ -78,7 +78,6 @@ export class NavbarComponent implements OnInit {
         data.listTickets.forEach(t =>{
             let ngayChieu = this.datePipe.transform(t.showtime.date,'dd/MM/yyyy');
             let gioChieu = this.datePipe.transform(t.showtime.timeStart,'hh:mm');
-            console.log(t);
             text+=`<div class="ticket">
             <div class="title">AMENIC | Ngày mới - Phim mới</div>
             <div class="subtitle">VÉ XEM PHIM</div>
@@ -124,15 +123,12 @@ export class NavbarComponent implements OnInit {
             style: '.ticket { margin-top: 20px; font-family: Arial, sans-serif; width: 100%; border: 1px solid #ccc; padding: 20px; box-sizing: border-box; } .ticket .title { font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 10px; } .ticket .subtitle { font-size: 18px; font-weight: bold; text-align: center; margin-bottom: 20px; } .ticket .info { display: flex; justify-content: space-between; margin-bottom: 10px; } .ticket .info span { font-size: 14px; font-weight: bold; } .ticket .seat { font-size: 16px; font-weight: bold; text-align: center; margin-bottom: 20px; } .ticket .instructions { font-size: 14px; text-align: center; }',
             onPrintDialogClose: (res) => {
                 // Xử lý sự kiện in thành công ở đây
-                console.log(res);
                 this.billService.printTicket(this.bill.id).subscribe({
                     next: res =>{
-                        console.log(res);
                         this.toastrService.success('In vé thành công');
                     },
                     error: e =>{
-                        console.log(e);
-                        
+                        this.toastrService.error('In vé thất bại');
                     }
                 })
             }
@@ -142,10 +138,8 @@ export class NavbarComponent implements OnInit {
 
     onCodeResult(resultString: string) {
         const barcode = resultString.substring(0,resultString.length-1);
-        console.log(barcode);
         this.billService.findByBarcode(barcode).subscribe({
             next: res =>{
-                console.log(res.data);
                 this.bill = res.data;
                 if (res.status) {
                     this.scanner2.close();
@@ -166,7 +160,7 @@ export class NavbarComponent implements OnInit {
                 }
             },
             error: e =>{
-                console.log(e);
+                this.toastrService.warning('Lỗi hệ thống, vui lòng thử lại sau')
                 
             }
         })
@@ -215,8 +209,18 @@ export class NavbarComponent implements OnInit {
     }
 
     logout() {
-        this.cookieService.delete();
-        this.jwtService.reloadPage();
+        this.dialog.open(ConfirmDialogComponent, {
+            disableClose: true,
+            hasBackdrop: true,
+            data: {
+              message: 'Bạn có muốn đăng xuất không?'
+            }
+          }).afterClosed().subscribe(result => {
+            if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+                this.cookieService.delete();
+                this.jwtService.reloadPage();
+            }
+          })
     }
 
     sidebarOpen() {

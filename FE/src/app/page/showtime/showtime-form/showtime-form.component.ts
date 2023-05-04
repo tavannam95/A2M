@@ -103,7 +103,6 @@ export class ShowtimeFormComponent implements OnInit {
 
 
   onSubmit() {
-    // console.log(this.dataList);
     this.formGroup.markAllAsTouched();
     if(this.formGroup.invalid){
       return;
@@ -119,7 +118,6 @@ export class ShowtimeFormComponent implements OnInit {
         this.dataList.forEach((data) => {
           this.showtimesService.updateData(data).subscribe({
             next: res => {
-              // console.log(data);
               this.matDialogRef.close()
               this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
               if (res.status === true) {
@@ -141,20 +139,16 @@ export class ShowtimeFormComponent implements OnInit {
 
 
   getMovie(event: any) {
-    // console.log(event)
-    // console.log(this.select_day);
     if (event !== null) {
       this.showtimesService.getMoviesByDate(event).subscribe({
         next: res => {
           this.movies = res.data
-          // console.log(this.movies);
         }
       })
     }
     if(this.select_room!=null){
       this.showtimesService.getShowTimeByDate(event, this.select_room).subscribe({
         next: res => {
-          // console.log(res.data);
           res.data.forEach((data) => {
             data.date = new Date(data.date).toLocaleDateString()
             data.createDate = new Date(data.createDate).toLocaleDateString()
@@ -168,7 +162,7 @@ export class ShowtimeFormComponent implements OnInit {
           // this.dataSource.sort = this.sort;
         },
         error: e => {
-          console.log(e);
+          this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
         }
       })
     }
@@ -176,15 +170,12 @@ export class ShowtimeFormComponent implements OnInit {
 
 
   selectRoom(event: any) {
-    // console.log('===================');
 
-    // console.log(event);
 
     // let id: number = 1;
     if (this.select_day !== '' && event !== null) {
       this.showtimesService.getShowTimeByDate(this.select_day, event).subscribe({
         next: res => {
-          // console.log(res.data);
           res.data.forEach((data) => {
             data.date = new Date(data.date).toLocaleDateString()
             data.createDate = new Date(data.createDate).toLocaleDateString()
@@ -198,7 +189,7 @@ export class ShowtimeFormComponent implements OnInit {
           // this.dataSource.sort = this.sort;
         },
         error: e => {
-          console.log(e);
+          this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
         }
       })
       // this.dataSource = new MatTableDataSource<any>(this.dataList);
@@ -240,7 +231,6 @@ export class ShowtimeFormComponent implements OnInit {
     let endTime = new Date();
     endTime.setTime(startTime.getTime() + this.data1[0].time * 60 * 1000);
     let createTime = new Date();
-    // console.log(this.dataList.length);
     let flag: number = 1;
     if (this.dataList.length == 0) {
       flag = 1;
@@ -250,10 +240,6 @@ export class ShowtimeFormComponent implements OnInit {
       this.dataList.forEach((data) => {
         let timeStart = new Date(data.timeStart);
         let timeEnd = new Date(data.timeEnd);
-        // console.log('thời gian bắt đầu phim mới: ' + startTime.getHours());
-        // console.log('thời gian kết thúc phim mới: ' + endTime.getHours());
-        // console.log('thời gian bắt đầu phim cũ: ' + timeStart.getHours());
-        // console.log('thời gian kết thúc phim cũ: ' + timeEnd.getHours());
         if (this.compareTimes(endTime, timeStart) >= 0 && this.compareTimes(endTime, timeEnd) <= 0) {
           this.toastrService.warning('Thời gian không hợp lệ 1')
           flag = 0;
@@ -277,8 +263,6 @@ export class ShowtimeFormComponent implements OnInit {
     }
     this.dataSource = new MatTableDataSource<any>(this.dataList.filter((data) => data.isDelete === false));
     // this.dataSource.renderRow()
-    // console.log(this.dataList);
-    // console.log(this.dataSource);
   }
 
   getDelete(element: any) {
@@ -286,7 +270,6 @@ export class ShowtimeFormComponent implements OnInit {
       return data.timeStart !== element.timeStart
     })
     // this.dataSource = new MatTableDataSource<any>(this.dataList);
-    // console.log(this.dataList);
     // this.formGroup.value.dataArraylist = this.dataList;
     let updateDate = new Date();
     this.dataList.forEach((data) => {

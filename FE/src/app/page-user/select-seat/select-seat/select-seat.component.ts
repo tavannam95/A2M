@@ -79,7 +79,7 @@ export class SelectSeatComponent implements OnInit {
         this.fare = res.data;
       },
       error: e=>{
-        console.log(e);
+        this.toastrServcie.error('Lỗi hệ thống, vui lòng thử lại sau');
         
       }
     })
@@ -94,7 +94,7 @@ export class SelectSeatComponent implements OnInit {
         }
       },
       error: e=>{
-        console.log(e);
+        this.toastrServcie.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
   }
@@ -161,20 +161,19 @@ export class SelectSeatComponent implements OnInit {
     this.publicApiService.findById(this.showtimeId).subscribe({
       next: res =>{
         this.showtime= res.data;
-        console.log(this.showtime);
         
         this.publicApiService.getByRoom(this.showtime.room).subscribe({
           next: res=>{
             this.seatRow = res.data;
           },
           error: e=>{
-            console.log(e);
+            this.toastrServcie.error('Lỗi hệ thống, vui lòng thử lại sau');
             
           }
         })
       },
       error: e=>{
-        console.log(e);
+        this.toastrServcie.error('Lỗi hệ thống, vui lòng thử lại sau');
         
       }
     })
@@ -206,13 +205,12 @@ export class SelectSeatComponent implements OnInit {
           }
           this.publicApiService.createBill(billRequest).subscribe({
             next: res =>{
-              console.log(res);
               this.isLoading = false;
               this.toastrServcie.success(res.message);
               this.loadPage();
             },
             error: e =>{
-              console.log(e);
+              this.toastrServcie.error('Lỗi hệ thống, vui lòng thử lại sau');
               this.isLoading = false;
             }
           })

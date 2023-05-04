@@ -110,7 +110,7 @@ export class RegisterComponent implements OnInit {
       disableClose: true,
       hasBackdrop: true,
       data: {
-        message: 'Bạn có muốn đăng ký không'
+        message: 'Bạn có muốn đăng ký không?'
       }
     }).afterClosed().subscribe(result => {
       if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
@@ -118,17 +118,14 @@ export class RegisterComponent implements OnInit {
         let newDate = new Date();
         this.registerForm.patchValue({ birthDate: '' + this.registerForm.value.year + '-' + this.registerForm.value.month + '-' + this.registerForm.value.date })
         this.registerForm.patchValue({ createDate: newDate });
-        // console.log(this.registerForm.value);
         this.user.push({
           fullname: this.registerForm.value.fullname, username: this.registerForm.value.username,
           password: this.registerForm.value.password, email: this.registerForm.value.email,
           birthDate: new Date("" + this.registerForm.value.birthDate), gender: (this.registerForm.value.gender === 'Female') ? false : true,
           role: { id: 1 }, createDate: newDate, createBy: '', updateDate: null, updateBy: ''
         });
-        // console.log(this.user);
         this.registerService.createUser(this.user[0]).subscribe({
           next: resp => {
-            // console.log(resp);
             if (resp.status === true) {
               this.toastrService.success(resp.message);
               this.isLoading = false;
@@ -140,7 +137,7 @@ export class RegisterComponent implements OnInit {
             }
           },
           error: e => {
-            console.log(e);
+            this.toastrService.error('Lỗi hệ thống vui lòng thử lại sau');
           }
         })
       }

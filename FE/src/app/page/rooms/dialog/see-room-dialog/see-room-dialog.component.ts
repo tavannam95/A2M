@@ -25,7 +25,6 @@ export class SeeRoomDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.dataDialog);
     this.title = this.dataDialog.room.name;
     this.getOneRoom();
     this.getRow();
@@ -36,31 +35,21 @@ export class SeeRoomDialogComponent implements OnInit {
     this.roomService.getAllSeatType().subscribe({
       next: res=>{
         this.seatType = res.data;
-        console.log(this.seatType);
       },
       error: e=>{
-        console.log(e);
-        
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');        
       }
     })
   }
 
   change(seat: any,seatType: any){
-    console.log(seat.id);
-    console.log(seatType);
-    // if (seat.seatType.id==4) {
-    //   this.toastrService.warning('Không thay đổi thông tin lối đi');
-    //   return;
-    // }
     this.roomService.changeSeatType(seat.id,seatType).subscribe({
       next: res=>{
-        console.log(res);
         this.toastrService.success(res.message);
         this.getRow();
       },
       error: e=>{
-        console.log(e);
-        
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
     
@@ -70,17 +59,14 @@ export class SeeRoomDialogComponent implements OnInit {
     this.rowService.getByRoom(this.dataDialog.room).subscribe({
       next: res=>{
         this.listRows = res.data;
-        console.log(this.listRows);
       },
       error: e=>{
-        console.log(e);
-        
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
   }
 
   activeOrInactive(data: any){
-    console.log(data);
     this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       hasBackdrop: true,
@@ -91,13 +77,11 @@ export class SeeRoomDialogComponent implements OnInit {
         if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
           this.rowService.activeOrInactive(data).subscribe({
             next: res=>{
-              console.log(res);
               this.getRow();
               this.toastrService.success(res.message);
             },
             error: e=>{
-              console.log(e);
-              this.toastrService.error('Lỗi xóa hàng ghế');
+              this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
             }
           })
         }
@@ -123,12 +107,10 @@ export class SeeRoomDialogComponent implements OnInit {
   getOneRoom(){
     this.roomService.getOne(this.dataDialog.room.id).subscribe({
       next: res=>{
-        console.log(res);
         
       },
       error: e =>{
-        console.log(e);
-        
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
   }

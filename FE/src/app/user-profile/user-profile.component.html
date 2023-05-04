@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
@@ -77,7 +80,7 @@
                     </mat-form-field>
                   </div>
                   <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="onSubmit()">Cập
-                    nhât</button>
+                    nhật</button>
                 </div>
               </div>
               
@@ -86,7 +89,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 mt-3">
         <div class="card card-profile">
           <div class="card-avatar">
             <a href="javascript:void(0)">

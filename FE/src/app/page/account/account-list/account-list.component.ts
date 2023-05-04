@@ -8,6 +8,7 @@ import { AccountFormComponent } from '../Account-Dialog/account-form/account-for
 import { Constant } from 'app/constants/Constant';
 import { UpdateDialogComponent } from '../Account-Dialog/update-dialog/update-dialog.component';
 import { AccountDetailComponent } from '../Account-Dialog/account-detail/account-detail.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-account-list',
@@ -22,10 +23,11 @@ export class AccountListComponent implements OnInit {
 
   constructor(
     private matDialog: MatDialog,
-    private AccountService: AccountService
+    private AccountService: AccountService,
+    private toastrService: ToastrService
   ) { }
 
-  displayedColumns: string[] = ['fullname', 'username', 'email', 'birthDate', 'gender', 'role', 'func'];
+  displayedColumns: string[] = ['fullname','image', 'username', 'email', 'birthDate', 'gender', 'role', 'func'];
   
   ngOnInit() {
     this.getAllRoom();
@@ -34,7 +36,6 @@ export class AccountListComponent implements OnInit {
   getAllRoom() {
     this.AccountService.getAll().subscribe({
       next: res => {
-        // console.log(res);
         res.data.forEach((data)=>{
           data.birthDate = new Date(data.birthDate).toLocaleDateString();
         })
@@ -42,10 +43,9 @@ export class AccountListComponent implements OnInit {
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        // console.log(this.dataSource);
       },
       error: e => {
-        console.log(e);
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
   }

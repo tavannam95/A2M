@@ -20,8 +20,6 @@ export class MovieDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.movie = this.dataDialog.movies;
-    console.log(this.dataDialog.movies);
-    
   }
 
   openDialogForm(type: string, row?: any){

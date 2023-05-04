@@ -16,8 +16,6 @@ export class BillDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.bill = this.dataDialog.bill;
-    console.log(this.bill.listTickets);
-    
     this.bill.movieName = this.bill.listTickets[0].showtime.movie.name;
     this.bill.showDate = this.bill.listTickets[0].showtime.date;
     this.bill.movieTime = this.bill.listTickets[0].showtime.movie.time;

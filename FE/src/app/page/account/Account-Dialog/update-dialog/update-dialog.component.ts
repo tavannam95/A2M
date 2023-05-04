@@ -43,17 +43,13 @@ export class UpdateDialogComponent implements OnInit {
   birthDate = new Date();
   selected: String = (this.dataDialog.row.gender===true)?'Nam':'Nữ';
   ngOnInit(): void {
-    // console.log(this.birthDate);
     this.birthDate = new Date(this.dataDialog.row.birthDate);
-    // this.birthDate.setDate(this.dataDialog.row.birthDate)s
   }
 
   onSubmited() {
     let updateDate = new Date();
     const gender1 = (this.selected==='Female')? 0 : 1;
     this.formGroupUpdate.patchValue({gender:gender1});
-    // this.formGroupUpdate.patchValue({updateDate: updateDate});
-    // console.log(this.formGroupUpdate.value);
     this.accountService.updateAccount(this.formGroupUpdate.value).subscribe((data) => {
       next:
       this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);

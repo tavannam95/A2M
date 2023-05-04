@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BillService } from 'app/services/bill/bill.service';
 import { BillDetailComponent } from '../bill-detail/bill-detail.component';
 import { TicketService } from 'app/services/ticket/ticket.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bill-list',
@@ -25,7 +26,7 @@ export class BillListComponent implements OnInit {
   constructor(
     private matDialog: MatDialog,
     private billService: BillService,
-    // private ticketService: TicketService,
+    private toastrService: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -37,13 +38,10 @@ export class BillListComponent implements OnInit {
     this.isLoading = true;
     this.billService.getAll().subscribe({
       next: res => {
-        console.log(res);
-        
         this.dataSource = new MatTableDataSource<any>(res);
         this.dataSource.data = res;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data);
         if(this.dataSource.data.length > 0){
 
           this.dataSource.data.forEach((element) => {
@@ -61,8 +59,8 @@ export class BillListComponent implements OnInit {
         this.isLoading = false;
       },
       error: e => {
-        console.log(e);
         this.isLoading = false;
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
   }

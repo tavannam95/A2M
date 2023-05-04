@@ -43,6 +43,14 @@
                                     <td mat-cell *matCellDef="let row"> {{row.fullname}} </td>
                                 </ng-container>
 
+                                <!-- Image Column -->
+                                <ng-container matColumnDef="image">
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Ảnh </th>
+                                    <td mat-cell *matCellDef="let row"> 
+                                        <img style="width: 50px; height: 50px;" class="rounded-circle" [src]="row.photo" alt="">    
+                                    </td>
+                                </ng-container>
+
 
                                 <!-- username Column -->
                                 <ng-container matColumnDef="username">
@@ -70,7 +78,7 @@
 
                                 <!-- Role Column -->
                                 <ng-container matColumnDef="role">
-                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Quyền </th>
+                                    <th class="text-center" mat-header-cell *matHeaderCellDef> Vai trò </th>
                                     <td mat-cell *matCellDef="let row"> {{(row.role.name==='ROLE_CUSTOMER')?'Khách hàng':(row.role.name==='ROLE_EMPLOYEE')?'Nhân viên':'Quản lý'}} </td>
                                 </ng-container>
 

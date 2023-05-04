@@ -36,14 +36,10 @@ export class SavePassComponent implements OnInit {
   get acceptPass() { return this.savePassForm.get('acceptPass'); }
 
   ngOnInit(): void {
-    // console.log(this.dataDialog.row);
-    
   }
 
   onSubmit() {
-    // this.dataDialog.patchValue({password: this.newPassword})
     this.dataDialog.data.password = this.savePassForm.value.acceptPass;
-    // console.log(this.dataDialog.data)
     this.changePassService.savePass(this.dataDialog.data).subscribe({
       next: res=>{
         if(res.status == true){

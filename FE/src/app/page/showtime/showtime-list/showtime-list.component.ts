@@ -7,6 +7,7 @@ import { Constant } from 'app/constants/Constant';
 import { ShowtimeFormComponent } from '../showtime-form/showtime-form.component';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
 import { ShowtimesDetailComponent } from '../showtimes-detail/showtimes-detail.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -35,14 +36,11 @@ export class ShowtimeListComponent implements OnInit {
   constructor(
     private matDialog: MatDialog,
     private showtimesService: ShowtimeService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
     this.getAllShowtimes();
-    // console.log(this.dataSource);
-    // this.dataSource.data.forEach((data)=>{
-    //   this.dayArray.push(data.date);
-    // })
   }
 
   filterDuplicates<T>(arr: T[]): T[] {
@@ -52,7 +50,6 @@ export class ShowtimeListComponent implements OnInit {
   getAllShowtimes() {
     this.showtimesService.getAllShowtimes().subscribe({
       next: res => {
-        // console.log(res.data)
         res.data.forEach((data) => {
           data.date = new Date(data.date).toLocaleDateString()
           data.timeStart = new Date(data.timeStart).toLocaleDateString() + ' ' + new Date(data.timeStart).toLocaleTimeString('en-US', { hour12: false })
@@ -67,10 +64,9 @@ export class ShowtimeListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.dataArray = res.data;
-        // console.log(res)
       },
       error: e => {
-        console.log(e);
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
   }
@@ -84,12 +80,7 @@ export class ShowtimeListComponent implements OnInit {
   }
 
   getShowtimes(event: any) {
-    // console.log(event)
-    // console.log(typeof (event));
-    // console.log(event);
-    // console.log(this.roomArray);
     if (this.roomArray.includes(event)) {
-      // console.log(2);
       if (this.select_day === '') {
         this.dataSource.data = this.dataArray.filter((data) => {
           return (''+data.room.id === event);
@@ -114,7 +105,6 @@ export class ShowtimeListComponent implements OnInit {
         })
       }
     }
-    // console.log(this.dataArray);
   }
 
 

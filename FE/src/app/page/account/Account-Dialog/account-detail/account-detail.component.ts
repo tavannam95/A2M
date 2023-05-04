@@ -51,11 +51,9 @@ export class AccountDetailComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    // console.log(this.dataDialog);
     if (this.dataDialog.type == 'Detail') {
       this.title = 'Xem chi tiết';
     }
-    console.log(this.dataDialog.row.photo)
   }
 
 }

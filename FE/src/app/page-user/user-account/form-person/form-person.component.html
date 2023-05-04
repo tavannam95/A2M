@@ -1,93 +1,139 @@
-<!-- <div *ngIf="isLoading" class="loading">
-    <div class="spinner-border text-danger spinner-center" role="status"></div>
-</div> -->
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner-border text-danger spinner-center" role="status"></div>
+</div>
 <div class="main">
-    <div class="info">
-        <div class="title">
-            <b>CHI TIẾT TÀI KHOẢN</b>
-        </div>
-        <div class="person-info">
-            <form class="mb-0" [formGroup]="formGroup">
-                <div class="row">
-                    <div class="col-4">
-                        <!-- Poster -->
-                        <ngx-dropzone [multiple]="false" (change)="onSelect($event)">
-                                <ngx-dropzone-label>
-                                    <span class="material-symbols-outlined">Tải ảnh lên</span>
-                                </ngx-dropzone-label>
-                                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files"
-                                    [file]="f" [removable]="true" (removed)="onRemove(f)" [value]="f">
-                                </ngx-dropzone-image-preview>
-                            </ngx-dropzone>
-                        <!-- /Poster -->
-                    </div>
-                    <div class="col-8">
-
-                        <!-- Họ tên  -->
-                        <mat-form-field appearance="outline">
-                            <mat-label>Họ tên</mat-label>
-                            <input type="text" formControlName="fullname" matInput>
-                            <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
-                                                    formGroup.get('name')?.touched">
-                                Họ tên không được để trống
-                            </mat-error>
-                        </mat-form-field>
-                        <!-- /Họ tên -->
-
-                        <!-- Tài khoản  -->
-                        <mat-form-field appearance="outline">
-                            <mat-label>Tài khoản</mat-label>
-                            <input type="text" formControlName="username" [readonly]="this.username" matInput>
-                        </mat-form-field>
-                        <!-- /Tài khoản -->
-
-                        <!-- Email  -->
-                        <mat-form-field appearance="outline">
-                            <mat-label>Email</mat-label>
-                            <input type="text" formControlName="email" matInput>
-                            <mat-error class="text-danger" *ngIf="formGroup.get('name')?.hasError('required') &&
-                                                formGroup.get('name')?.touched">
-                                Email không được để trống
-                            </mat-error>
-                        </mat-form-field>
-                        <!-- /Email -->
-
-                        <!-- Ngày sinh -->
-                        <mat-form-field appearance="outline">
-                            <mat-label>Ngày sinh</mat-label>
-                            <input matInput [matDatepicker]="birthDate" formControlName="birthDate">
-                            <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
-                            <mat-datepicker #birthDate></mat-datepicker>
-                        </mat-form-field>
-                        <!-- /Ngày sinh -->
-
-                        <!-- Giới tính -->
-                        <mat-form-field appearance="outline">
-                            <mat-label>Giới tính</mat-label>
-                            <mat-radio-group formControlName="gender">
-                                <mat-radio-button [value]="true">Nam</mat-radio-button>
-                                <mat-radio-button [value]="false">Nữ</mat-radio-button>
-                            </mat-radio-group>
-                        </mat-form-field>
-                        <!-- /Giới tính -->
-
-                        <!-- sdt -->
-                        <mat-form-field appearance="outline">
-                                <mat-label>Số điện thoại</mat-label>
-                                <input type="text" formControlName="phone" matInput>
-                                <mat-error class="text-danger" *ngIf="formGroup.get('time')?.touched">
-                                    Có ký tự không hợp lệ
-                                </mat-error>
-                            </mat-form-field>
-                        <!-- /sdt -->
-
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div mat-dialog-actions class="d-flex justify-content-end">
-            <button class="btn btn-success" mat-button (click)="onSubmit()">Cập nhật</button>
-            <!-- <button class="btn btn-dark" mat-button mat-dialog-close>Hủy</button> -->
-        </div>
+  <div class="info">
+    <div class="title">
+      <b>CẬP NHẬT THÔNG TIN</b>
     </div>
+    <div class="person-info">
+      <form class="mb-0" [formGroup]="formGroup">
+        <div class="row">
+          <div class="col-4">
+            <!-- Poster -->
+            <div ngx-dropzone [multiple]="false" (change)="onSelect($event)" style="width: 230px; height: 230px;">
+              <ngx-dropzone-label>
+                <div>
+                  <img
+                    [src]="formGroup.get('photo').value"
+                    alt=""
+                    style="
+                      width: 200px !important;
+                      height: 200px !important;
+                      border-radius: 2%;
+                    "
+                  />
+                </div>
+              </ngx-dropzone-label>
+
+              <ngx-dropzone-image-preview
+                ngProjectAs="ngx-dropzone-preview"
+                *ngFor="let f of files"
+                [file]="f"
+                [removable]="true"
+                (removed)="onRemove(f)"
+                [value]="f"
+              >
+              </ngx-dropzone-image-preview>
+            </div>
+            <!-- /Poster -->
+          </div>
+          <div class="col-8">
+            <!-- Tài khoản  -->
+            <mat-form-field appearance="outline">
+              <mat-label>Tài khoản</mat-label>
+              <input
+                type="text"
+                formControlName="username"
+                [readonly]="this.username"
+                matInput
+              />
+            </mat-form-field>
+            <!-- /Tài khoản -->
+
+            <!-- Họ tên  -->
+            <mat-form-field appearance="outline">
+              <mat-label>Họ tên</mat-label>
+              <input type="text" formControlName="fullname" matInput />
+              <mat-error
+                class="text-danger"
+                *ngIf="
+                  formGroup.get('name')?.hasError('required') &&
+                  formGroup.get('name')?.touched
+                "
+              >
+                Họ tên không được để trống
+              </mat-error>
+            </mat-form-field>
+            <!-- /Họ tên -->
+
+            <!-- Email  -->
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input type="text" formControlName="email" matInput />
+              <mat-error
+                class="text-danger"
+                *ngIf="
+                  formGroup.get('name')?.hasError('required') &&
+                  formGroup.get('name')?.touched
+                "
+              >
+                Email không được để trống
+              </mat-error>
+            </mat-form-field>
+            <!-- /Email -->
+
+            <!-- Ngày sinh -->
+            <mat-form-field appearance="outline">
+              <mat-label>Ngày sinh</mat-label>
+              <input
+                matInput
+                [matDatepicker]="birthDate"
+                formControlName="birthDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="birthDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #birthDate></mat-datepicker>
+            </mat-form-field>
+            <!-- /Ngày sinh -->
+
+            <!-- sdt -->
+            <mat-form-field appearance="outline">
+              <mat-label>Số điện thoại</mat-label>
+              <input type="text" formControlName="phone" matInput />
+              <mat-error
+                class="text-danger"
+                *ngIf="formGroup.get('time')?.touched"
+              >
+                Có ký tự không hợp lệ
+              </mat-error>
+            </mat-form-field>
+            <!-- /sdt -->
+
+            <!-- Giới tính -->
+            <mat-label>Giới tính</mat-label>
+            <br />
+            <mat-radio-group formControlName="gender">
+              <mat-radio-button
+                class="m-2"
+                *ngFor="let g of listGender"
+                [value]="g.value"
+                >{{ g.name }}</mat-radio-button
+              >
+            </mat-radio-group>
+
+            <!-- /Giới tính -->
+          </div>
+        </div>
+      </form>
+    </div>
+    <div mat-dialog-actions class="d-flex justify-content-end">
+      <button class="btn btn-success" mat-button (click)="onSubmit()">
+        Cập nhật
+      </button>
+      <!-- <button class="btn btn-dark" mat-button mat-dialog-close>Hủy</button> -->
+    </div>
+  </div>
 </div>

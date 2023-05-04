@@ -21,7 +21,6 @@ export class RoleGuard implements CanActivate {
         return true;
       }
       const check = this.jwtService.getRoleFromToken() === route.data['role'];
-      console.log(check);
       
       if (!check) {
         this.toastrService.warning(route.data['message']);

@@ -10,6 +10,8 @@ import {ZXingScannerModule} from "@zxing/ngx-scanner";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DatePipe } from '@angular/common';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { DatePipe } from '@angular/common';
     ZXingScannerModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatMenuModule,
+    MatIconModule
   ],
   declarations: [
     FooterComponent,

@@ -77,7 +77,6 @@ export class AddRowComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.dataDialog.rows);
     this.oldRows = this.dataDialog.rows;
     this.newRows = this.dataDialog.newRows;
   }

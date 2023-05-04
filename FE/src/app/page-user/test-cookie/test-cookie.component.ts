@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { CloudinaryService } from 'app/services/cloudinary/cloudinary.service';
 import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
 import { JwtService } from 'app/services/jwt/jwt.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-test-cookie',
@@ -21,6 +22,7 @@ export class TestCookieComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private cookie2Service: Cookie2Service,
+    private toastrService: ToastrService,
     private http: HttpClient,
     private jwtService: JwtService,
     private uploadService: CloudinaryService
@@ -43,7 +45,6 @@ export class TestCookieComponent implements OnInit {
     // }
     const formData = new FormData();
     formData.append('files', this.fileToUpload);
-    console.log(formData);
     
     // const formData = new FormData();
     //   formData.append('files', this.files[0]);
@@ -57,28 +58,24 @@ export class TestCookieComponent implements OnInit {
     this.uploadService.upload(formData).subscribe({
       next: res =>{
         this.fileRes =  res;
-        console.log(res);
         
       },
       error: e =>{
-        console.log(e);
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
         
       }
     });
   }
 
   checkRes(){
-    console.log(this.fileRes);
     
   }
 
 	onSelect(event) {
-		console.log(event);
 		this.files.push(...event.addedFiles);
 	}
 
 	onRemove(event) {
-		console.log(event);
 		this.files.splice(this.files.indexOf(event), 1);
 	}
 

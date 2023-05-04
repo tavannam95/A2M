@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TicketService } from 'app/services/ticket/ticket.service';
 import { TicketDetailComponent } from '../ticket-detail/ticket-detail.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class TicketListComponent implements OnInit {
   constructor(
     private matDialog: MatDialog,
     private ticketService: TicketService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -40,11 +42,10 @@ export class TicketListComponent implements OnInit {
         this.dataSource.data = res;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data);
         this.isLoading = false;
       },
       error: e =>{
-        console.log(e);
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
         this.isLoading = false;
       }
     })

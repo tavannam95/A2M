@@ -56,7 +56,6 @@ export class MovieListComponent implements OnInit {
       this.isLoading = false;
     }, 
     complete:() => {
-      console.log("complete")
     }
     })
   }
@@ -84,7 +83,6 @@ export class MovieListComponent implements OnInit {
         this.handleMovies(res);
       },
       error: e => {
-        console.log(e);
         this.isLoading = false;
       }
     })
@@ -147,7 +145,6 @@ export class MovieListComponent implements OnInit {
             },
             error: e =>{
               this.toastrService.error('Server đang quá tải vui lòng thử lại sau');
-              console.log(e);
               this.isLoading = false;
             }
           });

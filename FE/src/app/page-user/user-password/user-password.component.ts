@@ -43,9 +43,7 @@ export class UserPasswordComponent implements OnInit {
 
   onInit() {
     this.username = this.jwt.getUsernameFromToken();
-    console.log(this.username);
     this.accountService.getPassword().subscribe(response => {
-      console.log(response);
       this.formGroup.patchValue({
         username: response.username,
       })
@@ -58,7 +56,6 @@ export class UserPasswordComponent implements OnInit {
       // gửi value xuống BE check nó đúng hay sai   
       this.accountService.checkPassword(value).subscribe(response => {
         // this.accountService.checkPassword(this.formGroup.get('oldPassword').value).subscribe(response => {
-        console.log("check: " + response);
 
         if (response) {
           this.message = ""
@@ -74,7 +71,6 @@ export class UserPasswordComponent implements OnInit {
   onSubmit() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.get('password').value == this.formGroup.get('confirmPassword').value) {
-      console.log(this.formGroup.value);
       this.accountService.updatePassword(this.formGroup.value).subscribe()
       this.toastrService.success("Đổi mật khẩu thành công");
       this.message = '';

@@ -39,11 +39,9 @@ export class ShowRoomComponent implements OnInit {
     this.roomService.getAllSeatType().subscribe({
       next: res => {
         this.seatType = res.data;
-        console.log(this.seatType);
       },
       error: e => {
-        console.log(e);
-
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
     
@@ -58,60 +56,34 @@ export class ShowRoomComponent implements OnInit {
           next: res => {
             this.listRows = res.data;
             this.show = res.data;
-            console.log(this.listRows);
 
           },
           error: e => {
-            console.log(e);
-
+            this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
           }
         })
 
       },
       error: e => {
-        console.log(e);
-
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
   }
 
   changeNew(indexOfRow: any, indexOfSeat: any, seatType: any) {
-    console.log(indexOfRow);
-    console.log(indexOfSeat);
-    console.log(seatType);
     this.listNewRows[indexOfRow].listSeats[indexOfSeat].seatType = seatType;
-    // if (seat.seatType.id==4) {
-    //   this.toastrService.warning('Không thay đổi thông tin lối đi');
-    //   return;
-    // }
-    // this.roomService.changeSeatType(seat.id,seatType).subscribe({
-    //   next: res=>{
-    //     console.log(res);
-    //   },
-    //   error: e=>{
-    //     console.log(e);
 
-    //   }
-    // })
 
   }
 
   change(seat: any, seatType: any) {
-    console.log(seat.id);
-    console.log(seatType);
-    // if (seat.seatType.id==4) {
-    //   this.toastrService.warning('Không thay đổi thông tin lối đi');
-    //   return;
-    // }
     this.roomService.changeSeatType(seat.id, seatType).subscribe({
       next: res => {
-        console.log(res);
         this.toastrService.success(res.message);
         this.getRow();
       },
       error: e => {
-        console.log(e);
-
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
 
@@ -121,11 +93,9 @@ export class ShowRoomComponent implements OnInit {
     this.rowService.getByRoom(this.dataDialog.room).subscribe({
       next: res => {
         this.listRows = res.data;
-        console.log(this.listRows);
       },
       error: e => {
-        console.log(e);
-
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
   }
@@ -141,13 +111,11 @@ export class ShowRoomComponent implements OnInit {
       if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
         this.roomService.removeAll(this.dataDialog.room.id).subscribe({
           next: res =>{
-            console.log(res);
             this.toastrService.success(res.message);
             this.getData();
           },
           error: e =>{
-            console.log(e);
-            
+            this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
           }
         })
       }
@@ -170,7 +138,6 @@ export class ShowRoomComponent implements OnInit {
           this.listNewRows.push(newRow[i]);
         }
         this.checkAdd = true;
-        console.log(this.listNewRows);
       }
 
 
@@ -187,7 +154,6 @@ export class ShowRoomComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
         this.isLoading = true;
-        console.log(this.listNewRows);
         for (let i = 0; i < this.listNewRows.length; i++) {
           let countNone = 0;
           let listSeat = this.listNewRows[i].listSeats;
@@ -206,10 +172,8 @@ export class ShowRoomComponent implements OnInit {
           data: this.listNewRows
         }
 
-        console.log(roomData);
         this.roomService.create(roomData).subscribe({
           next: res => {
-            console.log(res);
             this.checkAdd = false;
             this.toastrService.success(res.message);
             this.listNewRows = [];
@@ -217,9 +181,8 @@ export class ShowRoomComponent implements OnInit {
             this.isLoading = false;
           },
           error: e => {
-            console.log(e);
-            this.toastrService.success('Lưu thay đổi thất bại');
             this.isLoading = false;
+            this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
           }
         })
       }
@@ -229,7 +192,6 @@ export class ShowRoomComponent implements OnInit {
   }
 
   activeOrInactive(data: any){
-    console.log(data);
     this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       hasBackdrop: true,
@@ -240,13 +202,11 @@ export class ShowRoomComponent implements OnInit {
         if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
           this.rowService.activeOrInactive(data).subscribe({
             next: res=>{
-              console.log(res);
               this.getRow();
               this.toastrService.success(res.message);
             },
             error: e=>{
-              console.log(e);
-              this.toastrService.error('Lỗi xóa hàng ghế');
+              this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
             }
           })
         }

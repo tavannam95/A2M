@@ -13,7 +13,14 @@ export class UserInfoComponent implements OnInit {
 
   isLoading = true;
 
-  info: any;
+  info = {
+    photo: '',
+    fullname: '',
+    email: '',
+    birthDate: '',
+    gender: null,
+    phone: ''
+  };
 
   constructor(
     private accountService: AccountService,

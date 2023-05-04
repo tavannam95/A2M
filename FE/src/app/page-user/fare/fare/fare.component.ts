@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FareService } from 'app/services/fare/fare.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-fare',
@@ -26,6 +27,7 @@ export class FareComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   constructor(
     private fareService: FareService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +43,6 @@ export class FareComponent implements OnInit {
         this.dataSource.data = res;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data);
         this.dataSource.data.forEach((element)=>{
           if (element.isHoliday == false && element.seatType == 1) {
             this.price.standardNormal = element.price;
@@ -57,7 +58,7 @@ export class FareComponent implements OnInit {
         this.isLoading = false;
       },
       error: e => {
-        console.log(e);
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
         this.isLoading = false;
       }
     })

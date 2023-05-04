@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Constant } from 'app/constants/Constant';
+import { ConfirmDialogComponent } from 'app/services/confirm-dialog/confirm-dialog.component';
 import { Cookie2Service } from 'app/services/cookie2/cookie2.service';
 import { JwtService } from 'app/services/jwt/jwt.service';
 
@@ -11,16 +14,27 @@ export class NavbarUserComponent implements OnInit {
 
   constructor(
     private cookieService: Cookie2Service,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
   }
 
-  logout(){
-    this.cookieService.delete();
-    this.jwtService.reloadPage();
-  }
+  logout() {
+    this.dialog.open(ConfirmDialogComponent, {
+        disableClose: true,
+        hasBackdrop: true,
+        data: {
+          message: 'Bạn có muốn đăng xuất không?'
+        }
+      }).afterClosed().subscribe(result => {
+        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+            this.cookieService.delete();
+            this.jwtService.reloadPage();
+        }
+      })
+}
 
 
 }

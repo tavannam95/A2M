@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PublicApiService } from 'app/services/public/public-api.service';
 import { ShowtimeService } from 'app/services/showtime/showtime.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-select-movie',
@@ -24,7 +25,8 @@ export class SelectMovieComponent implements OnInit {
     // private datePipe: DatePipe,
     private showtimeService: ShowtimeService,
     private router: Router,
-    private publicApiService: PublicApiService
+    private publicApiService: PublicApiService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -50,25 +52,22 @@ export class SelectMovieComponent implements OnInit {
           next: res =>{
             this.listShowtime = res.data;
             this.selectDate = this.listShowtime[0].date;
-            console.log(this.selectDate);
             this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
               next: res =>{
-                console.log(res);
                 
                 this.timeShowtime = res.data;
-                console.log(this.timeShowtime);
                 
                 
               },
               error: e =>{
-                console.log(e);
+                this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
                 
               }
             })
             
           },
           error: e =>{
-            console.log(e);
+            this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
             
           }
         })
@@ -87,13 +86,13 @@ export class SelectMovieComponent implements OnInit {
             this.timeShowtime = res.data;
           },
           error: e =>{
-            console.log(e);
+            this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
             
           }
         })
       },
       error: e =>{
-        console.log(e);
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
         
       }
     })
@@ -103,10 +102,9 @@ export class SelectMovieComponent implements OnInit {
     this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
       next: res =>{
         this.timeShowtime = res.data;
-        console.log(this.timeShowtime);
       },
       error: e =>{
-        console.log(e);
+        this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
       }
     })
   }

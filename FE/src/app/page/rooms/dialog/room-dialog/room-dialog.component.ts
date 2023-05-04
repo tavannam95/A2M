@@ -42,14 +42,12 @@ export class RoomDialogComponent implements OnInit {
   }
 
   onInit() {
-    // console.log(this.dataDialog);
     if (this.dataDialog.type == 'create') {
       this.title = 'Thêm phòng chiếu';
     }
     if (this.dataDialog.type == 'update') {
       this.title = 'Sửa phòng chiếu';
       this.dataRoom = this.dataDialog.row;
-      console.log(this.dataRoom);
       this.formGroup.patchValue(
         {
           id: this.dataRoom.id,
@@ -62,8 +60,6 @@ export class RoomDialogComponent implements OnInit {
   onSubmit() {
 
     if (this.dataDialog.type == 'create') {
-
-      console.log(this.formGroup.value);
 
       this.createRoom();
 
@@ -89,17 +85,14 @@ export class RoomDialogComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
         this.isLoading = true;
-        console.log(this.formGroup.value);
         this.roomService.createRoom(this.formGroup.value).subscribe({
           next: res => {
-            console.log(res);
             this.toastrService.success(res.message);
             this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
             this.isLoading = false;
           },
           error: e => {
-            console.log(e);
-
+            this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
           }
         })
       }
@@ -116,18 +109,14 @@ export class RoomDialogComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
         this.isLoading = true;
-        console.log(this.formGroup.value);
-        // this.notificationService.showNotification('success', 'Thêm thành công !');
         this.roomService.updateRoom(this.formGroup.value).subscribe({
           next: res => {
-            console.log(res);
             this.toastrService.success(res.message);
             this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
             this.isLoading = false;
           },
           error: e => {
-            console.log(e);
-
+            this.toastrService.error('Lỗi hệ thống, vui lòng thử lại sau');
           }
         })
       }
