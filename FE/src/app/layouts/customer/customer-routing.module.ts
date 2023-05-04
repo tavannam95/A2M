@@ -9,6 +9,7 @@ import { RegisterComponent } from '../auth/register/register/register.component'
 import { UserAccountModule } from '../../page-user/user-account/user-account.module';
 import { UserPasswordComponent } from 'app/page-user/user-password/user-password.component';
 import { AuthGuard } from 'app/guard/auth.guard';
+import { ContactComponent } from 'app/page-user/contact/contact.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'select-seat', component: SelectSeatComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'user-password', component: UserPasswordComponent},
+  {path: 'contact', component: ContactComponent},
   {
     path: 'user-account',
     loadChildren: () => import('../../page-user/user-account/user-account.module').then(m => m.UserAccountModule)

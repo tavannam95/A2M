@@ -8,6 +8,7 @@ export interface RouteInfo {
 
 export const MenuItems: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard',role: ['ROLE_ADMINSTRATOR','ROLE_EMPLOYEE'], class: '' },
+    // { path: '/test', title: 'Test',  icon: 'heart',role: ['ROLE_ADMINSTRATOR','ROLE_EMPLOYEE'], class: '' },
     { path: '/account', title: 'Tài khoản',  icon:'assignment_ind',role: ['ROLE_ADMINSTRATOR'], class: '' },
     { path: '/room', title: 'Phòng chiếu',  icon:'meeting_room',role: ['ROLE_ADMINSTRATOR'], class: '' },
     { path: '/movie', title: 'Phim',  icon:'live_tv',role: ['ROLE_ADMINSTRATOR','ROLE_EMPLOYEE'], class: '' },

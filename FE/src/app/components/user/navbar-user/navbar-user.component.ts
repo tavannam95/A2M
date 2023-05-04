@@ -11,7 +11,7 @@ import { JwtService } from 'app/services/jwt/jwt.service';
   styleUrls: ['./navbar-user.component.scss']
 })
 export class NavbarUserComponent implements OnInit {
-
+  isLogin: boolean = false;
   constructor(
     private cookieService: Cookie2Service,
     private jwtService: JwtService,
@@ -19,6 +19,7 @@ export class NavbarUserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isLogin = this.jwtService.isLoggedIn();
   }
 
   logout() {
@@ -35,6 +36,5 @@ export class NavbarUserComponent implements OnInit {
         }
       })
 }
-
 
 }
