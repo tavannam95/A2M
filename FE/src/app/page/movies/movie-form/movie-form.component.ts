@@ -90,20 +90,48 @@ export class MovieFormComponent implements OnInit {
     if (this.files.length > 0) {
       await this.uploadImg();
     }
+    console.log(this.formGroup.value);
     if (this.dataDialog.type == 'create') {
 
-      // this.createMovie();
+      this.movieService.createMovie(this.formGroup.value).subscribe({
+        next: res => {
+          console.log(res.data);
+          
+          this.toastrService.success(res.message);
+          this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
+          this.isLoading = false;
+          console.log(res);
+        },
+        error: e => {
+          this.isLoading = false;
+          this.toastrService.error('Lỗi thêm mới phim');
+          console.log(e);
+          
+        }
+      })
 
     }
 
     if (this.dataDialog.type == 'update') {
 
-      this.updateMovie();
+      this.movieService.updateMovie(this.formGroup.value).subscribe({
+        next: res => {
+          this.toastrService.success(res.message);
+          this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
+          this.isLoading = false;
+
+        },
+        error: e => {
+          this.isLoading = false;
+          console.log(e);
+          this.toastrService.error('Lỗi cập nhật phim');
+        }
+      })
 
     }
   }
 
-  async onSubmit() {
+  onSubmit() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.invalid) {
       return;
@@ -119,36 +147,7 @@ export class MovieFormComponent implements OnInit {
         this.isLoading = true;
         this.uploadImage();
         // this.notificationService.showNotification('success', 'Thêm thành công !');
-        if (this.dataDialog.type === "create") {
-          this.movieService.createMovie(this.formGroup.value).subscribe({
-            next: res => {
-              this.toastrService.success(res.message);
-              this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
-              this.isLoading = false;
-              console.log(res);
-            },
-            error: e => {
-              console.log(e);
-
-            }
-          })
-        }
-        if (this.dataDialog.type == 'update') {
-
-          this.movieService.updateMovie(this.formGroup.value).subscribe({
-            next: res => {
-              this.toastrService.success(res.message);
-              this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
-              this.isLoading = false;
-
-            },
-            error: e => {
-              console.log(e);
-
-            }
-          })
-
-        }
+        
       }
     })
   }
@@ -214,7 +213,10 @@ export class MovieFormComponent implements OnInit {
     try {
       this.imgUrl = await this.uploadImageService.upload(formData).toPromise();
 
-      this.formGroup.patchValue({ poster: this.imgUrl.data[0] });
+      console.log(this.imgUrl);
+      
+
+      this.formGroup.patchValue({ poster: this.imgUrl[0] });
 
     } catch (error) {
       console.log(error);

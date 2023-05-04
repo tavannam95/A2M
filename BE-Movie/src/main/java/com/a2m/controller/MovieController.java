@@ -2,6 +2,7 @@ package com.a2m.controller;
 
 import java.util.List;
 
+import com.a2m.model.response.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,13 +39,14 @@ public class MovieController {
 	}
 	
 	@PostMapping(value = "/addMovie")
-	Movies addMovie(@RequestBody Movies movies) {
-		return movieService.addMovie(movies);
+	public DataResponse<Movies> addMovie(@RequestBody Movies movies) {
+		movies.setIsDelete(false);
+		return new DataResponse<>(true,"Thêm mới phim thành công",movieService.addMovie(movies));
 	}
 
 	@PutMapping(value = "/updateMovie")
-	Movies updateMovie(@RequestBody Movies movies) {
-		return movieService.updateMovie(movies);
+	public DataResponse<Movies> updateMovie(@RequestBody Movies movies) {
+		return new DataResponse<>(true, "Cập nhật thành công",movieService.updateMovie(movies));
 	}
 
 	@PutMapping(value = "/deleteMovie")

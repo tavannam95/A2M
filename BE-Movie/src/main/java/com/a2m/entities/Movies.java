@@ -5,6 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,6 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "movies")
+@EntityListeners(AuditingEntityListener.class)
 public class Movies {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -48,15 +55,19 @@ public class Movies {
     private Date endDate;
 
     @Column(name = "create_date")
+    @CreationTimestamp
     private Date createDate;
 
     @Column(name = "update_date")
+    @UpdateTimestamp
     private Date updateDate;
 
     @Column(name = "create_by")
+    @CreatedBy
     private String createBy;
 
     @Column(name = "update_by")
+    @LastModifiedBy
     private String updateBy;
 
     @Column(name = "is_delete")

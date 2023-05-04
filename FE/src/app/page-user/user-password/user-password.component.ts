@@ -50,31 +50,37 @@ export class UserPasswordComponent implements OnInit {
         username: response.username,
       })
     });
-  }
-
-  onSubmit() {
-    this.formGroup.markAllAsTouched();
-    // this.formGroup.get('oldPassword').valueChanges.pipe(debounceTime(500), distinctUntilChanged()).subscribe(value => {
+    this.formGroup.get('oldPassword').valueChanges
+    .pipe(
+      debounceTime(500), 
+      distinctUntilChanged()
+      ).subscribe(value => {
       // gửi value xuống BE check nó đúng hay sai   
-      // this.accountService.checkPassword(value).subscribe(response => {
-        this.accountService.checkPassword(this.formGroup.get('oldPassword').value).subscribe(response => {
+      this.accountService.checkPassword(value).subscribe(response => {
+        // this.accountService.checkPassword(this.formGroup.get('oldPassword').value).subscribe(response => {
         console.log("check: " + response);
 
         if (response) {
-          if (this.formGroup.get('password').value == this.formGroup.get('confirmPassword').value) {
-            console.log(this.formGroup.value);
-            this.accountService.updatePassword(this.formGroup.value).subscribe()
-            this.toastrService.success("Đổi mật khẩu thành công");
-            this.message = '';
-          }
-          else {
-            this.message = 'Nhập lại mật khẩu không trùng khớp';
-          }
+          this.message = ""
         }
         else {
           this.message = 'Mật khẩu cũ không đúng';
         }
 
       });
+    });
+  }
+
+  onSubmit() {
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.get('password').value == this.formGroup.get('confirmPassword').value) {
+      console.log(this.formGroup.value);
+      this.accountService.updatePassword(this.formGroup.value).subscribe()
+      this.toastrService.success("Đổi mật khẩu thành công");
+      this.message = '';
+    }
+    else {
+      this.message = 'Nhập lại mật khẩu không trùng khớp';
+    }
   }
 }
