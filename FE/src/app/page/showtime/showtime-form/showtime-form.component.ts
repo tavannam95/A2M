@@ -103,10 +103,6 @@ export class ShowtimeFormComponent implements OnInit {
 
 
   onSubmit() {
-    this.formGroup.markAllAsTouched();
-    if(this.formGroup.invalid){
-      return;
-    }
     this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true,
       hasBackdrop: true,
@@ -117,18 +113,9 @@ export class ShowtimeFormComponent implements OnInit {
       if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
         this.dataList.forEach((data) => {
           this.showtimesService.updateData(data).subscribe({
-            next: res => {
-              this.matDialogRef.close()
+            next: res => {              
               this.matDialogRef.close(Constant.RESULT_CLOSE_DIALOG.SUCCESS);
-              if (res.status === true) {
-                this.toastrService.success(res.message);
-                this.isLoading = false;
-                window.location.reload();
-              }
-              else {
-                this.isLoading = false;
-                this.toastrService.warning(res.message);
-              }
+              
             }
           })
         })
@@ -146,7 +133,7 @@ export class ShowtimeFormComponent implements OnInit {
         }
       })
     }
-    if(this.select_room!=null){
+    if (this.select_room != null) {
       this.showtimesService.getShowTimeByDate(event, this.select_room).subscribe({
         next: res => {
           res.data.forEach((data) => {
@@ -221,7 +208,7 @@ export class ShowtimeFormComponent implements OnInit {
   data1: any[];
   addShowtimes() {
     this.formGroup.markAllAsTouched();
-    if(this.formGroup.invalid){
+    if (this.formGroup.invalid) {
       return;
     }
     this.data1 = this.movies.filter(data => '' + data.id === this.select_movies);
@@ -238,28 +225,55 @@ export class ShowtimeFormComponent implements OnInit {
     }
     else {
       this.dataList.forEach((data) => {
-        let timeStart = new Date(data.timeStart);
-        let timeEnd = new Date(data.timeEnd);
-        if (this.compareTimes(endTime, timeStart) >= 0 && this.compareTimes(endTime, timeEnd) <= 0) {
-          this.toastrService.warning('Thời gian không hợp lệ 1')
-          flag = 0;
-        }
-        else if (this.compareTimes(startTime, timeStart) >= 0 && this.compareTimes(startTime, timeEnd) <= 0) {
-          this.toastrService.warning('Thời gian không hợp lệ 2')
-          flag = 0;
-        }
-        else if (this.compareTimes(startTime, timeStart) >= 0 && this.compareTimes(endTime, timeEnd) <= 0) {
-          this.toastrService.warning('Thời gian không hợp lệ 3')
-          flag = 0;
-        }
-        else if (this.compareTimes(startTime, timeStart) <= 0 && this.compareTimes(endTime, timeEnd) >= 0) {
-          this.toastrService.warning('Thời gian không hợp lệ 4')
-          flag = 0;
+        if (data.isDelete == false) {
+          let timeStart = new Date(data.timeStart);
+          let timeEnd = new Date(data.timeEnd);
+          // timeEnd.setTime(timeEnd.getTime()+30*60*60*1000)
+          if (this.compareTimes(endTime, timeStart) >= 0 && this.compareTimes(endTime, timeEnd) <= 0) {
+            if (this.compareTimes(endTime, timeStart) == 0) {
+              this.toastrService.warning("Thời gian giữa hai suất chiếu phải cách nhau 30 phút")
+              flag = 0;
+            }
+            else {
+              this.toastrService.warning("Trùng thời gian chiếu 1")
+              flag = 0;
+            }
+          }
+          else if (this.compareTimes(startTime, timeStart) >= 0 && this.compareTimes(startTime, timeEnd) <= 0) {
+            if (this.compareTimes(startTime, timeEnd) == 0) {
+              this.toastrService.warning("Thời gian giữa hai suất chiếu phải cách nhau 30 phút")
+              flag = 0;
+            }
+            else {
+              this.toastrService.warning("Trùng thời gian chiếu 2")
+              flag = 0;
+            }
+          }
+          // else if (this.compareTimes(endTime, timeStart) < 0) {
+          //   if ((timeStart.getTime() - endTime.getTime()) < 30 * 60 * 60 * 1000) {
+          //     this.toastrService.warning("Thời gian giữa hai suất chiếu phải cách nhau 30 phút")
+          //     flag = 0;
+          //   }
+          // }
+          // else if (this.compareTimes(startTime, timeEnd) > 0) {
+          //   if ((startTime.getTime() - timeEnd.getTime()) < 30 * 60 * 60 * 1000) {
+          //     this.toastrService.warning("Thời gian giữa hai suất chiếu phải cách nhau 30 phút")
+          //     flag = 0;
+          //   }
+          // }
+          else if (this.compareTimes(startTime, timeStart) >= 0 && this.compareTimes(endTime, timeEnd) <= 0) {
+            this.toastrService.warning("Trùng thời gian chiếu 3")
+            flag = 0;
+          }
+          else if (this.compareTimes(startTime, timeStart) <= 0 && this.compareTimes(endTime, timeEnd) >= 0) {
+            this.toastrService.warning("Trùng thời gian chiếu 4")
+            flag = 0;
+          }
         }
       })
     }
     if (flag == 1) {
-      this.dataList.push({ movie: { id: this.select_movies, name: this.data1[0].name }, room: { id: this.select_room }, date: startTime.toLocaleDateString() + " 12:00:00", timeStart: startTime.toLocaleDateString() + ' ' + startTime.toLocaleTimeString('en-US', { hour12: false }), timeEnd: endTime.toLocaleDateString() + ' ' + endTime.toLocaleTimeString('en-US', { hour12: false }), createDate: createTime.toLocaleDateString(), isDelete: false, updateDate: createTime.toLocaleDateString(), createBy: this.jwtService.decode().sub })
+      this.dataList.push({ id: null, movie: { id: this.select_movies, name: this.data1[0].name }, room: { id: this.select_room }, date: startTime.toLocaleDateString() + " 12:00:00", timeStart: startTime.toLocaleDateString() + ' ' + startTime.toLocaleTimeString('en-US', { hour12: false }), timeEnd: endTime.toLocaleDateString() + ' ' + endTime.toLocaleTimeString('en-US', { hour12: false }), createDate: createTime.toLocaleDateString(), isDelete: false, updateDate: createTime.toLocaleDateString(), createBy: this.jwtService.decode().sub })
     }
     this.dataSource = new MatTableDataSource<any>(this.dataList.filter((data) => data.isDelete === false));
     // this.dataSource.renderRow()
@@ -272,9 +286,15 @@ export class ShowtimeFormComponent implements OnInit {
     // this.dataSource = new MatTableDataSource<any>(this.dataList);
     // this.formGroup.value.dataArraylist = this.dataList;
     let updateDate = new Date();
-    this.dataList.forEach((data) => {
+    this.dataList.forEach((data, index) => {
       if (data.timeStart === element.timeStart) {
-        data.isDelete = true;
+        if (data.id == null) {
+          this.dataList.splice(index, 1);
+        }
+        else {
+          data.isDelete = true;
+        }
+        // data.isDelete = true;
         data.updateDate = updateDate.toLocaleDateString();
         data.updateBy = this.jwtService.decode().sub;
       }
@@ -283,7 +303,7 @@ export class ShowtimeFormComponent implements OnInit {
 }
 
 export interface PeriodicElement {
-  // id: number;
+  id: number;
   movie: { id: number, name: string };
   room: { id: number };
   // nameMovie?: string;

@@ -119,6 +119,8 @@ export class ShowtimeListComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       if (result === Constant.RESULT_CLOSE_DIALOG.SUCCESS) {
         // ----------------------After close----------------------
+        this.getAllShowtimes();
+        this.toastrService.success('Thêm mới lịch chiếu thành công');
       }
     })
   }

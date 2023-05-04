@@ -18,6 +18,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UpdateDialogComponent } from './Account-Dialog/update-dialog/update-dialog.component';
 import { AccountDetailComponent } from './Account-Dialog/account-detail/account-detail.component';
+import { MatRadioModule } from '@angular/material/radio';
 // import { SuccessDialogComponent } from './Account-Dialog/success-dialog/success-dialog.component';
 // import { ErrorDialogComponent } from './Account-Dialog/error-dialog/error-dialog.component';
 
@@ -47,7 +48,8 @@ import { AccountDetailComponent } from './Account-Dialog/account-detail/account-
     NgxDropzoneModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRadioModule
   ]
 })
 export class AccountModule { }

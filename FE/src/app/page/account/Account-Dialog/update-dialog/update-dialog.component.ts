@@ -8,6 +8,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AccountListComponent } from '../../account-list/account-list.component';
 import { AccountService } from 'app/services/account/account.service';
 import { JwtService } from 'app/services/jwt/jwt.service';
+// import { MatRadioModule } from '@angular/material/radio';
 
 
 @Component({
@@ -45,12 +46,14 @@ export class UpdateDialogComponent implements OnInit {
   ngOnInit(): void {
     // this.birthDate = new Date(this.dataDialog.row.birthDate);
     console.log(this.dataDialog.row);
+    this.formGroupUpdate.patchValue({birthDate: new Date(this.formGroupUpdate.value.birthDate)});
+    this.formGroupUpdate.patchValue({gender: this.selected});
   }
 
   onSubmited() {
     let updateDate = new Date();
-    const gender1 = (this.selected==='Female')? 0 : 1;
-    this.formGroupUpdate.patchValue({gender:gender1});
+    
+    this.formGroupUpdate.patchValue({gender: (this.formGroupUpdate.value.gender==="Nữ")?false:true});
     this.formGroupUpdate.patchValue({birthDate: new Date(this.formGroupUpdate.value.birthDate)});
     this.accountService.updateAccount(this.formGroupUpdate.value).subscribe((data) => {
       next:

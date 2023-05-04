@@ -47,14 +47,20 @@
 
                 <!-- Gender -->
 
-                <mat-form-field appearance="outline">
+                <!-- <mat-form-field appearance="outline">
                     <mat-label>Giới tính</mat-label>
                     <mat-select [(value)]="selected" formControlName="gender">
                         <mat-option value="Female">Nữ</mat-option>
                         <mat-option value="Male">Nam</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <p>Giới tính: {{selected}}</p>
+                <p>Giới tính: {{selected}}</p> -->
+                
+                <mat-radio-group aria-label="Select an option" [(value)]="selected" formControlName="gender">
+                    <mat-label>Giới tính</mat-label>
+                    <mat-radio-button value="Nam" style="margin-left: 16px;">Nam</mat-radio-button>
+                    <mat-radio-button value="Nữ" style="margin-left: 16px;">Nữ</mat-radio-button>
+                </mat-radio-group>
                 
             </div>
         </div>
