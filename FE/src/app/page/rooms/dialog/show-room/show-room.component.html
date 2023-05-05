@@ -69,16 +69,18 @@
       </div>
       <!-- Seat -->
       <div class="col p-0 text-center" *ngFor="let seat of row.listSeats; let indexOfSeat = index">
-        <a class="link_seat" [matMenuTriggerFor]="menu">
-            <img *ngIf="seat.seatType.id==1" class="img_seat" src="https://chieuphimquocgia.com.vn/content/images/thumbs/0000194_Gh%E1%BA%BF%20th%C6%B0%E1%BB%9Dng.jpg" alt="">
-            <img *ngIf="seat.seatType.id==2" class="img_seat" src="https://chieuphimquocgia.com.vn/content/images/thumbs/0000193_ghe-vip.jpg" alt="">
-            <img *ngIf="seat.seatType.id==4" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1681704963/dpkabbnff3e3wqdyx6hs.png" alt="">
-            <img *ngIf="seat.seatType.id==3" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1681705286/a8iz6k8tcjzftml2swzh.png" alt="">
+        <a class="link_seat" (click)="selectNew(indexOfRow,indexOfSeat)">
+
+            <img *ngIf="checkSelect(indexOfRow,indexOfSeat)" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1683245748/svcfjpagvu6yhz55re6r.png" alt="">
+            <img *ngIf="seat.seatType.id==1 && !checkSelect(indexOfRow,indexOfSeat)" class="img_seat" src="https://chieuphimquocgia.com.vn/content/images/thumbs/0000194_Gh%E1%BA%BF%20th%C6%B0%E1%BB%9Dng.jpg" alt="">
+            <img *ngIf="seat.seatType.id==2 && !checkSelect(indexOfRow,indexOfSeat)" class="img_seat" src="https://chieuphimquocgia.com.vn/content/images/thumbs/0000193_ghe-vip.jpg" alt="">
+            <img *ngIf="seat.seatType.id==4 && !checkSelect(indexOfRow,indexOfSeat)" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1681704963/dpkabbnff3e3wqdyx6hs.png" alt="">
+            <img *ngIf="seat.seatType.id==3 && !checkSelect(indexOfRow,indexOfSeat)" class="img_seat" src="https://res.cloudinary.com/amenica2m/image/upload/v1681705286/a8iz6k8tcjzftml2swzh.png" alt="">
             <span *ngIf="seat.seatType.id==1 || seat.seatType.id==2" class="number_seat">
               {{seat.number}}
             </span>
         </a>
-        <mat-menu #menu="matMenu">
+        <!-- <mat-menu #menu="matMenu">
           <button [matMenuTriggerFor]="menu2" mat-menu-item>Đổi loại</button>
           <mat-menu #menu2="matMenu">
             <div  *ngFor="let type of seatTypeNew;">
@@ -86,14 +88,26 @@
                   {{type.nameVi}}
               </button>
             </div>
-            
           </mat-menu>
-        </mat-menu>
+        </mat-menu> -->
       </div>
 
     </div>
     <div class="row">
-      <div class="col-12 d-flex justify-content-end">
+      <div class="col-6">
+        <button *ngIf="checkAdd && checkListSelectNew()" class="btn btn-info" [matMenuTriggerFor]="menu">Đổi loại</button>
+        <mat-menu #menu="matMenu">
+          <button [matMenuTriggerFor]="menu2" mat-menu-item>Đổi loại</button>
+          <mat-menu #menu2="matMenu">
+            <div  *ngFor="let type of seatTypeNew;">
+              <button mat-menu-item (click)="changeType(type)">
+                {{type.nameVi}}
+            </button>
+            </div>
+          </mat-menu>
+        </mat-menu>
+      </div>
+      <div class="col-6 d-flex justify-content-end">
         <button class="btn btn-info" (click)="addRow()">Thêm hàng ghế</button>
       </div>
     </div>
