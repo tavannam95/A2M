@@ -69,10 +69,12 @@ export class SelectMovieComponent implements OnInit {
     this.publicApiService.getAllDateByMovie(id).subscribe({
       next: res =>{
         this.allDate = res.data;
+        
         this.selectDate = this.allDate[0];
-        this.allDate.forEach((date)=>{
-           this.getStByMovieDate(date);
-        })
+        this.changeDate();
+        // this.allDate.forEach((date)=>{
+        //    this.getStByMovieDate(date);
+        // })
       },
       error: e=>{
         this.toastrService.warning('Lỗi hệ thống, vui lòng thử lại sau');
@@ -97,7 +99,7 @@ export class SelectMovieComponent implements OnInit {
     this.findAllDateByMovie(idMovie);
   }
 
-  changeDate(event: any){
+  changeDate(){
     this.publicApiService.getShowtimeByMovieAndDate(this.idMovie,this.selectDate).subscribe({
       next: res =>{
         this.timeShowtime = res.data;
