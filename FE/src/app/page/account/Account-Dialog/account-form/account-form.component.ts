@@ -138,24 +138,24 @@ export class AccountFormComponent implements OnInit {
 
     console.log(this.formGroup.value);
 
-    // this.accountService.save(this.formGroup.value).subscribe({
-    //   next: res => {
-    //     this.matDialogRef.close()
-    //     if (res.status === true) {
-    //       this.toastrService.success(res.message);
-    //       this.isLoading = false;
-    //       // window.location.reload();
-    //     }
-    //     else {
-    //       this.isLoading = false;
-    //       this.toastrService.warning(res.message);
-    //     }
-    //   },
-    //   error: e => {
-    //     this.toastrService.error('Lỗi tạo tài khoản')
-    //   }
-    // }
-    // )
+    this.accountService.save(this.formGroup.value).subscribe({
+      next: res => {
+        this.matDialogRef.close()
+        if (res.status === true) {
+          this.toastrService.success(res.message);
+          this.isLoading = false;
+          // window.location.reload();
+        }
+        else {
+          this.isLoading = false;
+          this.toastrService.warning(res.message);
+        }
+      },
+      error: e => {
+        this.toastrService.error('Lỗi tạo tài khoản')
+      }
+    }
+    )
   }
   
   public togglePasswordVisibility(): void {
