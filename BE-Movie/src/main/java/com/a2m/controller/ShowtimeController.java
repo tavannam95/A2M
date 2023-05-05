@@ -63,7 +63,6 @@ public class ShowtimeController {
         		showtimes.add(s);
         	}
         }
-//        showtimes.sort(Comparator.comparing(Showtimes::getTimeStart));
         return new DataResponse<>(true,"Thành công",showtimes);
     }
     @GetMapping("/getMoviesByDate")
@@ -100,6 +99,7 @@ public class ShowtimeController {
     	System.out.println(listShowtimes.getTimeStart());
     	System.out.println(listShowtimes.getTimeEnd());
     	listShowtimes.setIsDelete(false);
+//    	System.out.println(listShowtimes.getDate());
         return new DataResponse<>(true,"Thành công",this.showtimesRepository.save(listShowtimes));
     }
     

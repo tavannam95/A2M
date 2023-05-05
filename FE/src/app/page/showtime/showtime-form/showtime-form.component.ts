@@ -164,7 +164,7 @@ export class ShowtimeFormComponent implements OnInit {
       this.showtimesService.getShowTimeByDate(this.select_day, event).subscribe({
         next: res => {
           res.data.forEach((data) => {
-            data.date = new Date(data.date).toLocaleDateString()
+            data.date = new Date(data.date).toLocaleDateString() + ' 12:00:00'
             data.createDate = new Date(data.createDate).toLocaleDateString()
             data.updateDate = new Date(data.updateDate).toLocaleDateString()
             data.timeStart = new Date(data.timeStart).toLocaleDateString() + ' ' + new Date(data.timeStart).toLocaleTimeString('en-US', { hour12: false })
@@ -273,7 +273,7 @@ export class ShowtimeFormComponent implements OnInit {
       })
     }
     if (flag == 1) {
-      this.dataList.push({ id: null, movie: { id: this.select_movies, name: this.data1[0].name }, room: { id: this.select_room }, date: startTime.toLocaleDateString() + " 12:00:00", timeStart: startTime.toLocaleDateString() + ' ' + startTime.toLocaleTimeString('en-US', { hour12: false }), timeEnd: endTime.toLocaleDateString() + ' ' + endTime.toLocaleTimeString('en-US', { hour12: false }), createDate: createTime.toLocaleDateString(), isDelete: false, updateDate: createTime.toLocaleDateString(), createBy: this.jwtService.decode().sub })
+      this.dataList.push({ id: null, movie: { id: this.select_movies, name: this.data1[0].name }, room: { id: this.select_room }, date: startTime.toLocaleDateString() + ' 12:00:00', timeStart: startTime.toLocaleDateString() + ' ' + startTime.toLocaleTimeString('en-US', { hour12: false }), timeEnd: endTime.toLocaleDateString() + ' ' + endTime.toLocaleTimeString('en-US', { hour12: false }), createDate: createTime.toLocaleDateString(), isDelete: false, updateDate: createTime.toLocaleDateString(), createBy: this.jwtService.decode().sub })
     }
     this.dataSource = new MatTableDataSource<any>(this.dataList.filter((data) => data.isDelete === false));
     // this.dataSource.renderRow()
