@@ -19,10 +19,12 @@ export class ShowRoomComponent implements OnInit {
   isLoading = false;
   checkAdd = false;
   listRows = [];
+  listSelectNew = [];
   show = [];
   listNewRows = [];
   room = [];
   seatType = [];
+  seatTypeAll = [];
   seatTypeNew = [];
   title = '';
   constructor(
@@ -75,8 +77,50 @@ export class ShowRoomComponent implements OnInit {
 
   changeNew(indexOfRow: any, indexOfSeat: any, seatType: any) {
     this.listNewRows[indexOfRow].listSeats[indexOfSeat].seatType = seatType;
+  }
 
+  changeType(seatType: any){
+    for (let i = 0; i < this.listSelectNew.length; i++) {
+      this.listNewRows[this.listSelectNew[i].indexOfRow].listSeats[this.listSelectNew[i].indexOfSeat].seatType = seatType;
+    }
+    this.listSelectNew = [];    
+  }
 
+  checkListSelectNew(){
+    if (this.listSelectNew.length>0) {
+      return true;
+    }
+    return false;
+  }
+
+  selectNew(indexOfRow: any, indexOfSeat: any){
+    let seatRow = {};
+    seatRow = {
+      indexOfRow,
+      indexOfSeat
+    };
+    let index = -1;
+
+    for (let i = 0; i < this.listSelectNew.length; i++) {
+      if (this.listSelectNew[i].indexOfRow == indexOfRow && this.listSelectNew[i].indexOfSeat == indexOfSeat) {
+        index = i;
+        break;
+      }      
+    }
+    if (index==-1) {
+      this.listSelectNew.push(seatRow);
+    }else{
+      this.listSelectNew.splice(index,1);
+    }
+  }
+
+  checkSelect(indexOfRow: any,indexOfSeat: any){
+    for (let i = 0; i < this.listSelectNew.length; i++) {
+      if (this.listSelectNew[i].indexOfRow == indexOfRow && this.listSelectNew[i].indexOfSeat == indexOfSeat) {
+        return true;
+      }
+    }
+    return false;
   }
 
   change(seat: any, seatType: any) {
